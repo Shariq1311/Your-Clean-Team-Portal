@@ -19,7 +19,8 @@
                                     <p class="text-center text-secondary mb-4">
                                         Sign in to your account.
                                     </p>
-                                    <form action="" method="post" class="form-ajax">
+                                    <form action="{{ url('/' . config('mojar.admin_prefix', 'app') . '/login') }}" method="post" class="form-ajax">
+                                        @csrf
                                         @do_action('login_form')
 
                                         <div class="mb-3">
@@ -121,7 +122,8 @@
                         <p class="text-center text-secondary mb-4">
                             {{ trans('cms::message.login_form.description') }}
                         </p>
-                        <form action="" method="post" class="form-ajax">
+                        <form action="{{ url('/' . config('mojar.admin_prefix', 'app') . '/login') }}" method="post" class="form-ajax">
+                            @csrf
                             @do_action('login_form')
 
                             <div class="mb-3">
@@ -203,7 +205,8 @@
                         <p class="text-center text-secondary mb-4">
                             {{ trans('cms::message.login_form.description') }}
                         </p>
-                        <form action="" method="post" class="form-ajax">
+                        <form action="{{ url('/' . config('mojar.admin_prefix', 'app') . '/login') }}" method="post" class="form-ajax">
+                            @csrf
                             @do_action('login_form')
 
                             <div class="mb-3">
