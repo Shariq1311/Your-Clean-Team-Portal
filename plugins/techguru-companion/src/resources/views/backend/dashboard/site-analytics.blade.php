@@ -1,0 +1,188 @@
+<!-- Site Analytics Widget -->
+<div class="col-12 mt-3" style="padding: 0px !important;">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">{{ trans(key: 'Your Clean Team::content.site_analytics') }}</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <div id="site-traffic-chart" style="height: 300px;"></div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row row-cards analytics-stats">
+                        <div class="col-12">
+                            <div class="card card-sm">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <span class="bg-blue text-white avatar">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="icon icon-tabler icons-tabler-outline icon-tabler-chart-line">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M4 19l16 0" />
+                                                    <path d="M4 15l4 -6l4 2l4 -5l4 4" />
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <div class="col">
+                                            <div class="font-weight-medium">
+                                                {{ trans('Your Clean Team::content.page_views') }}
+                                            </div>
+                                            <div class="text-secondary">
+                                                {{ number_format($siteAnalytics['page_views'] ?? 0) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <div class="card card-sm">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <span class="bg-green text-white avatar">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="icon icon-tabler icons-tabler-outline icon-tabler-users">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+                                                    <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                                                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                                    <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <div class="col">
+                                            <div class="font-weight-medium">
+                                                {{ trans('Your Clean Team::content.unique_visitors') }}
+                                            </div>
+                                            <div class="text-secondary">
+                                                {{ number_format($siteAnalytics['visitors'] ?? 0) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <div class="card card-sm">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <span class="bg-orange text-white avatar">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="icon icon-tabler icons-tabler-outline icon-tabler-clock-hour-3">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                                                    <path d="M12 12h3.5" />
+                                                    <path d="M12 7v5" />
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <div class="col">
+                                            <div class="font-weight-medium">
+                                                {{ trans('Your Clean Team::content.avg_time_on_site') }}
+                                            </div>
+                                            <div class="text-secondary">
+                                                {{ $siteAnalytics['avg_time'] ?? '00:00' }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get analytics data via ajax
+        $.ajax({
+            url: '{{ route('admin.Your Clean Team.dashboard.analytics_data') }}',
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                if (window.ApexCharts) {
+                    new ApexCharts(document.getElementById('site-traffic-chart'), {
+                        chart: {
+                            type: "line",
+                            fontFamily: 'inherit',
+                            height: 300,
+                            parentHeightOffset: 0,
+                            toolbar: {
+                                show: false,
+                            },
+                            animations: {
+                                enabled: true,
+                                speed: 500
+                            },
+                        },
+                        dataLabels: {
+                            enabled: false,
+                        },
+                        stroke: {
+                            width: [2, 2],
+                            lineCap: "round",
+                            curve: "smooth",
+                        },
+                        series: [{
+                            name: "{{ trans('Your Clean Team::content.page_views') }}",
+                            data: response.pageViews || []
+                        }, {
+                            name: "{{ trans('Your Clean Team::content.unique_visitors') }}",
+                            data: response.visitors || []
+                        }],
+                        tooltip: {
+                            theme: 'dark'
+                        },
+                        grid: {
+                            padding: {
+                                top: -20,
+                                right: 0,
+                                left: -4,
+                                bottom: -4
+                            },
+                            strokeDashArray: 4,
+                        },
+                        xaxis: {
+                            labels: {
+                                padding: 0,
+                            },
+                            tooltip: {
+                                enabled: false
+                            },
+                            axisBorder: {
+                                show: false,
+                            },
+                            categories: response.dates || []
+                        },
+                        yaxis: {
+                            labels: {
+                                padding: 4
+                            },
+                        },
+                        colors: [tabler.getColor("primary"), tabler.getColor("green")],
+                        legend: {
+                            show: true,
+                            position: 'bottom'
+                        },
+                    }).render();
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading analytics data:', error);
+            }
+        });
+    });
+</script>

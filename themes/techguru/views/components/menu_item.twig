@@ -1,0 +1,22 @@
+{% for item in items %}
+<li class="{% if item.children %}dropdown{% endif %}{% if item.is_active %} current{% endif %}">
+    {% if item.children %}
+        <a href="{{ item.link|default('#') }}" {% if item.target == '_blank' %}target="_blank"{% endif %}>
+            {{ item.label }}
+        </a>
+        <ul class="shadow-box" id="submenu-{{ loop.index }}">
+            {% for child in item.children %}
+                <li class="sub-menu--item{% if child.is_active %} current{% endif %}">
+                    <a href="{{ child.link }}" {% if child.target == '_blank' %}target="_blank"{% endif %} {% if child.is_active %}aria-current="page"{% endif %}>
+                        {{ child.label }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <a href="{{ item.link }}" {% if item.target == '_blank' %}target="_blank"{% endif %} {% if item.is_active %}aria-current="page"{% endif %}>
+            {{ item.label }}
+        </a>
+    {% endif %}
+</li>
+{% endfor %}

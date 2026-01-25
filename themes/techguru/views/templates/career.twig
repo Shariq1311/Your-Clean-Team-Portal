@@ -1,0 +1,21 @@
+{% extends 'cms::layouts.frontend' %}
+
+{% block content %}
+    {% include 'theme::components.breadcrumb' with {
+        title: 'Career List',
+        description: 'We are always looking for talented and passionate people to join our team. If you are interested in working with us, please send us your application.',
+        items: [
+
+            {'label': 'Home', 'url': '/'},
+            {'label': 'Career'}
+        ]
+    } %}
+
+    {% if input_get('page') is empty %}
+        {{ dynamic_block(post, 'content') }}
+    {% endif %}
+
+    {% set items = get_posts('careers', {
+        'paginate': 10
+    }) %}
+{% endblock %}

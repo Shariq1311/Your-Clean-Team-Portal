@@ -1,0 +1,395 @@
+<section class="pricing-two pt_{{ data.padding_top|default(120) }} xs_pt_{{ data.mobile_padding_top|default(80) }} pb_{{ data.padding_bottom|default(120) }} xs_pb_{{ data.mobile_padding_bottom|default(80) }}">
+    <div class="pricing-two__sec-shape-1"></div>
+    <div class="pricing-two__sec-shape-2"></div>
+    <div class="pricing-two__sec-shape-3"></div>
+    <div class="container">
+        <div class="section-title text-center sec-title-animation animation-style1">
+            <div class="section-title__tagline-box">
+                <div class="section-title__tagline-shape-1"></div>
+                <span class="section-title__tagline">{{ data.section_tagline|default('Pricing & Plan') }}</span>
+                <div class="section-title__tagline-shape-2"></div>
+            </div>
+            <h2 class="section-title__title title-animation">{{ data.section_title_1|default('Select the Perfect') }}
+                <span>{{ data.section_title_2|default('Plan for Your') }}</span><br><span>{{ data.section_title_3|default('Needs That Fits You') }}</span>
+            </h2>
+        </div>
+        <div class="pricing-two__main-tab-box tabs-box">
+            <ul class="tab-buttons list-unstyled">
+                <li data-tab="#monthly" class="tab-btn {% if data.default_active_tab == 'monthly' %}active-btn{% endif %}"><span>{{ data.tab_1_title|default('Monthly') }}</span>
+                </li>
+                <li data-tab="#yearly" class="tab-btn {% if data.default_active_tab == 'yearly' or not data.default_active_tab %}active-btn{% endif %}"><span>{{ data.tab_2_title|default('Yearly') }}</span></li>
+                <li data-tab="#packges" class="tab-btn {% if data.default_active_tab == 'packges' %}active-btn{% endif %}"><span>{{ data.tab_3_title|default('Packages') }}</span></li>
+            </ul>
+            <div class="tabs-content">
+                <div class="tab {% if data.default_active_tab == 'monthly' %}active-tab{% endif %}" id="monthly">
+                    <div class="pricing-two__inner">
+                        <div class="row">
+                            {% set monthly_ids_array = data.monthly_pricing_ids ? data.monthly_pricing_ids|split(',') : [] %}
+                            {% set monthly_pricing_plans = get_posts('pricing', {
+                                'limit': data.monthly_items_limit|default(3),
+                                'taxonomy': data.monthly_category,
+                                'ids': monthly_ids_array,
+                                'orderby': 'date',
+                                'order': 'DESC'
+                            }) %}
+                            
+                            {% if monthly_pricing_plans %}
+                                {% for index, plan in monthly_pricing_plans %}
+                                    <!--Pricing Two Single Start-->
+                                    <div class="col-xl-4 col-lg-6">
+                                        <div class="pricing-two__single pricing-two__single-{{ (index % 3) + 1 }}">
+                                            {% if (index % 3) == 1 %}
+                                                <div class="pricing-two__single-shape-2">
+                                                    <img src="{{ asset('images/shapes/pricing-two-single-shape-2.png') }}" alt="">
+                                                </div>
+                                            {% else %}
+                                                <div class="pricing-two__single-shape-1">
+                                                    <img src="{{ asset('images/shapes/pricing-two-single-shape-1.png') }}" alt="">
+                                                </div>
+                                            {% endif %}
+                                            <div class="pricing-two__shape-1">
+                                                <img src="{{ asset('images/shapes/pricing-two-shape-1.png') }}" alt="">
+                                            </div>
+                                            <div class="pricing-two__shape-2">
+                                                <img src="{{ asset('images/shapes/pricing-two-shape-2.png') }}" alt="">
+                                            </div>
+                                            <div class="pricing-two__shape-3">
+                                                <img src="{{ asset('images/shapes/pricing-two-shape-3.png') }}" alt="">
+                                            </div>
+                                            <span class="pricing-two__sub-title">{{ plan.title }}</span>
+                                            <h2 class="pricing-two__price">{{ plan.metas.price|default('$0.00') }}</h2>
+                                            <p class="pricing-two__text">{{ plan.description|default('Contact for pricing')|raw }}
+                                            </p>
+                                            <div class="pricing-two__btn-box">
+                                                <a href="{{ plan.metas.price_button_url|default('#') }}" class="pricing-two__btn">{{ plan.metas.price_button_text|default('Choose Plan') }}<span class="far fa-plus-circle"></span></a>
+                                            </div>
+                                            <h5 class="pricing-two__points-title">{{ data.features_title|default('Feature Description') }}</h5>
+                                            <ul class="pricing-two__points list-unstyled">
+                                                {% if plan.metas.features_list %}
+                                                    {% for feature in plan.metas.features_list %}
+                                                        <li>
+                                                            <div class="icon">
+                                                                {% if feature.features_active %}
+                                                                    <span class="icon-tick-inside-circle"></span>
+                                                                {% else %}
+                                                                    <span class="far fa-plus-circle"></span>
+                                                                {% endif %}
+                                                            </div>
+                                                            <p>{{ feature.features_title }}</p>
+                                                        </li>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </ul>
+                                            {% if plan.metas.is_populer %}
+                                                <p class="pricing-two__unlimited-offer">{{ data.unlimited_offer_text|default('⚡ Unlimited Offer') }}</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <!--Pricing Two Single End-->
+                                {% endfor %}
+                            {% else %}
+                                <!--Pricing Two Single Start (Default)-->
+                                <div class="col-xl-4 col-lg-6">
+                                    <div class="pricing-two__single pricing-two__single-1">
+                                        <div class="pricing-two__single-shape-1">
+                                            <img src="{{ asset('images/shapes/pricing-two-single-shape-1.png') }}" alt="">
+                                        </div>
+                                        <div class="pricing-two__shape-1">
+                                            <img src="{{ asset('images/shapes/pricing-two-shape-1.png') }}" alt="">
+                                        </div>
+                                        <div class="pricing-two__shape-2">
+                                            <img src="{{ asset('images/shapes/pricing-two-shape-2.png') }}" alt="">
+                                        </div>
+                                        <div class="pricing-two__shape-3">
+                                            <img src="{{ asset('images/shapes/pricing-two-shape-3.png') }}" alt="">
+                                        </div>
+                                        <span class="pricing-two__sub-title">PERSONAL</span>
+                                        <h2 class="pricing-two__price">$5.60</h2>
+                                        <p class="pricing-two__text">Will get free 3 months solutions<br> support
+                                        </p>
+                                        <div class="pricing-two__btn-box">
+                                            <a href="javascript:void(0)" class="pricing-two__btn">Choose Plan<span class="far fa-plus-circle"></span></a>
+                                        </div>
+                                        <h5 class="pricing-two__points-title">Feature Description</h5>
+                                        <ul class="pricing-two__points list-unstyled">
+                                            <li>
+                                                <div class="icon">
+                                                    <span class="icon-tick-inside-circle"></span>
+                                                </div>
+                                                <p>Custom Website Design</p>
+                                            </li>
+                                            <li>
+                                                <div class="icon">
+                                                    <span class="icon-tick-inside-circle"></span>
+                                                </div>
+                                                <p>website Design & Development</p>
+                                            </li>
+                                            <li>
+                                                <div class="icon">
+                                                    <span class="far fa-plus-circle"></span>
+                                                </div>
+                                                <p>Social Media Graphics</p>
+                                            </li>
+                                            <li>
+                                                <div class="icon">
+                                                    <span class="far fa-plus-circle"></span>
+                                                </div>
+                                                <p>Brand Color Palette</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!--Pricing Two Single End-->
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="tab {% if data.default_active_tab == 'yearly' or not data.default_active_tab %}active-tab{% endif %}" id="yearly">
+                    <div class="pricing-two__inner">
+                        <div class="row">
+                            {% set yearly_ids_array = data.yearly_pricing_ids ? data.yearly_pricing_ids|split(',') : [] %}
+                            {% set yearly_pricing_plans = get_posts('pricing', {
+                                'limit': data.yearly_items_limit|default(3),
+                                'taxonomy': data.yearly_category,
+                                'ids': yearly_ids_array,
+                                'orderby': 'date',
+                                'order': 'DESC'
+                            }) %}
+                            
+                            {% if yearly_pricing_plans %}
+                                {% for index, plan in yearly_pricing_plans %}
+                                    <!--Pricing Two Single Start-->
+                                    <div class="col-xl-4 col-lg-6">
+                                        <div class="pricing-two__single pricing-two__single-{{ (index % 3) + 1 }}">
+                                            {% if (index % 3) == 1 %}
+                                                <div class="pricing-two__single-shape-2">
+                                                    <img src="{{ asset('images/shapes/pricing-two-single-shape-2.png') }}" alt="">
+                                                </div>
+                                            {% else %}
+                                                <div class="pricing-two__single-shape-1">
+                                                    <img src="{{ asset('images/shapes/pricing-two-single-shape-1.png') }}" alt="">
+                                                </div>
+                                            {% endif %}
+                                            <div class="pricing-two__shape-1">
+                                                <img src="{{ asset('images/shapes/pricing-two-shape-1.png') }}" alt="">
+                                            </div>
+                                            <div class="pricing-two__shape-2">
+                                                <img src="{{ asset('images/shapes/pricing-two-shape-2.png') }}" alt="">
+                                            </div>
+                                            <div class="pricing-two__shape-3">
+                                                <img src="{{ asset('images/shapes/pricing-two-shape-3.png') }}" alt="">
+                                            </div>
+                                            <span class="pricing-two__sub-title">{{ plan.title }}</span>
+                                            <h2 class="pricing-two__price">{{ plan.metas.annual_price|default(plan.metas.price)|default('$0.00') }}</h2>
+                                            <p class="pricing-two__text">{{ plan.metas.annual_price_description|default(plan.description)|default('Contact for pricing')|raw }}
+                                            </p>
+                                            <div class="pricing-two__btn-box">
+                                                <a href="{{ plan.metas.price_button_url|default('#') }}" class="pricing-two__btn">{{ plan.metas.price_button_text|default('Choose Plan') }}<span class="far fa-plus-circle"></span></a>
+                                            </div>
+                                            <h5 class="pricing-two__points-title">{{ data.features_title|default('Feature Description') }}</h5>
+                                            <ul class="pricing-two__points list-unstyled">
+                                                {% if plan.metas.features_list %}
+                                                    {% for feature in plan.metas.features_list %}
+                                                        <li>
+                                                            <div class="icon">
+                                                                {% if feature.features_active %}
+                                                                    <span class="icon-tick-inside-circle"></span>
+                                                                {% else %}
+                                                                    <span class="far fa-plus-circle"></span>
+                                                                {% endif %}
+                                                            </div>
+                                                            <p>{{ feature.features_title }}</p>
+                                                        </li>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </ul>
+                                            {% if plan.metas.is_populer %}
+                                                <p class="pricing-two__unlimited-offer">{{ data.unlimited_offer_text|default('⚡ Unlimited Offer') }}</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <!--Pricing Two Single End-->
+                                {% endfor %}
+                            {% else %}
+                                <!--Pricing Two Single Start (Default)-->
+                                <div class="col-xl-4 col-lg-6">
+                                    <div class="pricing-two__single pricing-two__single-1">
+                                        <div class="pricing-two__single-shape-1">
+                                            <img src="{{ asset('images/shapes/pricing-two-single-shape-1.png') }}" alt="">
+                                        </div>
+                                        <div class="pricing-two__shape-1">
+                                            <img src="{{ asset('images/shapes/pricing-two-shape-1.png') }}" alt="">
+                                        </div>
+                                        <div class="pricing-two__shape-2">
+                                            <img src="{{ asset('images/shapes/pricing-two-shape-2.png') }}" alt="">
+                                        </div>
+                                        <div class="pricing-two__shape-3">
+                                            <img src="{{ asset('images/shapes/pricing-two-shape-3.png') }}" alt="">
+                                        </div>
+                                        <span class="pricing-two__sub-title">PERSONAL</span>
+                                        <h2 class="pricing-two__price">$5.60</h2>
+                                        <p class="pricing-two__text">Will get free 3 months solutions<br> support
+                                        </p>
+                                        <div class="pricing-two__btn-box">
+                                            <a href="javascript:void(0)" class="pricing-two__btn">Choose Plan<span class="far fa-plus-circle"></span></a>
+                                        </div>
+                                        <h5 class="pricing-two__points-title">Feature Description</h5>
+                                        <ul class="pricing-two__points list-unstyled">
+                                            <li>
+                                                <div class="icon">
+                                                    <span class="icon-tick-inside-circle"></span>
+                                                </div>
+                                                <p>Custom Website Design</p>
+                                            </li>
+                                            <li>
+                                                <div class="icon">
+                                                    <span class="far fa-plus-circle"></span>
+                                                </div>
+                                                <p>Social Media Graphics</p>
+                                            </li>
+                                            <li>
+                                                <div class="icon">
+                                                    <span class="far fa-plus-circle"></span>
+                                                </div>
+                                                <p>Brand Color Palette</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!--Pricing Two Single End-->
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="tab {% if data.default_active_tab == 'packges' %}active-tab{% endif %}" id="packges">
+                    <div class="pricing-two__inner">
+                        <div class="row">
+                            {% set packages_ids_array = data.packages_pricing_ids ? data.packages_pricing_ids|split(',') : [] %}
+                            {% set packages_pricing_plans = get_posts('pricing', {
+                                'limit': data.packages_items_limit|default(3),
+                                'taxonomy': data.packages_category,
+                                'ids': packages_ids_array,
+                                'orderby': 'date',
+                                'order': 'DESC'
+                            }) %}
+                            
+                            {% if packages_pricing_plans %}
+                                {% for index, plan in packages_pricing_plans %}
+                                    <!--Pricing Two Single Start-->
+                                    <div class="col-xl-4 col-lg-6">
+                                        <div class="pricing-two__single pricing-two__single-{{ (index % 3) + 1 }}">
+                                            {% if (index % 3) == 1 %}
+                                                <div class="pricing-two__single-shape-2">
+                                                    <img src="{{ asset('images/shapes/pricing-two-single-shape-2.png') }}" alt="">
+                                                </div>
+                                            {% else %}
+                                                <div class="pricing-two__single-shape-1">
+                                                    <img src="{{ asset('images/shapes/pricing-two-single-shape-1.png') }}" alt="">
+                                                </div>
+                                            {% endif %}
+                                            <div class="pricing-two__shape-1">
+                                                <img src="{{ asset('images/shapes/pricing-two-shape-1.png') }}" alt="">
+                                            </div>
+                                            <div class="pricing-two__shape-2">
+                                                <img src="{{ asset('images/shapes/pricing-two-shape-2.png') }}" alt="">
+                                            </div>
+                                            <div class="pricing-two__shape-3">
+                                                <img src="{{ asset('images/shapes/pricing-two-shape-3.png') }}" alt="">
+                                            </div>
+                                            <span class="pricing-two__sub-title">{{ plan.title }}</span>
+                                            <h2 class="pricing-two__price">{{ plan.metas.price|default('$0.00') }}</h2>
+                                            <p class="pricing-two__text">{{ plan.description|default('Contact for pricing')|raw }}
+                                            </p>
+                                            <div class="pricing-two__btn-box">
+                                                <a href="{{ plan.metas.price_button_url|default('#') }}" class="pricing-two__btn">{{ plan.metas.price_button_text|default('Choose Plan') }}<span class="far fa-plus-circle"></span></a>
+                                            </div>
+                                            <h5 class="pricing-two__points-title">{{ data.features_title|default('Feature Description') }}</h5>
+                                            <ul class="pricing-two__points list-unstyled">
+                                                {% if plan.metas.features_list %}
+                                                    {% for feature in plan.metas.features_list %}
+                                                        <li>
+                                                            <div class="icon">
+                                                                {% if feature.features_active %}
+                                                                    <span class="icon-tick-inside-circle"></span>
+                                                                {% else %}
+                                                                    <span class="far fa-plus-circle"></span>
+                                                                {% endif %}
+                                                            </div>
+                                                            <p>{{ feature.features_title }}</p>
+                                                        </li>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </ul>
+                                            {% if plan.metas.is_populer %}
+                                                <p class="pricing-two__unlimited-offer">{{ data.unlimited_offer_text|default('⚡ Unlimited Offer') }}</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <!--Pricing Two Single End-->
+                                {% endfor %}
+                            {% else %}
+                                <!--Pricing Two Single Start (Default)-->
+                                <div class="col-xl-4 col-lg-6">
+                                    <div class="pricing-two__single pricing-two__single-1">
+                                        <div class="pricing-two__single-shape-1">
+                                            <img src="{{ asset('images/shapes/pricing-two-single-shape-1.png') }}" alt="">
+                                        </div>
+                                        <div class="pricing-two__shape-1">
+                                            <img src="{{ asset('images/shapes/pricing-two-shape-1.png') }}" alt="">
+                                        </div>
+                                        <div class="pricing-two__shape-2">
+                                            <img src="{{ asset('images/shapes/pricing-two-shape-2.png') }}" alt="">
+                                        </div>
+                                        <div class="pricing-two__shape-3">
+                                            <img src="{{ asset('images/shapes/pricing-two-shape-3.png') }}" alt="">
+                                        </div>
+                                        <span class="pricing-two__sub-title">PERSONAL</span>
+                                        <h2 class="pricing-two__price">$5.60</h2>
+                                        <p class="pricing-two__text">Will get free 3 months solutions<br> support
+                                        </p>
+                                        <div class="pricing-two__btn-box">
+                                            <a href="javascript:void(0)" class="pricing-two__btn">Choose Plan<span class="far fa-plus-circle"></span></a>
+                                        </div>
+                                        <h5 class="pricing-two__points-title">Feature Description</h5>
+                                        <ul class="pricing-two__points list-unstyled">
+                                            <li>
+                                                <div class="icon">
+                                                    <span class="icon-tick-inside-circle"></span>
+                                                </div>
+                                                <p>Custom Website Design</p>
+                                            </li>
+                                            <li>
+                                                <div class="icon">
+                                                    <span class="far fa-plus-circle"></span>
+                                                </div>
+                                                <p>Social Media Graphics</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!--Pricing Two Single End-->
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function() {
+        // Tab functionality
+        $('.tab-btn').on('click', function() {
+            var target = $(this).data('tab');
+            
+            // Remove active classes
+            $('.tab-btn').removeClass('active-btn');
+            $('.tab').removeClass('active-tab');
+            
+            // Add active classes
+            $(this).addClass('active-btn');
+            $(target).addClass('active-tab');
+        });
+    });
+</script> 

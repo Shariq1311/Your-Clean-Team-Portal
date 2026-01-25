@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * Mojar - The Best CMS for Laravel Project
+ *
+ * @package    mojar/cms
+ * @author     Mojar Team <admin@mojar.com>
+ * @link       https://mojar.com/cms
+ * @license    MIT
+ */
+
+namespace MojarCMS\CMS\Facades;
+
+use Illuminate\Support\Facades\Facade;
+use MojarCMS\CMS\Contracts\MCQueryContract;
+
+/**
+ * @method static array posts(string $type, array $options = [])
+ * @method static array postTaxonomy($post, $taxonomy, $params)
+ * @method static array postTaxonomies($post, $taxonomy, $params)
+ * @method static array relatedPosts($post, $taxonomy, $params)
+ *
+ * @see \MojarCMS\CMS\Support\MCQuery
+ * @see \MojarCMS\CMS\Traits\Queries\PostQuery
+ */
+class MCQuery extends Facade
+{
+    /**
+     * Get the registered name of the component.
+     *
+     * @return string
+     */
+    protected static function getFacadeAccessor(): string
+    {
+        return MCQueryContract::class;
+    }
+}

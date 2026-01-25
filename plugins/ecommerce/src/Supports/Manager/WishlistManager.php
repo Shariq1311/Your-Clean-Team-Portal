@@ -1,0 +1,52 @@
+<?php
+/**
+ * JUZAWEB CMS - The Best CMS for Laravel Project
+ *
+ * @package    Mojarcms/cms
+ * @author     Mojar Team <admin@Mojar.com>
+ * @link       https://Mojarcms.com/cms
+ * @license    MIT
+ */
+
+namespace Mojahid\Ecommerce\Supports\Manager;   
+
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Str;
+use Mojahid\Ecommerce\Contracts\WishlistContract;
+use Mojahid\Ecommerce\Contracts\WishlistManagerContract;
+use Mojahid\Ecommerce\Models\Wishlist;
+
+class WishlistManager implements WishlistManagerContract
+{
+    public function __construct()
+    {
+        //
+    }
+
+    public function find(string|Wishlist $wishlist = null): WishlistContract
+    {
+        if (empty($wishlist)) {
+            $wishlist = $this->getCodeCurrentWishlist();
+
+            return $this->createWishlist($wishlist);
+        }
+
+        return $this->createWishlist($wishlist);
+    }
+
+    public function getCodeCurrentWishlist(): string
+    {
+        $wishlist = Cookie::get('mc_wishlist');
+
+        if (empty($wishlist)) {
+            return Str::uuid()->toString();
+        }
+
+        return $wishlist;
+    }
+
+    protected function createWishlist(string|Wishlist $wishlist): WishlistContract
+    {
+        return app(WishlistContract::class)->make($wishlist);
+    }
+} 

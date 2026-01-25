@@ -1,0 +1,225 @@
+{
+    "label": "Blogs Area Home 2",
+    "description": "Display blog posts in a carousel slider with title and description",
+    "form": [
+        {
+            "type": "text",
+            "name": "section_tagline",
+            "label": "Section Tagline",
+            "data": {
+                "value": "News & Blog"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_1",
+            "label": "Section Title Part 1",
+            "data": {
+                "value": "How We've"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_2",
+            "label": "Section Title Part 2 (First Span)",
+            "data": {
+                "value": "Empowered Businesses"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_3",
+            "label": "Section Title Part 3 (Second Span)",
+            "data": {
+                "value": "with Innovative"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_4",
+            "label": "Section Title Part 4",
+            "data": {
+                "value": "Tech Solutions"
+            }
+        },
+        {
+            "type": "text",
+            "name": "read_more_text",
+            "label": "Read More Button Text",
+            "data": {
+                "value": "Reed More"
+            }
+        },
+        {
+            "type": "text",
+            "name": "posts_limit",
+            "label": "Number of Posts",
+            "description": "Maximum number of posts to display in the carousel",
+            "data": {
+                "value": "6"
+            }
+        },
+        {
+            "type": "text",
+            "name": "category_ids",
+            "label": "Category IDs",
+            "description": "Enter specific category IDs to filter posts (comma-separated)",
+            "data": {
+                "value": ""
+            }
+        },
+        {
+            "type": "text",
+            "name": "tag_ids",
+            "label": "Tag IDs",
+            "description": "Enter specific tag IDs to filter posts (comma-separated)",
+            "data": {
+                "value": ""
+            }
+        },
+        {
+            "type": "select",
+            "name": "orderby",
+            "label": "Order By",
+            "data": {
+                "options": {
+                    "date": "Date",
+                    "title": "Title",
+                    "views": "Views",
+                    "comments": "Comments Count",
+                    "rand": "Random"
+                },
+                "value": "date"
+            }
+        },
+        {
+            "type": "select",
+            "name": "order",
+            "label": "Order",
+            "data": {
+                "options": {
+                    "DESC": "Descending",
+                    "ASC": "Ascending"
+                },
+                "value": "DESC"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "description": "Enable animation effects for section title",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_loop",
+            "label": "Carousel Loop",
+            "description": "Enable infinite loop for carousel",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_margin",
+            "label": "Carousel Item Margin",
+            "description": "Margin between carousel items in pixels",
+            "data": {
+                "value": "30"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_nav",
+            "label": "Show Navigation Arrows",
+            "description": "Show left/right navigation arrows",
+            "data": {
+                "value": 0
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_dots",
+            "label": "Show Dots Navigation",
+            "description": "Show pagination dots",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_smart_speed",
+            "label": "Smart Speed",
+            "description": "Carousel transition speed in milliseconds",
+            "data": {
+                "value": "500"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_autoplay",
+            "label": "Enable Autoplay",
+            "description": "Enable automatic carousel sliding",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_autoplay_timeout",
+            "label": "Autoplay Timeout",
+            "description": "Autoplay timeout in milliseconds",
+            "data": {
+                "value": "7000"
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_items_desktop",
+            "label": "Items Per Slide (Desktop)",
+            "description": "Number of items to show on desktop (1320px+)",
+            "data": {
+                "value": "2"
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_items_large",
+            "label": "Items Per Slide (Large)",
+            "description": "Number of items to show on large screens (1200px+)",
+            "data": {
+                "value": "2"
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_items_medium",
+            "label": "Items Per Slide (Medium)",
+            "description": "Number of items to show on medium screens (992px+)",
+            "data": {
+                "value": "2"
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_items_tablet",
+            "label": "Items Per Slide (Tablet)",
+            "description": "Number of items to show on tablets (768px+)",
+            "data": {
+                "value": "1"
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_items_mobile",
+            "label": "Items Per Slide (Mobile)",
+            "description": "Number of items to show on mobile (0px+)",
+            "data": {
+                "value": "1"
+            }
+        }
+    ]
+}

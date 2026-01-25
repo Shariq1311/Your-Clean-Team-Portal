@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * Mojar - Laravel CMS for Your Project
+ *
+ * @package    mojar/cms
+ * @author     Mojar Team
+ * @link       https://mojar.com
+ * @license    GNU V2
+ */
+
+namespace MojarCMS\Backend\Commands\Post;
+
+use Illuminate\Console\Command;
+use MojarCMS\Backend\Models\Post;
+
+class GeneratePostUUIDCommand extends Command
+{
+    protected $name = 'posts:generate-uuid-missing';
+
+    protected $description = 'Generate post uuid missing command.';
+
+    public function handle(): void
+    {
+        Post::whereNull('uuid')->get()->each(
+            fn($post) => $this->generateUUID($post)
+        );
+    }
+
+    protected function generateUUID(Post $post): void
+    {
+        $post->setAttribute('uuid', Post::generateUniqueUUID());
+        $post->save();
+
+        $this->info("Generated for post {$post->id}");
+    }
+}

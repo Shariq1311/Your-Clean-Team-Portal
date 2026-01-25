@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * Mojar - Laravel CMS for Your Project
+ *
+ * @package    Mojar/cms
+ * @author     Mojar Team
+ * @link       https://github.com/Mojar/cms
+ * @license    GNU V2
+ */
+
+namespace MojarCMS\CMS\Support;
+
+class Installer
+{
+    /**
+     * If application is already installed.
+     *
+     * @return bool
+     */
+    public static function alreadyInstalled()
+    {
+        return file_exists(static::installedPath());
+    }
+
+    public static function installedPath()
+    {
+        return storage_path('app/installed');
+    }
+}

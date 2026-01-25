@@ -1,0 +1,18 @@
+<div class="sidebar__single sidebar__client-info-box">
+    <div class="sidebar__client-img-box">
+        <div class="sidebar__client-img">
+            <img src="{{ upload_url(data.client_image, 'mc-styles/themes/techguru/assets/images/blog/sidebar-client-img-1.jpg') }}" alt="{{ data.client_name }}">
+        </div>
+    </div>
+    <h3 class="sidebar__client-title">{{ data.client_name }}</h3>
+    <p class="sidebar__client-sub-title">{{ data.client_role }}</p>
+    <p class="sidebar__client-text">{{ data.client_description }}</p>
+    <div class="sidebar__client-social-box">
+        <p class="sidebar__client-social-title">{{ data.social_title }}</p>
+        <div class="sidebar__client-social">
+            {% for social in data.social_links %}
+            <a href="{{ social.url }}"><span class="{{ social.icon }}"></span></a>
+            {% endfor %}
+        </div>
+    </div>
+</div> 

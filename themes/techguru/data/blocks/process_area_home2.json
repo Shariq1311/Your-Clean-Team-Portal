@@ -1,0 +1,135 @@
+{
+    "label": "Process Area Home 2",
+    "description": "Process section with left content and right process steps",
+    "form": [
+        {
+            "type": "image",
+            "name": "shape_1",
+            "label": "Shape 1 Image",
+            "data": {
+                "value": "images/shapes/process-one-shape-1.png"
+            }
+        },
+        {
+            "type": "image",
+            "name": "bg_shape",
+            "label": "Background Shape",
+            "data": {
+                "value": "images/shapes/process-one-bg-shape.png"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_tagline",
+            "label": "Section Tagline",
+            "data": {
+                "value": "Working Process"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_1",
+            "label": "Title Part 1",
+            "data": {
+                "value": "How We've"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_2",
+            "label": "Title Part 2 (Highlighted)",
+            "data": {
+                "value": "Empowered"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_3",
+            "label": "Title Part 3 (Highlighted)",
+            "data": {
+                "value": "Businesses with Innovative"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_4",
+            "label": "Title Part 4",
+            "data": {
+                "value": "Tech Solutions"
+            }
+        },
+        {
+            "type": "textarea",
+            "name": "description",
+            "label": "Description",
+            "data": {
+                "value": "From personalized solutions to expert<br> execution, we prioritize quality, reliability, and<br> customer satisfaction"
+            }
+        },
+        {
+            "type": "text",
+            "name": "button_text",
+            "label": "Button Text",
+            "data": {
+                "value": "Get in Touch"
+            }
+        },
+        {
+            "type": "text",
+            "name": "button_url",
+            "label": "Button URL",
+            "data": {
+                "value": "about.html"
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "process_steps",
+            "label": "Process Steps",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "title",
+                    "label": "Step Title"
+                },
+                {
+                    "type": "textarea",
+                    "name": "text",
+                    "label": "Step Description"
+                },
+                {
+                    "type": "checkbox_json",
+                    "name": "count_left",
+                    "label": "Count on Left Side",
+                    "description": "If checked, count will be on the left side. If unchecked, count will be on the right side.",
+                    "data": {
+                        "value": 1
+                    }
+                }
+            ],
+            "options": {
+                "min_items": 1,
+                "max_items": 6,
+                "add_button_text": "Add Process Step",
+                "remove_button_text": "Remove Process Step",
+                "value": [
+                    {
+                        "title": "Discovery & Strategy",
+                        "text": "We analyze your business needs,<br> identify challenges, and craft a<br> strategic roadmap for the best IT<br> solutions.",
+                        "count_left": 1
+                    },
+                    {
+                        "title": "Development",
+                        "text": "Our expert team designs, develops,<br> and integrates cutting-edge<br> technology tailored to your goals.",
+                        "count_left": 0
+                    },
+                    {
+                        "title": "Optimization & Support",
+                        "text": "We ensure seamless performance with<br> continuous improvements,<br> maintenance, and dedicated support.",
+                        "count_left": 1
+                    }
+                ]
+            }
+        }
+    ]
+}

@@ -1,0 +1,297 @@
+<?php
+
+/**
+ * Mojar - Laravel CMS for Your Project
+ *
+ * @package    mojar/cms
+ * @author     Mojahid
+ * @link       https://mojar.com/cms
+ * @license    GNU V2
+ */
+
+namespace Mojahid\Ecommerce\Supports\Payments;
+
+use Mojahid\Ecommerce\Abstracts\PaymentMethodAbstract;
+use Mojahid\Ecommerce\Contracts\Payment\PaymentMethodInterface;
+use Mojahid\Ecommerce\Models\Order;
+use Exception;
+
+class TwoCheckout extends PaymentMethodAbstract implements PaymentMethodInterface
+{
+    public function purchase(array $params): PaymentMethodInterface
+    {
+        try {
+            $config = $this->getConfig();
+            
+            \Log::info('2Checkout Configuration', [
+                'test_mode' => $config['testMode'],
+                'has_seller_id' => !empty($config['sellerId'])
+            ]);
+
+            $amount = $params['amount'];
+            if (empty($amount) || (float)$amount <= 0) {
+                throw new Exception('Invalid amount. Amount must be greater than zero.');
+            }
+
+            // Create unique order ID with timestamp to avoid conflicts
+            $orderId = ($params['order_id'] ?? uniqid('order_')) . '_' . time();
+
+            // Build 2Checkout hosted checkout parameters
+            $checkoutParams = [
+                'sid' => $config['sellerId'],
+                'mode' => '2CO',
+                'li_0_type' => 'product',
+                'li_0_name' => $params['description'] ?? 'Order Payment',
+                'li_0_price' => number_format((float)$amount, 2, '.', ''),
+                'li_0_quantity' => '1',
+                'currency_code' => strtoupper($params['currency'] ?? 'USD'),
+                'merchant_order_id' => $orderId,
+                'cart_order_id' => $orderId,
+                'return_url' => $params['returnUrl'] ?? url('/payment/callback/twocheckout'),
+                'x_receipt_link_url' => $params['returnUrl'] ?? url('/payment/callback/twocheckout'),
+            ];
+
+            // Add demo parameter for test mode
+            if ($config['testMode']) {
+                $checkoutParams['demo'] = 'Y';
+            }
+
+            // Add customer information if available
+            if (!empty($params['customer_email'])) {
+                $checkoutParams['email'] = $params['customer_email'];
+            }
+            
+            if (!empty($params['customer_name'])) {
+                $checkoutParams['card_holder_name'] = $params['customer_name'];
+                
+                // Split name for first/last name fields
+                $nameParts = explode(' ', trim($params['customer_name']), 2);
+                $checkoutParams['first_name'] = $nameParts[0];
+                if (isset($nameParts[1])) {
+                    $checkoutParams['last_name'] = $nameParts[1];
+                }
+            }
+
+            // Build the checkout URL
+            $checkoutUrl = $this->getCheckoutUrl() . '?' . http_build_query($checkoutParams);
+            
+            \Log::info('2Checkout Payment Initialized', [
+                'order_id' => $orderId,
+                'amount' => $amount,
+                'currency' => $params['currency'] ?? 'USD',
+                'test_mode' => $config['testMode'],
+                'checkout_url_length' => strlen($checkoutUrl)
+            ]);
+
+            if (empty($checkoutUrl)) {
+                throw new Exception('Failed to build 2Checkout checkout URL');
+            }
+
+            $this->setSuccessful(true);
+            $this->setRedirect(true);
+            $this->setRedirectURL($checkoutUrl);
+            return $this;
+
+        } catch (Exception $e) {
+            \Log::error('2Checkout Payment Error', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            $this->addError($e->getMessage());
+            $this->setSuccessful(false);
+            throw $e;
+        }
+    }
+
+    public function completed(array $params): PaymentMethodInterface
+    {
+        try {
+            $config = $this->getConfig();
+
+            \Log::info('2Checkout Completion Request', [
+                'params' => array_keys($params),
+                'has_order_number' => isset($params['order_number']),
+                'has_merchant_order_id' => isset($params['merchant_order_id']),
+                'has_key' => isset($params['key'])
+            ]);
+
+            // Get order ID from various possible parameter names
+            $orderId = $params['merchant_order_id'] ?? 
+                      $params['cart_order_id'] ?? 
+                      $params['order_number'] ?? 
+                      $params['order'] ?? 
+                      null;
+
+            if (empty($orderId)) {
+                throw new Exception('No order ID provided by 2Checkout');
+            }
+
+            $isSuccessful = false;
+
+            // For demo/test mode, we need to handle differently
+            if ($config['testMode']) {
+                // In demo mode, just check for presence of order_number
+                if (isset($params['order_number'])) {
+                    $isSuccessful = true;
+                    \Log::info('2Checkout Demo Mode - Payment Assumed Successful', [
+                        'order_id' => $orderId,
+                        'order_number' => $params['order_number']
+                    ]);
+                }
+            } else {
+                // For live mode, verify the hash if we have the required parameters
+                if (isset($params['order_number'], $params['total'], $params['key'])) {
+                    $isSuccessful = $this->verifyHash($params, $config);
+                    
+                    \Log::info('2Checkout Live Mode Hash Verification', [
+                        'order_id' => $orderId,
+                        'order_number' => $params['order_number'],
+                        'total' => $params['total'],
+                        'verification_result' => $isSuccessful
+                    ]);
+                } elseif (isset($params['order_number'])) {
+                    // If we have order number but no hash data, assume success
+                    $isSuccessful = true;
+                    \Log::info('2Checkout Live Mode - No Hash Data, Assuming Success', [
+                        'order_id' => $orderId
+                    ]);
+                }
+            }
+
+            if ($isSuccessful) {
+                $this->setSuccessful(true);
+                $this->setMessage('Payment completed successfully via 2Checkout');
+                
+                // Update order status if we can find it
+                $this->updateOrderStatus($orderId);
+            } else {
+                $this->addError('Payment verification failed');
+                $this->setSuccessful(false);
+            }
+
+            return $this;
+
+        } catch (Exception $e) {
+            \Log::error('2Checkout Completion Error', [
+                'message' => $e->getMessage(),
+                'params' => $params
+            ]);
+            
+            $this->addError($e->getMessage());
+            $this->setSuccessful(false);
+            throw $e;
+        }
+    }
+
+    public function isSuccessful(): bool
+    {
+        return $this->successful;
+    }
+
+    private function verifyHash(array $params, array $config): bool
+    {
+        try {
+            if (empty($config['secretWord'])) {
+                // If no secret word configured, skip verification
+                return true;
+            }
+
+            $sellerId = $config['sellerId'];
+            $orderNumber = $params['order_number'];
+            $total = $params['total'];
+            $secretWord = $config['secretWord'];
+            $receivedKey = strtoupper($params['key']);
+
+            // Build hash string according to 2Checkout documentation
+            $hashString = $secretWord . $sellerId . $orderNumber . $total;
+            $calculatedHash = strtoupper(md5($hashString));
+
+            \Log::info('2Checkout Hash Verification Details', [
+                'seller_id' => $sellerId,
+                'order_number' => $orderNumber,
+                'total' => $total,
+                'calculated_hash' => $calculatedHash,
+                'received_key' => $receivedKey,
+                'hash_matches' => $calculatedHash === $receivedKey
+            ]);
+
+            return hash_equals($calculatedHash, $receivedKey);
+
+        } catch (Exception $e) {
+            \Log::error('2Checkout Hash Verification Error', [
+                'message' => $e->getMessage()
+            ]);
+            return false;
+        }
+    }
+
+    private function updateOrderStatus(string $orderId): void
+    {
+        try {
+            // Extract original order ID (remove timestamp suffix if present)
+            $originalOrderId = explode('_', $orderId)[0];
+            
+            $order = Order::whereCode($originalOrderId)->first();
+            if ($order) {
+                $order->payment_status = 'paid';
+                $order->save();
+                
+                \Log::info('Order status updated successfully', [
+                    'order_id' => $originalOrderId,
+                    'status' => 'paid'
+                ]);
+            } else {
+                \Log::warning('Order not found for status update', [
+                    'order_id' => $originalOrderId
+                ]);
+            }
+        } catch (Exception $e) {
+            \Log::error('Failed to update order status', [
+                'order_id' => $orderId,
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
+
+    private function getCheckoutUrl(): string
+    {
+        // 2Checkout uses the same URL for both test and live
+        return 'https://www.2checkout.com/checkout/purchase';
+    }
+
+    private function getConfig(): array
+    {
+        $data = is_string($this->paymentMethod->data) 
+            ? json_decode($this->paymentMethod->data, true) 
+            : $this->paymentMethod->data;
+        
+        $testMode = ($data['mode'] ?? 'test') === 'test';
+        
+        if ($testMode) {
+            $sellerId = $data['test_account_number'] ?? '';
+            $secretWord = $data['test_secret_word'] ?? '';
+        } else {
+            $sellerId = $data['live_account_number'] ?? '';
+            $secretWord = $data['live_secret_word'] ?? '';
+        }
+        
+        if (empty($sellerId)) {
+            $errorMsg = '2Checkout seller ID not configured for ' . ($testMode ? 'test' : 'live') . ' mode';
+            \Log::error('2Checkout Configuration Error', ['error' => $errorMsg]);
+            throw new Exception($errorMsg);
+        }
+        
+        \Log::info('Using 2Checkout Configuration', [
+            'mode' => $testMode ? 'test' : 'live',
+            'seller_id' => $sellerId,
+            'has_secret_word' => !empty($secretWord)
+        ]);
+        
+        return [
+            'sellerId' => $sellerId,
+            'secretWord' => $secretWord,
+            'testMode' => $testMode
+        ];
+    }
+}

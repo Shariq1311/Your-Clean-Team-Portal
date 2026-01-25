@@ -1,0 +1,252 @@
+{% extends 'cms::layouts.frontend' %}
+
+{% block content %}
+
+{% include 'theme::components.breadcrumb' with {
+        is_dynamic: true,
+        post: post
+    }
+%}
+
+    {% set services = get_posts('services', {
+        'limit': 6,
+        'orderby': 'date',
+        'order': 'DESC'
+    }) %}
+
+<section class="services-details">
+    <div class="services-details__shape-1"></div>
+    <div class="services-details__shape-2">
+        <img src="{{ asset('images/shapes/services-details-shape-2.png') }}" alt="">    
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-4 col-lg-5">
+                <div class="services-details__left">
+                    <div class="services-details__services-list-box">
+                        <h3 class="services-details__services-list-title">{{ __('More Services') }}</h3>
+                        <ul class="services-details__services-list list-unstyled">
+                            {% if services %}
+                                {% for service in services %}
+                                    <li {% if service.id == post.id %}class="active"{% endif %}>
+                                        <a href="{{ service.url }}">{{ service.title }}<span
+                                                class="icon-right-arrow-2"></span></a>
+                                    </li>
+                                {% endfor %}
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div class="services-details__need-help">
+                        <div class="services-details__need-help-img">
+                            <img src="{{ asset('images/services/services-details-need-help-img.jpg') }}" alt="">
+                            <div class="services-details__need-help-content">
+                                <div class="services-details__need-help-bdr"></div>
+                                <h3 class="services-details__need-help-title">{{ __('Need Help?') }}</h3>
+                                <p class="services-details__need-help-number"><a href="tel:{{ theme_config('phone')|default('+12 (123) 456 78900') }}">{{ theme_config('phone')|default('+12 (123) 456 78900') }}</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8 col-lg-7">
+                <div class="services-details__right">
+                    <h3 class="services-details__title-1">
+                        {{ post.title }}
+                    </h3>
+                    {{ post.content|raw }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="faq-two">
+    <div class="faq-two__shape-1">
+        <img src="{{ asset('images/shapes/faq-two-shape-1.png') }}" alt="">
+    </div>
+    <div class="faq-two__shape-2">
+        <img src="{{ asset('images/shapes/faq-two-shape-2.png') }}" alt="">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-5">
+                <div class="faq-two__left">
+                    <div class="section-title text-left sec-title-animation animation-style2">
+                        <div class="section-title__tagline-box">
+                            <div class="section-title__tagline-shape-1"></div>
+                            <span class="section-title__tagline">{{ __('FAQS') }}</span>
+                            <div class="section-title__tagline-shape-2"></div>
+                        </div>
+                        <h2 class="section-title__title title-animation">{{ __('Frequently Asked') }}
+                            <span>{{ __('Questions') }}</span>
+                        </h2>
+                    </div>
+                    <p class="faq-two__text">{{ __('Get answers to the most common questions') }} <br>{{ __('about our products, services, and policies.') }}</p>
+                    <div class="faq-two__bdr"></div>
+                    <div class="faq-two__contact">
+                        <div class="icon">
+                            <span class="icon-customer-service-headset"></span>
+                        </div>
+                        <div class="content">
+                            <span>{{ __('Get Support') }}</span>
+                            <p><a href="tel:{{ theme_config('phone')|default('+12 (123) 456 78900') }}">{{ theme_config('phone')|default('+12 (123) 456 78900') }}</a></p>
+                        </div>
+                    </div>
+                    <div class="faq-two__btn-box">
+                        <a href="{{ theme_config('contact_button_url')|default('#') }}" class="thm-btn">{{ __('Get in Touch') }}<span class="icon-right-arrow"></span></a>
+                    </div>
+                </div>
+            </div>
+            {% set faqs = get_posts('faqs', {
+                        'limit': 5,
+                        'orderby': 'date',
+                        'order': 'DESC'
+            }) %}
+
+            <div class="col-xl-7">
+                <div class="faq-two__right">
+                    <div class="accrodion-grp faq-one-accrodion" data-grp-name="faq-one-accrodion">
+                        {% if faqs %}
+                            {% for faq in faqs %}
+                                <div class="accrodion {% if faq.metas.is_active == "true" %}active{% endif %}"> 
+                                    <div class="accrodion-title">
+                                        <h4>{{ faq.title }}</h4> 
+                                    </div>
+                                    <div class="accrodion-content">
+                                        <div class="inner">
+                                            <p class="accrodion-content__text-1">{{ faq.description|raw }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% set testimonials = get_posts('testimonials', {
+    'limit': 5,
+    'orderby': 'date',
+    'order': 'DESC'
+}) %}
+
+<section class="testimonial-two">
+    <div class="testimonial-two__shape-1"></div>
+    <div class="testimonial-two__shape-2"></div>
+    <div class="container">
+        <div class="section-title text-center sec-title-animation animation-style1">
+            <div class="section-title__tagline-box">
+                <div class="section-title__tagline-shape-1"></div>
+                <span class="section-title__tagline">{{ __('Testimonials') }}</span>    
+                <div class="section-title__tagline-shape-2"></div>
+            </div>
+            <h2 class="section-title__title title-animation">{{ __('Customer Experiences') }} <br> {{ __('That') }} <span>{{ __('Speak Volumes') }}</span></h2>
+        </div>
+        <div class="testimonial-two__carousel owl-theme owl-carousel">
+            {% if testimonials %}
+                {% for testimonial in testimonials %}
+                    <div class="item">
+                        <div class="testimonial-two__single">
+                            <div class="testimonial-two__single-inner">
+                                <div class="testimonial-two__star">
+                                    {% for i in 1..5 %}
+                                        <span class="icon-pointed-star {% if i > testimonial.metas.rating %}icon-star{% endif %}"></span>
+                                    {% endfor %}
+
+                                </div>
+                                <p class="testimonial-two__text">{{ testimonial.description|raw }}</p>
+                            </div>
+                            <div class="testimonial-two__client-info">
+                                <div class="testimonial-two__client-img">
+                                    <img src="{{ testimonial.thumbnail }}" alt="{{ testimonial.title }}">
+                                </div>
+                                <div class="testimonial-two__client-content">
+                                    <h4 class="testimonial-two__client-name"><a href="javascript:void(0)">{{ testimonial.metas.name }}</a></h4>
+                                    <p class="testimonial-two__sub-title">{{ testimonial.metas.position }}</p>
+                                </div>
+                            </div>
+                            <div class="testimonial-two__quote">
+                                <span class="icon-right-quote"></span>
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<script>
+    (function($) {
+        "use strict";
+        $(document).ready(function() {
+            if ($(".faq-one-accrodion").length) {
+                var accrodionGrp = $(".accrodion-grp");
+                accrodionGrp.each(function () {
+                var accrodionName = $(this).data("grp-name");
+                var Self = $(this);
+                var accordion = Self.find(".accrodion");
+                Self.addClass(accrodionName);
+                Self.find(".accrodion .accrodion-content").hide();
+                Self.find(".accrodion.active").find(".accrodion-content").show();
+                accordion.each(function () {
+                    $(this)
+                    .find(".accrodion-title")
+                    .on("click", function () {
+                        if ($(this).parent().hasClass("active") === false) {
+                        $(".accrodion-grp." + accrodionName)
+                            .find(".accrodion")
+                            .removeClass("active");
+                        $(".accrodion-grp." + accrodionName)
+                            .find(".accrodion")
+                            .find(".accrodion-content")
+                            .slideUp();
+                        $(this).parent().addClass("active");
+                        $(this).parent().find(".accrodion-content").slideDown();
+                        }
+                    });
+                });
+                });
+            }
+              //Testimonial Two Carousel
+            if ($(".testimonial-two__carousel").length) {
+                    $(".testimonial-two__carousel").owlCarousel({
+                        loop: true,
+                        margin: 30,
+                        nav: false,
+                        dots: true,
+                        smartSpeed: 500,
+                        autoplay: true,
+                        autoplayTimeout: 7000,
+                        navText: [
+                            '<span class="icon-right-up"></span>',
+                            '<span class="icon-right-up"></span>',
+                        ],
+                        responsive: {
+                            0: {
+                            items: 1,
+                            },
+                            768: {
+                            items: 2,
+                            },
+                            992: {
+                            items: 3,
+                            },
+                            1200: {
+                            items: 3,
+                            },
+                            1320: {
+                            items: 3,
+                            },
+                        },
+                    });
+                }
+
+        });
+    })(jQuery);
+</script>
+
+{% endblock %}

@@ -1,0 +1,356 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Mojahid\PwaManager\Actions;
+
+use Illuminate\Http\Request;
+use MojarCMS\CMS\Abstracts\Action;
+use MojarCMS\CMS\Facades\HookAction;
+use EragLaravelPwa\Facades\PWA;
+
+final class PwaAction extends Action
+{
+    public function handle(): void
+    {
+        $this->addAction(Action::FRONTEND_CALL_ACTION, [$this, 'registerFrontendActions']);
+    }
+
+    public function registerFrontendActions(): void
+    {
+        // Add PWA integration to frontend - Priority 5 to load BEFORE chatbots (priority 20)
+        HookAction::addAction('theme.header', [$this, 'addPwaHeaders'], 1);
+        HookAction::addAction('theme.footer', [$this, 'addPwaScripts'], 1);
+    }
+
+    public function addPwaHeaders(): void
+    {
+        if (!get_config('pwa_enabled', false)) {
+            return;
+        }
+
+        // Update PWA manifest with current settings
+        $this->updatePwaManifest();
+
+        // Output PWA head tags following FrontendAction pattern
+        echo $this->getPwaHeadTags();
+    }
+
+    public function addPwaScripts(): void
+    {
+        if (!get_config('pwa_enabled', false)) {
+            return;
+        }
+
+        // Output service worker registration
+        echo $this->getPwaScripts();
+    }
+
+    private function getPwaHeadTags(): string
+    {
+        $output = "\n<!-- PWA Manager - Progressive Web App Tags -->\n";
+        $output .= "<link rel=\"manifest\" href=\"/manifest.json\">\n";
+        $output .= "<meta name=\"theme-color\" content=\"" . get_config('pwa_theme_color', '#6777ef') . "\">\n";
+        $output .= "<meta name=\"mobile-web-app-capable\" content=\"yes\">\n";
+        $output .= "<meta name=\"apple-mobile-web-app-capable\" content=\"yes\">\n";
+        $output .= "<meta name=\"apple-mobile-web-app-status-bar-style\" content=\"" . get_config('pwa_theme_color', '#6777ef') . "\">\n";
+        $output .= "<meta name=\"apple-mobile-web-app-title\" content=\"" . get_config('pwa_short_name', 'App') . "\">\n";
+        
+        // Apple touch icons
+        $logoUrl = $this->get_logo_pwa();
+        if ($logoUrl) {
+            $output .= "<link rel=\"apple-touch-icon\" href=\"{$logoUrl}\">\n";
+            $output .= "<link rel=\"apple-touch-icon\" sizes=\"152x152\" href=\"{$logoUrl}\">\n";
+            $output .= "<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"{$logoUrl}\">\n";
+            $output .= "<link rel=\"apple-touch-icon\" sizes=\"167x167\" href=\"{$logoUrl}\">\n";
+        }
+        
+        $output .= "<!-- End PWA Manager Tags -->\n";
+        return $output;
+    }
+
+    private function getPwaScripts(): string
+    {
+        $showInstallButton = get_config('pwa_show_install_button', true);
+        
+        $output = "\n<!-- PWA Manager - Service Worker Registration -->\n";
+        $output .= "<script>\n";
+        $output .= "// PWA Service Worker - Isolated from other scripts\n";
+        $output .= "(function() {\n";
+        $output .= "    'use strict';\n";
+        $output .= "    \n";
+        $output .= "    function registerServiceWorker() {\n";
+        $output .= "        if ('serviceWorker' in navigator) {\n";
+        $output .= "            navigator.serviceWorker.register('/serviceworker.js')\n";
+        $output .= "                .then(function(registration) {\n";
+        $output .= "                })\n";
+        $output .= "                .catch(function(error) {\n";
+        $output .= "                });\n"; 
+        $output .= "        }\n";
+        $output .= "    }\n";   
+        $output .= "    \n";
+        $output .= "    // Register service worker after page load and small delay\n";
+        $output .= "    if (document.readyState === 'loading') {\n";
+        $output .= "        document.addEventListener('DOMContentLoaded', function() {\n";
+        $output .= "            setTimeout(registerServiceWorker, 500);\n";
+        $output .= "        });\n";
+        $output .= "    } else {\n";
+        $output .= "        setTimeout(registerServiceWorker, 500);\n";
+        $output .= "    }\n";
+        $output .= "})();\n\n";
+        
+        if ($showInstallButton) {
+            $output .= $this->getInstallPromptScript();
+        }
+        
+        $output .= "</script>\n";
+        $output .= "<!-- End PWA Manager Scripts -->\n";
+        
+        return $output;
+    }
+
+    private function getInstallPromptScript(): string
+    {
+        return "
+// PWA Install Prompt - Isolated to prevent conflicts with chatbots
+(function() {
+    'use strict';
+    
+    // Create isolated namespace to prevent conflicts
+    window.PWAManager = window.PWAManager || {};
+    
+    let deferredPrompt = null;
+    let pwaInstallButton = null;
+    let isInitialized = false;
+
+    // Initialize PWA functionality - delayed to avoid chatbot conflicts
+    function initPWA() {
+        if (isInitialized) return;
+        isInitialized = true;
+        
+        
+        // Listen for install prompt event with isolated handler
+        window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt, {passive: true});
+        window.addEventListener('appinstalled', handleAppInstalled, {passive: true});
+        
+        // Check if already installed
+        if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) {
+            return;
+        }
+    }
+
+    function handleBeforeInstallPrompt(e) {
+        try {
+            // Prevent the mini-infobar from appearing on mobile
+            e.preventDefault();
+            // Store the event so it can be triggered later
+            deferredPrompt = e;
+            createInstallButton();
+        } catch (error) {
+            console.error('PWAManager: Error handling beforeinstallprompt:', error);
+        }
+    }
+
+    function handleAppInstalled() {
+        try {
+            hideInstallButton();
+            deferredPrompt = null;
+        } catch (error) {
+            console.error('PWAManager: Error handling appinstalled:', error);
+        }
+    }
+
+    // Create install button with unique identifier
+    function createInstallButton() {
+        if (pwaInstallButton || !deferredPrompt) return;
+        
+        try {
+            pwaInstallButton = document.createElement('button');
+            pwaInstallButton.id = 'pwa-install-btn-unique';
+            pwaInstallButton.innerHTML = 'Install App';
+            pwaInstallButton.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                z-index: 9998;
+                background: " . get_config('pwa_theme_color', '#6777ef') . ";
+                color: white;
+                border: none;
+                padding: 12px 20px;
+                border-radius: 8px;
+                font-weight: 500;
+                cursor: pointer;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                transition: all 0.3s ease;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            `;
+            
+            pwaInstallButton.addEventListener('click', promptInstall);
+            document.body.appendChild(pwaInstallButton);
+        } catch (error) {
+            console.error('PWAManager: Error creating install button:', error);
+        }
+    }
+
+    function promptInstall() {
+        if (!deferredPrompt) {
+            return;
+        }
+        
+        try {
+            // Show the install prompt
+            deferredPrompt.prompt();
+            
+            // Wait for the user to respond to the prompt
+            deferredPrompt.userChoice.then(function(choiceResult) {
+                if (choiceResult.outcome === 'accepted') {
+                    hideInstallButton();
+                }
+                deferredPrompt = null;
+            });
+        } catch (error) {
+            console.error('PWAManager: Error prompting install:', error);
+        }
+    }
+
+    function hideInstallButton() {
+        if (pwaInstallButton) {
+            pwaInstallButton.style.display = 'none';
+        }
+    }
+
+    // Expose public API
+    window.PWAManager.install = promptInstall;
+    window.PWAManager.hideButton = hideInstallButton;
+
+    // Initialize after other scripts load (prevents chatbot conflicts)
+    var initDelay = " . (int)get_config('pwa_init_delay', 1000) . "; // Configurable delay
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(initPWA, initDelay);
+        });
+    } else {
+        setTimeout(initPWA, initDelay);
+    }
+})();
+";
+    }
+
+    private function updatePwaManifest(): void
+    {
+        try {
+            $manifestData = [
+                'name' => get_config('pwa_app_name', get_config('title', 'My App')),
+                'short_name' => get_config('pwa_short_name', 'App'),
+                'description' => get_config('pwa_description', get_config('description', '')),
+                'background_color' => get_config('pwa_background_color', '#ffffff'),
+                'theme_color' => get_config('pwa_theme_color', '#6777ef'),
+                'display' => get_config('pwa_display', 'standalone'),
+                'start_url' => get_config('pwa_start_url', '/'),
+                'scope' => get_config('pwa_scope', '/'), // Critical: This must allow all navigation
+                'orientation' => get_config('pwa_orientation', 'any'),
+                'icons' => $this->buildIcons()
+            ];
+
+            PWA::update($manifestData);
+        } catch (\Exception $e) {
+            // Log error but continue gracefully
+            error_log("PWA manifest update failed: " . $e->getMessage());
+        }
+    }
+
+    private function buildIcons(): array
+    {
+        $icons = [];
+        
+        // Use the PWA logo with proper upload_url
+        $logoUrl = $this->get_logo_pwa();
+        if ($logoUrl && $logoUrl !== asset('mc-styles/mojar/images/logo.png')) {
+            // Convert to relative path for manifest
+            $relativePath = str_replace(url('/'), '', $logoUrl);
+            if (!str_starts_with($relativePath, '/')) {
+                $relativePath = '/' . $relativePath;
+            }
+            
+            $icons[] = [
+                'src' => $relativePath,
+                'sizes' => '512x512',
+                'type' => 'image/png',
+                'purpose' => 'any maskable'
+            ];
+            
+            // Add additional common sizes
+            $icons[] = [
+                'src' => $relativePath,
+                'sizes' => '192x192',
+                'type' => 'image/png'
+            ];
+            
+            $icons[] = [
+                'src' => $relativePath,
+                'sizes' => '144x144',
+                'type' => 'image/png'
+            ];
+        }
+
+        // Add custom icons if configured
+        $customIcons = get_config('pwa_custom_icons', []);
+        if (is_string($customIcons)) {
+            $customIcons = json_decode($customIcons, true) ?? [];
+        }
+        if (is_array($customIcons) && !empty($customIcons)) {
+            $icons = array_merge($icons, $customIcons);
+        }
+
+        return $icons;
+    }
+
+    public function checkPwaRequirements(): array
+    {
+        $requirements = [
+            'https_enabled' => request()->isSecure(),
+            'package_installed' => class_exists('EragLaravelPwa\\Facades\\PWA'),
+            'public_writable' => is_writable(public_path()),
+            'config_exists' => file_exists(config_path('pwa.php'))
+        ];
+
+        $allMet = array_reduce($requirements, fn($carry, $item) => $carry && $item, true);
+
+        return [
+            'requirements' => $requirements,
+            'all_met' => $allMet,
+            'warnings' => $this->getPwaWarnings($requirements)
+        ];
+    }
+
+    private function getPwaWarnings(array $requirements): array
+    {
+        $warnings = [];
+
+        if (!$requirements['https_enabled']) {
+            $warnings[] = trans('pwa::content.https_required_warning');
+        }
+
+        if (!$requirements['package_installed']) {
+            $warnings[] = trans('pwa::content.package_not_installed_warning');
+        }
+
+        if (!$requirements['public_writable']) {
+            $warnings[] = trans('pwa::content.public_not_writable_warning');
+        }
+
+        if (!$requirements['config_exists']) {
+            $warnings[] = trans('pwa::content.config_missing_warning');
+        }
+
+        return $warnings;
+    }
+
+    public function get_logo_pwa($default = null): ?string
+    {
+        return upload_url(
+            get_config('pwa_logo'),
+            asset($default ?: 'mc-styles/mojar/images/logo.png')
+        );
+    }
+}

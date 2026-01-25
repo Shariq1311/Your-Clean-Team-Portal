@@ -1,0 +1,75 @@
+<!-- Category Distribution Widget -->
+<div class="col-12 mt-3" style="padding: 0px !important;">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">{{ trans('Your Clean Team::content.category_distribution') }}</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                @forelse($categoryDistribution as $type => $data)
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-status-top bg-primary"></div>
+                            <div class="card-header">
+                                <h4 class="card-title">{{ $data['label'] }}</h4>
+                                <div class="card-subtitle">{{ trans('Your Clean Team::content.total_posts') }}: {{ $data['total'] }}</div>
+                            </div>
+                            <div class="card-body p-3">
+                                @if(count($data['categories']) > 0)
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-vcenter">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{ trans('Your Clean Team::content.categories') }}</th>
+                                                    <th>{{ trans('Your Clean Team::content.posts_count') }}</th>
+                                                    <th>{{ trans('Your Clean Team::content.percentage') }}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($data['categories'] as $category)
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <span class="category-color-dot bg-{{ $category['color'] }} me-2"></span>
+                                                                {{ $category['name'] }}
+                                                            </div>
+                                                        </td>
+                                                        <td>{{ $category['count'] }}</td>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="progress w-100" style="height: 6px">
+                                                                    <div class="progress-bar bg-{{ $category['color'] }}" style="width: {{ $category['percentage'] }}%" role="progressbar" aria-valuenow="{{ $category['percentage'] }}" aria-valuemin="0" aria-valuemax="100" aria-label="{{ $category['percentage'] }}% {{ trans('Your Clean Team::content.percentage') }}">
+                                                                    </div>
+                                                                </div>
+                                                                <span class="ms-2">{{ $category['percentage'] }}%</span>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @else
+                                    <div class="text-center py-4">{{ trans('Your Clean Team::content.no_categories_found') }}</div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="col-12">
+                        <div class="text-center py-5">{{ trans('Your Clean Team::content.no_categories_found') }}</div>
+                    </div>
+                @endforelse
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .category-color-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+</style>

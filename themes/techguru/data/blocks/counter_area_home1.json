@@ -1,0 +1,98 @@
+{
+    "label": "Counter Area Home 1",
+    "description": "Counter section with animated number counters and icons",
+    "form": [
+        {
+            "type": "image",
+            "name": "bg_shape",
+            "label": "Background Shape Image",
+            "data": {
+                "value": "images/shapes/counter-two-bg-shape.png"
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "counters",
+            "label": "Counter Items",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "icon",
+                    "label": "Icon Class",
+                    "description": "Icon class name (e.g., icon-trophy, icon-user)",
+                    "data": {
+                        "value": "icon-trophy"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "count",
+                    "label": "Counter Number",
+                    "description": "Number to count to",
+                    "data": {
+                        "value": "120"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "suffix",
+                    "label": "Counter Suffix",
+                    "description": "Suffix after the number (e.g., +, K, M)",
+                    "data": {
+                        "value": "+"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "text",
+                    "label": "Counter Text",
+                    "description": "Text displayed below the counter",
+                    "data": {
+                        "value": "Creative Plus award"
+                    }
+                }
+            ],
+            "options": {
+                "min_items": 1,
+                "max_items": 8,
+                "add_button_text": "Add Counter",
+                "remove_button_text": "Remove Counter",
+                "value": [
+                    {
+                        "icon": "icon-trophy",
+                        "count": "120",
+                        "suffix": "+",
+                        "text": "Creative Plus award"
+                    },
+                    {
+                        "icon": "icon-user",
+                        "count": "300",
+                        "suffix": "+",
+                        "text": "Expert Team Members"
+                    },
+                    {
+                        "icon": "icon-chat",
+                        "count": "20",
+                        "suffix": "M",
+                        "text": "Happy Clients Review"
+                    },
+                    {
+                        "icon": "icon-folder",
+                        "count": "1.5",
+                        "suffix": "K",
+                        "text": "Project Completed"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "description": "Enable counter animation effect",
+            "data": {
+                "value": 1
+            }
+        }
+    ]
+}

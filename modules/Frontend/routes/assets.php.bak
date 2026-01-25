@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * Mojar - Laravel CMS for Your Project
+ *
+ * @package    mojar/cms
+ * @author     Mojar Team
+ * @link       https://mojar.com/cms
+ * @license    GNU V2
+ */
+
+use MojarCMS\Frontend\Http\Controllers\AssetController;
+use Illuminate\Support\Facades\Route;
+
+//Route::get('mc-styles/{lang}/langs.js', [AssetController::class, 'languageScript'])
+//    ->where('lang', '[a-z]+');
+
+$pathRegex = '(?!.*\.\.)[0-9a-zA-Z\/\-\._]+';
+
+Route::get('mc-styles/themes/{theme}/{path}', [AssetController::class, 'assetTheme'])
+    ->where('theme', '[0-9a-z\-_]+')
+    ->where('path', $pathRegex);
+
+Route::get('mc-styles/plugins/{vendor}/{plugin}/{path}', [AssetController::class, 'assetPlugin'])
+    ->where('vendor', '[0-9a-z\-_]+')
+    ->where('plugin', '[0-9a-z\-_]+')
+    ->where('path', $pathRegex);
+
+Route::get('storage/{path}', [AssetController::class, 'assetStorage'])
+    ->where('path', $pathRegex);
+
+Route::get('mc-styles/images/{method}/{size}/{path}', [AssetController::class, 'proxyImage'])
+    ->where('size', '([0-9auto]+)x([0-9auto]+)')
+    ->where('path', $pathRegex);

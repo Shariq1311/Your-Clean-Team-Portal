@@ -1,0 +1,31 @@
+<?php
+
+namespace Mojahid\TechguruCompanion\Providers;
+
+use MojarCMS\CMS\Support\ServiceProvider;
+use MojarCMS\CMS\Facades\ActionRegister;
+use Mojahid\TechguruCompanion\Actions\TechguruCompanionAction;
+use TwigBridge\Facade\Twig;
+use Mojahid\TechguruCompanion\Extensions\TwigExtension;
+
+class TechguruCompanionServiceProvider extends ServiceProvider
+{
+    public function boot(): void
+    {
+        Twig::addExtension(new TwigExtension());
+
+        ActionRegister::register([
+            TechguruCompanionAction::class,
+        ]);
+    }
+
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register(): void
+    {
+        //
+    }
+}

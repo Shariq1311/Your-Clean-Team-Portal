@@ -1,0 +1,402 @@
+{% set footer_style = post.metas.footer_style|default('footer-1') %}
+    {% if footer_style == 'footer-1' %}
+    <section class="newsletter-two">
+        <div class="newsletter-two__shape-1">
+            <img src="{{ asset('images/shapes/newsletter-two-shape-1.png') }}" alt="">
+        </div>
+        <div class="newsletter-two__shape-2 float-bob-x">
+            <img src="{{ asset('images/shapes/newsletter-two-shape-2.png') }}" alt="">
+        </div>
+        <div class="container">
+            <div class="newsletter-two__inner">
+                <div class="newsletter-two__left">
+                    <h2 class="newsletter-two__title">{{ theme_config('newsletter_title')|default('Subcribe to Our Newsletter') }}</h2>
+                    <p class="newsletter-two__text">{{ theme_config('newsletter_description')|default('Get the latest SEO tips and software insights straight to your inbox.') }}</p>
+                </div>
+                <div class="newsletter-two__right">
+                    <div id="newsletters-subscribers-success-message-footer" class="alert alert-success" style="display: none;"></div>
+                    <div id="newsletters-subscribers-error-message-footer" class="alert alert-danger" style="display: none;"></div>
+
+                    <form action="{{ url('ajax/newsletters-subscribers') }}" method="POST" id="newsletters-subscribers-form-footer"  class="newsletter-two__form">
+                        <div class="newsletter-two__input">
+                            <input type="email" name="email" placeholder="{{ __('Enter email address') }}">
+                        </div>
+                        <button type="submit" class="thm-btn">{{ theme_config('newsletter_button_text')|default('Subscribe Now') }} <span class="icon-right-arrow"></span>
+                        </button>
+                        <div class="checked-box">
+                            <input type="checkbox" name="skipper1" id="skipper" checked="">
+                            <label for="skipper"><span></span>{{ theme_config('newsletter_checkbox_text')|default('by Subscribing. Your Accept Privacy policy') }}</label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="site-footer-two">
+      <div class="site-footer-two__shape-1"></div>
+      <div class="site-footer-two__shape-2"></div>
+      <div class="site-footer-two__shape-3"></div>
+      <div class="site-footer-two__top">
+          <div class="container">
+              <div class="row">
+                  <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="100ms">
+                      {{ dynamic_sidebar('footer_1_first') }}
+                  </div>
+                  <div class="col-xl-2 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="200ms">
+                      <div class="footer-widget-two__quick-links">
+                          <h4 class="footer-widget-two__title">{{ __('Pages') }}</h4> 
+                          {{  mc_nav_menu({
+                            'container_before': '<ul class="footer-widget-two__quick-links-list list-unstyled">',
+                            'container_after': '</ul>',
+                            'theme_location': 'footer_2',
+                            'item_view': 'theme::components.menu_item_2'
+                          }) }}
+                      </div>
+                  </div>
+                  <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="300ms">
+                      <div class="footer-widget-two__support">
+                          <h4 class="footer-widget-two__title">{{ __('Support') }}</h4>
+                          {{  mc_nav_menu({
+                            'container_before': '<ul class="footer-widget-two__quick-links-list list-unstyled">',
+                            'container_after': '</ul>',
+                            'theme_location': 'footer_3',
+                            'item_view': 'theme::components.menu_item_2'
+                          }) }}
+                      </div>
+                  </div>
+                  <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="400ms">
+                      <div class="footer-widget-two__services">
+                          <h4 class="footer-widget-two__title">{{ __('Our Services') }}</h4>
+                          {{  mc_nav_menu({
+                            'container_before': '<ul class="footer-widget-two__quick-links-list list-unstyled">',
+                            'container_after': '</ul>',
+                            'theme_location': 'footer_4',
+                            'item_view': 'theme::components.menu_item_2'
+                          }) }}
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="site-footer-two__bottom">
+          <div class="container">
+              <div class="row">
+                  <div class="col-xl-12">
+                      <div class="site-footer-two__bottom-inner">
+                          <div class="site-footer-two__copyright">
+                              <p class="site-footer-two__copyright-text">
+                                  {{ theme_config('copy_right_text')}}
+                              </p>
+                          </div>
+                          <div class="site-footer-two__social-box">
+                              <h4 class="site-footer-two__social-title">{{ __('Follow Us') }}:</h4>     
+                              <div class="site-footer-two__social-box-inner">
+                                  {% if theme_config('facebook_url') %}
+                                    <a href="{{ theme_config('facebook_url') }}"><span class="icon-facebook"></span></a>
+                                  {% endif %}
+                                  {% if theme_config('dribble_url') %}
+                                    <a href="{{ theme_config('dribble_url') }}"><span class="icon-dribble"></span></a>
+                                  {% endif %}
+                                  {% if theme_config('linkedin_url') %}
+                                    <a href="{{ theme_config('linkedin_url') }}"><span class="icon-linkedin"></span></a>
+                                  {% endif %}
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </footer>
+    {% else %}
+    <footer class="site-footer">
+      <div class="site-footer__shape-1">
+          <img src="{{ asset('images/shapes/site-footer-shape-1.png') }}" alt="">
+      </div>
+      <div class="site-footer__shape-2">
+          <img src="{{ asset('images/shapes/site-footer-shape-2.png') }}" alt="">
+      </div>
+      <div class="site-footer__shape-3"></div>
+      <div class="site-footer__shape-4"></div>
+      <div class="site-footer__shape-5"></div>
+      {{ dynamic_sidebar('footer_top_cta') }}
+      <div class="site-footer__main-content-box">
+          <div class="container">
+              <div class="row">
+                  <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="100ms">
+                      {{ dynamic_sidebar('footer_1') }}
+                  </div>
+                  <div class="col-xl-2 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="200ms">
+                      <div class="footer-widget__quick-links">
+                          <h4 class="footer-widget__title">{{ __('Pages') }}</h4>
+                          {{  mc_nav_menu({
+                            'container_before': '<ul class="footer-widget__quick-links-list list-unstyled">',
+                            'container_after': '</ul>',
+                            'theme_location': 'footer_2',
+                            'item_view': 'theme::components.menu_item_2'
+                          }) }}
+                      </div>
+                  </div>
+                  <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="300ms">
+                      <div class="footer-widget__support">
+                          <h4 class="footer-widget__title">{{ __('Support') }}</h4>
+                          {{  mc_nav_menu({
+                            'container_before': '<ul class="footer-widget__quick-links-list list-unstyled">',
+                            'container_after': '</ul>',
+                            'theme_location': 'footer_3',
+                            'item_view': 'theme::components.menu_item_2'
+                          }) }}
+                      </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="400ms">
+                      {{ dynamic_sidebar('footer_4') }}
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="site-footer__bottom">
+          <div class="container">
+              <div class="row">
+                  <div class="col-xl-12">
+                      <div class="site-footer__bottom-inner">
+                          <div class="site-footer__copyright">
+                              <p class="site-footer__copyright-text">
+                                {{ theme_config('copy_right_text')|default('ⓒ Copyright 2025 <a href="#">Your Clean Team</a> All rights reserved') }}
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </footer>
+    {% endif %}
+  </div>
+
+
+<div class="mobile-nav__wrapper">
+        <div class="mobile-nav__overlay mobile-nav__toggler"></div>
+        <!-- /.mobile-nav__overlay -->
+        <div class="mobile-nav__content">
+            <span class="mobile-nav__close mobile-nav__toggler"><i class="fa fa-times"></i></span>
+
+            <div class="logo-box">
+                <a href="{{ url('/') }}" aria-label="logo image"><img src="{{ get_logo() }}" width="150"
+                        alt="" /></a>
+            </div>
+            <!-- /.logo-box -->
+            <div class="mobile-nav__container"></div>
+            <!-- /.mobile-nav__container -->
+
+            <ul class="mobile-nav__contact list-unstyled">
+                <li>
+                    <i class="fa fa-envelope"></i>
+                    <a href="mailto:{{ theme_config('email')|default('needhelp@Your Clean Team.com') }}">{{ theme_config('email')|default('needhelp@Your Clean Team.com') }}</a>
+                </li>
+                <li>
+                    <i class="fas fa-phone"></i>
+                    <a href="tel:{{ theme_config('phone')|default('666-888-0000') }}">{{ theme_config('phone')|default('666 888 0000') }}</a>
+                </li>
+            </ul><!-- /.mobile-nav__contact -->
+            <div class="mobile-nav__top">
+                <div class="mobile-nav__social">
+                    {% if theme_config('facebook_url') %}
+                        <a href="{{ theme_config('facebook_url') }}" class="fab fa-facebook-square"></a>
+                    {% endif %}
+                    {% if theme_config('twitter_url') %}
+                        <a href="{{ theme_config('twitter_url') }}" class="fab fa-twitter"></a>
+                    {% endif %}
+                    {% if theme_config('instagram_url') %}
+                        <a href="{{ theme_config('instagram_url') }}" class="fab fa-instagram"></a>
+                    {% endif %}
+                    {% if theme_config('pinterest_url') %}
+                        <a href="{{ theme_config('pinterest_url') }}" class="fab fa-pinterest-p"></a>
+                    {% endif %}
+                </div><!-- /.mobile-nav__social -->
+            </div><!-- /.mobile-nav__top -->
+
+
+
+        </div>
+        <!-- /.mobile-nav__content -->
+    </div>
+    <!-- /.mobile-nav__wrapper -->
+
+    <!-- Search Popup -->
+    <div class="search-popup">
+        <div class="color-layer"></div>
+        <button class="close-search"><span class="far fa-times fa-fw"></span></button>
+        <form action="{{ url('search') }}" method="GET">
+            <div class="form-group">
+                <input type="search" placeholder="{{ __('Search Blogs') }}" required="" name="q" value="{{ input_get('q') }}">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </div>
+        </form>
+    </div>
+    <!-- End Search Popup -->
+
+    <a href="#" data-target="html" class="scroll-to-target scroll-to-top">
+        <span class="scroll-to-top__wrapper"><span class="scroll-to-top__inner"></span></span>
+        <span class="scroll-to-top__text">{{ __('Go Back Top') }}</span> 
+    </a>
+
+
+<script>
+    (function($) {
+        "use strict";
+        $(document).ready(function() {
+              // custom coursor
+            if ($(".custom-cursor").length) {
+
+              var cursor = document.querySelector('.custom-cursor__cursor');
+              var cursorinner = document.querySelector('.custom-cursor__cursor-two');
+              var a = document.querySelectorAll('a');
+
+              document.addEventListener('mousemove', function (e) {
+                var x = e.clientX;
+                var y = e.clientY;
+                cursor.style.transform = `translate3d(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%), 0)`
+              });
+
+              document.addEventListener('mousemove', function (e) {
+                var x = e.clientX;
+                var y = e.clientY;
+                cursorinner.style.left = x + 'px';
+                cursorinner.style.top = y + 'px';
+              });
+
+              document.addEventListener('mousedown', function () {
+                cursor.classList.add('click');
+                cursorinner.classList.add('custom-cursor__innerhover')
+              });
+
+              document.addEventListener('mouseup', function () {
+                cursor.classList.remove('click')
+                cursorinner.classList.remove('custom-cursor__innerhover')
+              });
+
+              a.forEach(item => {
+                item.addEventListener('mouseover', () => {
+                  cursor.classList.add('custom-cursor__hover');
+                });
+                item.addEventListener('mouseleave', () => {
+                  cursor.classList.remove('custom-cursor__hover');
+                });
+              })
+            }
+
+              function dynamicCurrentMenuClass(selector) {
+                let FileName = window.location.href.split("/").reverse()[0];
+
+                selector.find("li").each(function () {
+                  let anchor = $(this).find("a");
+                  if ($(anchor).attr("href") == FileName) {
+                    $(this).addClass("current");
+                  }
+                });
+                // if any li has .current elmnt add class
+                selector.children("li").each(function () {
+                  if ($(this).find(".current").length) {
+                    $(this).addClass("current");
+                  }
+                });
+                // if no file name return
+                if ("" == FileName) {
+                  selector.find("li").eq(0).addClass("current");
+                }
+              }
+
+              if ($(".main-menu__list").length) {
+                // dynamic current class
+                let mainNavUL = $(".main-menu__list");
+                dynamicCurrentMenuClass(mainNavUL);
+              }
+
+
+              if ($(".main-menu__list").length && $(".mobile-nav__container").length) {
+                let navContent = document.querySelector(".main-menu__list").outerHTML;
+                let mobileNavContainer = document.querySelector(".mobile-nav__container");
+                mobileNavContainer.innerHTML = navContent;
+              }
+              if ($(".sticky-header__content").length) {
+                let navContent = document.querySelector(".main-menu").innerHTML;
+                let mobileNavContainer = document.querySelector(".sticky-header__content");
+                mobileNavContainer.innerHTML = navContent;
+              }
+
+              if ($(".mobile-nav__container .main-menu__list").length) {
+                let dropdownAnchor = $(
+                  ".mobile-nav__container .main-menu__list .dropdown > a"
+                );
+                dropdownAnchor.each(function () {
+                  let self = $(this);
+                  let toggleBtn = document.createElement("BUTTON");
+                  toggleBtn.setAttribute("aria-label", "dropdown toggler");
+                  toggleBtn.innerHTML = "<i class='fa fa-angle-down'></i>";
+                  self.append(function () {
+                    return toggleBtn;
+                  });
+                  self.find("button").on("click", function (e) {
+                    e.preventDefault();
+                    let self = $(this);
+                    self.toggleClass("expanded");
+                    self.parent().toggleClass("expanded");
+                    self.parent().parent().children("ul").slideToggle();
+                  });
+                });
+              }
+
+              if ($(".mobile-nav__toggler").length) {
+                $(".mobile-nav__toggler").on("click", function (e) {
+                  e.preventDefault();
+                  $(".mobile-nav__wrapper").toggleClass("expanded");
+                  $("body").toggleClass("locked");
+                });
+              }
+
+              //Header Search
+              if ($('.searcher-toggler-box').length) {
+                $('.searcher-toggler-box').on('click', function () {
+                  $('body').addClass('search-active');
+                });
+                $('.close-search').on('click', function () {
+                  $('body').removeClass('search-active');
+                });
+
+                $('.search-popup .color-layer').on('click', function () {
+                  $('body').removeClass('search-active');
+                });
+              }
+
+              $('#newsletters-subscribers-form-footer').on('submit', function(e) { 
+                e.preventDefault();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                });
+
+                $.ajax({
+                    url: '{{ url('ajax/newsletters-subscribers') }}',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        if (response.status === true) {
+                            $('#newsletters-subscribers-success-message-footer').show();
+                            $('#newsletters-subscribers-success-message-footer').text(response?.data?.message || 'Your message has been sent successfully!');
+                            $('#newsletters-subscribers-form')[0].reset();
+                        } else {
+                            $('#newsletters-subscribers-error-message-footer').show();
+                            $('#newsletters-subscribers-error-message-footer').text(response?.data?.message || 'Something went wrong!');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        $('#newsletters-subscribers-error-message-footer').show();
+                        $('#newsletters-subscribers-error-message-footer').text(xhr.responseJSON?.message || 'An error occurred. Please try again.');
+                    }
+                });
+            });
+              
+        });
+    })(jQuery);
+</script>

@@ -1,0 +1,84 @@
+<section class="newsletter-one">
+    <div class="container">
+        <div class="newsletter-one__inner">
+            <div class="newsletter-one__shape-bg"
+                style="background-image: url({% if data.shape_bg %}{{ upload_url(data.shape_bg) }}{% else %}{{ asset('images/shapes/newsletter-one-shape-bg.png') }}{% endif %});">
+            </div>
+            <div class="newsletter-one__shape-1 float-bob-x">
+                {% if data.shape_1 %}
+                    <img src="{{ upload_url(data.shape_1) }}" alt="shape">
+                {% else %}
+                    <img src="{{ asset('images/shapes/newsletter-one-shape-1.png') }}" alt="shape">
+                {% endif %}
+            </div>
+            <div class="newsletter-one__shape-2"></div>
+            <div class="newsletter-one__shape-3"></div>
+            <div class="newsletter-one__img float-bob-y">
+                {% if data.newsletter_image %}
+                    <img src="{{ upload_url(data.newsletter_image) }}" alt="newsletter image">
+                {% else %}
+                    <img src="{{ asset('images/resources/newsletter-one-img-1.png') }}" alt="newsletter image">
+                {% endif %}
+            </div>
+            <h2 class="newsletter-one__title">{{ data.title_part1|default('Subscribe') }} <span>{{ data.title_part2|default('Newsletter') }}</span></h2>
+            <p class="newsletter-one__text">{{ data.description_line1|default('From personalized solutions to expert execution, we prioritize quality,') }} <br> {{ data.description_line2|default('reliability, and customer satisfaction') }}</p>
+            
+            {% if data.show_success_message %}
+                <div id="newsletter-success-message" class="alert alert-success" style="display: none;"></div>
+            {% endif %}
+            
+            {% if data.show_error_message %}
+                <div id="newsletter-error-message" class="alert alert-danger" style="display: none;"></div>
+            {% endif %}
+            
+            <form class="newsletter-one__contact-form">
+                <div class="newsletter-one__contact-input-box">
+                    <input type="email" placeholder="{{ data.placeholder|default('Enter email address') }}" name="email">
+                    <button type="submit" class="thm-btn">{{ data.button_text|default('Subscribe Now') }}<span class="icon-arrow-right"></span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script>
+(function() {
+    'use strict';
+    $(document).ready(function() {
+        $('.newsletter-one__contact-form').on('submit', function(e) {
+            e.preventDefault();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            });
+
+            $.ajax({
+                url: '{{ url('ajax/newsletters-subscribers') }}',
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function(response) {
+                    if (response.status === true) {
+                        {% if data.show_success_message %}
+                            $('#newsletter-success-message').show();
+                            $('#newsletter-success-message').text(response?.data?.message || 'Your subscription has been submitted successfully!');
+                        {% endif %}
+                        $('.newsletter-one__contact-form')[0].reset();
+                    } else {
+                        {% if data.show_error_message %}
+                            $('#newsletter-error-message').show();
+                            $('#newsletter-error-message').text(response?.data?.message || 'Something went wrong!');
+                        {% endif %}
+                    }
+                },
+                error: function(xhr, status, error) {
+                    {% if data.show_error_message %}
+                        $('#newsletter-error-message').show();
+                        $('#newsletter-error-message').text(xhr.responseJSON?.message || 'An error occurred. Please try again.');
+                    {% endif %}
+                }
+            });
+        });
+    });
+})();
+</script> 

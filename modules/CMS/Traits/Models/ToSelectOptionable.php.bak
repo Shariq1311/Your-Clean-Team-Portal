@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * Mojar - Laravel CMS for Your Project
+ *
+ * @package    mojar/cms
+ * @author     Mojar Team
+ * @link       https://mojar.com
+ * @license    GNU V2
+ */
+
+namespace MojarCMS\CMS\Traits\Models;
+
+trait ToSelectOptionable
+{
+    public function toSelectOptions()
+    {
+        //
+    }
+}

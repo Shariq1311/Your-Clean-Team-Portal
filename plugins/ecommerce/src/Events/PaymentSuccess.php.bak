@@ -1,0 +1,23 @@
+<?php
+/**
+ * JUZAWEB CMS - The Best CMS for Laravel Project
+ *
+ * @package    mojarcms/cms
+ * @author     MojarCMS Team <admin@mojarcms.com>
+ * @link       https://mojarcms.com
+ * @license    MIT
+ */
+
+namespace Mojahid\Ecommerce\Events;
+
+use Mojahid\Ecommerce\Models\Order;
+
+class PaymentSuccess
+{
+    public Order $order;
+
+    public function __construct(Order $order)
+    {
+        $this->order = $order;
+    }
+}

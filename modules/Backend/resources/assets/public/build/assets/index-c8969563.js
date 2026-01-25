@@ -1,0 +1,1 @@
+import{a as r,j as o}from"./app-77cf924b.js";import m from"./top-options-e34686fe.js";import{A as t}from"./admin-912921d0.js";import"./functions-a2877b27.js";import"./select-2bdc75e1.js";import"./react-select.esm-1bef7e07.js";function d(){return r(t,{children:[o(m,{}),o("div",{className:"row mt-3"})]})}export{d as default};

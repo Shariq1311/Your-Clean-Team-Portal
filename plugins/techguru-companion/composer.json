@@ -1,0 +1,28 @@
+{
+    "name": "mojahid/Your Clean Team-companion",
+    "type": "Your Clean Team-plugin",
+    "license": "MIT",
+    "description": "This plugin Developed For Maintain Your Clean Team Companion",
+    "extra": {
+        "Your Clean Team": {
+            "name": "Your Clean Team Companion",
+            "domain": "Your Clean Team",
+            "cms_min": "1.0.0",
+            "version": "1.0.0",
+            "providers": [
+                "Mojahid\\Your Clean TeamCompanion\\Providers\\Your Clean TeamCompanionServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Mojahid\\Your Clean TeamCompanion\\": "src/"
+        },
+        "files": [
+            "helpers/helpers.php"
+        ]
+    },
+    "require": {
+        "php": ">=8.0"
+    }
+}

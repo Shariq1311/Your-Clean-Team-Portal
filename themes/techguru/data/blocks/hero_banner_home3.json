@@ -1,0 +1,78 @@
+{
+    "label": "Hero Banner Home 3",
+    "description": "Simple hero banner with background image, title, button and video popup",
+    "form": [
+        {
+            "type": "image",
+            "name": "background_image",
+            "label": "Background Image",
+            "data": {
+                "value": "images/backgrounds/banner-one-bg.jpg"
+            }
+        },
+        {
+            "type": "image",
+            "name": "shape_bg",
+            "label": "Shape Background Image",
+            "data": {
+                "value": "images/shapes/banner-one-shape-bg.png"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_1",
+            "label": "Title Part 1",
+            "data": {
+                "value": "Expert IT Solutions to Elevate"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_2",
+            "label": "Title Part 2 (Highlighted)",
+            "data": {
+                "value": "Your Enterprise"
+            }
+        },
+        {
+            "type": "text",
+            "name": "button_text",
+            "label": "Button Text",
+            "data": {
+                "value": "Get Started"
+            }
+        },
+        {
+            "type": "text",
+            "name": "button_url",
+            "label": "Button URL",
+            "data": {
+                "value": "contact.html"
+            }
+        },
+        {
+            "type": "image",
+            "name": "banner_image",
+            "label": "Banner Image",
+            "data": {
+                "value": "images/resources/banner-one-img-1.jpg"
+            }
+        },
+        {
+            "type": "text",
+            "name": "video_url",
+            "label": "Video URL",
+            "data": {
+                "value": "https://www.youtube.com/watch?v=Get7rqXYrbQ"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "show_video_button",
+            "label": "Show Video Button",
+            "data": {
+                "value": 1
+            }
+        }
+    ]
+}

@@ -1,0 +1,197 @@
+{% extends 'cms::layouts.frontend' %}
+
+{% block content %}
+    {% include 'theme::components.breadcrumb' with {
+        title: 'Sign Up', 
+        description: 'Learn more about our company and mission',        
+        items: [
+            {'label': 'Home', 'url': '/'},
+            {'label': 'Sign Up'}
+        ]
+    } %}
+
+    <section class="sign-up-one">
+            <div class="container">
+                <div class="sign-up-one__form login-one__form">
+                    <div class="inner-title text-center">
+                        <h2>{{ __('Sign Up') }}</h2>
+                    </div>
+                    {% if errors.any %}
+                        <div class="alert alert-danger">
+                            <ul class="list-unstyled">
+                                {% for error in errors.all %}
+                                    <li>
+                                        <div class="alert-title">
+                                            <i class="fas fa-exclamation-circle me-2"></i>
+                                            {{ error }}
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                    <form action="" method="post" id="sign-up-one__form" name="sign-up-one_form">
+                        {{ csrf_field() }}
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="form-group">
+                                    <div class="input-box">
+                                        <input type="text" name="name" id="formName" placeholder="{{ __('Name...') }}"
+                                            required="" value="{{ old('name') }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-12">
+                                <div class="form-group">
+                                    <div class="input-box">
+                                        <input type="email" name="email" id="formEmail" placeholder="{{ __('Email...') }}"
+                                            required="" value="{{ old('email') }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-12">
+                                <div class="form-group">
+                                    <div class="input-box">
+                                        <input type="text" name="phone" id="formPhone" placeholder="{{ __('Phone...') }}" value="{{ old('phone') }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-12">
+                                <div class="form-group">
+                                    <div class="input-box">
+                                        <input type="password" name="password" id="formPassword"
+                                            placeholder="{{ __('Password...') }}" required="" value="{{ old('password') }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-12">
+                                <div class="form-group">
+                                    <div class="input-box">
+                                        <input type="password" name="password_confirmation" id="formPasswordConfirm"
+                                            placeholder="{{ __('Password Confirmation...') }}" required="" value="{{ old('password_confirmation') }}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="vendor_system mb-3">
+                                <div class="remember-forget">
+                                    <div class="col-xl-6">
+                                        <div class="checked-box1">
+                                            <input type="checkbox" name="is_vendor" id="isVendor" value="1">
+                                            <label for="isVendor">
+                                                <span></span>
+                                                {{ __('I am vendor') }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="checked-box1">
+                                            <input type="checkbox" name="is_customer" id="isCustomer" value="1" checked>
+                                            <label for="isCustomer">
+                                                <span></span>
+                                                {{ __('I am customer') }}
+                                            </label>    
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Vendor Specific Form Fields -->
+                            <div id="vendorFields" class="vendor-fields" style="display: none;">
+                                <div class="col-xl-12">
+                                    <div class="form-group">
+                                        <div class="input-box">
+                                            <input type="text" name="shop_name" id="formShopName" placeholder="{{ __('Shop Name...') }}"
+                                                value="{{ old('shop_name') }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12">
+                                    <div class="form-group">
+                                        <div class="input-box">
+                                            <input type="text" name="business_phone" id="formBusinessPhone" placeholder="{{ __('Business Phone...') }}"
+                                                value="{{ old('business_phone') }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12">
+                                    <div class="form-group">
+                                        <div class="input-box">
+                                            <input type="text" name="business_address" id="formBusinessAddress" placeholder="{{ __('Business Address...') }}"
+                                                value="{{ old('business_address') }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-12">
+                                <div class="form-group">
+                                    <button class="thm-btn" type="submit" data-loading-text="{{ __('Please wait...') }}">
+                                        {{ __('Sign Up') }}
+                                        <span class="icon-right-arrow"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="create-account text-center">
+                            <p>{{ __('Already have an account?') }} <a href="{{ url('login') }}">{{ __('Login Here') }}</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    <script>
+    (function($) {
+        "use strict";
+        $(document).ready(function() {
+            // Handle vendor/customer checkbox logic
+            $('#isVendor').on('change', function() {
+                if ($(this).is(':checked')) {
+                    $('#isCustomer').prop('checked', false);
+                    $('#vendorFields').slideDown(300);
+                    // Make vendor fields required
+                    $('#formShopName').prop('required', true);
+                    $('#formBusinessPhone').prop('required', true);
+                    $('#formBusinessAddress').prop('required', true);
+                    $('#formBusinessCategory').prop('required', true);
+                } else {
+                    $('#vendorFields').slideUp(300);
+                    // Remove required attribute from vendor fields
+                    $('#formShopName').prop('required', false);
+                    $('#formBusinessPhone').prop('required', false);
+                    $('#formBusinessAddress').prop('required', false);
+                    $('#formBusinessCategory').prop('required', false);
+                }
+            });
+            
+            $('#isCustomer').on('change', function() {
+                if ($(this).is(':checked')) {
+                    $('#isVendor').prop('checked', false);
+                    $('#vendorFields').slideUp(300);
+                    // Remove required attribute from vendor fields
+                    $('#formShopName').prop('required', false);
+                    $('#formBusinessPhone').prop('required', false);
+                    $('#formBusinessAddress').prop('required', false);
+                    $('#formBusinessCategory').prop('required', false);
+                }
+            });
+
+            // Ensure at least one checkbox is always selected
+            $('#isVendor, #isCustomer').on('change', function() {
+                if (!$('#isVendor').is(':checked') && !$('#isCustomer').is(':checked')) {
+                    $('#isCustomer').prop('checked', true);
+                }
+            });
+
+            // Check if vendor was previously selected (for form validation errors)
+            if ($('#isVendor').is(':checked')) {
+                $('#vendorFields').show();
+                $('#formShopName').prop('required', true);
+                $('#formBusinessPhone').prop('required', true);
+                $('#formBusinessAddress').prop('required', true);
+                $('#formBusinessCategory').prop('required', true);
+            }
+        });
+    })(jQuery);
+    </script>
+{% endblock %}

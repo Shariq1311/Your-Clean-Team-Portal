@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * Mojar - Laravel CMS for Your Project
+ *
+ * @package    mojar/cms
+ * @author     Mojar Team
+ * @link       https://mojar.com/cms
+ * @license    GNU V2
+ */
+
+namespace MojarCMS\Backend\Http\Resources;
+
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class ResourceResource extends JsonResource
+{
+    public function toArray($request)
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'type' => $this->type,
+            'thumbnail' => $this->thumbnail,
+            'description' => $this->description,
+            'metas' => $this->json_metas,
+            'created_at' => mc_date_format($this->created_at),
+            'updated_at' => mc_date_format($this->updated_at),
+        ];
+    }
+}

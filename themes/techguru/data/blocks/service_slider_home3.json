@@ -1,0 +1,339 @@
+{
+    "label": "Service Slider Home 3",
+    "description": "Services carousel with icon, title, text and features list",
+    "form": [
+        {
+            "type": "text",
+            "name": "section_tagline",
+            "label": "Section Tagline",
+            "data": {
+                "value": "Our Services"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_1",
+            "label": "Section Title Part 1",
+            "data": {
+                "value": "Reliable Services"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_2",
+            "label": "Section Title Part 2 (Highlighted)",
+            "data": {
+                "value": "Crafted"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_3",
+            "label": "Section Title Part 3 (Highlighted)",
+            "data": {
+                "value": "to Exceed"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_4",
+            "label": "Section Title Part 4",
+            "data": {
+                "value": "Your Expectations"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "use_services_post_type",
+            "label": "Use Services Post Type",
+            "description": "Load services from Services post type instead of manual configuration",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "taxonomy",
+            "name": "services_category",
+            "label": "Services Category Filter",
+            "description": "Filter services by category (when using services post type)",
+            "data": {
+                "post_type": "services",
+                "taxonomy": "categories"
+            }
+        },
+        {
+            "type": "text",
+            "name": "items_limit",
+            "label": "Number of Services",
+            "description": "Maximum number of services to display",
+            "data": {
+                "value": "5"
+            }
+        },
+        {
+            "type": "text",
+            "name": "service_ids",
+            "label": "Service IDs",
+            "description": "Enter specific service IDs to display (comma-separated)",
+            "data": {
+                "value": ""
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "custom_services",
+            "label": "Custom Services (Manual Configuration)",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "icon",
+                    "label": "Service Icon Class",
+                    "description": "Icon class name (e.g., icon-technical-support, icon-idea)",
+                    "data": {
+                        "value": "icon-technical-support"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "title",
+                    "label": "Service Title"
+                },
+                {
+                    "type": "text",
+                    "name": "url",
+                    "label": "Service URL"
+                },
+                {
+                    "type": "textarea",
+                    "name": "description",
+                    "label": "Service Description"
+                },
+                {
+                    "type": "repeater",
+                    "name": "features",
+                    "label": "Service Features",
+                    "fields": [
+                        {
+                            "type": "text",
+                            "name": "text",
+                            "label": "Feature Text"
+                        }
+                    ],
+                    "options": {
+                        "min_items": 1,
+                        "max_items": 5,
+                        "add_button_text": "Add Feature",
+                        "remove_button_text": "Remove Feature",
+                        "value": [
+                            {
+                                "text": "Web Development"
+                            },
+                            {
+                                "text": "App Development"
+                            },
+                            {
+                                "text": "Graphics Design"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "button_text",
+                    "label": "Button Text",
+                    "data": {
+                        "value": "Read More"
+                    }
+                }
+            ],
+            "options": {
+                "min_items": 0,
+                "max_items": 10,
+                "add_button_text": "Add Service",
+                "remove_button_text": "Remove Service",
+                "value": [
+                    {
+                        "icon": "icon-technical-support",
+                        "title": "All Kind Of <br> IT Services",
+                        "url": "advanced-technology.html",
+                        "description": "Comprehensive IT management, including network monitoring, data backup",
+                        "features": [
+                            {
+                                "text": "Web Development"
+                            },
+                            {
+                                "text": "App Development"
+                            },
+                            {
+                                "text": "Graphics Design"
+                            }
+                        ],
+                        "button_text": "Read More"
+                    },
+                    {
+                        "icon": "icon-idea",
+                        "title": "Cybersecurity <br> Solutions",
+                        "url": "data-protection-privacy.html",
+                        "description": "Comprehensive IT management, including network monitoring, data backup",
+                        "features": [
+                            {
+                                "text": "Web Development"
+                            },
+                            {
+                                "text": "App Development"
+                            },
+                            {
+                                "text": "Graphics Design"
+                            }
+                        ],
+                        "button_text": "Read More"
+                    },
+                    {
+                        "icon": "icon-strategy",
+                        "title": "Software Development <br> & Integration",
+                        "url": "threat-detection-prevention.html",
+                        "description": "Comprehensive IT management, including network monitoring, data backup",
+                        "features": [
+                            {
+                                "text": "Web Development"
+                            },
+                            {
+                                "text": "App Development"
+                            },
+                            {
+                                "text": "Graphics Design"
+                            }
+                        ],
+                        "button_text": "Read More"
+                    },
+                    {
+                        "icon": "icon-earning",
+                        "title": "Cloud Solutions <br> Provider",
+                        "url": "cloud-managed-services.html",
+                        "description": "Comprehensive IT management, including network monitoring, data backup",
+                        "features": [
+                            {
+                                "text": "Web Development"
+                            },
+                            {
+                                "text": "App Development"
+                            },
+                            {
+                                "text": "Graphics Design"
+                            }
+                        ],
+                        "button_text": "Read More"
+                    },
+                    {
+                        "icon": "icon-transparency",
+                        "title": "Data Analytics <br> Consulting",
+                        "url": "backup-recovery.html",
+                        "description": "Comprehensive IT management, including network monitoring, data backup",
+                        "features": [
+                            {
+                                "text": "Web Development"
+                            },
+                            {
+                                "text": "App Development"
+                            },
+                            {
+                                "text": "Graphics Design"
+                            }
+                        ],
+                        "button_text": "Read More"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "description": "Enable animation effects for the section title",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_items",
+            "label": "Items Per Slide (Desktop)",
+            "description": "Number of items to show per slide on desktop",
+            "data": {
+                "value": "3"
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_items_tablet",
+            "label": "Items Per Slide (Tablet)",
+            "description": "Number of items to show per slide on tablets",
+            "data": {
+                "value": "2"
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_items_mobile",
+            "label": "Items Per Slide (Mobile)",
+            "description": "Number of items to show per slide on mobile",
+            "data": {
+                "value": "1"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_autoplay",
+            "label": "Autoplay",
+            "description": "Enable autoplay for carousel",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_autoplay_timeout",
+            "label": "Autoplay Timeout (ms)",
+            "description": "Autoplay timeout in milliseconds",
+            "data": {
+                "value": "5000"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_loop",
+            "label": "Loop",
+            "description": "Enable loop for carousel",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_nav",
+            "label": "Show Navigation",
+            "description": "Show navigation arrows",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_dots",
+            "label": "Show Dots",
+            "description": "Show pagination dots",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_margin",
+            "label": "Item Margin",
+            "description": "Margin between carousel items in pixels",
+            "data": {
+                "value": "30"
+            }
+        }
+    ]
+}

@@ -1,0 +1,220 @@
+{
+    "label": "Event Home 1",
+    "description": "Events section with video, countdown timers and booking options",
+    "form": [
+        {
+            "type": "text",
+            "name": "section_tagline",
+            "label": "Section Tagline",
+            "data": {
+                "value": "Upcoming Events"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_1",
+            "label": "Section Title Part 1",
+            "data": {
+                "value": "Exciting Events"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_2",
+            "label": "Section Title Part 2 (First Span)",
+            "data": {
+                "value": "on the"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_3",
+            "label": "Section Title Part 3 (Second Span)",
+            "data": {
+                "value": "Horizon"
+            }
+        },
+        {
+            "type": "text",
+            "name": "contact_btn_text",
+            "label": "Contact Button Text",
+            "data": {
+                "value": "Contact Us"
+            }
+        },
+        {
+            "type": "text",
+            "name": "contact_btn_url",
+            "label": "Contact Button URL",
+            "data": {
+                "value": "contact.html"
+            }
+        },
+        {
+            "type": "image",
+            "name": "shape_1",
+            "label": "Shape Image 1",
+            "data": {
+                "value": "images/shapes/event-one-shape-1.png"
+            }
+        },
+        {
+            "type": "image",
+            "name": "shape_2",
+            "label": "Shape Image 2",
+            "data": {
+                "value": "images/shapes/event-one-shape-2.png"
+            }
+        },
+        {
+            "type": "image",
+            "name": "event_image",
+            "label": "Event Main Image",
+            "data": {
+                "value": "images/resources/event-one-img-1.jpg"
+            }
+        },
+        {
+            "type": "text",
+            "name": "video_url",
+            "label": "Video URL",
+            "description": "YouTube or Vimeo video URL for the popup",
+            "data": {
+                "value": "https://www.youtube.com/watch?v=Get7rqXYrbQ"
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "events",
+            "label": "Events",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "title",
+                    "label": "Event Title"
+                },
+                {
+                    "type": "textarea",
+                    "name": "description",
+                    "label": "Event Description"
+                },
+                {
+                    "type": "text",
+                    "name": "countdown_date",
+                    "label": "Countdown Date",
+                    "description": "Format: YYYY/MM/DD (e.g. 2025/05/28)",
+                    "data": {
+                        "value": "2025/05/28"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "location",
+                    "label": "Event Location"
+                },
+                {
+                    "type": "text",
+                    "name": "date",
+                    "label": "Event Date Text",
+                    "description": "Displayed date text (e.g. March 18, 2025)"
+                },
+                {
+                    "type": "text",
+                    "name": "book_btn_text",
+                    "label": "Book Button Text",
+                    "data": {
+                        "value": "Book Seat"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "book_btn_url",
+                    "label": "Book Button URL",
+                    "data": {
+                        "value": "contact.html"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "animation_delay",
+                    "label": "Animation Delay (ms)",
+                    "description": "Delay for the animation in milliseconds",
+                    "data": {
+                        "value": "100"
+                    }
+                },
+                {
+                    "type": "select",
+                    "name": "animation_direction",
+                    "label": "Animation Direction",
+                    "data": {
+                        "options": {
+                            "fadeInLeft": "Fade In Left",
+                            "fadeInRight": "Fade In Right"
+                        },
+                        "value": "fadeInLeft"
+                    }
+                }
+            ],
+            "options": {
+                "min_items": 1,
+                "max_items": 10,
+                "add_button_text": "Add Event",
+                "remove_button_text": "Remove Event",
+                "value": [
+                    {
+                        "title": "Innovation Meets",
+                        "description": "It is a long established fact that a reader will",
+                        "countdown_date": "2025/05/28",
+                        "location": "1629 N. Dixie Avenue",
+                        "date": "March 18, 2025",
+                        "book_btn_text": "Book Seat",
+                        "book_btn_url": "contact.html",
+                        "animation_delay": "100",
+                        "animation_direction": "fadeInLeft"
+                    },
+                    {
+                        "title": "Unlock Your Potential",
+                        "description": "It is a long established fact that a reader will",
+                        "countdown_date": "2025/07/28",
+                        "location": "1629 N. Dixie Avenue",
+                        "date": "March 25, 2025",
+                        "book_btn_text": "Book Seat",
+                        "book_btn_url": "contact.html",
+                        "animation_delay": "200",
+                        "animation_direction": "fadeInRight"
+                    },
+                    {
+                        "title": "Tech Talks Live",
+                        "description": "It is a long established fact that a reader will",
+                        "countdown_date": "2025/09/28",
+                        "location": "1629 N. Dixie Avenue",
+                        "date": "March 30, 2025",
+                        "book_btn_text": "Book Seat",
+                        "book_btn_url": "contact.html",
+                        "animation_delay": "300",
+                        "animation_direction": "fadeInLeft"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "description": "Enable animation effects",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_video_popup",
+            "label": "Enable Video Popup",
+            "description": "Enable magnific popup for video",
+            "data": {
+                "value": 1
+            }
+        }
+    ]
+}

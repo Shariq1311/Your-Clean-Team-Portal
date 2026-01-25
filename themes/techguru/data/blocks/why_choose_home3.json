@@ -1,0 +1,126 @@
+{
+    "label": "Why Choose Home 3",
+    "description": "Why choose us section with image and feature points",
+    "form": [
+        {
+            "type": "image",
+            "name": "shape_1",
+            "label": "Shape 1 Image",
+            "data": {
+                "value": "images/shapes/why-choose-two-shape-1.png"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_tagline",
+            "label": "Section Tagline",
+            "data": {
+                "value": "Why Chooses Us"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_1",
+            "label": "Title Part 1",
+            "data": {
+                "value": "Elevate Growth with Our IT Solutions"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_2",
+            "label": "Title Part 2 (Highlighted)",
+            "data": {
+                "value": "for Success"
+            }
+        },
+        {
+            "type": "textarea",
+            "name": "description",
+            "label": "Description",
+            "data": {
+                "value": "Innovating and empowering businesses with tailored solutions for success and growth. Innovating and empowering"
+            }
+        },
+        {
+            "type": "image",
+            "name": "main_image",
+            "label": "Main Image",
+            "data": {
+                "value": "images/resources/why-choose-two-img-1.png"
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "features",
+            "label": "Features",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "icon",
+                    "label": "Icon Class",
+                    "data": {
+                        "value": "icon-earning"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "title",
+                    "label": "Feature Title"
+                },
+                {
+                    "type": "textarea",
+                    "name": "text",
+                    "label": "Feature Text"
+                }
+            ],
+            "options": {
+                "min_items": 1,
+                "max_items": 5,
+                "add_button_text": "Add Feature",
+                "remove_button_text": "Remove Feature",
+                "value": [
+                    {
+                        "icon": "icon-earning",
+                        "title": "Industry Experience",
+                        "text": "Innovating and empowering businesses with tailored solutions for success and growth. Innovating and empowering"
+                    },
+                    {
+                        "icon": "icon-customer-service-headset",
+                        "title": "24/7 Customer Support",
+                        "text": "Innovating and empowering businesses with tailored solutions for success and growth. Innovating and empowering"
+                    },
+                    {
+                        "icon": "icon-quality",
+                        "title": "Trust & Reliability",
+                        "text": "Innovating and empowering businesses with tailored solutions for success and growth. Innovating and empowering"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "animation_delay",
+            "label": "Animation Delay (ms)",
+            "data": {
+                "value": "100"
+            }
+        },
+        {
+            "type": "text",
+            "name": "animation_duration",
+            "label": "Animation Duration (ms)",
+            "data": {
+                "value": "2500"
+            }
+        }
+    ]
+}

@@ -1,0 +1,202 @@
+<!--FAQ Page Start-->
+<section class="faq-two faq-page pt_{{ data.padding_top|default(120) }} xs_pt_{{ data.mobile_padding_top|default(80) }} pb_{{ data.padding_bottom|default(120) }} xs_pb_{{ data.mobile_padding_bottom|default(80) }}">
+    <div class="container">
+        <div class="section-title text-center sec-title-animation animation-style1 {% if data.enable_animation %}wow {{ data.animation_type|default('fadeInUp') }}{% endif %}" {% if data.enable_animation %}data-wow-duration="1s"{% endif %}>
+            <div class="section-title__tagline-box">
+                <div class="section-title__tagline-shape-1"></div>
+                <span class="section-title__tagline">{{ data.section_tagline|default('FAQS') }}</span>
+                <div class="section-title__tagline-shape-2"></div>
+            </div>
+            <h2 class="section-title__title title-animation">{{ Your Clean Team_format_text(data.section_title|default('Get answers to the most common \\ questions about our products, services, \\ and policies.')) }}</h2>
+        </div>
+        <div class="faq-two__right {% if data.enable_animation %}wow {{ data.animation_type|default('fadeInUp') }}{% endif %}" {% if data.enable_animation %}data-wow-duration="1s" data-wow-delay="0.3s"{% endif %}>
+            <div class="accrodion-grp faq-one-accrodion" data-grp-name="faq-one-accrodion">
+                {% if data.use_faqs_post_type %}
+                    {% set ids_array = data.faq_ids ? data.faq_ids|split(',') : [] %}
+                    {% set faqs = get_posts('faqs', {
+                        'limit': data.items_limit|default(10),
+                        'taxonomy': data.faqs_category,
+                        'ids': ids_array,
+                        'orderby': data.orderby|default('date'),
+                        'order': data.order|default('DESC')
+                    }) %}
+
+                    {% if faqs %}
+                        {% for faq in faqs %}
+                            <div class="accrodion {% if faq.metas.is_active == "true" %}active{% endif %}">
+                                <div class="accrodion-title">
+                                    <h4>{{ faq.title }}</h4>
+                                </div>
+                                <div class="accrodion-content">
+                                    <div class="inner">
+                                        {{ faq.description|raw }}
+                                    </div><!-- /.inner -->
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% else %}
+                    {% if data.custom_faqs %}
+                        {% for faq in data.custom_faqs %}
+                            <div class="accrodion {% if faq.is_active %}active{% endif %}">
+                                <div class="accrodion-title">
+                                    <h4>{{ faq.question }}</h4>
+                                </div>
+                                <div class="accrodion-content">
+                                    <div class="inner">
+                                        <p class="accrodion-content__text-1">{{ faq.answer_1 }}</p>
+                                        {% if faq.answer_2 %}
+                                            <p class="accrodion-content__text-2">{{ faq.answer_2 }}</p>
+                                        {% endif %}
+                                    </div><!-- /.inner -->
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <!-- Default FAQs -->
+                        <div class="accrodion">
+                            <div class="accrodion-title">
+                                <h4>{{ __('What services does your IT consultancy agency provide?') }}</h4>
+                            </div>
+                            <div class="accrodion-content">
+                                <div class="inner">
+                                    <p class="accrodion-content__text-1">{{ __('We offer a wide range of IT consulting services, including software development, cloud computing solutions, cybersecurity, IT infrastructure management, and digital transformation strategies tailored to your business needs.') }}</p>
+                                    <p class="accrodion-content__text-2">{{ __('Our IT consulting services help businesses improve efficiency, enhance security, reduce operational costs, and stay ahead of technology trends. We provide expert guidance to optimize your IT infrastructure and implement innovative solutions.') }}</p>
+                                </div><!-- /.inner -->
+                            </div>
+                        </div>
+                        <div class="accrodion active">
+                            <div class="accrodion-title">
+                                <h4>{{ __('How can IT consulting benefit my business?') }}</h4>
+                            </div>
+                            <div class="accrodion-content">
+                                <div class="inner">
+                                    <p class="accrodion-content__text-1">{{ __('We offer a wide range of IT consulting services, including software development, cloud computing solutions, cybersecurity, IT infrastructure management, and digital transformation strategies tailored to your business needs.') }}</p>
+                                    <p class="accrodion-content__text-2">{{ __('Our IT consulting services help businesses improve efficiency, enhance security, reduce operational costs, and stay ahead of technology trends. We provide expert guidance to optimize your IT infrastructure and implement innovative solutions.') }}</p>
+                                </div><!-- /.inner -->
+                            </div>
+                        </div>
+                        <div class="accrodion">
+                            <div class="accrodion-title">
+                                <h4>{{ __('Do you offer customized IT solutions?') }}</h4>
+                            </div>
+                            <div class="accrodion-content">
+                                <div class="inner">
+                                    <p class="accrodion-content__text-1">{{ __('We offer a wide range of IT consulting services, including software development, cloud computing solutions, cybersecurity, IT infrastructure management, and digital transformation strategies tailored to your business needs.') }}</p>
+                                    <p class="accrodion-content__text-2">{{ __('Our IT consulting services help businesses improve efficiency, enhance security, reduce operational costs, and stay ahead of technology trends. We provide expert guidance to optimize your IT infrastructure and implement innovative solutions.') }}</p>
+                                </div><!-- /.inner -->
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+<!--FAQ Page End-->
+
+{% if data.show_cta_section %}
+<!--CTA Two Start-->
+<section class="cta-two">
+    <div class="cta-two__bg-color">
+        <div class="cta-two__shape-1 img-bounce">
+            {% if data.cta_shape_1 %}
+                <img src="{{ upload_url(data.cta_shape_1) }}" alt="">
+            {% else %}
+                <img src="{{ asset('images/shapes/cta-two-shape-1.png') }}" alt="">
+            {% endif %}
+        </div>
+        <div class="cta-two__shape-2 float-bob-y">
+            {% if data.cta_shape_2 %}
+                <img src="{{ upload_url(data.cta_shape_2) }}" alt="">
+            {% else %}
+                <img src="{{ asset('images/shapes/cta-two-shape-2.png') }}" alt="">
+            {% endif %}
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-7 col-lg-7">
+                <div class="cta-two__left {% if data.enable_animation %}wow {{ data.animation_type|default('fadeInUp') }}{% endif %}" {% if data.enable_animation %}data-wow-duration="1s"{% endif %}>
+                    <div class="section-title text-left sec-title-animation animation-style2">
+                        <div class="section-title__tagline-box">
+                            <div class="section-title__tagline-shape-1"></div>
+                            <span class="section-title__tagline">{{ data.cta_tagline|default('Get In Touch') }}</span>
+                            <div class="section-title__tagline-shape-2"></div>
+                        </div>
+                        <h2 class="section-title__title title-animation">{{ data.cta_title|default('If you have any questions,<br> please contact us.')|raw }}</h2>
+                    </div>
+                    <div class="cta-two__btn-box">
+                        <a href="{{ data.cta_button_url|default('#') }}" class="thm-btn">{{ data.cta_button_text|default('Get in Touch') }}<span class="icon-right-arrow"></span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-5 col-lg-5">
+                <div class="cta-two__right {% if data.enable_animation %}wow slideInRight{% endif %}" {% if data.enable_animation %}data-wow-delay="100ms" data-wow-duration="2500ms"{% endif %}>
+                    <h3 class="cta-two__title">{{ data.quick_support_title|default('Quick Support') }}</h3>
+                    <p class="cta-two__text">{{ data.quick_support_text|default('Get Instant and Reliable Support Anytime, Anywhere with Ease') }}</p>
+                    <ul class="cta-two__list list-unstyled">
+                        <li>
+                            <div class="icon">
+                                <span class="icon-mail"></span>
+                            </div>
+                            <div class="content">
+                                <h4>{{ data.email_title|default('Email Us') }}</h4>
+                                <p><a href="mailto:{{ data.email_1|default('info@domain.com') }}">{{ data.email_1|default('info@domain.com') }}</a></p>
+                                <p><a href="mailto:{{ data.email_2|default('support@domain.com') }}">{{ data.email_2|default('support@domain.com') }}</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon">
+                                <span class="icon-phone-call"></span>
+                            </div>
+                            <div class="content">
+                                <h4>{{ data.contact_title|default('Contact') }}</h4>
+                                <p>{{ __('Tel:') }} <a href="tel:{{ data.phone_tel|replace({' ': '', '(': '', ')': '', '-': ''})|default('1200456789000') }}">{{ data.phone_tel|default('+12 (00) 456 7890 00') }}</a></p>
+                                <p>{{ __('Mob:') }} <a href="tel:{{ data.phone_mob|replace({' ': '', '(': '', ')': '', '-': ''})|default('9900567780') }}">{{ data.phone_mob|default('+99 (00) 567 780') }}</a></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--CTA Two End-->
+{% endif %}
+
+<script>
+    (function($) {
+        "use strict";
+        $(document).ready(function() {
+            if ($(".faq-one-accrodion").length) {
+                var accrodionGrp = $(".accrodion-grp");
+                accrodionGrp.each(function () {
+                var accrodionName = $(this).data("grp-name");
+                var Self = $(this);
+                var accordion = Self.find(".accrodion");
+                Self.addClass(accrodionName);
+                Self.find(".accrodion .accrodion-content").hide();
+                Self.find(".accrodion.active").find(".accrodion-content").show();
+                accordion.each(function () {
+                    $(this)
+                    .find(".accrodion-title")
+                    .on("click", function () {
+                        if ($(this).parent().hasClass("active") === false) {
+                        $(".accrodion-grp." + accrodionName)
+                            .find(".accrodion")
+                            .removeClass("active");
+                        $(".accrodion-grp." + accrodionName)
+                            .find(".accrodion")
+                            .find(".accrodion-content")
+                            .slideUp();
+                        $(this).parent().addClass("active");
+                        $(this).parent().find(".accrodion-content").slideDown();
+                        }
+                    });
+                });
+                });
+            }
+        });
+    })(jQuery);
+</script> 

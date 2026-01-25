@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * Mojar - Laravel CMS for Your Project
+ *
+ * @package    mojar/cms
+ * @author     Mojar Team
+ * @link       https://mojar.com/cms
+ * @license    GNU V2
+ */
+
+namespace MojarCMS\Backend\Events;
+
+use MojarCMS\Backend\Models\Post;
+
+class PostViewed
+{
+    public $post;
+
+    public function __construct(Post $post)
+    {
+        $this->post = $post;
+    }
+}

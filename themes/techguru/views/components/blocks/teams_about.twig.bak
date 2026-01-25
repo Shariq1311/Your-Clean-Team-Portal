@@ -1,0 +1,198 @@
+<!--Teams About Section Start-->
+<section class="team-two">
+    <div class="team-two__bg-shape float-bob-y"
+        style="background-image: url({{ upload_url(data.background_shape) }});">
+    </div>
+    <div class="team-two__shape-1"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-5">
+                <div class="team-two__left">
+                    <div class="section-title text-left sec-title-animation animation-style2">
+                        <div class="section-title__tagline-box">
+                            <div class="section-title__tagline-shape-1"></div>
+                            <span class="section-title__tagline">{{ data.section_tagline|default('Our Members') }}</span>
+                            <div class="section-title__tagline-shape-2"></div>
+                        </div>
+                        <h2 class="section-title__title title-animation">{{ data.section_title_1|default('Meet Our Team.') }} <span>{{ data.section_title_2|default('Get to') }}
+                        </span><br><span>{{ data.section_title_3|default('Know the Talented') }}</span>
+                        {{ data.section_title_4|default('Minds Behind Our Team') }}</h2>
+                    </div>
+                    <p class="team-two__text">{{ techguru_format_text(data.description|default('Our dedicated team combines expertise, creativity, and passion to deliver exceptional results and ensure your satisfaction every step of the way.')) }}</p>   
+                </div>
+            </div>
+            <div class="col-xl-7">
+                <div class="team-two__right">
+                    <div class="team-two__carousel owl-theme owl-carousel">
+                        {% if data.use_teams_post_type %}
+                            {% set ids_array = data.team_members_ids ? data.team_members_ids|split(',') : [] %}
+                            {% set team_members = get_posts('teams', {
+                                'limit': data.items_limit|default(6),
+                                'taxonomy': data.teams_category,
+                                'ids': ids_array
+                            }) %}
+                            
+                            {% if team_members %}
+                                {% for member in team_members %}
+                                    <!--Team Two Single Start-->
+                                    <div class="item">
+                                        <div class="team-two__single">
+                                            <div class="team-two__img-box">
+                                                <div class="team-two__img">
+                                                    <img src="{{ upload_url(member.thumbnail) }}" alt="{{ member.title }}">
+                                                </div>
+                                                <div class="team-two__social">
+                                                    {% if member.metas.facebook %}
+                                                    <a href="{{ member.metas.facebook }}"><span class="icon-facebook"></span></a>
+                                                    {% endif %}
+                                                    {% if member.metas.dribbble %}
+                                                    <a href="{{ member.metas.dribbble }}"><span class="icon-dribble"></span></a>
+                                                    {% endif %}
+                                                    {% if member.metas.linkedin %}
+                                                    <a href="{{ member.metas.linkedin }}"><span class="icon-linkedin"></span></a>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="team-two__title-box">
+                                                    <h3><a href="{{ member.url }}">{{ member.title }}</a></h3>
+                                                    <p>{{ member.metas.position|default('Team Member') }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Team Two Single End-->
+                                {% endfor %}
+                            {% endif %}
+                        {% else %}
+                            {% if data.team_members %}
+                                {% for member in data.team_members %}
+                                    <!--Team Two Single Start-->
+                                    <div class="item">
+                                        <div class="team-two__single">
+                                            <div class="team-two__img-box">
+                                                <div class="team-two__img">
+                                                    <img src="{{ upload_url(member.image) }}" alt="{{ member.name }}">
+                                                </div>
+                                                <div class="team-two__social">
+                                                    {% if member.facebook %}
+                                                    <a href="{{ member.facebook }}"><span class="icon-facebook"></span></a>
+                                                    {% endif %}
+                                                    {% if member.dribbble %}
+                                                    <a href="{{ member.dribbble }}"><span class="icon-dribble"></span></a>
+                                                    {% endif %}
+                                                    {% if member.linkedin %}
+                                                    <a href="{{ member.linkedin }}"><span class="icon-linkedin"></span></a>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="team-two__title-box">
+                                                    <h3><a href="{{ member.url|default('#') }}">{{ member.name }}</a></h3>
+                                                    <p>{{ member.position }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Team Two Single End-->
+                                {% endfor %}
+                            {% else %}
+                                <!--Team Two Single Start-->
+                                <div class="item">
+                                    <div class="team-two__single">
+                                        <div class="team-two__img-box">
+                                            <div class="team-two__img">
+                                                <img src="assets/images/team/team-2-1.jpg" alt="">
+                                            </div>
+                                            <div class="team-two__social">
+                                                <a href="#"><span class="icon-facebook"></span></a>
+                                                <a href="#"><span class="icon-dribble"></span></a>
+                                                <a href="#"><span class="icon-linkedin"></span></a>
+                                            </div>
+                                            <div class="team-two__title-box">
+                                                <h3><a href="javascript:void(0)">Sophia Bennett</a></h3>
+                                                <p>CEO & Founder</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Team Two Single End-->
+                                <!--Team Two Single Start-->
+                                <div class="item">
+                                    <div class="team-two__single">
+                                        <div class="team-two__img-box">
+                                            <div class="team-two__img">
+                                                <img src="assets/images/team/team-2-2.jpg" alt="">
+                                            </div>
+                                            <div class="team-two__social">
+                                                <a href="#"><span class="icon-facebook"></span></a>
+                                                <a href="#"><span class="icon-dribble"></span></a>
+                                                <a href="#"><span class="icon-linkedin"></span></a>
+                                            </div>
+                                            <div class="team-two__title-box">
+                                                <h3><a href="javascript:void(0)">Liam Johnson</a></h3>
+                                                <p>Operations Manager</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Team Two Single End-->
+                                <!--Team Two Single Start-->
+                                <div class="item">
+                                    <div class="team-two__single">
+                                        <div class="team-two__img-box">
+                                            <div class="team-two__img">
+                                                <img src="assets/images/team/team-2-3.jpg" alt="">
+                                            </div>
+                                            <div class="team-two__social">
+                                                <a href="#"><span class="icon-facebook"></span></a>
+                                                <a href="#"><span class="icon-dribble"></span></a>
+                                                <a href="#"><span class="icon-linkedin"></span></a>
+                                            </div>
+                                            <div class="team-two__title-box">
+                                                <h3><a href="javascript:void(0)">Ethan Miller</a></h3>
+                                                <p>Lead Designer</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Team Two Single End-->
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Teams About Section End-->
+
+<script>
+    $(document).ready(function() {
+        if ($(".team-two__carousel").length) {
+            $(".team-two__carousel").owlCarousel({
+                loop: {{ data.carousel_loop ? 'true' : 'false' }},
+                margin: 30,
+                nav: true,
+                dots: false,
+                smartSpeed: 500,
+                autoplay: {{ data.carousel_autoplay ? 'true' : 'false' }},
+                autoplayTimeout: {{ data.carousel_autoplay_timeout|default(5000) }},
+                navText: [
+                    '<span class="icon-right-up"></span>',
+                    '<span class="icon-right-up"></span>',
+                ],
+                responsive: {
+                    0: {
+                        items: {{ data.carousel_items_mobile|default(1) }}
+                    },
+                    768: {
+                        items: {{ data.carousel_items_tablet|default(2) }}
+                    },
+                    992: {
+                        items: {{ data.carousel_items|default(3) }}
+                    },
+                    1200: {
+                        items: {{ data.carousel_items|default(3) }}
+                    }
+                }
+            });
+        }
+    });
+</script> 

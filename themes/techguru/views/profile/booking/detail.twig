@@ -1,0 +1,90 @@
+<div class="tf__dashboard_body">
+	<div class="tf__invoice">
+		<a class="go_back" href="{{ route('profile', 'event-booking') }}">
+			<i class="fas fa-long-arrow-alt-left"></i>
+			go back
+        </a>
+		<div class="tf__invoice_header wow fadeInUp" data-wow-duration="1s">
+			<div class="header_address">
+				<h4>invoice to</h4>
+				<p>
+                    {{data.booking.address}}
+                </p>
+				<p>
+                    {{data.booking.phone}}
+                </p>
+			</div>
+			<div class="header_address">
+				<p>
+					<b>invoice no:
+					</b>
+					<span>{{data.booking.code}}</span>
+				</p>
+				<p>
+					<b>Order ID:</b>
+					<span>
+						{{data.booking.code}}
+                    </span>
+				</p>
+				<p>
+					<b>date:</b>
+					<span>{{data.booking.booking_date}}</span>
+				</p>
+			</div>
+		</div>
+        {% if data.booking %}
+		<div class="tf__invoice_body wow fadeInUp" data-wow-duration="1s">
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<tbody>
+						<tr>
+							<th class="sl_no">SL</th>
+							<th class="package">item description</th>
+							<th class="price">Price</th>
+							<th class="qnty">Quantity</th>
+							<th class="total">Total</th>
+						</tr>
+						<tr>
+							<td class="sl_no">01</td>
+							<td class="package">
+								<a class="course_name" href="#">{{data.booking.event.title}}</a>
+							</td>
+							<td class="price">
+								{{data.booking.total}}
+							</td>
+							<td class="qnty">
+								{{data.booking.quantity}}
+							</td>
+							<td class="total">
+								{{data.booking.total}}
+							</td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td class="package" colspan="3">
+								<b>Total</b>
+							</td>
+							<td class="qnty">
+								<b></b>
+							</td>
+							<td class="total">
+								<b>{{data.booking.total}}</b>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+        {% else %}
+            <div class="order-not-found">
+                <h3>Booking not found</h3>
+                <p>The booking you are looking for does not exist or you don't have permission to view it.</p>
+                <a href="{{ route('profile', 'event-booking') }}" class="btn btn-secondary">Back to Bookings</a>
+            </div>
+        {% endif %}
+		<a class="print_btn tf__common_btn" href="#">
+			<i class="far fa-print"></i>
+			print PDF</a>
+	</div>
+</div>

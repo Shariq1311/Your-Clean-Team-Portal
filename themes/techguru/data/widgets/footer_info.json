@@ -1,0 +1,51 @@
+{
+    "name": "Footer Info",
+    "description": "Display footer logo and contact information",
+    "form": [
+        {
+            "type": "image",
+            "name": "logo",
+            "label": "Footer Logo"
+        },
+        {
+            "type": "text",
+            "name": "contact_title",
+            "label": "Contact Title",
+            "data": {
+                "value": "Contact Info"
+            }
+        },
+        {
+            "type": "text",
+            "name": "email",
+            "label": "Email Address",
+            "data": {
+                "value": "info@domain.com"
+            }
+        },
+        {
+            "type": "text",
+            "name": "phone",
+            "label": "Phone Number",
+            "data": {
+                "value": "+99 (00) 567 780"
+            }
+        },
+        {
+            "type": "text",
+            "name": "location_title",
+            "label": "Location Title",
+            "data": {
+                "value": "Location"
+            }
+        },
+        {
+            "type": "textarea",
+            "name": "location_text",
+            "label": "Location Text",
+            "data": {
+                "value": "123 Main Street, Apt 4BNew \nYork, NY 10001USA"
+            }
+        }
+    ]
+}

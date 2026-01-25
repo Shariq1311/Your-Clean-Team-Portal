@@ -1,0 +1,436 @@
+
+<section class="testimonial-one">
+    <div class="testimonial-one__bg"
+        style="background-image: url({{ upload_url(data.background_image) }});">
+    </div>
+    <div class="testimonial-one__shape-1">
+        {% if data.shape_1 %}
+            <img src="{{ upload_url(data.shape_1) }}" alt="shape">
+        {% endif %}
+    </div>
+    <div class="testimonial-one__shape-2 float-bob-y">
+        {% if data.shape_2 %}
+            <img src="{{ upload_url(data.shape_2) }}" alt="shape">
+        {% else %}
+            <img src="{{ asset('images/shapes/testimonial-one-shape-2.png') }}" alt="shape">
+        {% endif %}
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-3"></div>
+            <div class="col-xl-9">
+                <div class="testimonial-one__content-box">
+                    <div class="section-title text-left sec-title-animation {% if data.enable_animation %}animation-style2{% endif %}">
+                        <div class="section-title__tagline-box">
+                            <div class="section-title__tagline-shape-1"></div>
+                            <span class="section-title__tagline">{{ data.section_tagline|default('Client Testimonial') }}</span>
+                            <div class="section-title__tagline-shape-2"></div>
+                        </div>
+                        <h2 class="section-title__title {% if data.enable_animation %}title-animation{% endif %}">{{ data.section_title_1|default('What Our Clients') }}
+                            <span>{{ data.section_title_2|default('– Say') }}<br></span><span>{{ data.section_title_3|default('About Us') }}</span></h2>
+                    </div>
+                    <div class="testimonial-one__carousel owl-theme owl-carousel">
+                        {% if data.use_testimonials_post_type %}
+                            {% set ids_array = data.testimonial_ids ? data.testimonial_ids|split(',') : [] %}
+                            {% set testimonials = get_posts('testimonials', {
+                                'limit': data.items_limit|default(6),
+                                'taxonomy': data.testimonials_category,
+                                'ids': ids_array,
+                                'orderby': data.orderby|default('date'),
+                                'order': data.order|default('DESC')
+                            }) %}
+                            
+                            {% if testimonials %}
+                                {% for testimonial in testimonials %}
+                                    <div class="item">
+                                        <div class="testimonial-one__single">
+                                            <div class="testimonial-one__img-box">
+                                                <div class="testimonial-one__img">
+                                                    {% if testimonial.thumbnail %}
+                                                        <img src="{{ upload_url(testimonial.thumbnail) }}" alt="{{ testimonial.metas.name|default(testimonial.title) }}">
+                                                    {% else %}
+                                                        <img src="{{ asset('images/testimonial/testimonial-1-' ~ loop.index ~ '.jpg') }}" alt="{{ testimonial.metas.name|default(testimonial.title) }}">
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="testimonial-one__content">
+                                                <h4 class="testimonial-one__title">{{ testimonial.title }}</h4>
+                                                <p class="testimonial-one__text">"{{ testimonial.description|raw }}"</p>
+                                                <div class="testimonial-one__bottom">
+                                                    <div class="testimonial-one__quote-and-client-info">
+                                                        <div class="testimonial-one__quote">
+                                                            <span class="icon-left"></span>
+                                                        </div>
+                                                        <div class="testimonial-one__client-info">
+                                                            <p class="testimonial-one__client-sub-title">{{ testimonial.metas.position|default('Client') }}</p>
+                                                            <h3 class="testimonial-one__client-name">
+                                                                {% if testimonial.metas.testimonial_url %}
+                                                                    <a href="{{ testimonial.metas.testimonial_url }}">{{ testimonial.metas.name|default(testimonial.title) }}</a>
+                                                                {% else %}
+                                                                    <a href="{{ testimonial.url }}">{{ testimonial.metas.name|default(testimonial.title) }}</a>
+                                                                {% endif %}
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                    {% if testimonial.metas.show_trustpilot|default(1) %}
+                                                        <div class="testimonial-one__trustpilot-box">
+                                                            <div class="testimonial-one__trustpilot-logo">
+                                                                {% if testimonial.metas.trustpilot_logo %}
+                                                                    <img src="{{ upload_url(testimonial.metas.trustpilot_logo) }}" alt="trustpilot">
+                                                                {% else %}
+                                                                    <img src="{{ asset('images/resources/trustpilot-logo.png') }}" alt="trustpilot">
+                                                                {% endif %}
+                                                            </div>
+                                                            <div class="testimonial-one__trustpilot-text-and-star">
+                                                                <p class="testimonial-one__trustpilot-text">{{ testimonial.metas.trustpilot_text|default('5.0 Excellent') }}</p>
+                                                                <ul class="list-unstyled testimonial-one__trustpilot-star-list">
+                                                                    {% set star_count = testimonial.metas.star_count|default(5) %}
+                                                                    {% for i in 1..star_count %}
+                                                                        <li>
+                                                                            <div class="testimonial-one__trustpilot-star-icon">
+                                                                                {% if testimonial.metas.star_icon %}
+                                                                                    <img src="{{ upload_url(testimonial.metas.star_icon) }}" alt="star">
+                                                                                {% else %}
+                                                                                    <img src="{{ asset('images/icon/star-icon.png') }}" alt="star">
+                                                                                {% endif %}
+                                                                            </div>
+                                                                        </li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% else %}
+                            {% if data.custom_testimonials %}
+                                {% for testimonial in data.custom_testimonials %}
+                                    <div class="item">
+                                        <div class="testimonial-one__single">
+                                            <div class="testimonial-one__img-box">
+                                                <div class="testimonial-one__img">
+                                                    {% if testimonial.client_image %}
+                                                        <img src="{{ upload_url(testimonial.client_image) }}" alt="{{ testimonial.client_name }}">
+                                                    {% else %}
+                                                        <img src="{{ asset('images/testimonial/testimonial-1-' ~ loop.index ~ '.jpg') }}" alt="{{ testimonial.client_name }}">
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <div class="testimonial-one__content">
+                                                <h4 class="testimonial-one__title">{{ testimonial.title }}</h4>
+                                                <p class="testimonial-one__text">"{{ testimonial.testimonial_text }}"</p>
+                                                <div class="testimonial-one__bottom">
+                                                    <div class="testimonial-one__quote-and-client-info">
+                                                        <div class="testimonial-one__quote">
+                                                            <span class="icon-left"></span>
+                                                        </div>
+                                                        <div class="testimonial-one__client-info">
+                                                            <p class="testimonial-one__client-sub-title">{{ testimonial.client_position }}</p>
+                                                            <h3 class="testimonial-one__client-name">
+                                                                <a href="{{ testimonial.testimonial_url|default('javascript:void(0)') }}">{{ testimonial.client_name }}</a>
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="testimonial-one__trustpilot-box">
+                                                        <div class="testimonial-one__trustpilot-logo">
+                                                            {% if testimonial.trustpilot_logo %}
+                                                                <img src="{{ upload_url(testimonial.trustpilot_logo) }}" alt="trustpilot">
+                                                            {% else %}
+                                                                <img src="{{ asset('images/resources/trustpilot-logo.png') }}" alt="trustpilot">
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="testimonial-one__trustpilot-text-and-star">
+                                                            <p class="testimonial-one__trustpilot-text">{{ testimonial.trustpilot_text|default('5.0 Excellent') }}</p>
+                                                            <ul class="list-unstyled testimonial-one__trustpilot-star-list">
+                                                                {% set star_count = testimonial.star_count|default(5) %}
+                                                                {% for i in 1..star_count %}
+                                                                    <li>
+                                                                        <div class="testimonial-one__trustpilot-star-icon">
+                                                                            {% if testimonial.star_icon %}
+                                                                                <img src="{{ upload_url(testimonial.star_icon) }}" alt="star">
+                                                                            {% else %}
+                                                                                <img src="{{ asset('images/icon/star-icon.png') }}" alt="star">
+                                                                            {% endif %}
+                                                                        </div>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <!-- Default Testimonials -->
+                                <div class="item">
+                                    <div class="testimonial-one__single">
+                                        <div class="testimonial-one__img-box">
+                                            <div class="testimonial-one__img">
+                                                <img src="{{ asset('images/testimonial/testimonial-1-1.jpg') }}" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="testimonial-one__content">
+                                            <h4 class="testimonial-one__title">!Great Agency It Agency</h4>
+                                            <p class="testimonial-one__text">"From the initial consultation to the final product, every step was handled with professionalism and care. The final result exceeded our expectations and has significantly improved our operations"</p>
+                                            <div class="testimonial-one__bottom">
+                                                <div class="testimonial-one__quote-and-client-info">
+                                                    <div class="testimonial-one__quote">
+                                                        <span class="icon-left"></span>
+                                                    </div>
+                                                    <div class="testimonial-one__client-info">
+                                                        <p class="testimonial-one__client-sub-title">Marketing Manager</p>
+                                                        <h3 class="testimonial-one__client-name"><a href="javascript:void(0)">Sarah Collins</a></h3>
+                                                    </div>
+                                                </div>
+                                                <div class="testimonial-one__trustpilot-box">
+                                                    <div class="testimonial-one__trustpilot-logo">
+                                                        <img src="{{ asset('images/resources/trustpilot-logo.png') }}" alt="">
+                                                    </div>
+                                                    <div class="testimonial-one__trustpilot-text-and-star">
+                                                        <p class="testimonial-one__trustpilot-text">5.0 Excellent </p>
+                                                        <ul class="list-unstyled testimonial-one__trustpilot-star-list">
+                                                            <li>
+                                                                <div class="testimonial-one__trustpilot-star-icon">
+                                                                    <img src="{{ asset('images/icon/star-icon.png') }}" alt="">
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="testimonial-one__trustpilot-star-icon">
+                                                                    <img src="{{ asset('images/icon/star-icon.png') }}" alt="">
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="testimonial-one__trustpilot-star-icon">
+                                                                    <img src="{{ asset('images/icon/star-icon.png') }}" alt="">
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="testimonial-one__trustpilot-star-icon">
+                                                                    <img src="{{ asset('images/icon/star-icon.png') }}" alt="">
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="testimonial-one__trustpilot-star-icon">
+                                                                    <img src="{{ asset('images/icon/star-icon.png') }}" alt="">
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="testimonial-one__single">
+                                        <div class="testimonial-one__img-box">
+                                            <div class="testimonial-one__img">
+                                                <img src="{{ asset('images/testimonial/testimonial-1-2.jpg') }}" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="testimonial-one__content">
+                                            <h4 class="testimonial-one__title">!Great Agency It Agency</h4>
+                                            <p class="testimonial-one__text">"From the initial consultation to the final product, every step was handled with professionalism and care. The final result exceeded our expectations and has significantly improved our operations"</p>
+                                            <div class="testimonial-one__bottom">
+                                                <div class="testimonial-one__quote-and-client-info">
+                                                    <div class="testimonial-one__quote">
+                                                        <span class="icon-left"></span>
+                                                    </div>
+                                                    <div class="testimonial-one__client-info">
+                                                        <p class="testimonial-one__client-sub-title">Marketing Manager</p>
+                                                        <h3 class="testimonial-one__client-name"><a href="javascript:void(0)">Collins Munro</a></h3>
+                                                    </div>
+                                                </div>
+                                                <div class="testimonial-one__trustpilot-box">
+                                                    <div class="testimonial-one__trustpilot-logo">
+                                                        <img src="{{ asset('images/resources/trustpilot-logo.png') }}" alt="">
+                                                    </div>
+                                                    <div class="testimonial-one__trustpilot-text-and-star">
+                                                        <p class="testimonial-one__trustpilot-text">5.0 Excellent </p>
+                                                        <ul class="list-unstyled testimonial-one__trustpilot-star-list">
+                                                            <li>
+                                                                <div class="testimonial-one__trustpilot-star-icon">
+                                                                    <img src="{{ asset('images/icon/star-icon.png') }}" alt="">
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="testimonial-one__trustpilot-star-icon">
+                                                                    <img src="{{ asset('images/icon/star-icon.png') }}" alt="">
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="testimonial-one__trustpilot-star-icon">
+                                                                    <img src="{{ asset('images/icon/star-icon.png') }}" alt="">
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="testimonial-one__trustpilot-star-icon">
+                                                                    <img src="{{ asset('images/icon/star-icon.png') }}" alt="">
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="testimonial-one__trustpilot-star-icon">
+                                                                    <img src="{{ asset('images/icon/star-icon.png') }}" alt="">
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Brand One Start -->
+    <div class="brand-one">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-xl-3 col-lg-4 col-md-5">
+                    <div class="brand-one__left">
+                        <ul class="list-unstyled brand-one__img-list">
+                            {% if data.client_images %}
+                                {% for client in data.client_images %}
+                                    <li>
+                                        <div class="brand-one__img-box">
+                                            {% if client.image %}
+                                                <img src="{{ upload_url(client.image) }}" alt="{{ client.alt_text|default('Client Image') }}">
+                                            {% else %}
+                                                <img src="{{ asset('images/brand/brand-one-img-1-' ~ loop.index ~ '.jpg') }}" alt="Client Image">
+                                            {% endif %}
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            {% else %}
+                                <li>
+                                    <div class="brand-one__img-box">
+                                        <img src="{{ asset('images/brand/brand-one-img-1-1.jpg') }}" alt="">
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="brand-one__img-box">
+                                        <img src="{{ asset('images/brand/brand-one-img-1-2.jpg') }}" alt="">
+                                    </div>
+                                </li>
+                            {% endif %}
+                        </ul>
+                        <p class="brand-one__text">{{ data.clients_count_text|default('12K Trusted by clients worldwide') }}</p>
+                    </div>
+                </div>
+                <div class="col-xl-9 col-lg-8 col-md-7">
+                    <div class="brand-one__right">
+                        <div class="brand-one__carousel owl-theme owl-carousel">
+                            {% if data.brand_logos %}
+                                {% for brand in data.brand_logos %}
+                                    <div class="item">
+                                        <div class="brand-one__single">
+                                            <div class="brand-one__img">
+                                                {% if brand.logo %}
+                                                    <img src="{{ upload_url(brand.logo) }}" alt="{{ brand.alt_text|default('Brand Logo') }}">
+                                                {% else %}
+                                                    <img src="{{ asset('images/brand/brand-1-' ~ loop.index ~ '.png') }}" alt="Brand Logo">
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="item">
+                                    <div class="brand-one__single">
+                                        <div class="brand-one__img">
+                                            <img src="{{ asset('images/brand/brand-1-1.png') }}" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="brand-one__single">
+                                        <div class="brand-one__img">
+                                            <img src="{{ asset('images/brand/brand-1-2.png') }}" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Brand One End -->
+</section>
+
+<script>    
+    (function($) {
+        "use strict";
+            $(document).ready(function() {
+                if ($(".testimonial-one__carousel").length) {
+                    $(".testimonial-one__carousel").owlCarousel({
+                        loop: {{ data.testimonial_carousel_loop ? 'true' : 'false' }},
+                        margin: 0,
+                        nav: {{ data.testimonial_carousel_nav ? 'true' : 'false' }},
+                        dots: {{ data.testimonial_carousel_dots ? 'true' : 'false' }},
+                        smartSpeed: 500,
+                        autoplay: {{ data.testimonial_carousel_autoplay ? 'true' : 'false' }},
+                        autoplayTimeout: {{ data.testimonial_carousel_autoplay_timeout|default(5000) }},
+                        navText: [
+                            '<span class="icon-right-arrow-1"></span>',
+                            '<span class="icon-right-arrow-1"></span>',
+                        ],
+                        responsive: {
+                            0: {
+                                items: {{ data.testimonial_carousel_items|default(1) }}
+                            },
+                            768: {
+                                items: {{ data.testimonial_carousel_items|default(1) }}
+                            },
+                            992: {
+                                items: {{ data.testimonial_carousel_items|default(1) }}
+                            },
+                            1200: {
+                                items: {{ data.testimonial_carousel_items|default(1) }}
+                            }
+                        }
+                    });
+                }
+
+                if ($(".brand-one__carousel").length) {
+                    $(".brand-one__carousel").owlCarousel({
+                        loop: {{ data.brand_carousel_loop ? 'true' : 'false' }},
+                        margin: 30,
+                        nav: {{ data.brand_carousel_nav ? 'true' : 'false' }},
+                        dots: {{ data.brand_carousel_dots ? 'true' : 'false' }},
+                        smartSpeed: 500,
+                        autoplay: {{ data.brand_carousel_autoplay ? 'true' : 'false' }},
+                        autoplayTimeout: {{ data.brand_carousel_autoplay_timeout|default(5000) }},
+                        navText: [
+                            '<span class="icon-right-arrow-1"></span>',
+                            '<span class="icon-right-arrow-1"></span>',
+                        ],
+                        responsive: {
+                            0: {
+                                items: {{ data.brand_carousel_items_mobile|default(2) }}
+                            },
+                            768: {
+                                items: {{ data.brand_carousel_items_tablet|default(3) }}
+                            },
+                            992: {
+                                items: {{ data.brand_carousel_items|default(5) }}
+                            }
+                        }
+                    });
+                }
+            });
+    })(jQuery);
+</script> 

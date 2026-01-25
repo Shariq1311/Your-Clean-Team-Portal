@@ -1,0 +1,232 @@
+{
+    "label": "Pricing Two",
+    "description": "Display pricing plans with tabs (Monthly, Yearly, Packages) and post type integration",
+    "form": [
+        {
+            "type": "text",
+            "name": "section_tagline",
+            "label": "Section Tagline",
+            "data": {
+                "value": "Pricing & Plan"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_1",
+            "label": "Section Title Part 1",
+            "data": {
+                "value": "Select the Perfect"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_2",
+            "label": "Section Title Part 2 (First Span)",
+            "data": {
+                "value": "Plan for Your"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_3",
+            "label": "Section Title Part 3 (Second Span)",
+            "data": {
+                "value": "Needs That Fits You"
+            }
+        },
+        {
+            "type": "text",
+            "name": "tab_1_title",
+            "label": "Tab 1 Title",
+            "data": {
+                "value": "Monthly"
+            }
+        },
+        {
+            "type": "text",
+            "name": "tab_2_title",
+            "label": "Tab 2 Title",
+            "data": {
+                "value": "Yearly"
+            }
+        },
+        {
+            "type": "text",
+            "name": "tab_3_title",
+            "label": "Tab 3 Title",
+            "data": {
+                "value": "Packages"
+            }
+        },
+        {
+            "type": "select",
+            "name": "default_active_tab",
+            "label": "Default Active Tab",
+            "data": {
+                "options": {
+                    "monthly": "Monthly",
+                    "yearly": "Yearly",
+                    "packges": "Packages"
+                },
+                "value": "yearly"
+            }
+        },
+        {
+            "type": "taxonomy",
+            "name": "monthly_category",
+            "label": "Monthly Tab Category Filter",
+            "description": "Filter pricing posts by category for Monthly tab",
+            "data": {
+                "post_type": "pricing",
+                "taxonomy": "categories"
+            }
+        },
+        {
+            "type": "text",
+            "name": "monthly_items_limit",
+            "label": "Monthly Tab Items Limit",
+            "description": "Maximum number of pricing plans to display in Monthly tab",
+            "data": {
+                "value": "3"
+            }
+        },
+        {
+            "type": "text",
+            "name": "monthly_pricing_ids",
+            "label": "Monthly Tab Pricing Plan IDs",
+            "description": "Enter specific pricing plan IDs for Monthly tab (comma separated)",
+            "data": {
+                "value": ""
+            }
+        },
+        {
+            "type": "taxonomy",
+            "name": "yearly_category",
+            "label": "Yearly Tab Category Filter",
+            "description": "Filter pricing posts by category for Yearly tab",
+            "data": {
+                "post_type": "pricing",
+                "taxonomy": "categories"
+            }
+        },
+        {
+            "type": "text",
+            "name": "yearly_items_limit",
+            "label": "Yearly Tab Items Limit",
+            "description": "Maximum number of pricing plans to display in Yearly tab",
+            "data": {
+                "value": "3"
+            }
+        },
+        {
+            "type": "text",
+            "name": "yearly_pricing_ids",
+            "label": "Yearly Tab Pricing Plan IDs",
+            "description": "Enter specific pricing plan IDs for Yearly tab (comma separated)",
+            "data": {
+                "value": ""
+            }
+        },
+        {
+            "type": "taxonomy",
+            "name": "packages_category",
+            "label": "Packages Tab Category Filter",
+            "description": "Filter pricing posts by category for Packages tab",
+            "data": {
+                "post_type": "pricing",
+                "taxonomy": "categories"
+            }
+        },
+        {
+            "type": "text",
+            "name": "packages_items_limit",
+            "label": "Packages Tab Items Limit",
+            "description": "Maximum number of pricing plans to display in Packages tab",
+            "data": {
+                "value": "3"
+            }
+        },
+        {
+            "type": "text",
+            "name": "packages_pricing_ids",
+            "label": "Packages Tab Pricing Plan IDs",
+            "description": "Enter specific pricing plan IDs for Packages tab (comma separated)",
+            "data": {
+                "value": ""
+            }
+        },
+        {
+            "type": "text",
+            "name": "unlimited_offer_text",
+            "label": "Unlimited Offer Text",
+            "description": "Text to display for unlimited offer (for premium plans)",
+            "data": {
+                "value": "⚡ Unlimited Offer"
+            }
+        },
+        {
+            "type": "text",
+            "name": "features_title",
+            "label": "Features Section Title",
+            "data": {
+                "value": "Feature Description"
+            }
+        },
+        {
+            "type": "text",
+            "name": "padding_top",
+            "label": "Top Padding",
+            "data": {
+                "value": "120"
+            }
+        },
+        {
+            "type": "text",
+            "name": "padding_bottom",
+            "label": "Bottom Padding",
+            "data": {
+                "value": "120"
+            }
+        },
+        {
+            "type": "text",
+            "name": "mobile_padding_top",
+            "label": "Mobile Top Padding",
+            "data": {
+                "value": "80"
+            }
+        },
+        {
+            "type": "text",
+            "name": "mobile_padding_bottom",
+            "label": "Mobile Bottom Padding",
+            "data": {
+                "value": "80"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "description": "Enable wow animation effect",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "select",
+            "name": "animation_type",
+            "label": "Animation Type",
+            "data": {
+                "options": {
+                    "fadeInUp": "Fade In Up",
+                    "fadeIn": "Fade In",
+                    "zoomIn": "Zoom In",
+                    "fadeInLeft": "Fade In Left",
+                    "fadeInRight": "Fade In Right"
+                },
+                "value": "fadeInUp"
+            }
+        }
+    ]
+}

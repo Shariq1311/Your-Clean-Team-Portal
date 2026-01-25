@@ -1,0 +1,162 @@
+<?php
+/**
+ * Mojar CMS - The Best CMS for Laravel Project
+ *
+ * @package    mojahid/contact-form
+ * @author     Mojahid <mojahid.dev@gmail.com>
+ * @link       https://mojahid.dev
+ * @license    MIT
+ */
+
+namespace Mojahid\MojarCompanion\Http\Controllers\Backend;
+
+use MojarCMS\CMS\Http\Controllers\BackendController;
+use Mojahid\MojarCompanion\Support\DashboardHelper;
+
+class DashboardController extends BackendController
+{
+    /**
+     * Get content calendar data for AJAX requests
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getContentCalendar()
+    {
+        // Only provide calendar data for admin users with proper permissions
+        if (!\Illuminate\Support\Facades\Auth::check()) {
+            return response()->json([
+                'error' => 'Unauthorized'
+            ], 401);
+        }
+        
+        // Check if user is admin or super admin
+        $user = \Illuminate\Support\Facades\Auth::user();
+        if (!$user->is_admin && !$user->is_super_admin) {
+            return response()->json([
+                'error' => 'Unauthorized'
+            ], 401);
+        }
+        
+        $month = request('month', date('Y-m'));
+        // Validate month format (YYYY-MM)
+        if (!preg_match('/^[0-9]{4}-[0-9]{2}$/', $month)) {
+            $month = date('Y-m');
+        }
+        
+        $contentCalendar = DashboardHelper::getContentCalendar($month);
+        return response()->json($contentCalendar);
+    }
+    
+    /**
+     * Get analytics data for dashboard charts
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function analyticsData()
+    {
+        // Only provide analytics data for admin users with proper permissions
+        if (!\Illuminate\Support\Facades\Auth::check()) {
+            return response()->json([
+                'dates' => [],
+                'pageViews' => [],
+                'visitors' => []
+            ]);
+        }
+        
+        // Check if user is admin or super admin
+        $user = \Illuminate\Support\Facades\Auth::user();
+        if (!$user->is_admin && !$user->is_super_admin) {
+            return response()->json([
+                'dates' => [],
+                'pageViews' => [],
+                'visitors' => []
+            ]);
+        }
+        
+        $data = DashboardHelper::getAnalyticsChartData();
+        
+        return response()->json($data);
+    }
+    
+    /**
+     * Register dashboard views for Mojar plugin  
+     *
+     * @return void
+     */
+    public function registerDashboardView()
+    {
+        // Only registered users can see dashboard widgets
+        if (!\Illuminate\Support\Facades\Auth::check()) {
+            return;
+        }
+        
+        // Check if user is admin or super admin
+        $user = \Illuminate\Support\Facades\Auth::user();
+        if ($user->is_admin || $user->is_super_admin) {
+            // Admin users see all widgets with full data
+            
+            // Site Analytics
+            $siteAnalytics = DashboardHelper::getSiteAnalytics();
+            echo view('Mojar::backend.dashboard.site-analytics', [
+                'siteAnalytics' => $siteAnalytics
+            ])->render();
+            
+            // Most Visited Pages
+            $mostVisitedPages = DashboardHelper::getMostVisitedPages(5);
+            echo view('Mojar::backend.dashboard.most-visited-pages', [
+                'mostVisitedPages' => $mostVisitedPages
+            ])->render();
+            
+            // Recent Content
+            $recentContent = DashboardHelper::getRecentContent(10);
+            echo view('Mojar::backend.dashboard.recent-content', [
+                'recentContent' => $recentContent
+            ])->render();
+            
+            // User Activities
+            $userActivities = DashboardHelper::getUserActivities(6);
+            echo view('Mojar::backend.dashboard.user-activities', [
+                'userActivities' => $userActivities
+            ])->render();
+            
+            // Latest Comments
+            $latestComments = DashboardHelper::getLatestComments(5);
+            echo view('Mojar::backend.dashboard.latest-comments', [
+                'latestComments' => $latestComments
+            ])->render();
+            
+            // Content Calendar - Allow month navigation through request parameter
+            $currentMonth = request('calendar_month', date('Y-m'));
+            // Validate month format (YYYY-MM)
+            if (!preg_match('/^[0-9]{4}-[0-9]{2}$/', $currentMonth)) {
+                $currentMonth = date('Y-m');
+            }
+            $contentCalendar = DashboardHelper::getContentCalendar($currentMonth);
+            echo view('Mojar::backend.dashboard.content-calendar', [
+                'contentCalendar' => $contentCalendar
+            ])->render();
+            
+            // Category Distribution
+            $categoryDistribution = DashboardHelper::getCategoryDistribution();
+            echo view('Mojar::backend.dashboard.category-distribution', [
+                'categoryDistribution' => $categoryDistribution
+            ])->render();
+        } elseif (\Mojahid\Ecommerce\Support\DashboardWidgetHelper::isVendor()) {
+            // Vendor users only see most visited pages and recent content related to their products
+            
+            // Most Visited Pages - limited to vendor's products
+            $vendorId = $user->id;
+            $mostVisitedPages = DashboardHelper::getMostVisitedPages(5, $vendorId);
+            echo view('Mojar::backend.dashboard.most-visited-pages', [
+                'mostVisitedPages' => $mostVisitedPages
+            ])->render();
+            
+            // Recent Content - limited to vendor's content
+            $recentContent = DashboardHelper::getRecentContent(10, $vendorId);
+            echo view('Mojar::backend.dashboard.recent-content', [
+                'recentContent' => $recentContent
+            ])->render();
+        }
+        // Customers don't see these widgets - they'll see customer-specific widgets from the ecommerce plugin
+    }
+} 

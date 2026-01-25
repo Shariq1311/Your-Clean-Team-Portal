@@ -1,0 +1,11 @@
+<div class="sidebar__single sidebar__search">
+    <div class="sidebar__title-box">
+        <div class="sidebar__title-shape"></div>
+        <h3 class="sidebar__title">{{ data.title }} </h3>
+    </div>
+    <p class="sidebar__search-text">{{ data.description }}</p>
+    <form action="{{ url('search') }}" method="GET" class="sidebar__search-form">
+        <input type="search" placeholder="{{ __('Search Blogs') }}" name="q" value="{{ input_get('q') }}">
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+</div>

@@ -1,0 +1,202 @@
+<section class="blog-one" style="overflow: hidden;">
+    <div class="blog-one__shape-1"></div>
+    <div class="blog-one__shape-2"></div>
+    <div class="container">
+        <div class="section-title text-center sec-title-animation animation-style1 {% if data.enable_animation %}wow fadeInUp{% endif %}" {% if data.enable_animation %}data-wow-duration="1s"{% endif %}>
+            <div class="section-title__tagline-box">
+                <div class="section-title__tagline-shape-1"></div>
+                <span class="section-title__tagline">{{ data.section_tagline|default('News & Blog') }}</span>
+                <div class="section-title__tagline-shape-2"></div>
+            </div>
+            <h2 class="section-title__title title-animation">{{ data.section_title_1|default('How We\'ve') }} <span>{{ data.section_title_2|default('Empowered Businesses') }}</span><br><span>{{ data.section_title_3|default('with Innovative') }}</span> {{ data.section_title_4|default('Tech Solutions') }}</h2>
+        </div>
+        
+        {% set category_ids = data.category_ids ? data.category_ids|split(',') : [] %}
+        {% set tag_ids = data.tag_ids ? data.tag_ids|split(',') : [] %}
+        {% set posts = get_posts('posts', {
+            'limit': data.posts_limit|default(6),
+            'category': category_ids,
+            'tag': tag_ids,
+            'orderby': data.orderby|default('date'),
+            'order': data.order|default('DESC')
+        }) %}
+        
+        <div class="blog-one__carousel owl-carousel owl-theme" >
+            {% if posts %}
+                {% for post in posts %}
+                    <!-- Blog One Single Start -->
+                    <div class="item">
+                        <div class="blog-one__single">
+                            <div class="blog-one__img">
+                                {% if post.thumbnail %}
+                                    <img src="{{ upload_url(post.thumbnail) }}" alt="{{ post.title }}">
+                                {% else %}
+                                    <img src="{{ asset('images/blog/blog-1-' ~ ((loop.index % 2) + 1) ~ '.jpg') }}" alt="{{ post.title }}">
+                                {% endif %}
+                                <div class="blog-one__tags">
+                                    {% set tag_count = 0 %}
+                                    {% for taxonomy in post.taxonomies %}
+                                        {% if taxonomy.taxonomy == 'tags' and tag_count < 2 %}
+                                            <span>{{ taxonomy.name }}</span>
+                                            {% set tag_count = tag_count + 1 %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    
+                                    {% if tag_count == 0 %}
+                                        <span>Digital</span>
+                                        <span>Technology</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="blog-one__content">
+                                <div class="blog-one__user">
+                                    <div class="blog-one__user-img">
+                                        {% if post.author.avatar %}
+                                            <img src="{{ upload_url(post.author.avatar) }}" alt="{{ post.author.name }}">
+                                        {% else %}
+                                            <img src="{{ asset('images/blog/blog-one-user-' ~ ((loop.index % 2) + 1) ~ '.jpg') }}" alt="{{ post.author.name }}">
+                                        {% endif %}
+                                    </div>
+                                    <p class="blog-one__user-title">{{ post.author.name }}</p>
+                                </div>
+                                <ul class="blog-one__meta list-unstyled">
+                                    <li>
+                                        <a href="{{ post.url }}"><span class="far fa-calendar-alt"></span>{{ post.created_at|date("F d, Y") }}</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ post.url }}"><span class="fal fa-comments"></span>{{ post.comments_count|default(0) }} Comments</a>
+                                    </li>
+                                </ul>
+                                <h3 class="blog-one__title"><a href="{{ post.url }}">{{ post.title }}</a></h3>
+                                <p class="blog-one__text">{{ post.description|striptags|slice(0, 120) ~ '...' }}</p>
+                                <div class="blog-one__btn-box">
+                                    <a href="{{ post.url }}" class="thm-btn">{{ data.read_more_text|default('Reed More') }}<span
+                                            class="icon-right-arrow"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Blog One Single End -->
+                {% endfor %}
+            {% else %}
+                <!-- Default Blog Posts -->
+                <!-- Blog One Single Start -->
+                <div class="item">
+                    <div class="blog-one__single">
+                        <div class="blog-one__img">
+                            <img src="{{ asset('images/blog/blog-1-1.jpg') }}" alt="">
+                            <div class="blog-one__tags">
+                                <span>Digital</span>
+                                <span>Technology</span>
+                            </div>
+                        </div>
+                        <div class="blog-one__content">
+                            <div class="blog-one__user">
+                                <div class="blog-one__user-img">
+                                    <img src="{{ asset('images/blog/blog-one-user-1.jpg') }}" alt="">
+                                </div>
+                                <p class="blog-one__user-title">Alisa Olivia</p>
+                            </div>
+                            <ul class="blog-one__meta list-unstyled">
+                                <li>
+                                    <a href="blog-details.html"><span class="far fa-calendar-alt"></span>April 5,
+                                        2025</a>
+                                </li>
+                                <li>
+                                    <a href="blog-details.html"><span class="fal fa-comments"></span>80 Comments</a>
+                                </li>
+                            </ul>
+                            <h3 class="blog-one__title"><a href="blog-details.html">Top IT Trends Shaping the Future
+                                    of Business in 2025</a></h3>
+                            <p class="blog-one__text">Explore essential cybersecurity strategies to safeguard
+                                sensitive information and defend against evolving cyber threats.</p>
+                            <div class="blog-one__btn-box">
+                                <a href="blog-details.html" class="thm-btn">{{ data.read_more_text|default('Reed More') }}<span
+                                        class="icon-right-arrow"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Blog One Single End -->
+                <!-- Blog One Single Start -->
+                <div class="item">
+                    <div class="blog-one__single">
+                        <div class="blog-one__img">
+                            <img src="{{ asset('images/blog/blog-1-2.jpg') }}" alt="">
+                            <div class="blog-one__tags">
+                                <span>Digital</span>
+                                <span>Technology</span>
+                            </div>
+                        </div>
+                        <div class="blog-one__content">
+                            <div class="blog-one__user">
+                                <div class="blog-one__user-img">
+                                    <img src="{{ asset('images/blog/blog-one-user-2.jpg') }}" alt="">
+                                </div>
+                                <p class="blog-one__user-title">Alisa Olivia</p>
+                            </div>
+                            <ul class="blog-one__meta list-unstyled">
+                                <li>
+                                    <a href="blog-details.html"><span class="far fa-calendar-alt"></span>April 5,
+                                        2025</a>
+                                </li>
+                                <li>
+                                    <a href="blog-details.html"><span class="fal fa-comments"></span>80 Comments</a>
+                                </li>
+                            </ul>
+                            <h3 class="blog-one__title"><a href="blog-details.html">Cybersecurity Best Practices
+                                    Protecting Your Data </a></h3>
+                            <p class="blog-one__text">Explore essential cybersecurity strategies to safeguard
+                                sensitive information and defend against evolving cyber threats.</p>
+                            <div class="blog-one__btn-box">
+                                <a href="blog-details.html" class="thm-btn">{{ data.read_more_text|default('Reed More') }}<span
+                                        class="icon-right-arrow"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Blog One Single End -->
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<script>
+    (function($) {
+        "use strict";
+        $(document).ready(function() {
+            if ($(".blog-one__carousel").length) {
+                $(".blog-one__carousel").owlCarousel({
+                    loop: {{ data.carousel_loop ? 'true' : 'false' }},
+                    margin: {{ data.carousel_margin|default(30) }},
+                    nav: {{ data.carousel_nav ? 'true' : 'false' }},
+                    dots: {{ data.carousel_dots ? 'true' : 'false' }},
+                    smartSpeed: {{ data.carousel_smart_speed|default(500) }},
+                    autoplay: {{ data.carousel_autoplay ? 'true' : 'false' }},
+                    autoplayTimeout: {{ data.carousel_autoplay_timeout|default(7000) }},
+                    navText: [
+                        '<span class="icon-right-arrow-1"></span>',
+                        '<span class="icon-right-arrow-1"></span>',
+                    ],
+                    responsive: {
+                        0: {
+                            items: {{ data.carousel_items_mobile|default(1) }},
+                        },
+                        768: {
+                            items: {{ data.carousel_items_tablet|default(1) }},
+                        },
+                        992: {
+                            items: {{ data.carousel_items_medium|default(2) }},
+                        },
+                        1200: {
+                            items: {{ data.carousel_items_large|default(2) }},
+                        },
+                        1320: {
+                            items: {{ data.carousel_items_desktop|default(2) }},
+                        },
+                    }
+                });
+            }
+        });
+    })(jQuery);
+</script> 

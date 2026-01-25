@@ -1,0 +1,173 @@
+$(document).ready(function () {
+
+    $("body").on('click', '.custom-seo', function () {
+        let item = $(this);
+        let title = $('input[name=title]').val();
+        let description = '';
+        
+        // Get content from TinyMCE editor
+        if (typeof tinyMCE !== 'undefined' && tinyMCE.activeEditor) {
+            description = tinyMCE.activeEditor.getContent();
+        } else {
+            description = $('textarea[name=content]').val() || '';
+        }
+
+        if ($("#meta_title").val() && $("#meta_description").val()) {
+            item.hide('slow');
+            $(".box-custom-seo").show('slow');
+            return false;
+        }
+
+        // Show loading state
+        item.prop('disabled', true).html('<span class="spinner-border spinner-border-sm me-1"></span>Generating...');
+
+        $.ajax({
+            type: 'POST',
+            url: mojar.adminUrl + '/ajax/seo-content',
+            dataType: 'json',
+            data: {
+                'title': title,
+                'description': description,
+                'content': description // Send full content for AI analysis
+            }
+        }).done(function (data) {
+            if (data.status === false) {
+                show_message(data);
+                return false;
+            }
+
+            // Update fields if they're empty
+            if (!$("#meta_title").val()) {
+                $("#meta_title").val(data.title);
+            }
+
+            if (!$("#meta_description").val()) {
+                $("#meta_description").val(data.description);
+            }
+
+            // Update preview
+            if (!$("#meta_title").val()) {
+                $(".review-title").text(data.title);
+            }
+
+            if (!$("#meta_description").val()) {
+                $(".review-description").text(data.description);
+            }
+
+            // Show AI badge if content was AI-generated
+            if (data.ai_generated) {
+                $("#ai-badge").show();
+                // Optional: Show success message
+                if (typeof toastr !== 'undefined') {
+                    toastr.success('SEO content optimized using AI!');
+                }
+            }
+
+            item.hide('slow');
+            $(".box-custom-seo").show('slow');
+        }).fail(function (data) {
+            show_message(data);
+        }).always(function() {
+            // Reset button state
+            item.prop('disabled', false).html(`
+                <span class="icon-tabler-square-rounded-plus">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M15 12h-6" />
+                        <path d="M12 9v6" />
+                    </svg>
+                </span>
+                Custom SEO
+            `);
+        });
+    });
+
+    // Auto-update preview when title/content changes
+    $("input[name=title], textarea[name=content]").on('change', function () {
+        let title = $('input[name=title]').val();
+        let description = '';
+        
+        if (typeof tinyMCE !== 'undefined' && tinyMCE.activeEditor) {
+            description = tinyMCE.activeEditor.getContent();
+        } else {
+            description = $('textarea[name=content]').val() || '';
+        }
+
+        // Don't auto-generate if fields already have custom values
+        if ($("#meta_title").val() || $("#meta_description").val()) {
+            return;
+        }
+
+        // Debounce the request to avoid too many API calls
+        clearTimeout(window.seoUpdateTimeout);
+        window.seoUpdateTimeout = setTimeout(function() {
+            $.ajax({
+                type: 'POST',
+                url: mojar.adminUrl + '/ajax/seo-content',
+                dataType: 'json',
+                data: {
+                    'title': title,
+                    'description': description,
+                    'content': description
+                }
+            }).done(function (data) {
+                if (data.status === false) {
+                    return false;
+                }
+
+                // Only update preview if meta fields are empty
+                if (!$("#meta_title").val()) {
+                    $(".review-title").text(data.title);
+                }
+
+                if (!$("#meta_description").val()) {
+                    $(".review-description").text(data.description);
+                }
+
+                // Show/hide AI badge based on generation method
+                if (data.ai_generated) {
+                    $("#ai-badge").show();
+                } else {
+                    $("#ai-badge").hide();
+                }
+            }).fail(function (data) {
+                console.error('SEO auto-update failed:', data);
+            });
+        }, 1000); // 1 second delay
+    });
+
+    // Update preview when slug changes
+    $('form').on('change', 'input[name=slug]', function () {
+        let slug = $(this).val();
+        $(".review-url span").text(slug);
+    });
+
+    // Update preview when meta fields change
+    $("#meta_title, #meta_description").on('input', function () {
+        let title = $('#meta_title').val();
+        let description = $('#meta_description').val();
+
+        if (title) {
+            $(".review-title").text(title);
+            $("#ai-badge").hide(); // Hide AI badge when manually edited
+        }
+        
+        if (description) {
+            $(".review-description").text(description);
+        }
+    });
+
+    // Character count indicators (optional enhancement)
+    $("#meta_title").on('input', function() {
+        let length = $(this).val().length;
+        let color = length > 70 ? 'text-danger' : (length > 60 ? 'text-warning' : 'text-success');
+        // You can add character count display here if needed
+    });
+
+    $("#meta_description").on('input', function() {
+        let length = $(this).val().length;
+        let color = length > 160 ? 'text-danger' : (length > 120 ? 'text-warning' : 'text-success');
+        // You can add character count display here if needed
+    });
+
+});

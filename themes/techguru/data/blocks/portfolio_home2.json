@@ -1,0 +1,366 @@
+{
+    "label": "Portfolio Home 2",
+    "description": "Portfolio carousel with tags and year information",
+    "form": [
+        {
+            "type": "text",
+            "name": "section_tagline",
+            "label": "Section Tagline",
+            "data": {
+                "value": "See Our Works"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_1",
+            "label": "Section Title Part 1",
+            "data": {
+                "value": "How We've"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_2",
+            "label": "Section Title Part 2 (First Span)",
+            "data": {
+                "value": "Empowered"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_3",
+            "label": "Section Title Part 3 (Second Span)",
+            "data": {
+                "value": "Businesses with Innovative"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_4",
+            "label": "Section Title Part 4",
+            "data": {
+                "value": "Tech Solutions"
+            }
+        },
+        {
+            "type": "text",
+            "name": "big_text",
+            "label": "Big Background Text",
+            "data": {
+                "value": "portfolio"
+            }
+        },
+        {
+            "type": "image",
+            "name": "shape_1",
+            "label": "Shape Image 1",
+            "data": {
+                "value": "images/shapes/portfolio-one-shape-1.png"
+            }
+        },
+        {
+            "type": "image",
+            "name": "shape_2",
+            "label": "Shape Image 2",
+            "data": {
+                "value": "images/shapes/portfolio-one-shape-2.png"
+            }
+        },
+        {
+            "type": "text",
+            "name": "round_text",
+            "label": "Round Button Text",
+            "description": "Text that appears in the circular button (will be duplicated)",
+            "data": {
+                "value": "View All Project"
+            }
+        },
+        {
+            "type": "image",
+            "name": "round_icon",
+            "label": "Round Button Icon",
+            "data": {
+                "value": "images/icon/portfolio-one-round-icon.png"
+            }
+        },
+        {
+            "type": "text",
+            "name": "all_projects_url",
+            "label": "All Projects URL",
+            "description": "URL for the 'View All Projects' button",
+            "data": {
+                "value": "portfolio.html"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "use_portfolio_post_type",
+            "label": "Use Portfolio Post Type",
+            "description": "Load portfolio items from Portfolios post type instead of manual configuration",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "taxonomy",
+            "name": "portfolio_category",
+            "label": "Portfolio Category Filter",
+            "description": "Filter portfolio items by category (when using portfolio post type)",
+            "data": {
+                "post_type": "portfolios",
+                "taxonomy": "categories"
+            }
+        },
+        {
+            "type": "text",
+            "name": "items_limit",
+            "label": "Number of Portfolio Items",
+            "description": "Maximum number of portfolio items to display",
+            "data": {
+                "value": "6"
+            }
+        },
+        {
+            "type": "text",
+            "name": "portfolio_ids",
+            "label": "Portfolio IDs",
+            "description": "Enter specific portfolio IDs to display (comma-separated)",
+            "data": {
+                "value": ""
+            }
+        },
+        {
+            "type": "select",
+            "name": "orderby",
+            "label": "Order By",
+            "data": {
+                "options": {
+                    "date": "Date",
+                    "title": "Title",
+                    "menu_order": "Menu Order",
+                    "rand": "Random"
+                },
+                "value": "date"
+            }
+        },
+        {
+            "type": "select",
+            "name": "order",
+            "label": "Order",
+            "data": {
+                "options": {
+                    "DESC": "Descending",
+                    "ASC": "Ascending"
+                },
+                "value": "DESC"
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "portfolio_items",
+            "label": "Portfolio Items (Manual Configuration)",
+            "fields": [
+                {
+                    "type": "image",
+                    "name": "image",
+                    "label": "Portfolio Image"
+                },
+                {
+                    "type": "text",
+                    "name": "title",
+                    "label": "Portfolio Title"
+                },
+                {
+                    "type": "textarea",
+                    "name": "description",
+                    "label": "Portfolio Description"
+                },
+                {
+                    "type": "text",
+                    "name": "url",
+                    "label": "Portfolio Detail URL"
+                },
+                {
+                    "type": "text",
+                    "name": "year",
+                    "label": "Project Year",
+                    "data": {
+                        "value": "2025"
+                    }
+                },
+                {
+                    "type": "repeater",
+                    "name": "tags",
+                    "label": "Portfolio Tags",
+                    "fields": [
+                        {
+                            "type": "text",
+                            "name": "tag",
+                            "label": "Tag Name"
+                        }
+                    ],
+                    "options": {
+                        "min_items": 0,
+                        "max_items": 5,
+                        "add_button_text": "Add Tag",
+                        "remove_button_text": "Remove Tag",
+                        "value": [
+                            {
+                                "tag": "Web Development"
+                            },
+                            {
+                                "tag": "Branding"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "options": {
+                "min_items": 0,
+                "max_items": 10,
+                "add_button_text": "Add Portfolio Item",
+                "remove_button_text": "Remove Portfolio Item",
+                "value": [
+                    {
+                        "image": "images/project/portfolio-1-1.jpg",
+                        "title": "Innovative Digital Solutions for a Smarter Future",
+                        "description": "Pioneering next-gen IT solutions that enhance efficiency and innovation.",
+                        "url": "portfolio-details.html",
+                        "year": "2025",
+                        "tags": [
+                            {
+                                "tag": "Web Development"
+                            },
+                            {
+                                "tag": "Branding"
+                            }
+                        ]
+                    },
+                    {
+                        "image": "images/project/portfolio-1-2.jpg",
+                        "title": "Empowering Businesses with Cutting-Edge Technology",
+                        "description": "Delivering smart, scalable, and future-proof tech solutions for growth.",
+                        "url": "portfolio-details.html",
+                        "year": "2025",
+                        "tags": [
+                            {
+                                "tag": "UI/UX Design"
+                            },
+                            {
+                                "tag": "Product Design"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_loop",
+            "label": "Carousel Loop",
+            "description": "Enable infinite loop for carousel",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_margin",
+            "label": "Carousel Item Margin",
+            "description": "Margin between carousel items in pixels",
+            "data": {
+                "value": "30"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_nav",
+            "label": "Show Navigation Arrows",
+            "description": "Show left/right navigation arrows",
+            "data": {
+                "value": 0
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_dots",
+            "label": "Show Dots Navigation",
+            "description": "Show pagination dots",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_smart_speed",
+            "label": "Smart Speed",
+            "description": "Carousel transition speed in milliseconds",
+            "data": {
+                "value": "500"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_autoplay",
+            "label": "Enable Autoplay",
+            "description": "Enable automatic carousel sliding",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_autoplay_timeout",
+            "label": "Autoplay Timeout",
+            "description": "Autoplay timeout in milliseconds",
+            "data": {
+                "value": "5000"
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_items_desktop",
+            "label": "Items Per Slide (Desktop)",
+            "description": "Number of items to show on desktop (1200px+)",
+            "data": {
+                "value": "2"
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_items_tablet",
+            "label": "Items Per Slide (Tablet)",
+            "description": "Number of items to show on tablets (768px+)",
+            "data": {
+                "value": "1"
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_items_mobile",
+            "label": "Items Per Slide (Mobile)",
+            "description": "Number of items to show on mobile (0px+)",
+            "data": {
+                "value": "1"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "description": "Enable animation for section title",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_magnific_popup",
+            "label": "Enable Magnific Popup",
+            "description": "Enable magnific popup for portfolio images",
+            "data": {
+                "value": 1
+            }
+        }
+    ]
+}

@@ -1,0 +1,186 @@
+<section class="servces-one">
+    <div class="servces-one__shape-2"></div>
+    <div class="servces-one__shape-3 float-bob-y">
+        <img src="{% if data.shape_3 %}{{ upload_url(data.shape_3) }}{% else %}{{ asset('images/shapes/services-one-shape-3.png') }}{% endif %}" alt="">
+    </div>
+    <div class="container">
+        <div class="servces-one__top">
+            <div class="row">
+                <div class="col-xl-7">
+                    <div class="servces-one__top-left">
+                        <div class="section-title text-left sec-title-animation animation-style2">
+                            <div class="section-title__tagline-box">
+                                <div class="section-title__tagline-shape-1"></div>
+                                <span class="section-title__tagline">{{ data.section_tagline|default('Our Services') }}</span>
+                                <div class="section-title__tagline-shape-2"></div>
+                            </div>
+                            <h2 class="section-title__title title-animation">{{ data.section_title_1|default('Comprehensive, Reliable') }}
+                            <br>{{ data.section_title_2|default('Services') }}
+                            <span>{{ data.section_title_3|default('Crafted to Exceed') }}</span> {{ techguru_format_text(data.section_title_4|default('Your \\ Expectations')) }}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-5">
+                    <div class="servces-one__top-right">
+                        <p class="servces-one__top-text">{{ data.description|default('From personalized solutions to expert execution, we prioritize quality, reliability, and customer satisfaction in everything we do. Let us be your trusted partner in achieving success.') }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="servces-one__bottom">
+            <div class="row">
+                <div class="col-xl-5">
+                    <div class="servces-one__img-box {% if data.enable_animation %}wow slideInLeft{% endif %}" {% if data.enable_animation %}data-wow-delay="{{ data.animation_delay|default('100') }}ms" data-wow-duration="{{ data.animation_duration|default('2500') }}ms"{% endif %}>
+                        <div class="servces-one__img">
+                            <img src="{% if data.main_image_1 %}{{ upload_url(data.main_image_1) }}{% else %}{{ asset('images/services/servces-one-img-1.png') }}{% endif %}" alt="">
+                        </div>
+                        <div class="servces-one__img-2">
+                            <img src="{% if data.main_image_2 %}{{ upload_url(data.main_image_2) }}{% else %}{{ asset('images/services/servces-one-img-2.png') }}{% endif %}" alt="">
+                        </div>
+                        <div class="servces-one__shape-1">
+                            <img src="{% if data.shape_1 %}{{ upload_url(data.shape_1) }}{% else %}{{ asset('images/shapes/services-one-shape-1.png') }}{% endif %}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-7">
+                    <div class="servces-one__bottom-right">
+                        <ul class="services-one__services-list list-unstyled">
+                            {% if data.use_services_post_type %}
+                                {% set ids_array = data.service_ids ? data.service_ids|split(',') : [] %}
+                                {% set services = get_posts('services', {
+                                    'limit': data.items_limit|default(4),
+                                    'taxonomy': data.services_category,
+                                    'ids': ids_array
+                                }) %}
+                                
+                                {% if services %}
+                                    {% for service in services %}
+                                        <li>
+                                            <div class="services-one__services-single">
+                                                <div class="services-one__count-and-content">
+                                                    <div class="services-one__count"></div>
+                                                    <div class="services-one__content">
+                                                        <h3 class="services-one__title"><a href="{{ service.url }}">{{ service.title }}</a></h3>
+                                                        <p class="services-one__text">{{ service.description | striptags | slice(0, 95) ~ ' ' }}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="services-one__arrow">
+                                                    <a href="{{ service.url }}"><span class="icon-right-arrow"></span></a>
+                                                </div>
+                                            </div>
+                                            <div class="services-one__hover-img">
+                                                {% if service.metas.hover_image %}
+                                                    <img src="{{ upload_url(service.metas.hover_image) }}" alt="{{ service.title }}">
+                                                {% elseif service.thumbnail %}
+                                                    <img src="{{ upload_url(service.thumbnail) }}" alt="{{ service.title }}">
+                                                {% else %}
+                                                    <img src="{{ asset('images/services/services-1-1.jpg') }}" alt="{{ service.title }}">
+                                                {% endif %}
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
+                            {% else %}
+                                {% if data.custom_services %}
+                                    {% for service in data.custom_services %}
+                                        <li>
+                                            <div class="services-one__services-single">
+                                                <div class="services-one__count-and-content">
+                                                    <div class="services-one__count"></div>
+                                                    <div class="services-one__content">
+                                                        <h3 class="services-one__title"><a href="{{ service.url|default('#') }}">{{ service.title }}</a></h3>
+                                                        <p class="services-one__text">{{ service.description|raw }}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="services-one__arrow">
+                                                    <a href="{{ service.url|default('#') }}"><span class="icon-right-arrow"></span></a>
+                                                </div>
+                                            </div>
+                                            <div class="services-one__hover-img">
+                                                {% if service.hover_image %}
+                                                    <img src="{{ upload_url(service.hover_image) }}" alt="{{ service.title }}">
+                                                {% else %}
+                                                    <img src="{{ asset('images/services/services-1-1.jpg') }}" alt="{{ service.title }}">
+                                                {% endif %}
+                                            </div>
+                                        </li>
+                                    {% endfor %}
+                                {% else %}
+                                    <!-- Default Services -->
+                                    <li>
+                                        <div class="services-one__services-single">
+                                            <div class="services-one__count-and-content">
+                                                <div class="services-one__count"></div>
+                                                <div class="services-one__content">
+                                                    <h3 class="services-one__title"><a href="javascript:void(0)">Provide All Kind Of IT Services</a></h3>
+                                                    <p class="services-one__text">Comprehensive IT management, including network<br> monitoring, data backup, </p>
+                                                </div>
+                                            </div>
+                                            <div class="services-one__arrow">
+                                                <a href="javascript:void(0)"><span class="icon-right-arrow"></span></a>
+                                            </div>
+                                        </div>
+                                        <div class="services-one__hover-img">
+                                            <img src="{{ asset('images/services/services-1-1.jpg') }}" alt="Image">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="services-one__services-single">
+                                            <div class="services-one__count-and-content">
+                                                <div class="services-one__count"></div>
+                                                <div class="services-one__content">
+                                                    <h3 class="services-one__title"><a href="javascript:void(0)">Cybersecurity Solutions</a></h3>
+                                                    <p class="services-one__text">Scalable cloud solutions, including migration,<br> storage, and management, enabling secure data<br> access </p>
+                                                </div>
+                                            </div>
+                                            <div class="services-one__arrow">
+                                                <a href="javascript:void(0)"><span class="icon-right-arrow"></span></a>
+                                            </div>
+                                        </div>
+                                        <div class="services-one__hover-img">
+                                            <img src="{{ asset('images/services/services-1-2.jpg') }}" alt="Image">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="services-one__services-single">
+                                            <div class="services-one__count-and-content">
+                                                <div class="services-one__count"></div>
+                                                <div class="services-one__content">
+                                                    <h3 class="services-one__title"><a href="javascript:void(0)">Cybersecurity Solutions</a></h3>
+                                                    <p class="services-one__text">Comprehensive IT management, including network<br> monitoring, data backup, </p>
+                                                </div>
+                                            </div>
+                                            <div class="services-one__arrow">
+                                                <a href="javascript:void(0)"><span class="icon-right-arrow"></span></a>
+                                            </div>
+                                        </div>
+                                        <div class="services-one__hover-img">
+                                            <img src="{{ asset('images/services/services-1-1.jpg') }}" alt="Image">
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="services-one__services-single">
+                                            <div class="services-one__count-and-content">
+                                                <div class="services-one__count"></div>
+                                                <div class="services-one__content">
+                                                    <h3 class="services-one__title"><a href="javascript:void(0)">Software Development & Integration</a></h3>
+                                                    <p class="services-one__text">Custom software development tailored to your<br> business needs, along with seamless integration </p>
+                                                </div>
+                                            </div>
+                                            <div class="services-one__arrow">
+                                                <a href="javascript:void(0)"><span class="icon-right-arrow"></span></a>
+                                            </div>
+                                        </div>
+                                        <div class="services-one__hover-img">
+                                            <img src="{{ asset('images/services/services-1-1.jpg') }}" alt="Image">
+                                        </div>
+                                    </li>
+                                {% endif %}
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> 

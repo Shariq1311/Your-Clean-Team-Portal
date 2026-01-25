@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * Mojar - The Best CMS for Laravel Project
+ *
+ * @package    Mojar/cms
+ * @author     Mojar Team <admin@Mojar.com>
+ * @link       https://Mojar.com
+ * @license    MIT
+ */
+
+namespace MojarCMS\Network\Contracts;
+
+/**
+ * @see \MojarCMS\Network\Support\SiteSetup
+ */
+interface SiteSetupContract
+{
+    public function setup(object $site): object;
+
+    public function setupConfig(object $site): void;
+
+    public function setupDatabase(object $site): object;
+}

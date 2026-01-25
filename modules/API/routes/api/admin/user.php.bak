@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * Mojar - Laravel CMS for Your Project
+ *
+ * @package    mojar/cms
+ * @author     Mojar Team
+ * @link       https://mojar.com/cms
+ * @license    GNU V2
+ */
+
+use MojarCMS\API\Http\Controllers\Admin\UserController;
+
+Route::group(
+    [],
+    function () {
+        Route::apiResource('users', UserController::class)->names('admin.user');
+    }
+);

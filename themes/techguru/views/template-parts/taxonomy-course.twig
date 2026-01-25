@@ -1,0 +1,66 @@
+{% extends 'cms::layouts.frontend' %}
+
+{% block content %}
+    {% include 'theme::components.breadcrumb' with {
+        title: title,
+        background_image: post.thumbnail ?? upload_url(theme_config('breadcrumb_bg_image')),
+        items: [
+            {'label': 'Home', 'url': '/'},
+            {'label': title}
+        ]
+    } %}
+    <section>
+        <div class="container mt-5 mb-5">
+            <div class="row">
+                <div class="col-md-8">
+                    <aside class="wrapper__list__article ">
+                        <div class="row">
+                            {% for post in page.data %}
+                                <!-- Post Article -->
+                                <div class="col-xl-6 col-md-6 wow fadeInUp" data-wow-duration="1s">
+                                    <div class="tf__single_blog">
+                                        <div class="tf__single_blog_img">
+                                            <img src="{{ post.thumbnail }}" alt="blog" class="img-fluid w-100">
+                                        </div>
+                                        <div class="tf__single_blog_text">
+                                            <ul>
+                                                <li>
+                                                    <span>
+                                                        <img src="{{ post.author.avatar }}" alt="bloger" class="img-fluid w-100">
+                                                    </span>
+                                                    {{ post.author.name }}
+                                                </li>
+                                                <li><i class="fal fa-calendar-alt"></i> {{ post.created_at }}</li>
+                                            </ul>
+                                            <a class="title" href="{{ post.url }}">
+                                                {{ post.title }}
+                                            </a>
+                                            <div class="tf__single_blog_footer">
+                                                <a href="{{ post.url }}">View Details <i class="far fa-long-arrow-right"></i></a>
+                                                <span><i class="far fa-eye"></i> {{ post.category }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </aside>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="tf__sidebar" id="sticky_sidebar">
+                        {{ dynamic_sidebar('sidebar') }}
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+            <!-- Pagination -->
+            <div class="pagination-area">
+                <div class="pagination wow fadeIn animated" data-wow-duration="2s" data-wow-delay="0.5s" style="visibility: visible; animation-duration: 2s; animation-delay: 0.5s; animation-name: fadeIn;">
+                    {{ paginate_links(page, 'theme::components.pagination') }}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

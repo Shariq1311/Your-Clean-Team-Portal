@@ -1,0 +1,64 @@
+<?php
+
+use Illuminate\Support\Arr;
+
+if (!function_exists('techguru_helper_filter_posts')) {
+    /**
+     * Get filtered posts based on criteria
+     *
+     * @param array $criteria
+     * @return array
+     */
+    function techguru_helper_filter_posts(array $criteria): array
+    {
+        $postType = Arr::get($criteria, 'type', 'posts');
+        $keyword = Arr::get($criteria, 'keyword');
+        $taxonomy = Arr::get($criteria, 'taxonomy');
+        $taxonomyId = Arr::get($criteria, 'taxonomy_id');
+        $orderBy = Arr::get($criteria, 'order_by', ['created_at' => 'desc']);
+        
+        $options = [
+            'paginate' => Arr::get($criteria, 'paginate', 12),
+            'page' => Arr::get($criteria, 'page', 1),
+            'order_by' => $orderBy,
+        ];
+        
+        if (!empty($keyword)) {
+            $options['keyword'] = $keyword;
+        }
+        
+        if (!empty($taxonomy) && !empty($taxonomyId)) {
+            $options['taxonomy'] = $taxonomy;
+            $options['taxonomy_id'] = $taxonomyId;
+        }
+        
+        return get_posts($postType, $options);
+    }
+}
+
+if (!function_exists('techguru_format_text')) {
+    /**
+     * Format text with line breaks and bold formatting (XSS Safe)
+     *
+     * @param string|null $text
+     * @return string
+     */
+    function techguru_format_text($text): string
+    {
+        // Handle null or empty values
+        if (empty($text) || $text === null) {
+            return '';
+        }
+
+        // First escape all HTML to prevent XSS
+        $text = htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
+        
+        // Convert \\ to <br> tags
+        $text = str_replace('\\\\', '<br>', $text);
+        
+        // Convert {text} to <strong>text</strong>
+        $text = preg_replace('/\{([^}]+)\}/', '<strong>$1</strong>', $text);
+        
+        return $text;
+    }
+}

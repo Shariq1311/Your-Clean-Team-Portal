@@ -1,0 +1,161 @@
+{
+    "label": "Service Features Part 1 Home 3",
+    "description": "Service features section with images and descriptions in a three-column layout",
+    "form": [
+        {
+            "type": "image",
+            "name": "shape_1",
+            "label": "Shape Image 1",
+            "description": "Background shape image",
+            "data": {
+                "value": "images/shapes/feature-one-shape-1.png"
+            }
+        },
+        {
+            "type": "image",
+            "name": "shape_2",
+            "label": "Shape Image 2",
+            "description": "Floating background shape image",
+            "data": {
+                "value": "images/shapes/feature-one-shape-2.png"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "use_services_post_type",
+            "label": "Use Services Post Type",
+            "description": "Load services from Services post type instead of manual configuration",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "taxonomy",
+            "name": "services_category",
+            "label": "Services Category Filter",
+            "description": "Filter services by category (when using services post type)",
+            "data": {
+                "post_type": "services",
+                "taxonomy": "categories"
+            }
+        },
+        {
+            "type": "text",
+            "name": "items_limit",
+            "label": "Number of Services",
+            "description": "Maximum number of services to display",
+            "data": {
+                "value": "3"
+            }
+        },
+        {
+            "type": "text",
+            "name": "service_ids",
+            "label": "Service IDs",
+            "description": "Enter specific service IDs to display (comma-separated)",
+            "data": {
+                "value": ""
+            }
+        },
+        {
+            "type": "select",
+            "name": "orderby",
+            "label": "Order By",
+            "data": {
+                "options": {
+                    "date": "Date",
+                    "title": "Title",
+                    "menu_order": "Menu Order",
+                    "rand": "Random"
+                },
+                "value": "date"
+            }
+        },
+        {
+            "type": "select",
+            "name": "order",
+            "label": "Order",
+            "data": {
+                "options": {
+                    "DESC": "Descending",
+                    "ASC": "Ascending"
+                },
+                "value": "DESC"
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "features",
+            "label": "Service Features (Manual Configuration)",
+            "fields": [
+                {
+                    "type": "image",
+                    "name": "image",
+                    "label": "Feature Image"
+                },
+                {
+                    "type": "text",
+                    "name": "title",
+                    "label": "Feature Title"
+                },
+                {
+                    "type": "text",
+                    "name": "url",
+                    "label": "Feature URL"
+                },
+                {
+                    "type": "textarea",
+                    "name": "description",
+                    "label": "Feature Description"
+                },
+                {
+                    "type": "text",
+                    "name": "animation_delay",
+                    "label": "Animation Delay (ms)",
+                    "description": "Delay for the animation in milliseconds",
+                    "data": {
+                        "value": "100"
+                    }
+                }
+            ],
+            "options": {
+                "min_items": 0,
+                "max_items": 12,
+                "add_button_text": "Add Feature",
+                "remove_button_text": "Remove Feature",
+                "value": [
+                    {
+                        "image": "images/resources/feature-one-img-1-1.png",
+                        "title": "Security Services",
+                        "url": "data-protection-privacy.html",
+                        "description": "Innovating and empowering businesses with tailored solutions for success and growth. Innovating and empowering",
+                        "animation_delay": "100"
+                    },
+                    {
+                        "image": "images/resources/feature-one-img-1-2.png",
+                        "title": "Data Privacy",
+                        "url": "data-protection-privacy.html",
+                        "description": "Innovating and empowering businesses with tailored solutions for success and growth. Innovating and empowering",
+                        "animation_delay": "300"
+                    },
+                    {
+                        "image": "images/resources/feature-one-img-1-3.png",
+                        "title": "Industry Certified",
+                        "url": "backup-recovery.html",
+                        "description": "Innovating and empowering businesses with tailored solutions for success and growth. Innovating and empowering",
+                        "animation_delay": "500"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "description": "Enable wow animation effects",
+            "data": {
+                "value": 1
+            }
+        }
+    ]
+}

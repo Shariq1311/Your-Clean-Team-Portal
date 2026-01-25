@@ -1,0 +1,235 @@
+<div class="product__sidebar">
+    <div class="shop-search product__sidebar-single">
+        <form action="{{ post.url }}" method="GET">
+            <input type="text" placeholder="Search" name="keyword" value="{{ input_get('keyword')|e('html_attr') }}" maxlength="255">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>    
+    <div class="product__price-ranger product__sidebar-single">
+        <h3 class="product__sidebar-title">{{ __('Price') }}</h3>
+        {% set bounds = ecom_products_price_bounds() %}
+        {% set minPrice = input_get('min_price')|default(bounds.min)|number_format(0, '.', '') %}
+        {% set maxPrice = input_get('max_price')|default(bounds.max)|number_format(0, '.', '') %}
+        
+        <div class="price-ranger" data-min="{{ bounds.min }}" data-max="{{ bounds.max }}">
+            <div id="slider-range"></div>
+            <div class="ranger-min-max-block">
+                <span>{{ ecom_get_current_currency().symbol }}</span>
+                <input type="text" readonly class="min" value="{{ minPrice }}" id="minPrice">
+                <span>-</span>
+                <span>{{ ecom_get_current_currency().symbol }}</span>
+                <input type="text" readonly class="max" value="{{ maxPrice }}" id="maxPrice">
+                <input type="submit" value="{{ __('Filter') }}" onclick="filterByPrice()">
+            </div>
+        </div>
+    </div>
+    
+    <div class="shop-category product__sidebar-single">
+        <h3 class="product__sidebar-title">{{ __('Categories') }}</h3>
+        <ul class="list-unstyled">
+            {# All Categories link #}
+            <li>
+                <a href="{{ buildFilterUrl() }}"
+                    class="{% if not input_get('category') %}active{% endif %}">
+                    {{ __('All Categories') }}
+                </a>
+            </li>
+            {% for category in categories %}
+                <li>
+                    <a href="{{ buildFilterUrl({'category': category.id}) }}"
+                        class="{% if category.id == input_get('category') %}active{% endif %}">
+                        {{ category.name|e }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="shop-product-recent-products product__sidebar-single">
+        <h3 class="product__sidebar-title">{{ __('Recent Products') }}</h3> 
+        <ul class="clearfix list-unstyled">
+            {% for product in recent_products %}
+                {% set averageRating = ecom_get_average_rating(product) %}
+            <li>
+                <div class="img">
+                    <img src="{{ upload_url(product.thumbnail) }}" alt="{{ product.title|e('html_attr') }}" style="max-width: 70px;">
+                    <a href="{{ product.url }}"><i class="fa fa-link" aria-hidden="true"></i></a>
+                </div>
+                <div class="content">
+                    <div class="title">
+                        <h5><a href="{{ product.url }}">{{ product.title|e }}</a></h5>
+                    </div>
+                    <div class="price">
+                        <p>{{ ecom_price_with_unit(product.metas.price) }}</p>
+                    </div>
+                    <div class="review">
+                        {% for i in 1..5 %}
+                            {% if i <= averageRating %}
+                                <i class="fa fa-star"></i>
+                            {% else %}
+                                <i class="fa fa-star color"></i>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+    <div class="shop-product-tags product__sidebar-single">
+        <h3 class="product__sidebar-title">{{ __('Product Tags') }}</h3>
+        <div class="shop-product__tags-list">
+            {% if tags %}
+                {% for tag in tags %}
+                    <a href="{{ buildFilterUrl({'tag': tag.id}) }}"
+                        class="{% if tag.id == input_get('tag') %}active{% endif %}">
+                        {{ tag.name|e }}
+                    </a>
+                {% endfor %}
+            {% else %}
+                <a href="#">{{ __('No tags found') }}</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="shop-product-rating product__sidebar-single style">
+        <h3 class="product__sidebar-title">{{ __('Reviews') }}</h3>
+        <div class="sidebar-rating-box sidebar-rating-box--style2">
+            <ul class="list-unstyled">
+                <li>
+                    <input type="radio" id="allratings" name="rating_filter" value="" 
+                           {% if not input_get('rating') %} checked="checked" {% endif %} 
+                           onchange="filterByRating('')">
+                    <label for="allratings">
+                        <i></i>
+                        <span>{{ __('All Ratings') }}</span>
+                    </label>
+                </li>
+                {% for rating in 5..1 %}
+                <li>
+                    <input type="radio" id="{{ rating }}star" name="rating_filter" value="{{ rating }}" 
+                           {% if input_get('rating') == rating %} checked="checked" {% endif %} 
+                           onchange="filterByRating('{{ rating }}')">
+                    <label for="{{ rating }}star">
+                        <i></i>
+                        {% for i in 1..5 %}
+                            <span class="icon-star{% if i > rating %} gray{% endif %}"></span>
+                        {% endfor %}
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+(function($) {
+    $(document).ready(function() {
+        // Get URL parameters safely
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+        
+        // Initialize price filter with proper bounds and current values
+        function initPriceFilter() {
+            const priceRanger = $(".price-ranger");
+            if (priceRanger.length) {
+                const minBound = parseInt(priceRanger.data('min')) || 0;
+                const maxBound = parseInt(priceRanger.data('max')) || 5000;
+                
+                // Get current values from URL or use defaults
+                const currentMin = parseInt(getUrlParameter('min_price')) || minBound;
+                const currentMax = parseInt(getUrlParameter('max_price')) || maxBound;
+                
+                // Validate current values are within bounds
+                const validMin = Math.max(minBound, Math.min(currentMin, maxBound));
+                const validMax = Math.max(minBound, Math.min(currentMax, maxBound));
+                
+                // Initialize slider with proper values
+                $("#slider-range").slider({
+                    range: true,
+                    min: minBound,
+                    max: maxBound,
+                    values: [validMin, validMax],
+                    slide: function(event, ui) {
+                        $(".min").val(ui.values[0]);
+                        $(".max").val(ui.values[1]);
+                    }
+                });
+                
+                // Set initial display values
+                $(".min").val(validMin);
+                $(".max").val(validMax);
+            }
+        }
+        
+        initPriceFilter();
+    });
+})(jQuery);
+
+// Security: Input validation and XSS prevention
+function sanitizeInput(input) {
+    if (typeof input !== 'string') return '';
+    return input.replace(/[<>&"']/g, function(match) {
+        const escapeChars = {
+            '<': '&lt;',
+            '>': '&gt;',
+            '&': '&amp;',
+            '"': '&quot;',
+            "'": '&#39;'
+        };
+        return escapeChars[match];
+    });
+}
+
+// Validate numeric input
+function validateNumeric(value, min = 0, max = 999999) {
+    const num = parseFloat(value);
+    if (isNaN(num)) return min;
+    return Math.max(min, Math.min(num, max));
+}
+
+// Fixed price filter function
+function filterByPrice() {
+    const minVal = validateNumeric($(".min").val(), 0, 999999);
+    const maxVal = validateNumeric($(".max").val(), 0, 999999);
+    
+    // Ensure min is not greater than max
+    const actualMin = Math.min(minVal, maxVal);
+    const actualMax = Math.max(minVal, maxVal);
+    
+    // Build URL with all current parameters
+    let url = new URL(window.location);
+    
+    // Set price parameters
+    url.searchParams.set('min_price', actualMin);
+    url.searchParams.set('max_price', actualMax);
+    
+    // Redirect with new parameters
+    window.location.href = url.toString();
+}
+
+// Fixed rating filter function
+function filterByRating(rating) {
+    // Validate rating input
+    const validRatings = ['', '1', '2', '3', '4', '5'];
+    if (!validRatings.includes(rating)) {
+        rating = '';
+    }
+    
+    // Build URL with all current parameters
+    let url = new URL(window.location);
+    
+    if (rating === '') {
+        url.searchParams.delete('rating');
+    } else {
+        url.searchParams.set('rating', rating);
+    }
+    
+    // Redirect with new parameters
+    window.location.href = url.toString();
+}
+</script>

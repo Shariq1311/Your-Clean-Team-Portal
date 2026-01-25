@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * Mojar - Laravel CMS for Your Project
+ *
+ * @package    mojar/cms
+ * @author     Mojar Team
+ * @link       https://mojar.com/cms
+ * @license    GNU V2
+ */
+
+use MojarCMS\CMS\Support\Route\Auth;
+use Illuminate\Support\Facades\Route;
+
+Auth::routes();
+
+if (config('mojar.frontend.enable')) {
+    require __DIR__ . '/components/profile.route.php';
+
+    require __DIR__ . '/components/sitemap.route.php';
+
+    require __DIR__ . '/components/feed.route.php';
+
+    require __DIR__ . '/components/page.route.php';
+} else {
+    Route::get('/', fn() => redirect(config('mojar.admin_prefix')));
+}

@@ -1,0 +1,180 @@
+{
+    "label": "Why Choose Aboutus",
+    "description": "Why choose us section with central image and surrounding features",
+    "form": [
+        {
+            "type": "image",
+            "name": "bg_shape",
+            "label": "Background Shape",
+            "data": {
+                "value": "images/shapes/why-choose-three-bg-shape.png"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_tagline",
+            "label": "Section Tagline",
+            "data": {
+                "value": "Why Choose Us"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_1",
+            "label": "Title Part 1",
+            "data": {
+                "value": "Your Business with"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_2",
+            "label": "Title Part 2 (Highlighted)",
+            "data": {
+                "value": "Reliable &"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_3",
+            "label": "Title Part 3 (Highlighted)",
+            "data": {
+                "value": "Future-Ready"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_4",
+            "label": "Title Part 4",
+            "data": {
+                "value": "IT Solutions"
+            }
+        },
+        {
+            "type": "image",
+            "name": "main_image",
+            "label": "Main Image",
+            "data": {
+                "value": "images/resources/why-choose-three-img.jpg"
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "left_features",
+            "label": "Left Features",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "icon",
+                    "label": "Icon Class",
+                    "data": {
+                        "value": "icon-quality"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "title",
+                    "label": "Feature Title"
+                },
+                {
+                    "type": "textarea",
+                    "name": "text",
+                    "label": "Feature Text"
+                }
+            ],
+            "options": {
+                "min_items": 1,
+                "max_items": 3,
+                "add_button_text": "Add Left Feature",
+                "remove_button_text": "Remove Left Feature",
+                "value": [
+                    {
+                        "icon": "icon-quality",
+                        "title": "Unmatched Quality",
+                        "text": "We deliver exceptional products and services that exceed expectations every time."
+                    },
+                    {
+                        "icon": "icon-team",
+                        "title": "Trusted Expertise",
+                        "text": "Backed by years of experience and a proven track record, we are your reliable partner for success."
+                    }
+                ]
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "right_features",
+            "label": "Right Features",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "icon",
+                    "label": "Icon Class",
+                    "data": {
+                        "value": "icon-customer-centricity"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "title",
+                    "label": "Feature Title"
+                },
+                {
+                    "type": "textarea",
+                    "name": "text",
+                    "label": "Feature Text"
+                }
+            ],
+            "options": {
+                "min_items": 1,
+                "max_items": 3,
+                "add_button_text": "Add Right Feature",
+                "remove_button_text": "Remove Right Feature",
+                "value": [
+                    {
+                        "icon": "icon-customer-centricity",
+                        "title": "User-Centric Approach",
+                        "text": "Your satisfaction is our priority, and we tailor solutions to meet your unique needs. Your happiness comes first."
+                    },
+                    {
+                        "icon": "icon-support",
+                        "title": "Trusted by Many",
+                        "text": "We have built a strong reputation over the years by consistently delivering excellent results."
+                    }
+                ]
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "left_animation_delay",
+            "label": "Left Animation Delay (ms)",
+            "data": {
+                "value": "100"
+            }
+        },
+        {
+            "type": "text",
+            "name": "center_animation_delay",
+            "label": "Center Animation Delay (ms)",
+            "data": {
+                "value": "200"
+            }
+        },
+        {
+            "type": "text",
+            "name": "right_animation_delay",
+            "label": "Right Animation Delay (ms)",
+            "data": {
+                "value": "100"
+            }
+        }
+    ]
+}

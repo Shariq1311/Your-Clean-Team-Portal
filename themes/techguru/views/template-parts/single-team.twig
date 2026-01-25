@@ -1,0 +1,304 @@
+{% extends 'cms::layouts.frontend' %}
+
+{% block content %}
+
+{% include 'theme::components.breadcrumb' with {
+        is_dynamic: true,
+        post: post
+    }
+%}
+
+<!--Team Details Start-->
+<section class="team-details">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 col-lg-6">
+                <div class="team-details__left">
+                    <div class="team-details__img-box">
+                        <div class="team-details__img">
+                            <img src="{{ post.thumbnail }}" alt="{{ post.title }}">
+                        </div>
+                        {% if post.metas.years_experience %}
+                        <div class="team-details__experience-box">
+                            <div class="team-details__experience-icon">
+                                <img src="{{ post.metas.expertise_image ? upload_url(post.metas.expertise_image) : asset('images/icon/team-details-experience-icon.png') }}" alt=""> 
+                            </div>
+                            <h3 class="team-details__experience-title">{{ post.metas.years_experience }} Years <br>Experience</h3>
+                            <p class="team-details__experience-text">{{ post.metas.experience_title ?? 'crafting intuitive' }}</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6">
+                <div class="team-details__right">
+                    <h3 class="team-details__title">{{ post.title }}</h3>
+                    <p class="team-details__sub-title">{{ post.metas.subtitle ?? post.metas.position }}</p>
+                
+                    <div class="team-details__description">
+                        {% if post.content %}
+                            {{ post.content|raw }}
+                        {% else %}
+                            <p>{{ post.metas.experience_description ?? post.excerpt }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="team-details__points-box">
+                        <ul class="team-details__points list-unstyled">
+                            {% if post.metas.location %}
+                            <li>
+                                <div class="icon">
+                                    <span class="icon-pin"></span>
+                                </div>
+                                <div class="content">
+                                    <h5>Location</h5>
+                                    <p>{{ Your Clean Team_format_text(post.metas.location) }}</p>
+                                </div>
+                            </li>
+                            {% endif %}
+                            
+                            {% if post.metas.department %}
+                            <li>
+                                <div class="icon">
+                                    <span class="icon-graduation-cap"></span>
+                                </div>
+                                <div class="content">
+                                    <h5>Department</h5>
+                                    <p>{{ post.metas.department }}</p>
+                                    {% if post.metas.employment_type %}
+                                    <p>Type: {{ post.metas.employment_type }}</p>
+                                    {% endif %}
+                                </div>
+                            </li>
+                            {% endif %}
+                        </ul>
+                        <ul class="team-details__points list-unstyled">
+                            {% if post.metas.email or post.metas.phone or post.metas.mobile %}
+                            <li>
+                                <div class="icon">
+                                    <span class="icon-contact"></span>
+                                </div>
+                                <div class="content">
+                                    <h5>Contact Info</h5>
+                                    {% if post.metas.email %}
+                                    <p><a href="mailto:{{ post.metas.email }}">{{ post.metas.email }}</a></p>
+                                    {% endif %}
+                                    {% if post.metas.phone %}
+                                    <p>Tel: <a href="tel:{{ post.metas.phone }}">{{ post.metas.phone }}</a></p>
+                                    {% endif %}
+                                    {% if post.metas.mobile %}
+                                    <p>Mob: <a href="tel:{{ post.metas.mobile }}">{{ post.metas.mobile }}</a></p>
+                                    {% endif %}
+                                </div>
+                            </li>
+                            {% endif %}
+                            
+                            {% if post.metas.office_hours %}
+                            <li>
+                                <div class="icon">
+                                    <span class="icon-clock"></span>
+                                </div>
+                                <div class="content">
+                                    <h5>Office Time</h5>
+                                    <p>{{ post.metas.office_hours|nl2br }}</p>
+                                </div>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    
+                    {% if post.metas.show_social_links and (post.metas.facebook or post.metas.linkedin or post.metas.dribbble) %}
+                    <div class="team-details__social-box">
+                        <p>Follow Me</p>
+                        <div class="team-details__social-list">
+                            {% if post.metas.facebook %}
+                            <a href="{{ post.metas.facebook }}" target="_blank"><span class="icon-facebook"></span></a>
+                            {% endif %}
+                            {% if post.metas.dribbble %}
+                            <a href="{{ post.metas.dribbble }}" target="_blank"><span class="icon-dribble"></span></a>
+                            {% endif %}
+                            {% if post.metas.linkedin %}
+                            <a href="{{ post.metas.linkedin }}" target="_blank"><span class="icon-linkedin"></span></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Team Details End-->
+
+<!--Skill One Start-->
+{% if post.metas.expertise %}
+<section class="skill-one">
+    <div class="skill-one__bg-shape" style="background-image: url({{ asset('images/shapes/skill-one-shape-1.png') }});">    
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-7 col-lg-6">
+                <div class="skill-one__left">
+                    <h3 class="skill-one__title">{{ post.metas.skills_title ?? 'Design Skills Hub' }}</h3>
+                    <p class="skill-one__text">{{ post.metas.skills_description ?? post.metas.experience_description ?? 'Professional expertise and skills showcase' }}</p>
+                    <ul class="skill-one__progress-list list-unstyled">
+                        {% set skills = post.metas.expertise|split(',') %}
+                        {% for skill in skills %}
+                            {% set skillData = skill|split(':') %}
+                            {% set skillName = skillData[0]|trim %}
+                            {% set skillPercentage = skillData[1] is defined ? skillData[1]|trim : '90' %}
+                            <li>
+                                <div class="skill-one__progress">
+                                    <h4 class="skill-one__progress-title">{{ skillName }}</h4>
+                                    <div class="bar">
+                                        <div class="bar-inner count-bar" data-percent="{{ skillPercentage }}%">
+                                            <div class="count-text">{{ skillPercentage }}%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xl-5 col-lg-6">
+                <div class="skill-one__right">
+                    <div class="skill-one__img">
+                        <img src="{{ upload_url(post.metas.skill_image) }}" alt="{{ post.title }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+<!--Skill One End-->
+
+<!-- Team One Start -->
+{% set related_team_members = get_posts('teams', {limit: 4, exclude: post.id}) %}
+{% if related_team_members|length > 0 %}
+<section class="team-one">
+    <div class="team-one__shape-1">
+        <img src="{{ asset('images/shapes/team-one-shape-1.png') }}" alt="">
+    </div>
+    <div class="team-one__shape-2"></div>
+    <div class="team-one__shape-3">
+        <img src="{{ asset('images/shapes/team-one-shape-3.png') }}" alt="">
+    </div>
+    <div class="team-one__shape-4"></div>
+    <div class="team-one__shape-5">
+        <img src="{{ asset('images/shapes/team-one-shape-5.png') }}" alt="">
+    </div>
+    <div class="container">
+        <div class="section-title text-center sec-title-animation animation-style1">
+            <div class="section-title__tagline-box">
+                <div class="section-title__tagline-shape-1"></div>
+                <span class="section-title__tagline">Our Team Members</span>
+                <div class="section-title__tagline-shape-2"></div>
+            </div>
+            <h2 class="section-title__title title-animation">Meet Our
+                <span>Other Team</span><br><span>Members</span>
+            </h2>
+        </div>
+        <div class="team-one__carousel owl-theme owl-carousel">
+            {% for member in related_team_members %}
+            <!--Team One Single Start-->
+            <div class="item">
+                <div class="team-one__single">
+                    <div class="team-one__img-box">
+                        <div class="team-one__img">
+                            <img src="{{ member.metas.profile_image ? upload_url(member.metas.profile_image) : member.thumbnail }}" alt="{{ member.title }}">
+                        </div>
+                        <div class="team-one__social-box-inner">
+                            <div class="team-one__social-box">
+                                <div class="team-one__social">
+                                    {% if member.metas.facebook %}
+                                    <a href="{{ member.metas.facebook }}" target="_blank"><span class="icon-facebook"></span></a>
+                                    {% endif %}
+                                    {% if member.metas.dribbble %}
+                                    <a href="{{ member.metas.dribbble }}" target="_blank"><span class="icon-dribble"></span></a>
+                                    {% endif %}
+                                </div>
+                                <div class="team-one__social">
+                                    {% if member.metas.linkedin %}
+                                    <a href="{{ member.metas.linkedin }}" target="_blank"><span class="icon-linkedin"></span></a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-one__content">
+                        <div class="team-one__arrow">
+                            <a href="{{ member.url }}"><span class="icon-link"></span></a>
+                        </div>
+                        <div class="team-one__title-box">
+                            <p class="team-one__sub-title"><span></span>{{ member.metas.position }}</p>
+                            <h3 class="team-one__title"><a href="{{ member.url }}">{{ member.title }}</a></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Team One Single End-->
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+<!-- Team One End -->
+
+<script>
+    (function($) {
+        "use strict";
+        $(document).ready(function() {
+                //Team One Carousel
+            if ($(".team-one__carousel").length) {  
+                    $(".team-one__carousel").owlCarousel({
+                        loop: true,
+                        margin: 30,
+                        nav: false,
+                        dots: true,
+                        smartSpeed: 500,
+                        autoplay: true,
+                        autoplayTimeout: 7000,
+                        navText: [
+                            '<span class="icon-right-up"></span>',
+                            '<span class="icon-right-up"></span>',
+                        ],
+                        responsive: {
+                            0: {
+                            items: 1,
+                            },
+                            768: {
+                            items: 2,
+                            },
+                            992: {
+                            items: 3,
+                            },
+                            1200: {
+                            items: 4,
+                            },
+                            1320: {
+                            items: 4,
+                            },
+                    },
+                });
+            }
+        });
+
+        if ($(".count-bar").length) {
+        $(".count-bar").appear(
+        function () {
+            var el = $(this);
+            var percent = el.data("percent");
+            $(el).css("width", percent).addClass("counted");
+        }, {
+            accY: -50
+        }
+        );
+    }
+
+
+    })(jQuery);
+</script>
+
+{% endblock %}

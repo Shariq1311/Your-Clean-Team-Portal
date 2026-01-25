@@ -1,0 +1,224 @@
+{
+    "label": "Teams About",
+    "description": "Team members section with title, description and carousel",
+    "form": [
+        {
+            "type": "text",
+            "name": "section_tagline",
+            "label": "Section Tagline",
+            "data": {
+                "value": "Our Members"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_1",
+            "label": "Section Title Part 1",
+            "data": {
+                "value": "Meet Our Team."
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_2",
+            "label": "Section Title Part 2 (First Span)",
+            "data": {
+                "value": "Get to"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_3",
+            "label": "Section Title Part 3 (Second Span)",
+            "data": {
+                "value": "Know the Talented"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_4",
+            "label": "Section Title Part 4",
+            "data": {
+                "value": "Minds Behind Our Team"
+            }
+        },
+        {
+            "type": "textarea",
+            "name": "description",
+            "label": "Description",
+            "data": {
+                "value": "Our dedicated team combines expertise, creativity, and passion to deliver exceptional results and ensure your satisfaction every step of the way."
+            }
+        },
+        {
+            "type": "image",
+            "name": "background_shape",
+            "label": "Background Shape Image",
+            "data": {
+                "value": "images/shapes/team-two-bg-shape.png"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "use_teams_post_type",
+            "label": "Use Teams Post Type",
+            "description": "Load team members from Teams post type instead of manual configuration",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "taxonomy",
+            "name": "teams_category",
+            "label": "Teams Category Filter",
+            "description": "Filter team posts by category (when using teams post type)",
+            "data": {
+                "post_type": "teams",
+                "taxonomy": "categories"
+            }
+        },
+        {
+            "type": "text",
+            "name": "items_limit",
+            "label": "Number of Items",
+            "description": "Maximum number of team members to display",
+            "data": {
+                "value": "6"
+            }
+        },
+        {
+            "type": "text",
+            "name": "team_members_ids",
+            "label": "Team Members IDs",
+            "description": "Enter the IDs of the team members to display",
+            "data": {
+                "value": ""
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "team_members",
+            "label": "Team Members (Manual Configuration)",
+            "fields": [
+                {
+                    "type": "image",
+                    "name": "image",
+                    "label": "Member Image"
+                },
+                {
+                    "type": "text",
+                    "name": "name",
+                    "label": "Member Name"
+                },
+                {
+                    "type": "text",
+                    "name": "position",
+                    "label": "Member Position"
+                },
+                {
+                    "type": "text",
+                    "name": "url",
+                    "label": "Member Detail URL"
+                },
+                {
+                    "type": "text",
+                    "name": "facebook",
+                    "label": "Facebook URL"
+                },
+                {
+                    "type": "text",
+                    "name": "dribbble",
+                    "label": "Dribbble URL"
+                },
+                {
+                    "type": "text",
+                    "name": "linkedin",
+                    "label": "LinkedIn URL"
+                }
+            ],
+            "options": {
+                "min_items": 0,
+                "max_items": 10,
+                "add_button_text": "Add Team Member",
+                "remove_button_text": "Remove Team Member",
+                "value": [
+                    {
+                        "image": "images/team/team-2-1.jpg",
+                        "name": "Sophia Bennett",
+                        "position": "CEO & Founder",
+                        "url": "#",
+                        "facebook": "#",
+                        "dribbble": "#",
+                        "linkedin": "#"
+                    },
+                    {
+                        "image": "images/team/team-2-2.jpg",
+                        "name": "Liam Johnson",
+                        "position": "Operations Manager",
+                        "url": "#",
+                        "facebook": "#",
+                        "dribbble": "#",
+                        "linkedin": "#"
+                    },
+                    {
+                        "image": "images/team/team-2-3.jpg",
+                        "name": "Ethan Miller",
+                        "position": "Lead Designer",
+                        "url": "#",
+                        "facebook": "#",
+                        "dribbble": "#",
+                        "linkedin": "#"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_autoplay",
+            "label": "Carousel Autoplay",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_autoplay_timeout",
+            "label": "Carousel Autoplay Timeout (ms)",
+            "data": {
+                "value": "5000"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_loop",
+            "label": "Carousel Loop",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_items",
+            "label": "Carousel Items (Desktop)",
+            "data": {
+                "value": "3"
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_items_tablet",
+            "label": "Carousel Items (Tablet)",
+            "data": {
+                "value": "2"
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_items_mobile",
+            "label": "Carousel Items (Mobile)",
+            "data": {
+                "value": "1"
+            }
+        }
+    ]
+}

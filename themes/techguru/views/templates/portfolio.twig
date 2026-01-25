@@ -1,0 +1,112 @@
+{% extends 'cms::layouts.frontend' %}
+
+{% block content %}
+    {% include 'theme::components.breadcrumb' with {
+        title: 'Portfolio',
+        description: 'This is our portfolio. Our portfolio is a collection of our work.',
+        items: [
+
+            {'label': 'Home', 'url': '/'},
+            {'label': 'Portfolio'}
+        ]
+    } %}
+
+    {% if input_get('page') is empty %}
+        {{ dynamic_block(post, 'content') }}
+    {% endif %}
+
+    {% set items = get_posts('portfolios', {
+        'paginate': 10
+    }) %}
+
+    <section class="portfolio-page">
+            <h2 class="portfolio-one__big-text">{{ post.title|default('Portfolio') }}</h2>
+            <div class="container">
+                <div class="section-title text-center sec-title-animation animation-style1">
+                    <div class="section-title__tagline-box">
+                        <div class="section-title__tagline-shape-1"></div>
+                        <span class="section-title__tagline">{{ __('See Our Works') }}</span>
+                        <div class="section-title__tagline-shape-2"></div>
+                    </div>
+                    <h2 class="section-title__title title-animation">{{ __('How We\'ve') }}
+                        <span>{{ __('Empowered Businesses with') }}</span> <br> <span>{{ __('Innovative') }}</span> {{ __('Tech Solutions') }}</h2>
+                </div>
+                <div class="portfolio-one__bottom">
+                    <div class="container">
+                        <div class="row">
+                            {% for post in items.data %}
+                                <div class="col-xl-4 col-lg-6 col-md-6">
+                                    <div class="portfolio-one__single">
+                                        <div class="portfolio-one__img-box">
+                                            <div class="portfolio-one__img">
+                                                <img src="{{ post.thumbnail }}" alt="{{ post.title }}">  
+                                                <div class="portfolio-one__tag">
+                                                    {% for taxonomy in post.taxonomies %}
+                                                        {% if taxonomy.taxonomy == 'categories' %}
+                                                            <span>{{ taxonomy.name }}</span>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="portfolio-one__content">
+                                            <div class="portfolio-one__title-box">
+                                                <h3 class="portfolio-one__title"><a href="{{ post.url }}">{{ post.title }}</a></h3>
+                                                <p class="portfolio-one__text">
+                                                    {% if post.metas.excerpt %} 
+                                                        {{ post.metas.excerpt | striptags | slice(0, 70) ~ '...' }}
+                                                    {% else %}
+                                                        {{ post.description | striptags | slice(0, 70) ~ '...' }}
+                                                    {% endif %}
+                                                </p>
+                                            </div>
+                                            <div class="portfolio-one__arrow">
+                                                <a href="{{ post.thumbnail }}" class="img-popup"><span
+                                                        class="icon-right-arrow"></span></a>
+                                            </div>
+                                            <div class="portfolio-one__year">
+                                                <span>{{ post.date|date('Y') }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <!--Portfolio One Single End-->
+                            {{ paginate_links(items, 'theme::components.pagination') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <script>
+    (function($) {
+        "use strict";
+        $(document).ready(function() {
+                if ($(".img-popup").length) {
+                var groups = {};
+                $(".img-popup").each(function () {
+                var id = parseInt($(this).attr("data-group"), 10);
+
+                if (!groups[id]) {
+                    groups[id] = [];
+                }
+
+                groups[id].push(this);
+                });
+
+                $.each(groups, function () {
+                $(this).magnificPopup({
+                    type: "image",
+                    closeOnContentClick: true,
+                    closeBtnInside: false,
+                    gallery: {
+                    enabled: true
+                    }
+                });
+                });
+            }
+        });
+        })(jQuery);
+    </script>
+{% endblock %}

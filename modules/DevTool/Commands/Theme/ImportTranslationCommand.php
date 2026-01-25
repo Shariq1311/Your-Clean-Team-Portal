@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * Mojar - The Best CMS for Laravel Project
+ *
+ * @package    Mojar/cms
+ * @author     Mojar Team <admin@Mojar.com>
+ * @link       https://Mojar.com
+ * @license    MIT
+ */
+
+namespace MojarCMS\DevTool\Commands\Theme;
+
+use Illuminate\Console\Command;
+use MojarCMS\CMS\Contracts\TranslationManager;
+use Symfony\Component\Console\Input\InputArgument;
+
+class ImportTranslationCommand extends Command
+{
+    protected $name = 'theme:import-translation';
+
+    public function handle(): int
+    {
+        $importer = app(TranslationManager::class)
+            ->import(
+                'theme',
+                $this->argument('theme')
+            );
+
+        $importer->progressCallback(
+            function ($model) {
+                $this->info("--> Import translation key {$model->key}");
+            }
+        );
+
+        $total = $importer->run();
+
+        $this->info("Import success {$total} language text.");
+
+        return self::SUCCESS;
+    }
+
+    protected function getArguments(): array
+    {
+        return [
+            ['theme', InputArgument::REQUIRED, 'The name of theme will be import.'],
+        ];
+    }
+}

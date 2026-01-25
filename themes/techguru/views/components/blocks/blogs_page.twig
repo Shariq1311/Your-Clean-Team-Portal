@@ -1,0 +1,168 @@
+{% set posts = get_posts('posts', {
+    'paginate': 8
+}) %}
+
+
+{% if data.blog_style == 'blog_carousel' %}
+    <section class="blog-carousel-page">
+        <div class="blog-page__shape-1"></div>
+        <div class="blog-page__shape-2"></div>
+        <div class="container">
+            <div class="blog-carousel-style owl-carousel owl-theme carousel-dot-style">
+               
+                {% for post in posts.data %}
+                    <div class="item">
+                        <div class="blog-one__single">
+                            <div class="blog-one__img">
+                                <img src="{{ post.thumbnail }}" alt="{{ post.title }}">
+                                <div class="blog-one__tags">
+                                    {% for taxonomy in post.taxonomies %}
+                                        {% if taxonomy.taxonomy == 'tags' %}
+                                            <span>{{ taxonomy.name }}</span>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="blog-one__content">
+                                <div class="blog-one__user">
+                                    <div class="blog-one__user-img">
+                                        <img src="{{ upload_url(post.author.avatar) }}" alt="{{ post.author.name }}">
+                                    </div>
+                                    <p class="blog-one__user-title">{{ post.author.name }}</p>
+                                </div>
+                                <ul class="blog-one__meta list-unstyled">
+                                    <li>
+                                        <a href="{{ post.url }}"><span class="far fa-calendar-alt"></span>{{ post.created_at|date("d M, Y") }}</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ post.url }}"><span class="fal fa-comments"></span>{{ post.comments_count }} Comments</a>
+                                    </li>
+                                </ul>
+                                <h3 class="blog-one__title"><a href="{{ post.url }}">{{ post.title }}</a></h3>
+                                <p class="blog-one__text">{{ post.description | striptags | slice(0, 120) ~ '...' }}</p>
+                                <div class="blog-one__btn-box">
+                                    <a href="{{ post.url }}" class="thm-btn">{{ __('Read More') }}<span
+                                            class="icon-right-arrow"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% elseif data.blog_style == 'blog_grid' %}
+    <section class="blog-page">
+        <div class="blog-page__shape-1"></div>
+        <div class="blog-page__shape-2"></div>
+        <div class="container">
+            <div class="section-title text-center sec-title-animation animation-style1">
+                <div class="section-title__tagline-box">
+                    <div class="section-title__tagline-shape-1"></div>
+                    <span class="section-title__tagline">{{ data.section_subtitle_1 }}</span>
+                    <div class="section-title__tagline-shape-2"></div>
+                </div>
+                <h2 class="section-title__title title-animation">{{ data.section_title }} <span>{{ data.section_subtitle_2 }}</span><br><span>{{ data.section_subtitle_3 }}</span>{{ data.section_subtitle_4 }}</h2>
+            </div>
+            <div class="row">
+                <!-- Blog One Single Start -->
+                {% for post in posts.data %}
+                    <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="100ms">
+                        <div class="blog-one__single">
+                            <div class="blog-one__img">
+                                <img src="{{ post.thumbnail }}" alt="{{ post.title }}">
+                                <div class="blog-one__tags">
+                                    {% for taxonomy in post.taxonomies %}
+                                        {% if taxonomy.taxonomy == 'tags' %}
+                                            <span>{{ taxonomy.name }}</span>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="blog-one__content">
+                                <div class="blog-one__user">
+                                    <div class="blog-one__user-img">
+                                        <img src="{{ upload_url(post.author.avatar) }}" alt="{{ post.author.name }}">
+                                    </div>
+                                    <p class="blog-one__user-title">{{ post.author.name }}</p>
+                                </div>
+                                <ul class="blog-one__meta list-unstyled">
+                                    <li>
+                                        <a href="{{ post.url }}"><span class="far fa-calendar-alt"></span>{{ post.created_at|date("d M, Y") }}</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ post.url }}"><span class="fal fa-comments"></span>{{ post.comments_count }} Comments</a>
+                                    </li>
+                                </ul>
+                                <h3 class="blog-one__title"><a href="{{ post.url }}">{{ post.title }}</a></h3>
+                                <p class="blog-one__text">{{ post.description | striptags | slice(0, 120) ~ '...' }}</p>
+                                <div class="blog-one__btn-box">
+                                    <a href="{{ post.url }}" class="thm-btn">{{ __('Read More') }}<span
+                                            class="icon-right-arrow"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {{ paginate_links(posts, 'theme::components.pagination') }}
+            </div>
+        </div>
+    </section>
+{% elseif data.blog_style == 'blog_list_two' %}
+    <section class="blog-list">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-4 col-lg-5">
+                    <div class="sidebar sidebar--two">
+                        {{ dynamic_sidebar('sidebar') }}
+                    </div>
+                </div>
+                <div class="col-xl-8 col-lg-7">
+                    <div class="blog-list__left blog-list__left--two">
+                        {% for post in posts.data %}
+                            {{ get_template_part(post, 'content') }}
+                        {% endfor %}
+                        {{ paginate_links(posts, 'theme::components.pagination') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endif %}
+
+{% if data.blog_style == 'blog_carousel' %}
+<script>    
+    if ($(".blog-carousel-style").length) { 
+    $(".blog-carousel-style").owlCarousel({
+      loop: true,
+      margin: 30,
+      nav: false,
+      dots: true,
+      smartSpeed: 500,
+      autoplay: true,
+      autoplayTimeout: 7000,
+      navText: [
+        '<span class="icon-right-arrow-1"></span>',
+        '<span class="icon-right-arrow-1"></span>',
+      ],
+      responsive: {
+        0: {
+          items: 1,
+        },
+        768: {
+          items: 2,
+        },
+        992: {
+          items: 3,
+        },
+        1200: {
+          items: 3,
+        },
+        1320: {
+          items: 3,
+        },
+      },
+    });
+  }
+</script>
+{% endif %}

@@ -1,0 +1,47 @@
+{% extends 'cms::layouts.frontend' %}
+
+{% block content %}
+
+	{% include 'theme::components.breadcrumb' with {
+        title: 'Blog List',
+		description: 'Learn more about our company and mission',
+        items: [
+            {'label': 'Home', 'url': '/'},
+            {'label': 'Blogs'}
+        ]
+    } %}
+	
+	<section class="blog-list">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-7">
+                        <div class="blog-list__left">
+                            <!--Blog List Single Start-->
+							{% if page.data|length > 0 %}
+								{% for post in page.data %}
+									{{ get_template_part(post, 'content') }}
+								{% endfor %}
+							{% else %}
+								<div class="col-12">
+									<div class="tf__blog_empty_state">
+										<h3>No Posts Found</h3>
+										<p>We couldn't find any posts matching your criteria. Try changing your search terms or filters.</p>
+										<a href="{{ url('/') }}" class="reset-button">Reset Filters</a>
+									</div>
+								</div>
+							{% endif %}
+							
+                            <!--Blog List Single End-->
+                            {# Pagination #}
+							{{ paginate_links(page, 'theme::components.pagination') }}
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-5">
+                        <div class="sidebar">
+						{{ dynamic_sidebar('sidebar') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endblock %}

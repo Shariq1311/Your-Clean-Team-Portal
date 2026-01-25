@@ -1,0 +1,207 @@
+<section class="portfolio-one">
+    <h2 class="portfolio-one__big-text">{{ data.big_text|default('portfolio') }}</h2>
+    <div class="portfolio-one__shape-1">
+        {% if data.shape_1 %}
+            <img src="{{ upload_url(data.shape_1) }}" alt="shape">
+        {% else %}
+            <img src="{{ asset('images/shapes/portfolio-one-shape-1.png') }}" alt="shape">
+        {% endif %}
+    </div>
+    <div class="portfolio-one__shape-2">
+        {% if data.shape_2 %}
+            <img src="{{ upload_url(data.shape_2) }}" alt="shape">
+        {% else %}
+            <img src="{{ asset('images/shapes/portfolio-one-shape-2.png') }}" alt="shape">
+        {% endif %}
+    </div>
+    <div class="container">
+        <div class="portfolio-one__top">
+            <div class="section-title text-left sec-title-animation {% if data.enable_animation %}animation-style2{% endif %}">
+                <div class="section-title__tagline-box">
+                    <div class="section-title__tagline-shape-1"></div>
+                    <span class="section-title__tagline">{{ data.section_tagline|default('See Our Works') }}</span>
+                    <div class="section-title__tagline-shape-2"></div>
+                </div>
+                <h2 class="section-title__title {% if data.enable_animation %}title-animation{% endif %}">{{ data.section_title_1|default('How We\'ve') }}
+                    <span>{{ data.section_title_2|default('Empowered') }}</span><br><span>{{ data.section_title_3|default('Businesses with Innovative') }}</span><br>{{ data.section_title_4|default('Tech Solutions') }}</h2>
+            </div>
+            <a href="{{ data.all_projects_url|default('javascript:void(0)') }}" class="portfolio-one__round-text-box">
+                <div class="portfolio-one__round-text-box-outer">
+                    <div class="portfolio-one__round-text-box-inner">
+                        <div class="portfolio-one__curved-circle">
+                            {{ data.round_text|default('View All Project') }} {{ data.round_text|default('View All Project') }}
+                        </div>
+                        <div class="portfolio-one__round-icon">
+                            {% if data.round_icon %}
+                                <img src="{{ upload_url(data.round_icon) }}" alt="icon">
+                            {% else %}
+                                <img src="{{ asset('images/icon/portfolio-one-round-icon.png') }}" alt="icon">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="portfolio-one__bottom">
+        <div class="portfolio-one__carousel owl-carousel owl-theme">
+            {% if data.use_portfolio_post_type %}
+                {% set ids_array = data.portfolio_ids ? data.portfolio_ids|split(',') : [] %}
+                {% set portfolios = get_posts('portfolios', {
+                    'limit': data.items_limit|default(6),
+                    'taxonomy': data.portfolio_category,
+                    'ids': ids_array,
+                    'orderby': data.orderby|default('date'),
+                    'order': data.order|default('DESC')
+                }) %}
+                
+                {% if portfolios %}
+                    {% for portfolio in portfolios %}
+                        <!--Portfolio One Single Start-->
+                        <div class="item">
+                            <div class="portfolio-one__single">
+                                <div class="portfolio-one__img-box">
+                                    <div class="portfolio-one__img">
+                                        <img src="{{ upload_url(portfolio.thumbnail) }}" alt="{{ portfolio.title }}">
+                                        <div class="portfolio-one__tag">
+                                            {% if portfolio.metas.tags %}
+                                                {% for tag in portfolio.metas.tags %}
+                                                    <span>{{ tag.tag }}</span>
+                                                {% endfor %}
+                                            {% elseif portfolio.taxonomies.categories %}
+                                                {% for category in portfolio.taxonomies.categories %}
+                                                    <span>{{ category.name }}</span>
+                                                {% endfor %}
+                                            {% else %}
+                                                <span>Portfolio</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="portfolio-one__content">
+                                    <div class="portfolio-one__title-box">
+                                        <h3 class="portfolio-one__title"><a href="{{ portfolio.url }}">{{ portfolio.title }}</a></h3>
+                                        <p class="portfolio-one__text">{{ portfolio.excerpt|raw }}</p>
+                                    </div>
+                                    <div class="portfolio-one__arrow">
+                                        <a href="{{ upload_url(portfolio.thumbnail) }}" class="img-popup"><span class="icon-right-arrow"></span></a>
+                                    </div>
+                                    <div class="portfolio-one__year">
+                                        <span>{{ portfolio.metas.year|default('2025') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Portfolio One Single End-->
+                    {% endfor %}
+                {% else %}
+                    <div class="item">
+                        <div class="portfolio-one__single">
+                            <div class="portfolio-one__content text-center">
+                                <p>No portfolio items found. Please select portfolio post type or add custom items.</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% else %}
+                {% if data.portfolio_items %}
+                    {% for item in data.portfolio_items %}
+                        <!--Portfolio One Single Start-->
+                        <div class="item">
+                            <div class="portfolio-one__single">
+                                <div class="portfolio-one__img-box">
+                                    <div class="portfolio-one__img">
+                                        <img src="{{ upload_url(item.image) }}" alt="{{ item.title }}">
+                                        <div class="portfolio-one__tag">
+                                            {% if item.tags %}
+                                                {% for tag_item in item.tags %}
+                                                    <span>{{ tag_item.tag }}</span>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="portfolio-one__content">
+                                    <div class="portfolio-one__title-box">
+                                        <h3 class="portfolio-one__title"><a href="{{ item.url|default('javascript:void(0)') }}">{{ item.title }}</a></h3>
+                                        <p class="portfolio-one__text">{{ item.description }}</p>
+                                    </div>
+                                    <div class="portfolio-one__arrow">
+                                        <a href="{{ upload_url(item.image) }}" class="img-popup"><span class="icon-right-arrow"></span></a>
+                                    </div>
+                                    <div class="portfolio-one__year">
+                                        <span>{{ item.year|default('2025') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Portfolio One Single End-->
+                    {% endfor %}
+                {% else %}
+                    <div class="item">
+                        <div class="portfolio-one__single">
+                            <div class="portfolio-one__content text-center">
+                                <p>No portfolio items found. Please select portfolio post type or add custom items.</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function() {
+        if ($(".portfolio-one__carousel").length) {
+            $(".portfolio-one__carousel").owlCarousel({
+                loop: {{ data.carousel_loop ? 'true' : 'false' }},
+                margin: {{ data.carousel_margin|default(30) }},
+                nav: {{ data.carousel_nav ? 'true' : 'false' }},
+                dots: {{ data.carousel_dots ? 'true' : 'false' }},
+                smartSpeed: {{ data.carousel_smart_speed|default(500) }},
+                autoplay: {{ data.carousel_autoplay ? 'true' : 'false' }},
+                autoplayTimeout: {{ data.carousel_autoplay_timeout|default(5000) }},
+                navText: [
+                    '<span class="icon-right-arrow-1"></span>',
+                    '<span class="icon-right-arrow-1"></span>',
+                ],
+                responsive: {
+                    0: {
+                        items: {{ data.carousel_items_mobile|default(1) }}
+                    },
+                    768: {
+                        items: {{ data.carousel_items_tablet|default(1) }}
+                    },
+                    992: {
+                        items: {{ data.carousel_items_desktop|default(2) }}
+                    },
+                    1200: {
+                        items: {{ data.carousel_items_desktop|default(2) }}
+                    }
+                }
+            });
+        }
+
+        {% if data.enable_magnific_popup %}
+        if ($('.img-popup').length) {
+            var groups = {};
+            $('.img-popup').each(function() {
+                var id = parseInt($(this).attr('data-group'), 10);
+                if(!groups[id]) {
+                    groups[id] = [];
+                }
+                groups[id].push(this);
+            });
+            $.each(groups, function() {
+                $(this).magnificPopup({
+                    type: 'image',
+                    closeOnContentClick: true,
+                    closeBtnInside: false,
+                    gallery: { enabled: true }
+                });
+            });
+        }
+        {% endif %}
+    });
+</script> 

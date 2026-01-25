@@ -1,0 +1,52 @@
+<?php
+
+/**
+ * @package    mojar/cms
+ * @author     Mojar Team
+ * @link       https://github.com/mojar/cms
+ * @license    GNU V2
+ */
+
+namespace MojarCMS\CMS\Providers;
+
+use Illuminate\Support\Facades\Blade;
+use MojarCMS\CMS\Support\ServiceProvider;
+use MojarCMS\CMS\Contracts\EventyContract;
+use MojarCMS\CMS\Support\Hooks\Events;
+
+class HookActionServiceProvider extends ServiceProvider
+{
+    public function boot()
+    {
+        /*
+         * Adds a directive in Blade for actions
+         */
+        Blade::directive(
+            'do_action',
+            function ($expression) {
+                return "<?php app(\MojarCMS\CMS\Contracts\EventyContract::class)->action({$expression}); ?>";
+            }
+        );
+
+        /*
+         * Adds a directive in Blade for filters
+         */
+        Blade::directive(
+            'apply_filters',
+            function ($expression) {
+                return "<?php echo app(\MojarCMS\CMS\Contracts\EventyContract::class)->filter({$expression}); ?>";
+            }
+        );
+    }
+
+    public function register()
+    {
+        // Registers the eventy singleton.
+        $this->app->singleton(
+            EventyContract::class,
+            function () {
+                return new Events();
+            }
+        );
+    }
+}

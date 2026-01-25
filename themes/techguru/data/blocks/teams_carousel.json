@@ -1,0 +1,218 @@
+{
+    "label": "Teams Carousel",
+    "description": "Team members carousel with social links and details",
+    "form": [
+        {
+            "type": "text",
+            "name": "section_title",
+            "label": "Section Title",
+            "data": {
+                "value": "Our Team"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_subtitle",
+            "label": "Section Subtitle",
+            "data": {
+                "value": "Meet Our Experts"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "show_section_title",
+            "label": "Show Section Title",
+            "description": "Display the section title and subtitle",
+            "data": {
+                "value": 0
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "use_teams_post_type",
+            "label": "Use Teams Post Type",
+            "description": "Load team members from Teams post type instead of custom items",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "items_per_page",
+            "label": "Items Per Page",
+            "description": "Number of team members to display",
+            "data": {
+                "value": "10"
+            }
+        },
+        {
+            "type": "taxonomy",
+            "name": "teams_category",
+            "label": "Teams Category",
+            "description": "Filter team members by category",
+            "data": {
+                "post_type": "teams",
+                "taxonomy": "categories"
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_class",
+            "label": "Carousel Class",
+            "description": "CSS class for the carousel",
+            "data": {
+                "value": "team-carousel-style owl-carousel owl-theme carousel-dot-style"
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "custom_team_members",
+            "label": "Custom Team Members",
+            "description": "Custom team members if not using Teams post type",
+            "fields": [
+                {
+                    "type": "image",
+                    "name": "image",
+                    "label": "Member Image"
+                },
+                {
+                    "type": "text",
+                    "name": "name",
+                    "label": "Member Name"
+                },
+                {
+                    "type": "text",
+                    "name": "position",
+                    "label": "Job Position"
+                },
+                {
+                    "type": "text",
+                    "name": "facebook_url",
+                    "label": "Facebook URL"
+                },
+                {
+                    "type": "text",
+                    "name": "dribbble_url",
+                    "label": "Dribbble URL"
+                },
+                {
+                    "type": "text",
+                    "name": "linkedin_url",
+                    "label": "LinkedIn URL"
+                },
+                {
+                    "type": "text",
+                    "name": "details_url",
+                    "label": "Details Page URL"
+                }
+            ],
+            "options": {
+                "min_items": 0,
+                "max_items": 20,
+                "add_button_text": "Add Team Member",
+                "remove_button_text": "Remove Team Member",
+                "value": [
+                    {
+                        "image": "images/team/team-1-1.jpg",
+                        "name": "James Carter",
+                        "position": "CEO & Founder",
+                        "facebook_url": "#",
+                        "dribbble_url": "#",
+                        "linkedin_url": "#",
+                        "details_url": "team-details.html"
+                    },
+                    {
+                        "image": "images/team/team-1-2.jpg",
+                        "name": "Sophia Reynolds",
+                        "position": "Chief Technology Officer",
+                        "facebook_url": "#",
+                        "dribbble_url": "#",
+                        "linkedin_url": "#",
+                        "details_url": "team-details.html"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_items",
+            "label": "Items Per Slide",
+            "description": "Number of items to show per slide",
+            "data": {
+                "value": "3"
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_items_tablet",
+            "label": "Items Per Slide (Tablet)",
+            "description": "Number of items to show per slide on tablets",
+            "data": {
+                "value": "2"
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_items_mobile",
+            "label": "Items Per Slide (Mobile)",
+            "description": "Number of items to show per slide on mobile",
+            "data": {
+                "value": "1"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_autoplay",
+            "label": "Autoplay",
+            "description": "Enable autoplay for carousel",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_autoplay_timeout",
+            "label": "Autoplay Timeout",
+            "description": "Autoplay timeout in milliseconds",
+            "data": {
+                "value": "5000"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_loop",
+            "label": "Loop",
+            "description": "Enable loop for carousel",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_nav",
+            "label": "Show Navigation",
+            "description": "Show navigation arrows",
+            "data": {
+                "value": 0
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_dots",
+            "label": "Show Dots",
+            "description": "Show pagination dots",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_margin",
+            "label": "Item Margin",
+            "description": "Margin between carousel items in pixels",
+            "data": {
+                "value": "30"
+            }
+        }
+    ]
+}

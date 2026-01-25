@@ -1,0 +1,206 @@
+<!-- Team Carousel Page Start -->
+<section class="team-carousel-page">
+    <div class="container">
+        {% if data.show_section_title %}
+        <div class="section-title text-center sec-title-animation animation-style1">
+            <div class="section-title__tagline-box">
+                <div class="section-title__tagline-shape-1"></div>
+                <span class="section-title__tagline">{{ data.section_subtitle|default('Meet Our Experts') }}</span>
+                <div class="section-title__tagline-shape-2"></div>
+            </div>
+            <h2 class="section-title__title title-animation">{{ data.section_title|default('Our Team') }}</h2>
+        </div>
+        {% endif %}
+        {% set team_members = get_posts('teams', {
+            'limit': data.items_per_page|default(10)
+        }) %}
+        <div class="team-carousel-style owl-carousel owl-theme carousel-dot-style {{ data.carousel_class }}">
+            {% if data.use_teams_post_type %}
+                {% if team_members is defined and team_members is not empty %}
+                    {% for member in team_members %}
+                        <!-- Team One Single Start -->
+                        <div class="item">
+                            <div class="team-one__single">
+                                <div class="team-one__img-box">
+                                    <div class="team-one__img">
+                                        <img src="{{ member.thumbnail|default(upload_url(member.image)) }}" alt="{{ member.title }}">
+                                    </div>
+                                    <div class="team-one__social-box-inner">
+                                        <div class="team-one__social-box">
+                                            <div class="team-one__social">
+                                                {% if member.metas.facebook %}
+                                                <a href="{{ member.metas.facebook }}"><span class="icon-facebook"></span></a>
+                                                {% endif %}
+                                                {% if member.metas.dribbble %}
+                                                <a href="{{ member.metas.dribbble }}"><span class="icon-dribble"></span></a>
+                                                {% endif %}
+                                            </div>
+                                            <div class="team-one__social">
+                                                {% if member.metas.linkedin %}
+                                                <a href="{{ member.metas.linkedin }}"><span class="icon-linkedin"></span></a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="team-one__content">
+                                    <div class="team-one__arrow">
+                                        <a href="{{ member.url }}"><span class="icon-link"></span></a>
+                                    </div>
+                                    <div class="team-one__title-box">
+                                        <p class="team-one__sub-title"><span></span>{{ member.metas.position|default('Team Member') }}</p>
+                                        <h3 class="team-one__title"><a href="{{ member.url }}">{{ member.title }}</a></h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Team One Single End -->
+                    {% endfor %}
+                {% endif %}
+            {% else %}
+                {% if data.custom_team_members %}
+                    {% for member in data.custom_team_members %}
+                        <!-- Team One Single Start -->
+                        <div class="item">
+                            <div class="team-one__single">
+                                <div class="team-one__img-box">
+                                    <div class="team-one__img">
+                                        <img src="{{ upload_url(member.image) }}" alt="{{ member.name }}">
+                                    </div>
+                                    <div class="team-one__social-box-inner">
+                                        <div class="team-one__social-box">
+                                            <div class="team-one__social">
+                                                {% if member.facebook_url %}
+                                                <a href="{{ member.facebook_url }}"><span class="icon-facebook"></span></a>
+                                                {% endif %}
+                                                {% if member.dribbble_url %}
+                                                <a href="{{ member.dribbble_url }}"><span class="icon-dribble"></span></a>
+                                                {% endif %}
+                                            </div>
+                                            <div class="team-one__social">
+                                                {% if member.linkedin_url %}
+                                                <a href="{{ member.linkedin_url }}"><span class="icon-linkedin"></span></a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="team-one__content">
+                                    <div class="team-one__arrow">
+                                        <a href="{{ member.details_url|default('#') }}"><span class="icon-link"></span></a>
+                                    </div>
+                                    <div class="team-one__title-box">
+                                        <p class="team-one__sub-title"><span></span>{{ member.position }}</p>
+                                        <h3 class="team-one__title"><a href="{{ member.details_url|default('#') }}">{{ member.name }}</a></h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Team One Single End -->
+                    {% endfor %}
+                {% else %}
+                    <!-- Team One Single Start (Default) -->
+                    <div class="item">
+                        <div class="team-one__single">
+                            <div class="team-one__img-box">
+                                <div class="team-one__img">
+                                    <img src="assets/images/team/team-1-1.jpg" alt="">
+                                </div>
+                                <div class="team-one__social-box-inner">
+                                    <div class="team-one__social-box">
+                                        <div class="team-one__social">
+                                            <a href="#"><span class="icon-facebook"></span></a>
+                                            <a href="#"><span class="icon-dribble"></span></a>
+                                        </div>
+                                        <div class="team-one__social">
+                                            <a href="#"><span class="icon-linkedin"></span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="team-one__content">
+                                <div class="team-one__arrow">
+                                    <a href="javascript:void(0)"><span class="icon-link"></span></a>
+                                </div>
+                                <div class="team-one__title-box">
+                                    <p class="team-one__sub-title"><span></span>CEO & Founder</p>
+                                    <h3 class="team-one__title"><a href="javascript:void(0)">James Carter</a></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Team One Single End -->
+                    <!-- Team One Single Start (Default) -->
+                    <div class="item">
+                        <div class="team-one__single">
+                            <div class="team-one__img-box">
+                                <div class="team-one__img">
+                                    <img src="assets/images/team/team-1-2.jpg" alt="">
+                                </div>
+                                <div class="team-one__social-box-inner">
+                                    <div class="team-one__social-box">
+                                        <div class="team-one__social">
+                                            <a href="#"><span class="icon-facebook"></span></a>
+                                            <a href="#"><span class="icon-dribble"></span></a>
+                                        </div>
+                                        <div class="team-one__social">
+                                            <a href="#"><span class="icon-linkedin"></span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="team-one__content">
+                                <div class="team-one__arrow">
+                                    <a href="javascript:void(0)"><span class="icon-link"></span></a>
+                                </div>
+                                <div class="team-one__title-box">
+                                    <p class="team-one__sub-title"><span></span>Chief Technology Officer</p>
+                                    <h3 class="team-one__title"><a href="javascript:void(0)">Sophia Reynolds</a></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Team One Single End -->
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+<!-- Team Carousel Page End -->
+
+<script>
+    $(document).ready(function() {
+          if ($(".team-carousel-style").length) {
+                $(".team-carousel-style").owlCarousel({
+                loop: true,
+                margin: 30,
+                nav: false,
+                dots: true,
+                smartSpeed: 500,
+                autoplay: true,
+                autoplayTimeout: 7000,
+                navText: [
+                    '<span class="icon-right-arrow-1"></span>',
+                    '<span class="icon-right-arrow-1"></span>',
+                ],
+                responsive: {
+                    0: {
+                    items: 1,
+                    },
+                    768: {
+                    items: 2,
+                    },
+                    992: {
+                    items: 3,
+                    },
+                    1200: {
+                    items: 4,
+                    },
+                    1320: {
+                    items: 4,
+                    },
+                },
+            });
+        }
+    });
+</script> 

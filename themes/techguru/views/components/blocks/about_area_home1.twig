@@ -1,0 +1,129 @@
+<section class="about-two">
+    <div class="about-two__shape-2"></div>
+    <div class="about-two__shape-3">
+        <img src="{{ upload_url(data.shape_3) }}" alt="shape">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="about-two__left">
+                    <div class="about-two__img-box">
+                        <div class="about-two__img">
+                            <img src="{{ upload_url(data.main_image) }}" alt="about image">
+                        </div>
+                        <div class="about-two__img-2">
+                            <img src="{{ upload_url(data.secondary_image) }}" alt="about image">
+                        </div>
+                        <div class="about-two__shape-1"></div>
+                    </div>
+                    <div class="about-two__client-box">
+                        <ul class="about-two__client-img-list list-unstyled">
+                            {% if data.client_images %}
+                                {% for client in data.client_images %}
+                                    <li>
+                                        <div class="about-two__client-img">
+                                            <img src="{{ upload_url(client.image) }}" alt="{{ client.alt|default('client') }}">
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            {% endif %}
+                            <li>
+                                <a href="{{ data.client_more_url|default('#') }}"><span class="icon-plus"></span></a>
+                            </li>
+                        </ul>
+                        <p class="about-two__client-text">
+                            <span class="odometer" data-count="{{ data.client_count|default('120') }}">00</span>
+                            <span>{{ data.client_suffix|default('K') }}</span> 
+                            {{ data.client_text|default('Satisfied Client') }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="about-two__right">
+                    <div class="section-title text-left sec-title-animation animation-style2">
+                        <div class="section-title__tagline-box">
+                            <div class="section-title__tagline-shape-1"></div>
+                            <span class="section-title__tagline">{{ data.section_tagline|default('About Us') }}</span>
+                            <div class="section-title__tagline-shape-2"></div>
+                        </div>
+                        <h2 class="section-title__title title-animation">{{ data.title_part_1|default('Unlock Your Business') }}
+                            <span>{{ data.title_part_2|default('Potential') }}</span><br>
+                            <span>{{ data.title_part_3|default('with Our best Cutting-Edge') }}</span> 
+                            {{ data.title_part_4|default('IT') }}<br> 
+                            {{ data.title_part_5|default('Solutions to grow') }}
+                        </h2>
+                    </div>
+                    <p class="about-two__text">{{ data.description|default('Transform your business with our innovative IT solutions, tailored to address your unique challenges and drive growth in today\'s digital landscape.') }}</p>
+                    <div class="about-two__points-box">
+                        {% if data.features %}
+                            {% set half = (data.features|length / 2)|round(0, 'ceil') %}
+                            {% set firstHalf = data.features|slice(0, half) %}
+                            {% set secondHalf = data.features|slice(half) %}
+                            
+                            <ul class="about-two__points-list list-unstyled">
+                                {% for feature in firstHalf %}
+                                    <li>
+                                        <div class="icon">
+                                            <span class="{{ feature.icon|default('icon-tick-inside-circle') }}"></span>
+                                        </div>
+                                        <p>{{ Your Clean Team_format_text(feature.text) }}</p>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            
+                            <ul class="about-two__points-list list-unstyled">
+                                {% for feature in secondHalf %}
+                                    <li>
+                                        <div class="icon">
+                                            <span class="{{ feature.icon|default('icon-tick-inside-circle') }}"></span>
+                                        </div>
+                                        <p>{{ Your Clean Team_format_text(feature.text) }}</p>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                    <div class="about-two__experience-contact-and-btn">
+                        <div class="about-two__experience-box">
+                            <div class="about-two__experience-count-box">
+                                <h3 class="odometer" data-count="{{ data.experience_years|default('25') }}">00</h3>
+                                <span>+</span>
+                            </div>
+                            <p class="about-two__experience-text">{{ Your Clean Team_format_text(data.experience_text) }}</p>
+                        </div>
+                        <div class="about-two__call-box">
+                            <div class="about-two__call-icon">
+                                <span class="icon-customer-service-headset"></span>
+                            </div>
+                            <div class="about-two__call-content">
+                                <span>{{ data.call_text|default('call us for inquiry') }}</span>
+                                <p><a href="tel:{{ data.phone_number|default('+00 (123) 456767') }}">{{ data.phone_number_display|default('+00 (123) 456767') }}</a></p>
+                            </div>
+                        </div>
+                        <div class="about-two__btn-box">
+                            <a href="{{ data.button_url|default('#') }}" class="thm-btn">{{ data.button_text|default('Learn More') }}<span class="icon-right-arrow"></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    $(document).ready(function() {
+        // Initialize odometer
+        if ($(".odometer").length) {
+            var odo = $(".odometer");
+            odo.each(function () {
+                $(this).appear(function () {
+                    var countNumber = $(this).attr("data-count");
+                    $(this).html(countNumber);
+                });
+            });
+        }
+
+    });
+</script> 

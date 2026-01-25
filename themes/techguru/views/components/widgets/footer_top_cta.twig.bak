@@ -1,0 +1,18 @@
+<div class="site-footer__top">
+    <div class="site-footer__top-bg"
+    style="background-image: url({{ upload_url(data.background_image, 'assets/images/backgrounds/site-footer-top-bg.jpg') }});"></div>
+    <div class="container">
+        <div class="site-footer__top-inner">
+            <div class="site-footer__logo">
+                <a href="{{ home_url() }}"><img src="{{ upload_url(data.logo, 'assets/images/resources/footer-logo.png') }}" alt=""></a>
+            </div>
+            <div class="site-footer__top-text-box">
+                <p class="site-footer__top-text">{{ techguru_format_text(data.cta_text) }}</p>
+            </div>
+            <div class="site-footer__btn-box">
+                <a href="{{ data.button_url }}" class="site-footer__btn">{{ data.button_text }}<span
+                class="icon-right-arrow"></span></a>
+            </div>
+        </div>
+    </div>
+</div> 

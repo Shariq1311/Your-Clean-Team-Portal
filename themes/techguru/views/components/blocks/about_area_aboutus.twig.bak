@@ -1,0 +1,145 @@
+<section class="about-four">
+    <div class="about-four__bg-shape"
+        style="background-image: url({% if data.bg_shape %}{{ upload_url(data.bg_shape) }}{% else %}{{ asset('images/shapes/about-four-bg-shape.png') }}{% endif %});"></div>
+    <div class="about-four__bg-shape-2"
+        style="background-image: url({% if data.bg_shape_2 %}{{ upload_url(data.bg_shape_2) }}{% else %}{{ asset('images/shapes/about-four-bg-shape-2.png') }}{% endif %});"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="about-four__left {% if data.enable_animation %}wow slideInLeft{% endif %}" 
+                    {% if data.enable_animation %}data-wow-delay="{{ data.animation_delay|default('100') }}ms" 
+                    data-wow-duration="{{ data.animation_duration|default('2500') }}ms"{% endif %}>
+                    <div class="about-four__img-box">
+                        <div class="about-four__img">
+                            {% if data.main_image %}
+                                <img src="{{ upload_url(data.main_image) }}" alt="about image">
+                            {% else %}
+                                <img src="{{ asset('images/resources/about-four-img-1.jpg') }}" alt="about image">
+                            {% endif %}
+                        </div>
+                        <div class="about-four__img-2">
+                            {% if data.secondary_image %}
+                                <img src="{{ upload_url(data.secondary_image) }}" alt="about image">
+                            {% else %}
+                                <img src="{{ asset('images/resources/about-four-img-2.jpg') }}" alt="about image">
+                            {% endif %}
+                        </div>
+                        <div class="about-four__experience">
+                            <div class="about-four__experience-inner">
+                                <div class="about-four__experience-count-box">
+                                    <h3 class="odometer" data-count="{{ data.experience_years|default('25') }}">00</h3>
+                                </div>
+                                <p class="about-four__experience-count-text">{{ data.experience_text|default('Years of Experience')|raw }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-four__client-box">
+                        <ul class="about-four__client-img-list list-unstyled">
+                            {% if data.client_images %}
+                                {% for client in data.client_images %}
+                                    <li>
+                                        <div class="about-four__client-img">
+                                            <img src="{{ upload_url(client.image) }}" alt="{{ client.alt|default('client') }}">
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            {% endif %}
+                            <li>
+                                <a href="{{ data.client_more_url|default('#') }}"><span class="icon-plus"></span></a>
+                            </li>
+                        </ul>
+                        <p class="about-four__client-text">
+                            <span class="odometer" data-count="{{ data.client_count|default('120') }}">00</span>
+                            <span>{{ data.client_suffix|default('K') }}</span> 
+                            {{ data.client_text|default('Satisfied Client') }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="about-four__right">
+                    <div class="section-title text-left sec-title-animation animation-style2">
+                        <div class="section-title__tagline-box">
+                            <div class="section-title__tagline-shape-1"></div>
+                            <span class="section-title__tagline">{{ data.section_tagline|default('About Us') }}</span>
+                            <div class="section-title__tagline-shape-2"></div>
+                        </div>
+                        <h2 class="section-title__title title-animation">{{ data.title_part_1|default('Supercharge') }} <span>{{ data.title_part_2|default('Your Business') }}</span><br><span>{{ data.title_part_3|default('Growth with Our') }}</span>
+                        {{ data.title_part_4|default('Cutting-Edge IT') }}<br> {{ data.title_part_5|default('Solutions') }}</h2>
+                    </div>
+                    <p class="about-four__text">{{ data.description|default('Transform your business with our innovative IT solutions, tailored to address your unique challenges and drive growth in today\'s digital landscape.') }}</p>
+                    <div class="about-four__points-box">
+                        {% if data.features_left %}
+                            <ul class="about-four__points-list list-unstyled">
+                                {% for feature in data.features_left %}
+                                    <li>
+                                        <div class="icon">
+                                            <span class="{{ feature.icon|default('icon-tick-inside-circle') }}"></span>
+                                        </div>
+                                        <p>{{ techguru_format_text(feature.text) }}</p>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        
+                        <ul class="about-four__points-list about-four__points-list-2 list-unstyled">
+                            {% if data.features_right %}
+                                {% for feature in data.features_right %}
+                                    <li>
+                                        <div class="icon">
+                                            <span class="{{ feature.icon|default('icon-tick-inside-circle') }}"></span>
+                                        </div>
+                                        <p>{{ techguru_format_text(feature.text) }}</p>
+                                    </li>
+                                {% endfor %}
+                            {% endif %}
+                            <li>
+                                <div class="about-four__points-list-img">
+                                    {% if data.founder_image %}
+                                        <img src="{{ upload_url(data.founder_image) }}" alt="founder">
+                                    {% else %}
+                                        <img src="{{ asset('images/resources/about-four-points-list-img.jpg') }}" alt="founder">
+                                    {% endif %}
+                                </div>
+                                <div class="about-four__points-list-content">
+                                    <h5>{{ data.founder_name|default('Thomas Alison') }}</h5>
+                                    <p>{{ data.founder_position|default('Founder & SEO') }}</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    {% if data.bottom_features %}
+                        <ul class="about-four__points-2 list-unstyled">
+                            {% for feature in data.bottom_features %}
+                                <li>
+                                    <div class="icon">
+                                        <span class="{{ feature.icon|default('icon-technical-support') }}"></span>
+                                    </div>
+                                    <div class="content">
+                                        <h5>{{ feature.title }}</h5>
+                                        <p>{{ techguru_format_text(feature.text) }}</p>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function() {
+        // Initialize odometer
+        if ($(".odometer").length) {
+            $(".odometer").each(function() {
+                $(this).appear(function() {
+                    var countNumber = $(this).attr("data-count");
+                    $(this).html(countNumber);
+                });
+            });
+        }
+    });
+</script> 

@@ -1,0 +1,159 @@
+<!-- Contact One Start -->
+<section class="contact-one">
+    <div class="contact-one__bg-shape"
+        style="background-image: url({{ upload_url(data.bg_shape|default('images/shapes/contact-one-bg-shape.png')) }});">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 col-lg-6">
+                <div class="contact-one__left {% if data.enable_animation %}wow slideInLeft{% endif %}" {% if data.enable_animation %}data-wow-delay="100ms" data-wow-duration="2500ms"{% endif %}>
+                    <div class="contact-one__left-shape-1"></div>
+                    <div class="contact-one__left-shape-2"></div>
+                    <h3 class="contact-one__from-title">{{ data.form_title|default('How Can We Help You?') }}</h3>
+                    <div id="contact-success-message" class="alert alert-success" style="display: none;"></div>
+                    <div id="contact-error-message" class="alert alert-danger" style="display: none;"></div>
+                    <form class="contact-form-validated contact-one__form" id="contactForm"
+                        action="{{ url('ajax/contact') }}" method="POST" novalidate="novalidate">
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6">
+                                <h4 class="contact-one__input-title">{{ data.name_label|default('Full Name') }}</h4>
+                                <div class="contact-one__input-box">
+                                    <div class="contact-one__input-icon">
+                                        <span class="icon-user-1"></span>
+                                    </div>
+                                    <input type="text" name="name" placeholder="{{ data.name_placeholder|default('Thomas Alison') }}" required="">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6">
+                                <h4 class="contact-one__input-title">{{ data.email_label|default('Email Address') }}</h4>
+                                <div class="contact-one__input-box">
+                                    <div class="contact-one__input-icon">
+                                        <span class="icon-email"></span>
+                                    </div>
+                                    <input type="email" name="email" placeholder="{{ data.email_placeholder|default('thomas@domain.com') }}"
+                                        required="">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6">
+                                <h4 class="contact-one__input-title">{{ data.phone_label|default('Phone Number') }}</h4>
+                                <div class="contact-one__input-box">
+                                    <div class="contact-one__input-icon">
+                                        <span class="icon-phone-call"></span>
+                                    </div>
+                                    <input type="text" name="phone" placeholder="{{ data.phone_placeholder|default('+12 (00) 123 4567 890') }}"
+                                        required="">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6">
+                                <h4 class="contact-one__input-title">{{ data.subject_label|default('Subject') }}</h4>
+                                <div class="contact-one__input-box">
+                                    <div class="contact-one__input-icon">
+                                        <span class="icon-edit"></span>    
+                                    </div>
+                                    <input type="text" name="subject" placeholder="{{ data.subject_placeholder|default('Subject') }}"  
+                                        required="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12">
+                            <h4 class="contact-one__input-title">{{ data.message_label|default('Inquiry about') }} </h4>
+                            <div class="contact-one__input-box text-message-box">
+                                <div class="contact-one__input-icon">
+                                    <span class="icon-edit"></span>
+                                </div>
+                                <textarea name="message" placeholder="{{ data.message_placeholder|default('Write your message') }}"></textarea>
+                            </div>
+                            <div class="contact-one__btn-box">
+                                <button type="submit" class="thm-btn"><span>{{ data.submit_button_text|default('Submit Now') }}</span><i class="icon-right-arrow"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="result"></div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6">
+                <div class="contact-one__right">
+                    <div class="section-title text-left sec-title-animation animation-style2">
+                        <div class="section-title__tagline-box">
+                            <div class="section-title__tagline-shape-1"></div>
+                            <span class="section-title__tagline">{{ data.section_tagline|default('Get In Touch') }}</span>
+                            <div class="section-title__tagline-shape-2"></div>
+                        </div>
+                        <h2 class="section-title__title title-animation">{{ data.section_title_line1|default('Start the Conversation') }}
+                            <span>–</span><br><span>{{ data.section_title_line2|default('Reach Out Anytime') }}</span>
+                        </h2>
+                    </div>
+                    <p class="contact-one__text">{{ Your Clean Team_format_text(data.section_description|default('We\'re here to listen! Whether you have \\ questions, feedback, or just want to say hello, \\ feel free to reach out.')) }}</p>
+                    <ul class="contact-one__list list-unstyled">
+                        <li>
+                            <div class="icon">
+                                <span class="icon-pin"></span>
+                            </div>
+                            <div class="content">
+                                <h4>{{ data.location_title|default('Location') }}</h4>
+                                <p>{{ Your Clean Team_format_text(data.location_address|default('1629 N. Dixie Avenue, \\ Kentucky, 42701')) }}</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon">
+                                <span class="icon-mail"></span>
+                            </div>
+                            <div class="content">
+                                <h4>{{ data.email_title|default('Email Us') }}</h4>
+                                <p><a href="mailto:{{ data.email_address1|default('info@domain.com') }}">{{ data.email_address1|default('info@domain.com') }}</a></p>
+                                <p><a href="mailto:{{ data.email_address2|default('support@domain.com') }}">{{ data.email_address2|default('support@domain.com') }}</a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon">
+                                <span class="icon-phone-call"></span>
+                            </div>
+                            <div class="content">
+                                <h4>{{ data.contact_title|default('Contact') }}</h4>
+                                <p>Tel: <a href="tel:{{ data.tel_number|default('+12 (00) 456 7890 00')|replace({' ': ''}) }}">{{ data.tel_number|default('+12 (00) 456 7890 00') }}</a></p>
+                                <p>Mob: <a href="tel:{{ data.mobile_number|default('+99 (00) 567 780')|replace({' ': ''}) }}">{{ data.mobile_number|default('+99 (00) 567 780') }}</a></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Contact One End --> 
+
+<script>
+    (function($) {
+        "use strict";
+        $(document).ready(function() {
+            $('#contactForm').on('submit', function(e) {
+                e.preventDefault();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                });
+
+                $.ajax({
+                    url: '{{ url('ajax/contact') }}',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        if (response.status === true) {
+                            $('#contact-success-message').show();
+                            $('#contact-success-message').text(response?.data?.message || 'Your message has been sent successfully!');
+                            $('#contactForm')[0].reset();
+                        } else {
+                            $('#contact-error-message').show();
+                            $('#contact-error-message').text(response?.data?.message || 'Something went wrong!');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        $('#contact-error-message').show();
+                        $('#contact-error-message').text(xhr.responseJSON?.message || 'An error occurred. Please try again.');
+                    }
+                });
+            });
+        });
+    })(jQuery);
+</script>

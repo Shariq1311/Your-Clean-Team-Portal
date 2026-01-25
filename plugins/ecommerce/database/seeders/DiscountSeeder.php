@@ -1,0 +1,146 @@
+<?php
+
+namespace Mojahid\Ecommerce\Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Mojahid\Ecommerce\Models\Discount;
+use Carbon\Carbon;
+
+class DiscountSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $discounts = [
+            [
+                'title' => 'Welcome Discount',
+                'code' => 'WELCOME10',
+                'description' => 'Welcome new customers with 10% off their first order',
+                'type' => 'percentage',
+                'value' => 10.00,
+                'minimum_amount' => 50.00,
+                'maximum_discount' => 25.00,
+                'usage_limit' => 1000,
+                'usage_limit_per_customer' => 1,
+                'used_count' => 15,
+                'is_active' => true,
+                'free_shipping' => false,
+                'start_date' => Carbon::now()->subDays(30),
+                'end_date' => Carbon::now()->addDays(60),
+                'applicable_products' => null,
+                'applicable_categories' => null,
+                'excluded_products' => null,
+                'excluded_categories' => null,
+                'site_id' => 0,
+            ],
+            [
+                'title' => 'Summer Sale',
+                'code' => 'SUMMER2024',
+                'description' => '20% off on all electronics during summer sale',
+                'type' => 'percentage', 
+                'value' => 20.00,
+                'minimum_amount' => 100.00,
+                'maximum_discount' => 50.00,
+                'usage_limit' => 500,
+                'usage_limit_per_customer' => 2,
+                'used_count' => 45,
+                'is_active' => true,
+                'free_shipping' => true,
+                'start_date' => Carbon::now()->subDays(15),
+                'end_date' => Carbon::now()->addDays(45),
+                'applicable_products' => null,
+                'applicable_categories' => null,
+                'excluded_products' => null,
+                'excluded_categories' => null,
+                'site_id' => 0,
+            ],
+            [
+                'title' => 'Fixed $25 Off',
+                'code' => 'SAVE25',
+                'description' => 'Get $25 off on orders over $150',
+                'type' => 'fixed',
+                'value' => 25.00,
+                'minimum_amount' => 150.00,
+                'maximum_discount' => null,
+                'usage_limit' => 200,
+                'usage_limit_per_customer' => 1,
+                'used_count' => 8,
+                'is_active' => true,
+                'free_shipping' => false,
+                'start_date' => Carbon::now()->subDays(10),
+                'end_date' => Carbon::now()->addDays(20),
+                'applicable_products' => null,
+                'applicable_categories' => null,
+                'excluded_products' => null,
+                'excluded_categories' => null,
+                'site_id' => 0,
+            ],
+            [
+                'title' => 'Free Shipping Coupon',
+                'code' => 'FREESHIP',
+                'description' => 'Free shipping on orders over $75',
+                'type' => 'fixed',
+                'value' => 0.00,
+                'minimum_amount' => 75.00,
+                'maximum_discount' => null,
+                'usage_limit' => null,
+                'usage_limit_per_customer' => null,
+                'used_count' => 123,
+                'is_active' => true,
+                'free_shipping' => true,
+                'start_date' => null,
+                'end_date' => null,
+                'applicable_products' => null,
+                'applicable_categories' => null,
+                'excluded_products' => null,
+                'excluded_categories' => null,
+                'site_id' => 0,
+            ],
+            [
+                'title' => 'Black Friday Mega Sale',
+                'code' => 'BLACKFRIDAY50',
+                'description' => 'Massive 50% off on Black Friday - Limited time offer!',
+                'type' => 'percentage',
+                'value' => 50.00,
+                'minimum_amount' => 200.00,
+                'maximum_discount' => 150.00,
+                'usage_limit' => 100,
+                'usage_limit_per_customer' => 1,
+                'used_count' => 99,
+                'is_active' => false, // Inactive for demo
+                'free_shipping' => true,
+                'start_date' => Carbon::now()->subDays(60),
+                'end_date' => Carbon::now()->subDays(50),
+                'applicable_products' => null,
+                'applicable_categories' => null,
+                'excluded_products' => null,
+                'excluded_categories' => null,
+                'site_id' => 0,
+            ],
+            [
+                'title' => 'Student Discount',
+                'code' => 'STUDENT15',
+                'description' => '15% discount for students',
+                'type' => 'percentage',
+                'value' => 15.00,
+                'minimum_amount' => 30.00,
+                'maximum_discount' => 40.00,
+                'usage_limit' => null,
+                'usage_limit_per_customer' => 3,
+                'used_count' => 256,
+                'is_active' => true,
+                'free_shipping' => false,
+                'start_date' => Carbon::now()->subDays(90),
+                'end_date' => Carbon::now()->addDays(365),
+                'applicable_products' => null,
+                'applicable_categories' => null,
+                'excluded_products' => null,
+                'excluded_categories' => null,
+                'site_id' => 0,
+            ]
+        ];
+
+        foreach ($discounts as $discount) {
+            Discount::create($discount);
+        }
+    }
+} 

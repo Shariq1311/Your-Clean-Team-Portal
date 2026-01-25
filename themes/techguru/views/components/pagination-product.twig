@@ -1,0 +1,34 @@
+<ul class="styled-pagination text-center clearfix list-unstyled">
+    {% if data.meta.last_page > 1 %}
+        {% if data.meta.current_page > 1 %}
+        <li class="arrow prev">
+            <a href="{{ data.meta.prev_url }}">
+                <span class="icon-left-arrow"></span>
+            </a>
+        </li>
+        {% endif %}
+
+        {% for page in data.meta.links %}
+            {% if page.label is not null and page.label != '...' %}
+                {% set page_num = page.label|trim %}
+                {% if page_num matches '/^\\d+$/' %}
+                    <li class="count{{ page.active ? ' active' : '' }}">
+                        <a href="{{ page.url }}">{{ page_num|number_format(0, '.', '') }}</a>
+                    </li>
+                {% endif %}
+            {% elseif page.label == '...' %}
+                <li class="count">
+                    <a href="#">...</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if data.meta.current_page < data.meta.last_page %}
+        <li class="arrow next">
+            <a href="{{ data.meta.next_url }}" aria-label="Next">
+                <span class="icon-right-arrow"></span>
+            </a>
+        </li>
+        {% endif %}
+    {% endif %}
+</ul>

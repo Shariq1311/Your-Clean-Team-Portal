@@ -1,0 +1,59 @@
+<section class="why-choose-two">
+    <div class="why-choose-two__shape-1 float-bob-y">
+        {% if data.shape_1 %}
+            <img src="{{ upload_url(data.shape_1) }}" alt="shape">
+        {% else %}
+            <img src="{{ asset('images/shapes/why-choose-two-shape-1.png') }}" alt="shape">
+        {% endif %}
+    </div>
+    <div class="why-choose-two__shape-2"></div>
+    <div class="why-choose-two__shape-3"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="why-choose-two__left {% if data.enable_animation %}wow slideInLeft{% endif %}" 
+                    {% if data.enable_animation %}data-wow-delay="{{ data.animation_delay|default('100') }}ms" 
+                    data-wow-duration="{{ data.animation_duration|default('2500') }}ms"{% endif %}>
+                    <div class="why-choose-two__img">
+                        {% if data.main_image %}
+                            <img src="{{ upload_url(data.main_image) }}" alt="main image">
+                        {% else %}
+                            <img src="{{ asset('images/resources/why-choose-two-img-1.png') }}" alt="main image">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="why-choose-two__right">
+                    <div class="section-title text-left sec-title-animation animation-style2">
+                        <div class="section-title__tagline-box">
+                            <div class="section-title__tagline-shape-1"></div>
+                            <span class="section-title__tagline">{{ data.section_tagline|default('Why Chooses Us') }}</span>
+                            <div class="section-title__tagline-shape-2"></div>
+                        </div>
+                        <h2 class="section-title__title title-animation">{{ data.title_part_1|default('Elevate Growth with Our IT Solutions') }}
+                            <span>{{ data.title_part_2|default('for Success') }}</span>
+                        </h2>
+                    </div>
+                    <p class="why-choose-one__text">{{ techguru_format_text(data.description|default('Innovating and empowering businesses with tailored solutions for success and growth. Innovating and empowering')) }}</p>
+                    
+                    {% if data.features %}
+                        <ul class="list-unstyled why-choose-two__points">
+                            {% for feature in data.features %}
+                                <li>
+                                    <div class="icon">
+                                        <span class="{{ feature.icon|default('icon-earning') }}"></span>
+                                    </div>
+                                    <div class="content">
+                                        <h4>{{ feature.title }}</h4>
+                                        <p>{{ techguru_format_text(feature.text) }}</p>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section> 

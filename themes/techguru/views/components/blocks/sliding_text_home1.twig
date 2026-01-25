@@ -1,0 +1,64 @@
+<section class="sliding-text-three">
+    <div class="sliding-text-three__wrap">
+        <ul class="sliding-text-three__list list-unstyled {{ data.marquee_class|default('marquee_mode') }}">
+            {% if data.sliding_items %}
+                {% for item in data.sliding_items %}
+                    <li>
+                        <h2 data-hover="{{ item.hover_text }}" class="sliding-text-three__title">{{ item.text }}</h2>
+                        <span class="{{ item.icon|default('icon-star') }}"></span>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <!-- Default sliding text items -->
+                <li>
+                    <h2 data-hover="UI/UX Design" class="sliding-text-three__title">UI/UX Design</h2>
+                    <span class="icon-star"></span>
+                </li>
+                <li>
+                    <h2 data-hover="Product Design" class="sliding-text-three__title">Product Design</h2>
+                    <span class="icon-star"></span>
+                </li>
+                <li>
+                    <h2 data-hover="Web Development" class="sliding-text-three__title">Web Development</h2>
+                    <span class="icon-star"></span>
+                </li>
+                <li>
+                    <h2 data-hover="BRANDING" class="sliding-text-three__title">BRANDING</h2>
+                    <span class="icon-star"></span>
+                </li>
+                <li>
+                    <h2 data-hover="Cyber Security" class="sliding-text-three__title">Cyber Security</h2>
+                    <span class="icon-star"></span>
+                </li>
+                <li>
+                    <h2 data-hover="Website design" class="sliding-text-three__title">Website design</h2>
+                    <span class="icon-star"></span>
+                </li>
+                <li>
+                    <h2 data-hover="Digital Marketing" class="sliding-text-three__title">Digital Marketing</h2>
+                    <span class="icon-star"></span>
+                </li>
+                <li>
+                    <h2 data-hover="UI/UX Design" class="sliding-text-three__title">UI/UX Design</h2>
+                    <span class="icon-star"></span>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function() {
+        if ($(".{{ data.marquee_class|default('marquee_mode') }}").length) {
+            $('.{{ data.marquee_class|default('marquee_mode') }}').marquee({
+                speed: {{ data.scroll_speed|default(30) }},
+                gap: 0,
+                delayBeforeStart: 0,
+                direction: 'left',
+                duplicated: true,
+                pauseOnHover: {{ data.pause_on_hover ? 'true' : 'false' }},
+                startVisible: true,
+            });
+        }
+    });
+</script> 

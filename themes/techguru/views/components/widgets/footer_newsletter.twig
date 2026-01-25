@@ -1,0 +1,66 @@
+<div class="footer-widget__newsletter">
+    <h4 class="footer-widget__title">{{ data.title }}</h4>
+    <div class="footer-widget__newsletter-box">
+        <p class="footer-widget__newsletter-text">{{ data.description }}</p>
+        
+        <div id="newsletters-subscribers-success-message" class="alert alert-success" style="display: none;"></div>
+        <div id="newsletters-subscribers-error-message" class="alert alert-danger" style="display: none;"></div>
+        
+        <form action="{{ url('ajax/newsletters-subscribers') }}" method="POST" id="newsletters-subscribers-form" class="site-footer__newsletter-form">
+            <div class="site-footer__newsletter-input">
+                <input type="email" name="email" placeholder="{{ data.placeholder }}">
+            </div>
+            <button type="submit" class="site-footer__newsletter-btn"> <span class="icon-right-arrow"></span>
+            </button>
+            <div class="checked-box">
+                <input type="checkbox" name="privacy_policy" id="privacy_policy" checked="">
+                <label for="privacy_policy"><span></span>{{ data.privacy_text }}</label>
+            </div>
+        </form>
+        
+        <div class="site-footer__social-box">
+            <h4 class="site-footer__social-title">{{ data.social_title }}</h4>
+            <div class="site-footer__social-box-inner">
+                {% for social in data.social_links %}
+                <a href="{{ social.url }}"><span class="{{ social.icon }}"></span></a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+    'use strict';
+        $(document).ready(function() {
+            $('#newsletters-subscribers-form').on('submit', function(e) {
+                e.preventDefault();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                });
+
+                $.ajax({
+                    url: '{{ url('ajax/newsletters-subscribers') }}',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        if (response.status === true) {
+                            $('#newsletters-subscribers-success-message').show();
+                            $('#newsletters-subscribers-success-message').text(response?.data?.message || 'Your message has been sent successfully!');
+                            $('#newsletters-subscribers-form')[0].reset();
+                        } else {
+                            $('#newsletters-subscribers-error-message').show();
+                            $('#newsletters-subscribers-error-message').text(response?.data?.message || 'Something went wrong!');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        $('#newsletters-subscribers-error-message').show();
+                        $('#newsletters-subscribers-error-message').text(xhr.responseJSON?.message || 'An error occurred. Please try again.');
+                    }
+                });
+            });
+        });
+    })();
+</script> 

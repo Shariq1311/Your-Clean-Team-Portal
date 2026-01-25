@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * @var \MojarCMS\CMS\Support\Theme\Customize $customize
+ */
+
+use MojarCMS\CMS\Support\Theme\CustomizeControl;
+

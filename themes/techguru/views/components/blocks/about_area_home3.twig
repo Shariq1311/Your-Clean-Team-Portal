@@ -1,0 +1,114 @@
+<section class="about-three">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="about-three__left {% if data.enable_animation %}wow slideInLeft{% endif %}" 
+                    {% if data.enable_animation %}data-wow-delay="{{ data.animation_delay|default('100') }}ms" 
+                    data-wow-duration="{{ data.animation_duration|default('2500') }}ms"{% endif %}>
+                    <div class="about-three__img-box">
+                        <div class="about-three__img">
+                            {% if data.main_image %}
+                                <img src="{{ upload_url(data.main_image) }}" alt="about image">
+                            {% else %}
+                                <img src="{{ asset('images/resources/about-three-img-1.png') }}" alt="about image">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="about-three__right">
+                    <div class="section-title text-left sec-title-animation animation-style2">
+                        <div class="section-title__tagline-box">
+                            <div class="section-title__tagline-shape-1"></div>
+                            <span class="section-title__tagline">{{ data.section_tagline|default('About Us') }}</span>
+                            <div class="section-title__tagline-shape-2"></div>
+                        </div>
+                        <h2 class="section-title__title title-animation">{{ data.title_part_1|default('Any IT Problem Solutions And') }}
+                            <span>{{ data.title_part_2|default('Grow Your Business') }}</span>
+                        </h2>
+                    </div>
+                    <p class="about-three__text">{{ data.description|default('Transform your business with our innovative IT solutions, tailored to address your unique challenges and drive growth.') }}</p>
+                    
+                    {% if data.progress_bars %}
+                        <div class="about-three__progress-box">
+                            {% for bar in data.progress_bars %}
+                                <div class="progress-box">
+                                    <div class="bar-title">{{ bar.title }}</div>
+                                    <div class="bar">
+                                        <div class="bar-inner count-bar" data-percent="{{ bar.percent }}%">
+                                            <div class="count-box">
+                                                <span class="count-text" data-stop="{{ bar.percent }}" data-speed="1500">0</span>%
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    
+                    {% if data.features %}
+                        <ul class="about-three__points list-unstyled">
+                            {% for feature in data.features %}
+                                <li>
+                                    <div class="icon">
+                                        <span class="{{ feature.icon|default('icon-tick-inside-circle') }}"></span>
+                                    </div>
+                                    <div class="content">
+                                        <h3>{{ feature.title }}</h3>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    
+                    <div class="about-three__btn-and-call-box">
+                        <div class="about-three__btn-box">
+                            <a href="{{ data.button_url|default('#') }}" class="thm-btn">{{ data.button_text|default('Get in Touch') }}<span class="icon-right-arrow"></span></a>
+                        </div>
+                        <div class="about-three__call-box">
+                            <div class="icon">
+                                <span class="icon-customer-service-headset"></span>
+                            </div>
+                            <div class="content">
+                                <span>{{ data.call_text|default('Call Any Time') }}</span>
+                                <p><a href="tel:{{ data.phone_number|default('12345678900') }}">{{ data.phone_number_display|default('(123) 4567 8900') }}</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function() {
+        // Progress Bar
+        if ($('.count-bar').length) {
+            $('.count-bar').appear(function() {
+                var el = $(this);
+                var percent = el.data('percent');
+                $(el).css('width', percent).addClass('counted');
+                
+                $(el).parent().parent().find('.count-box').appear(function() {
+                    var $this = $(this);
+                    var countTo = $this.find('.count-text').data('stop');
+                    
+                    $({ countNum: 0 }).animate({
+                        countNum: countTo
+                    }, {
+                        duration: 1500,
+                        easing: 'linear',
+                        step: function() {
+                            $this.find('.count-text').text(Math.floor(this.countNum));
+                        },
+                        complete: function() {
+                            $this.find('.count-text').text(this.countNum);
+                        }
+                    });
+                });
+            });
+        }
+    });
+</script> 

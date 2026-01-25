@@ -1,0 +1,14 @@
+{% extends 'cms::layouts.frontend' %}
+
+{% block content %}
+    {% include 'theme::components.breadcrumb' with {
+        title: 'Contact Us',
+        description: 'Contact us for any questions or inquiries',
+        items: [
+            {'label': 'Home', 'url': '/'},
+            {'label': 'Contact Us'}
+        ]
+    } %}
+    
+    {{ dynamic_block(post, 'content') }}
+{% endblock %}

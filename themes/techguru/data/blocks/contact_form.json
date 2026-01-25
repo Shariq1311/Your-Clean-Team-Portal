@@ -1,0 +1,245 @@
+{
+    "label": "Contact Form",
+    "description": "Contact form with information section",
+    "form": [
+        {
+            "type": "text",
+            "name": "form_title",
+            "label": "Form Title",
+            "data": {
+                "value": "How Can We Help You?"
+            }
+        },
+        {
+            "type": "text",
+            "name": "name_label",
+            "label": "Name Field Label",
+            "data": {
+                "value": "Full Name"
+            }
+        },
+        {
+            "type": "text",
+            "name": "name_placeholder",
+            "label": "Name Field Placeholder",
+            "data": {
+                "value": "Thomas Alison"
+            }
+        },
+        {
+            "type": "text",
+            "name": "email_label",
+            "label": "Email Field Label",
+            "data": {
+                "value": "Email Address"
+            }
+        },
+        {
+            "type": "text",
+            "name": "email_placeholder",
+            "label": "Email Field Placeholder",
+            "data": {
+                "value": "thomas@domain.com"
+            }
+        },
+        {
+            "type": "text",
+            "name": "phone_label",
+            "label": "Phone Field Label",
+            "data": {
+                "value": "Phone Number"
+            }
+        },
+        {
+            "type": "text",
+            "name": "phone_placeholder",
+            "label": "Phone Field Placeholder",
+            "data": {
+                "value": "+12 (00) 123 4567 890"
+            }
+        },
+        {
+            "type": "text",
+            "name": "subject_label",
+            "label": "Subject Field Label",
+            "data": {
+                "value": "Subject"
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "subject_options",
+            "label": "Subject Options",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "text",
+                    "label": "Option Text"
+                }
+            ],
+            "options": {
+                "min_items": 1,
+                "max_items": 10,
+                "add_button_text": "Add Option",
+                "remove_button_text": "Remove Option",
+                "value": [
+                    {
+                        "text": "Thomas Alison"
+                    },
+                    {
+                        "text": "Type Of Service 01"
+                    },
+                    {
+                        "text": "Type Of Service 02"
+                    },
+                    {
+                        "text": "Type Of Service 03"
+                    },
+                    {
+                        "text": "Type Of Service 04"
+                    },
+                    {
+                        "text": "Type Of Service 05"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "text",
+            "name": "message_label",
+            "label": "Message Field Label",
+            "data": {
+                "value": "Inquiry about"
+            }
+        },
+        {
+            "type": "text",
+            "name": "message_placeholder",
+            "label": "Message Field Placeholder",
+            "data": {
+                "value": "Write your message"
+            }
+        },
+        {
+            "type": "text",
+            "name": "submit_button_text",
+            "label": "Submit Button Text",
+            "data": {
+                "value": "Submit Now"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_tagline",
+            "label": "Section Tagline",
+            "data": {
+                "value": "Get In Touch"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_line1",
+            "label": "Section Title Line 1",
+            "data": {
+                "value": "Start the Conversation"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_line2",
+            "label": "Section Title Line 2",
+            "data": {
+                "value": "Reach Out Anytime"
+            }
+        },
+        {
+            "type": "textarea",
+            "name": "section_description",
+            "label": "Section Description",
+            "data": {
+                "value": "We're here to listen! Whether you have questions, feedback, or just want to say hello, feel free to reach out."
+            }
+        },
+        {
+            "type": "text",
+            "name": "location_title",
+            "label": "Location Title",
+            "data": {
+                "value": "Location"
+            }
+        },
+        {
+            "type": "textarea",
+            "name": "location_address",
+            "label": "Location Address",
+            "data": {
+                "value": "1629 N. Dixie Avenue,\nKentucky, 42701"
+            }
+        },
+        {
+            "type": "text",
+            "name": "email_title",
+            "label": "Email Title",
+            "data": {
+                "value": "Email Us"
+            }
+        },
+        {
+            "type": "text",
+            "name": "email_address1",
+            "label": "Email Address 1",
+            "data": {
+                "value": "info@domain.com"
+            }
+        },
+        {
+            "type": "text",
+            "name": "email_address2",
+            "label": "Email Address 2",
+            "data": {
+                "value": "support@domain.com"
+            }
+        },
+        {
+            "type": "text",
+            "name": "contact_title",
+            "label": "Contact Title",
+            "data": {
+                "value": "Contact"
+            }
+        },
+        {
+            "type": "text",
+            "name": "tel_number",
+            "label": "Telephone Number",
+            "data": {
+                "value": "+12 (00) 456 7890 00"
+            }
+        },
+        {
+            "type": "text",
+            "name": "mobile_number",
+            "label": "Mobile Number",
+            "data": {
+                "value": "+99 (00) 567 780"
+            }
+        },
+        {
+            "type": "image",
+            "name": "bg_shape",
+            "label": "Background Shape Image",
+            "data": {
+                "value": "images/shapes/contact-one-bg-shape.png"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "description": "Enable animation effects for the contact form",
+            "data": {
+                "value": 1
+            }
+        }
+    ]
+}

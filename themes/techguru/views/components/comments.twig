@@ -1,0 +1,22 @@
+<div class="comment-one">
+    <h3 class="comment-one__title">{{ __('Total Comments') }} ({{ total }})</h3>
+        {% for comment in comments.data %}
+            <div class="comment-one__single-inner">
+                <div class="comment-one__single">
+                    <div class="comment-one__author-inner">
+                        <div class="comment-one__image">
+                            <img src="{{ comment.avatar }}" alt="">
+                        </div>
+                        <h3>{{ comment.name }}</h3>
+                        <span>{{ comment.created_at|date('d M Y') }}</span>
+                    </div>
+                    <div class="comment-one__content">
+                        <p>{{ comment.content }}</p>
+                        <div class="comment-one__btn-box">
+                            <a href="#comment-form" class="comment-one__btn"><span class="fas fa-share"></span>{{ __('Reply') }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+</div>

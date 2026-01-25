@@ -1,0 +1,34 @@
+{# 
+  Breadcrumb Component
+  @param string title - Page title (optional if post is provided)
+  @param string background_image - Background image URL (optional)
+  @param array items - Static breadcrumb items array [{'label': 'Home', 'url': '/'}, {'label': 'Blog'}] (optional)
+  @param object post - Post object for dynamic content (optional)
+  @param boolean is_dynamic - Whether to use dynamic breadcrumb (default: false)
+  @param string description - Description text for the breadcrumb section (optional)
+#}
+
+<!--Page Header Start-->
+<section class="page-header">
+    <div class="page-header__bg" 
+        {% if background_image %}
+            style="background-image: url({{ background_image }});"
+        {% elseif theme_config('breadcrumb_bg_image') %}
+            style="background-image: url({{ upload_url(theme_config('breadcrumb_bg_image')) }});"
+        {% endif %}
+    >
+    </div>
+    <div class="container">
+        <div class="page-header__inner">
+            <h2>{{ title|title }}</h2>
+            <div class="thm-breadcrumb__box">
+                <ul class="thm-breadcrumb list-unstyled">
+                    <li><a href="{{ home_url() }}"><i class="fas fa-home"></i>{{ __('Home') }}</a></li>
+                    <li><span class="icon-right-arrow-1"></span></li>
+                    <li>{{ title|title }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Page Header End-->

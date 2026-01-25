@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * Mojar - The Best CMS for Laravel Project
+ *
+ * @package    Mojar/cms
+ * @author     Mojar Team <admin@Mojar.com>
+ * @link       https://Mojar.com
+ * @license    MIT
+ */
+
+namespace MojarCMS\Network\Models;
+
+use MojarCMS\CMS\Models\Model;
+
+/**
+ * MojarCMS\Network\Models\DomainMapping
+ *
+ * @property int $id
+ * @property string $domain
+ * @property int $site_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|DomainMapping newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|DomainMapping newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|DomainMapping query()
+ * @method static \Illuminate\Database\Eloquent\Builder|DomainMapping whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DomainMapping whereDomain($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DomainMapping whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DomainMapping whereSiteId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|DomainMapping whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
+class DomainMapping extends Model
+{
+    protected $table = 'network_domain_mappings';
+
+    protected $fillable = [
+        'domain',
+        'site_id'
+    ];
+}

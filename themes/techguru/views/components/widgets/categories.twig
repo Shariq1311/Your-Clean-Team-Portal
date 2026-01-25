@@ -1,0 +1,19 @@
+{% set items = get_taxonomies({
+    id_in: data.taxonomies,
+    'type': 'posts',
+    'taxonomy': 'categories'
+}) %}
+
+<div class="sidebar__single sidebar__category">
+    <div class="sidebar__title-box">
+        <div class="sidebar__title-shape"></div>
+        <h3 class="sidebar__title">{{ data.title }} </h3>
+    </div>
+    <ul class="sidebar__category-list list-unstyled">
+        {% for item in items %}
+            <li><a href="{{ item.link }}"><span class="text">{{ item.name }}</span> <span class="number">({{ item.total_post }})</span></a></li>
+        {% else %}
+            <li><a href="#"><span class="text">No categories found</span></a></li>
+        {% endfor %}
+    </ul>
+</div>

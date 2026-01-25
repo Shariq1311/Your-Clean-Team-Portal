@@ -1,0 +1,286 @@
+{
+    "label": "Portfolio Home 1",
+    "description": "Portfolio carousel with animated shapes and project details",
+    "form": [
+        {
+            "type": "text",
+            "name": "section_tagline",
+            "label": "Section Tagline",
+            "data": {
+                "value": "Portfolio"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_1",
+            "label": "Section Title Part 1",
+            "data": {
+                "value": "Explore Our Creative"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_2",
+            "label": "Section Title Part 2 (First Span)",
+            "data": {
+                "value": "Journey"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_3",
+            "label": "Section Title Part 3 (Second Span)",
+            "data": {
+                "value": "Crafting Success Through"
+            }
+        },
+        {
+            "type": "image",
+            "name": "shape_1",
+            "label": "Shape Image 1",
+            "data": {
+                "value": "images/shapes/portfolio-two-shape-1.png"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "use_portfolio_post_type",
+            "label": "Use Portfolio Post Type",
+            "description": "Load portfolio items from Portfolio post type instead of manual configuration",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "taxonomy",
+            "name": "portfolio_category",
+            "label": "Portfolio Category Filter",
+            "description": "Filter portfolio items by category (when using portfolio post type)",
+            "data": {
+                "post_type": "portfolio",
+                "taxonomy": "categories"
+            }
+        },
+        {
+            "type": "text",
+            "name": "items_limit",
+            "label": "Number of Portfolio Items",
+            "description": "Maximum number of portfolio items to display",
+            "data": {
+                "value": "9"
+            }
+        },
+        {
+            "type": "text",
+            "name": "portfolio_ids",
+            "label": "Portfolio IDs",
+            "description": "Enter specific portfolio IDs to display (comma-separated)",
+            "data": {
+                "value": ""
+            }
+        },
+        {
+            "type": "select",
+            "name": "orderby",
+            "label": "Order By",
+            "data": {
+                "options": {
+                    "date": "Date",
+                    "title": "Title",
+                    "menu_order": "Menu Order",
+                    "rand": "Random"
+                },
+                "value": "date"
+            }
+        },
+        {
+            "type": "select",
+            "name": "order",
+            "label": "Order",
+            "data": {
+                "options": {
+                    "DESC": "Descending",
+                    "ASC": "Ascending"
+                },
+                "value": "DESC"
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "portfolio_groups",
+            "label": "Portfolio Groups (Manual Configuration)",
+            "description": "Each group represents a carousel item with multiple portfolio items",
+            "fields": [
+                {
+                    "type": "repeater",
+                    "name": "portfolio_items",
+                    "label": "Portfolio Items",
+                    "fields": [
+                        {
+                            "type": "image",
+                            "name": "image",
+                            "label": "Portfolio Image"
+                        },
+                        {
+                            "type": "text",
+                            "name": "title",
+                            "label": "Portfolio Title"
+                        },
+                        {
+                            "type": "textarea",
+                            "name": "description",
+                            "label": "Portfolio Description"
+                        },
+                        {
+                            "type": "text",
+                            "name": "url",
+                            "label": "Portfolio Detail URL"
+                        },
+                        {
+                            "type": "checkbox_json",
+                            "name": "is_active",
+                            "label": "Is Active Item",
+                            "description": "Mark this item as active (highlighted)",
+                            "data": {
+                                "value": 0
+                            }
+                        }
+                    ],
+                    "options": {
+                        "min_items": 1,
+                        "max_items": 10,
+                        "add_button_text": "Add Portfolio Item",
+                        "remove_button_text": "Remove Portfolio Item",
+                        "value": [
+                            {
+                                "image": "images/project/portfolio-2-1.jpg",
+                                "title": "Innovative Solutions, Powerful Results",
+                                "description": "Explore How We've Empowered Businesses with Innovative Tech Solutions",
+                                "url": "portfolio-details.html",
+                                "is_active": 0
+                            },
+                            {
+                                "image": "images/project/portfolio-2-2.jpg",
+                                "title": "Transforming Ideas Into Digital Excellence",
+                                "description": "Explore How We've Empowered Businesses with Innovative Tech Solutions",
+                                "url": "portfolio-details.html",
+                                "is_active": 1
+                            },
+                            {
+                                "image": "images/project/portfolio-2-3.jpg",
+                                "title": "Driving Success Through Technology",
+                                "description": "Explore How We've Empowered Businesses with Innovative Tech Solutions",
+                                "url": "portfolio-details.html",
+                                "is_active": 0
+                            },
+                            {
+                                "image": "images/project/portfolio-2-4.jpg",
+                                "title": "Empowering Businesses with Cutting-Edge IT",
+                                "description": "Explore How We've Empowered Businesses with Innovative Tech Solutions",
+                                "url": "portfolio-details.html",
+                                "is_active": 0
+                            }
+                        ]
+                    }
+                }
+            ],
+            "options": {
+                "min_items": 0,
+                "max_items": 10,
+                "add_button_text": "Add Portfolio Group",
+                "remove_button_text": "Remove Portfolio Group",
+                "value": []
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_loop",
+            "label": "Carousel Loop",
+            "description": "Enable infinite loop for carousel",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_margin",
+            "label": "Carousel Item Margin",
+            "description": "Margin between carousel items in pixels",
+            "data": {
+                "value": "0"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_nav",
+            "label": "Show Navigation Arrows",
+            "description": "Show left/right navigation arrows",
+            "data": {
+                "value": 0
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_dots",
+            "label": "Show Dots Navigation",
+            "description": "Show pagination dots",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_smart_speed",
+            "label": "Smart Speed",
+            "description": "Carousel transition speed in milliseconds",
+            "data": {
+                "value": "500"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_autoplay",
+            "label": "Enable Autoplay",
+            "description": "Enable automatic carousel sliding",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_autoplay_timeout",
+            "label": "Autoplay Timeout",
+            "description": "Autoplay timeout in milliseconds",
+            "data": {
+                "value": "5000"
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_items",
+            "label": "Items Per Slide",
+            "description": "Number of items to show per slide",
+            "data": {
+                "value": "1"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "description": "Enable animation for section title",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_magnific_popup",
+            "label": "Enable Magnific Popup",
+            "description": "Enable magnific popup for portfolio images",
+            "data": {
+                "value": 1
+            }
+        }
+    ]
+}

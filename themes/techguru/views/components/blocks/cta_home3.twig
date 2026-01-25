@@ -1,0 +1,19 @@
+<section class="cta-one">
+    <div class="cta-one__shape-bg float-bob-y"
+        style="background-image: url({% if data.background_shape %}{{ upload_url(data.background_shape) }}{% else %}{{ asset('images/shapes/cta-one-shape-bg.png') }}{% endif %});">
+    </div>
+    <div class="container">
+        <div class="cta-one__inner">
+            <h3 class="cta-one__title">{{ data.title_line1|default('To make requests for further') }} <br> {{ data.title_line2|default('information, contact us') }}</h3>
+            <div class="cta-one__contact-info">
+                <div class="cta-one__contact-icon">
+                    <span class="icon-customer-service-headset"></span>
+                </div>
+                <div class="cta-one__contact-details">
+                    <p>{{ data.contact_text|default('Call Us For Any inquiry') }}</p>
+                    <h4><a href="tel:{{ data.phone_number_clean|default('9900567780') }}">{{ data.phone_number|default('+99 (00) 567 780') }}</a></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> 

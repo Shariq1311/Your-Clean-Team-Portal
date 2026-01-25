@@ -1,0 +1,19 @@
+{% set items = get_taxonomies({
+    'type': data.type,
+    'taxonomy': 'tags',
+    'limit': data.limit,
+}) %}
+
+<div class="sidebar__single sidebar__tags">
+    <div class="sidebar__title-box">
+        <div class="sidebar__title-shape"></div>
+        <h3 class="sidebar__title">{{ data.title }} </h3>
+    </div>
+    <ul class="sidebar__tags-list clearfix list-unstyled">
+        {% for item in items %}
+        <li><a href="{{ item.link }}">{{ item.name }}</a></li>
+        {% else %}
+        <li><a href="#">No tags found</a></li>
+        {% endfor %}
+    </ul>
+</div>

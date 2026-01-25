@@ -1,0 +1,14 @@
+{% extends 'cms::layouts.frontend' %}
+
+{% block content %}
+    {% include 'theme::components.breadcrumb' with {
+        title: post.title|default('Default'),
+        description: post.description|striptags|slice(0, 30),  
+        items: [
+            {'label': 'Home', 'url': '/'},
+            {'label': post.title|default('Default')}
+        ]
+    } %}
+
+    {{ dynamic_block(post, 'content') }}
+{% endblock %}

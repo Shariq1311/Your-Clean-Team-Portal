@@ -1,0 +1,205 @@
+<section class="main-slider-two">
+    <div class="swiper-container thm-swiper__slider" data-swiper-options='{
+        "slidesPerView": 1, 
+        "loop": {{ data.slider_loop ? 'true' : 'false' }},
+        "effect": "fade",
+        "pagination": {
+            "el": "#main-slider-pagination",
+            "type": "bullets",
+            "clickable": true
+        },
+        "navigation": {
+            "nextEl": "#main-slider__swiper-button-next",
+            "prevEl": "#main-slider__swiper-button-prev"
+        }
+        {% if data.slider_autoplay %}
+        ,"autoplay": {
+            "delay": {{ data.slider_autoplay_delay|default(8000) }}
+        }
+        {% endif %}
+    }'>
+        <div class="swiper-wrapper">
+            {% for slide in data.slides %}
+                <div class="swiper-slide">
+                    <div class="main-slider-two__bg" style="background-image: url({{ upload_url(slide.background_image) }});"></div>
+                    
+                    {% if data.menu_items %}
+                        <ul class="list-unstyled main-slider-two__menu">
+                            {% for item in data.menu_items %}
+                                <li><a href="{{ item.url }}">{{ item.text }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    
+                    {% if data.social_links %}
+                        <div class="main-slider-two__social-box">
+                            <h4 class="main-slider-two__social-title">{{ data.social_title|default('Follow Us:') }}</h4>
+                            <div class="main-slider-two__social-box-inner">
+                                {% for social in data.social_links %}
+                                    <a href="{{ social.url }}"><span class="{{ social.icon }}"></span></a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if data.show_trustpilot or data.show_brands %}
+                        <!--Brand Two Start -->
+                        <div class="brand-two">
+                            <div class="brand-two__wrapper">
+                                <div class="brand-two__inner">
+                                    {% if data.show_trustpilot %}
+                                        <div class="brand-two__left">
+                                            <div class="main-slider__trustpilot-box">
+                                                <ul class="list-unstyled main-slider__trustpilot-img-list">
+                                                    <li>
+                                                        <div class="main-slider__trustpilot-img">
+                                                            <img src="{{ upload_url(data.trustpilot_image_1) }}" alt="trustpilot user">
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="main-slider__trustpilot-img">
+                                                            <img src="{{ upload_url(data.trustpilot_image_2) }}" alt="trustpilot user">
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <div class="main-slider__trustpilot-content-box">
+                                                    <div class="main-slider__trustpilot-logo">
+                                                        <img src="{{ upload_url(data.trustpilot_logo) }}" alt="trustpilot logo">
+                                                    </div>
+                                                    <div class="main-slider__trustpilot-rating-review">
+                                                        <p class="main-slider__trustpilot-rating">{{ data.trustpilot_rating|default('5.0 Excellent') }}</p>
+                                                        <p class="main-slider__trustpilot-review">{{ data.trustpilot_review_text|default('Reviews') }} <span class="odometer" data-count="{{ data.trustpilot_review_count|default('4170') }}"></span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    
+                                    {% if data.show_brands and data.brand_logos %}
+                                        <div class="brand-two__right">
+                                            <div class="brand-two__carousel owl-theme owl-carousel">
+                                                {% for brand in data.brand_logos %}
+                                                    <div class="item">
+                                                        <div class="brand-two__single">
+                                                            <div class="brand-two__img">
+                                                                <img src="{{ upload_url(brand.image) }}" alt="{{ brand.alt|default('brand logo') }}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <!--Brand Two End -->
+                    {% endif %}
+                    
+                    <div class="main-slider-two__shape-1"></div>
+                    <div class="main-slider-two__shape-2 float-bob-x">
+                        <img src="{{ upload_url(data.shape_2) }}" alt="shape">
+                    </div>
+                    <div class="main-slider-two__shape-3 float-bob-y">
+                        <img src="{{ upload_url(data.shape_3) }}" alt="shape">
+                    </div>
+                    
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="main-slider-two__content">
+                                    <div class="main-slider-two__sub-title-box">
+                                        <div class="main-slider-two__sub-title-icon">
+                                            <img src="{{ upload_url(data.subtitle_icon) }}" alt="icon">
+                                        </div>
+                                        <p class="main-slider-two__sub-title">{{ slide.subtitle }}</p>
+                                    </div>
+                                    <h2 class="main-slider-two__title">
+                                        {{ slide.title_part_1 }}<br>{{ slide.title_part_2 }} <br><span>{{ slide.title_part_3 }}</span>
+                                    </h2>
+                                    <p class="main-slider-two__text">{{ techguru_format_text(slide.description) }}</p>    
+                                    <div class="main-slider-two__btns-box">
+                                        {% if slide.button_1_text and slide.button_1_url %}
+                                            <div class="main-slider-two__btn-box-1">
+                                                <a href="{{ slide.button_1_url }}" class="thm-btn">{{ slide.button_1_text }}<span class="icon-right-arrow"></span></a>
+                                            </div>
+                                        {% endif %}
+                                        {% if slide.button_2_text and slide.button_2_url %}
+                                            <div class="main-slider-two__btn-box-2">
+                                                <a href="{{ slide.button_2_url }}" class="thm-btn">{{ slide.button_2_text }}<span class="icon-right-arrow"></span></a>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="main-slider-two__shield-check-icon">
+                                        <img src="{{ upload_url(data.shield_check_icon) }}" alt="icon">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+        {% if data.slider_navigation %}
+            <!-- Navigation buttons -->
+            <div class="main-slider-two__nav">
+                <div class="swiper-button-prev" id="main-slider__swiper-button-next">
+                    <i class="icon-right-up"></i>
+                </div>
+                <div class="swiper-button-next" id="main-slider__swiper-button-prev">
+                    <i class="icon-right-up"></i>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<script>
+    $(document).ready(function() {
+        // Initialize brand carousel
+        if ($(".brand-two__carousel").length) {
+            $(".brand-two__carousel").owlCarousel({
+                loop: true,
+                margin: 0,
+                nav: false,
+                dots: false,
+                autoWidth: false,
+                autoplay: true,
+                smartSpeed: 700,
+                autoplayTimeout: 5000,
+                navText: [
+                    '<span class="icon-right-arrow"></span>',
+                    '<span class="icon-right-arrow"></span>'
+                ],
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 2
+                    },
+                    800: {
+                        items: 3
+                    },
+                    1024: {
+                        items: 4
+                    },
+                    1200: {
+                        items: 5
+                    }
+                }
+            });
+        }
+        
+        // Initialize odometer
+        if ($(".odometer").length) {
+            $(".odometer").each(function() {
+                $(this).appear(function() {
+                    var countNumber = $(this).attr("data-count");
+                    $(this).html(countNumber);
+                });
+            });
+        }
+    });
+</script> 

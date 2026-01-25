@@ -1,0 +1,268 @@
+{
+    "label": "Services Two List",
+    "description": "Advanced services list section with dynamic content and customizable layouts",
+    "form": [
+        {
+            "type": "text",
+            "name": "section_tagline",
+            "label": "Section Tagline",
+            "data": {
+                "value": "Our Services"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_1",
+            "label": "Section Title Part 1",
+            "data": {
+                "value": "Your Business with Cutting-Edge IT"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_2",
+            "label": "Section Title Part 2",
+            "data": {
+                "value": "Solutions"
+            }
+        },
+        {
+            "type": "image",
+            "name": "section_title_image",
+            "label": "Section Title Image",
+            "data": {
+                "value": "images/services/section-title-img.jpg"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_3",
+            "label": "Section Title Part 3 (Span 1)",
+            "data": {
+                "value": "Innovative IT Services"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_4",
+            "label": "Section Title Part 4 (Span 2)",
+            "data": {
+                "value": "Tailored for Your Success"
+            }
+        },
+        {
+            "type": "text",
+            "name": "round_text",
+            "label": "Round Text",
+            "data": {
+                "value": "View All Project View All Services"
+            }
+        },
+        {
+            "type": "image",
+            "name": "round_icon",
+            "label": "Round Icon",
+            "data": {
+                "value": "images/icon/services-two-round-icon.png"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "use_services_post_type",
+            "label": "Use Services Post Type",
+            "description": "Load services from Services post type instead of manual configuration",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "taxonomy",
+            "name": "services_category",
+            "label": "Services Category Filter",
+            "description": "Filter services by category (when using services post type)",
+            "data": {
+                "post_type": "services",
+                "taxonomy": "categories"
+            }
+        },
+        {
+            "type": "text",
+            "name": "items_limit",
+            "label": "Number of Services",
+            "description": "Maximum number of services to display",
+            "data": {
+                "value": "6"
+            }
+        },
+        {
+            "type": "text",
+            "name": "service_ids",
+            "label": "Service IDs",
+            "description": "Enter specific service IDs to display (comma-separated)",
+            "data": {
+                "value": ""
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "custom_services",
+            "label": "Custom Services (Manual Configuration)",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "title",
+                    "label": "Service Title"
+                },
+                {
+                    "type": "text",
+                    "name": "url",
+                    "label": "Service URL"
+                },
+                {
+                    "type": "image",
+                    "name": "hover_image",
+                    "label": "Hover Image"
+                },
+                {
+                    "type": "repeater",
+                    "name": "features",
+                    "label": "Service Features",
+                    "fields": [
+                        {
+                            "type": "text",
+                            "name": "feature_1",
+                            "label": "Feature 1"
+                        },
+                        {
+                            "type": "text",
+                            "name": "feature_2",
+                            "label": "Feature 2"
+                        }
+                    ],
+                    "options": {
+                        "min_items": 1,
+                        "max_items": 6,
+                        "add_button_text": "Add Feature Row",
+                        "remove_button_text": "Remove Feature Row",
+                        "value": [
+                            {
+                                "feature_1": "UI/UX Design",
+                                "feature_2": "Mobile Application"
+                            },
+                            {
+                                "feature_1": "Mobile Application",
+                                "feature_2": "Research"
+                            },
+                            {
+                                "feature_1": "Research",
+                                "feature_2": "UI/UX Design"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "options": {
+                "min_items": 0,
+                "max_items": 10,
+                "add_button_text": "Add Service",
+                "remove_button_text": "Remove Service",
+                "value": [
+                    {
+                        "title": "Software Development Solutions",
+                        "url": "advanced-technology.html",
+                        "hover_image": "images/services/services-2-1.jpg",
+                        "features": [
+                            {
+                                "feature_1": "UI/UX Design",
+                                "feature_2": "Mobile Application"
+                            },
+                            {
+                                "feature_1": "Mobile Application",
+                                "feature_2": "Research"
+                            },
+                            {
+                                "feature_1": "Research",
+                                "feature_2": "UI/UX Design"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Cybersecurity Risk Management",
+                        "url": "data-protection-privacy.html",
+                        "hover_image": "images/services/services-2-2.jpg",
+                        "features": [
+                            {
+                                "feature_1": "Security",
+                                "feature_2": "Performance"
+                            },
+                            {
+                                "feature_1": "Scalability",
+                                "feature_2": "Reliability"
+                            },
+                            {
+                                "feature_1": "Innovation",
+                                "feature_2": "Efficiency"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "description": "Enable wow animation effects",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "select",
+            "name": "animation_type",
+            "label": "Animation Type",
+            "data": {
+                "options": {
+                    "fadeInUp": "Fade In Up",
+                    "fadeIn": "Fade In",
+                    "zoomIn": "Zoom In",
+                    "fadeInLeft": "Fade In Left",
+                    "fadeInRight": "Fade In Right"
+                },
+                "value": "fadeInUp"
+            }
+        },
+        {
+            "type": "text",
+            "name": "padding_top",
+            "label": "Top Padding",
+            "data": {
+                "value": "120"
+            }
+        },
+        {
+            "type": "text",
+            "name": "padding_bottom",
+            "label": "Bottom Padding",
+            "data": {
+                "value": "120"
+            }
+        },
+        {
+            "type": "text",
+            "name": "mobile_padding_top",
+            "label": "Mobile Top Padding",
+            "data": {
+                "value": "80"
+            }
+        },
+        {
+            "type": "text",
+            "name": "mobile_padding_bottom",
+            "label": "Mobile Bottom Padding",
+            "data": {
+                "value": "80"
+            }
+        }
+    ]
+}

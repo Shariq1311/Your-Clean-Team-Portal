@@ -1,0 +1,19 @@
+{% extends 'cms::layouts.frontend' %}
+
+{% block content %}
+
+    {% set tags = get_post_taxonomies(post, 'tags', {limit: 5}) %}
+    {% include 'theme::components.breadcrumb' with {
+            is_dynamic: true,
+            post: post,
+            background_image: post.thumbnail ?? upload_url(theme_config('breadcrumb_bg_image')),
+        }
+    %}
+
+<section class="cart-page">
+    <div class="container">
+        <h2>{{ post.title }}</h2>
+        {{ post.content|raw }}
+    </div>
+</section>
+{% endblock %}

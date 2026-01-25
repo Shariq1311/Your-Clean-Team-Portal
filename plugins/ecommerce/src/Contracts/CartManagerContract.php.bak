@@ -1,0 +1,20 @@
+<?php
+/**
+ * JUZAWEB CMS - The Best CMS for Laravel Project
+ *
+ * @package    mojarcms/cms
+ * @author     Mojar Team <admin@mojar.com>
+ * @link       https://mojarcms.com/cms
+ * @license    MIT
+ */
+
+namespace Mojahid\Ecommerce\Contracts;
+
+use Mojahid\Ecommerce\Models\Cart;
+
+interface CartManagerContract
+{
+    public function find(string|Cart $cart = null): CartContract;
+
+    public function getCodeCurrentCart(): string;
+}

@@ -1,0 +1,95 @@
+{% extends 'cms::layouts.frontend' %}
+
+{% block content %}
+
+    {% include 'theme::components.breadcrumb' with {
+        title: 'Login', 
+        description: 'Learn more about our company and mission',    
+        items: [
+            {'label': 'Home', 'url': '/'},
+            {'label': 'Login'}
+        ]
+    } %}
+
+    <section class="login-one">
+            <div class="container">
+                <div class="login-one__form">
+                    <div class="inner-title text-center">
+                        <h2>{{ __('Login Here') }}</h2> 
+                    </div>
+
+                    {% if errors.any %}
+                        <div class="alert alert-danger">
+                            <ul class="list-unstyled">
+                                {% for error in errors.all %}
+                                    <li>
+                                        <div class="alert-title">
+                                            <i class="fas fa-exclamation-circle me-2"></i>
+                                            {{ error }}
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                    <!-- Vendor Status Messages -->
+                    {% if app.session.get('vendor_status_message') %}
+                        <div class="alert alert-info vendor-status-message {{ app.session.get('vendor_status_type', 'under_review') }}">
+                            <div class="alert-title">
+                                <i class="fas fa-info-circle me-2"></i>
+                                {{ app.session.get('vendor_status_message') }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <form action="" method="post" id="login-one__form" name="Login-one_form">
+                        {{ csrf_field() }}
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="form-group">
+                                    <div class="input-box">
+                                        <input type="email" name="email" id="formEmail" placeholder="{{ __('Email...') }}"
+                                            required="" value="{{ old('email') }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-12">
+                                <div class="form-group">
+                                    <div class="input-box"> 
+                                        <input type="password" name="password" id="formPassword"
+                                            placeholder="{{ __('Password...') }}" required="" value="{{ old('password') }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-12">
+                                <div class="form-group">
+                                    <button class="thm-btn" type="submit" data-loading-text="{{ __('Please wait...') }}">
+                                        {{ __('Login Here') }}
+                                        <span class="icon-right-arrow"></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="remember-forget">
+                                <div class="checked-box1">
+                                    <input type="checkbox" name="remember" id="saveinfo" checked="">
+                                    <label for="saveinfo">
+                                        <span></span>
+                                        {{ __('Remember me') }}
+                                    </label>
+                                </div>
+                                <div class="forget d-none">
+                                    <a href="{{ url('password/reset') }}">{{ __('Forget password?') }}</a>
+                                </div>
+                            </div>
+
+                            <div class="create-account text-center">
+                                <p>{{ __('Not registered yet?') }} <a href="{{ url('register') }}">{{ __('Create an Account') }}</a></p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+{% endblock %}

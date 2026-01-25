@@ -1,0 +1,211 @@
+{
+    "label": "Testimonials Grid List",
+    "description": "Display testimonials in a responsive grid layout with star ratings and client information",
+    "form": [
+        {
+            "type": "checkbox_json",
+            "name": "use_testimonials_post_type",
+            "label": "Use Testimonials Post Type",
+            "description": "Load testimonials from Testimonials post type instead of manual configuration",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "taxonomy",
+            "name": "testimonials_category",
+            "label": "Testimonials Category Filter",
+            "description": "Filter testimonials by category (when using testimonials post type)",
+            "data": {
+                "post_type": "testimonials",
+                "taxonomy": "categories"
+            }
+        },
+        {
+            "type": "text",
+            "name": "items_limit",
+            "label": "Number of Testimonials",
+            "description": "Maximum number of testimonials to display",
+            "data": {
+                "value": "6"
+            }
+        },
+        {
+            "type": "text",
+            "name": "testimonial_ids",
+            "label": "Testimonial IDs",
+            "description": "Enter specific testimonial IDs to display (comma-separated)",
+            "data": {
+                "value": ""
+            }
+        },
+        {
+            "type": "select",
+            "name": "orderby",
+            "label": "Order By",
+            "data": {
+                "options": {
+                    "date": "Date",
+                    "title": "Title",
+                    "menu_order": "Menu Order",
+                    "rand": "Random"
+                },
+                "value": "date"
+            }
+        },
+        {
+            "type": "select",
+            "name": "order",
+            "label": "Order",
+            "data": {
+                "options": {
+                    "DESC": "Descending",
+                    "ASC": "Ascending"
+                },
+                "value": "DESC"
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "custom_testimonials",
+            "label": "Custom Testimonials (Manual Configuration)",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "client_name",
+                    "label": "Client Name"
+                },
+                {
+                    "type": "text",
+                    "name": "client_position",
+                    "label": "Client Position/Job Title"
+                },
+                {
+                    "type": "image",
+                    "name": "client_image",
+                    "label": "Client Image"
+                },
+                {
+                    "type": "select",
+                    "name": "rating",
+                    "label": "Star Rating",
+                    "data": {
+                        "options": {
+                            "1": "1 Star",
+                            "2": "2 Stars",
+                            "3": "3 Stars",
+                            "4": "4 Stars",
+                            "5": "5 Stars"
+                        },
+                        "value": "5"
+                    }
+                },
+                {
+                    "type": "textarea",
+                    "name": "testimonial_text",
+                    "label": "Testimonial Text"
+                },
+                {
+                    "type": "text",
+                    "name": "testimonial_url",
+                    "label": "Testimonial Detail URL",
+                    "description": "Optional link to full testimonial or client page"
+                }
+            ],
+            "options": {
+                "min_items": 0,
+                "max_items": 12,
+                "add_button_text": "Add Testimonial",
+                "remove_button_text": "Remove Testimonial",
+                "value": [
+                    {
+                        "client_name": "Thomas Alison",
+                        "client_position": "UI/UX Designer",
+                        "client_image": "images/testimonial/testimonial-2-1.jpg",
+                        "rating": "4",
+                        "testimonial_text": "Absolutely fantastic experience! The team exceeded our expectations and delivered a solution that perfectly met our needs. Their attention to detail and commitment to quality is unmatched.",
+                        "testimonial_url": "testimonials.html"
+                    },
+                    {
+                        "client_name": "Sarah Williams",
+                        "client_position": "Marketing Manager",
+                        "client_image": "images/testimonial/testimonial-2-2.jpg",
+                        "rating": "5",
+                        "testimonial_text": "Outstanding service and professional approach. They understood our requirements perfectly and delivered beyond our expectations. Highly recommended for anyone looking for quality work.",
+                        "testimonial_url": "testimonials.html"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "select",
+            "name": "grid_columns",
+            "label": "Grid Columns",
+            "description": "Number of columns in desktop view",
+            "data": {
+                "options": {
+                    "2": "2 Columns",
+                    "3": "3 Columns",
+                    "4": "4 Columns"
+                },
+                "value": "3"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "description": "Enable wow animation effects",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "select",
+            "name": "animation_type",
+            "label": "Animation Type",
+            "data": {
+                "options": {
+                    "fadeInUp": "Fade In Up",
+                    "fadeIn": "Fade In",
+                    "zoomIn": "Zoom In",
+                    "fadeInLeft": "Fade In Left",
+                    "fadeInRight": "Fade In Right"
+                },
+                "value": "fadeInUp"
+            }
+        },
+        {
+            "type": "text",
+            "name": "padding_top",
+            "label": "Top Padding",
+            "data": {
+                "value": "120"
+            }
+        },
+        {
+            "type": "text",
+            "name": "padding_bottom",
+            "label": "Bottom Padding",
+            "data": {
+                "value": "120"
+            }
+        },
+        {
+            "type": "text",
+            "name": "mobile_padding_top",
+            "label": "Mobile Top Padding",
+            "data": {
+                "value": "80"
+            }
+        },
+        {
+            "type": "text",
+            "name": "mobile_padding_bottom",
+            "label": "Mobile Bottom Padding",
+            "data": {
+                "value": "80"
+            }
+        }
+    ]
+}

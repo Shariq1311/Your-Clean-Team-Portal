@@ -1,0 +1,40 @@
+{
+    "name": "Footer Top CTA",
+    "description": "Display footer top area with logo, text and call-to-action button",
+    "form": [
+        {
+            "type": "image",
+            "name": "background_image",
+            "label": "Background Image"
+        },
+        {
+            "type": "image",
+            "name": "logo",
+            "label": "Footer Logo"
+        },
+        {
+            "type": "textarea",
+            "name": "cta_text",
+            "label": "CTA Text",
+            "data": {
+                "value": "We are the best creative agency \nworldwide to brands grow"
+            }
+        },
+        {
+            "type": "text",
+            "name": "button_text",
+            "label": "Button Text",
+            "data": {
+                "value": "Get In Touch"
+            }
+        },
+        {
+            "type": "text",
+            "name": "button_url",
+            "label": "Button URL",
+            "data": {
+                "value": "contact.html"
+            }
+        }
+    ]
+}

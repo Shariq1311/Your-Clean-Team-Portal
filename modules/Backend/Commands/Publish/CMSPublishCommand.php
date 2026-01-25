@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * Mojar - Laravel CMS for Your Project
+ *
+ * @package    Mojar/Mojarcms
+ * @author     Mojar Team
+ * @link       https://Mojar.com
+ * @license    GNU V2
+ */
+
+namespace MojarCMS\Backend\Commands\Publish;
+
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
+use Symfony\Component\Console\Input\InputArgument;
+
+class CMSPublishCommand extends Command
+{
+    protected $name = 'cms:publish';
+
+    public function handle(): void
+    {
+        $tag = match ($this->argument('type')) {
+            'config' => 'cms_config',
+            default => 'cms_assets',
+        };
+
+        if ($tag == 'cms_assets') {
+            File::deleteDirectory(base_path('public/mc-styles/Mojar/build'), true);
+        }
+
+        $this->call(
+            'vendor:publish',
+            [
+                '--force' => true,
+                '--tag' => [$tag],
+            ]
+        );
+    }
+
+    protected function getArguments(): array
+    {
+        return [
+            ['type', InputArgument::OPTIONAL, 'Publish type.', 'assets'],
+        ];
+    }
+}

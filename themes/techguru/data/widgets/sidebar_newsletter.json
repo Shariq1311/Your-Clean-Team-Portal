@@ -1,0 +1,38 @@
+{
+    "name": "Sidebar Newsletter",
+    "description": "Display newsletter subscription form in sidebar",
+    "form": [
+        {
+            "type": "text",
+            "name": "title",
+            "label": "Widget Title",
+            "data": {
+                "value": "Subscribe"
+            }
+        },
+        {
+            "type": "textarea",
+            "name": "description",
+            "label": "Newsletter Description",
+            "data": {
+                "value": "Subscribe our newsletter to get everyday update about our blogs"
+            }
+        },
+        {
+            "type": "text",
+            "name": "placeholder",
+            "label": "Email Placeholder Text",
+            "data": {
+                "value": "Email"
+            }
+        },
+        {
+            "type": "text",
+            "name": "button_text",
+            "label": "Button Text",
+            "data": {
+                "value": "Subcribe Now"
+            }
+        }
+    ]
+}

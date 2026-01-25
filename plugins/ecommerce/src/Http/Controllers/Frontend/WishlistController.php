@@ -1,0 +1,283 @@
+<?php
+/**
+ * JUZAWEB CMS - The Best CMS for Laravel Project
+ *
+ * @package    Mojarcms/cms
+ * @author     Mojar Team <admin@Mojar.com>
+ * @link       https://Mojarcms.com/cms
+ * @license    MIT
+ */
+
+namespace Mojahid\Ecommerce\Http\Controllers\Frontend;
+
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\Response as HttpResponse;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
+use MojarCMS\CMS\Http\Controllers\FrontendController;
+use Mojahid\Ecommerce\Contracts\WishlistContract;
+use Mojahid\Ecommerce\Contracts\WishlistManagerContract;
+use Mojahid\Ecommerce\Contracts\CartManagerContract;
+use Mojahid\Ecommerce\Http\Requests\AddToWishlistRequest;
+use Mojahid\Ecommerce\Http\Requests\RemoveItemWishlistRequest;
+use Mojahid\Ecommerce\Http\Requests\MoveToCartRequest;
+use Mojahid\Ecommerce\Http\Resources\WishlistResource;
+use MojarCMS\CMS\Abstracts\Action;
+
+class WishlistController extends FrontendController
+{
+    protected WishlistManagerContract $wishlistManager;
+    protected CartManagerContract $cartManager;
+    protected bool $themeView = false;
+    protected const VIEW_PATH = 'ecomm::frontend.wishlist.index';
+    protected const THEME_VIEW_PATH = 'theme::products.wishlist.index';
+
+    public function __construct(
+        WishlistManagerContract $wishlistManager,
+        CartManagerContract $cartManager
+    ) {
+        $this->wishlistManager = $wishlistManager;
+        $this->cartManager = $cartManager;
+    }
+
+    public function index(): View
+    {
+        $this->initializeThemeView();
+        $wishlist = $this->wishlistManager->find();
+
+        return view($this->getViewPath(), $this->getViewData($wishlist));
+    }
+
+    protected function initializeThemeView(): void
+    {
+        if ($this->isWishlistRoute() && $this->themeViewExists()) {
+            $this->themeView = true;
+            $this->initializeThemeActions();
+        }
+    }
+
+    protected function isWishlistRoute(): bool
+    {
+        return request()->route()->getName() === 'ecomm.wishlist';
+    }
+
+    protected function themeViewExists(): bool
+    {
+        return view()->exists(self::THEME_VIEW_PATH);
+    }
+
+    protected function initializeThemeActions(): void
+    {
+        do_action('ecomm.wishlist.index');
+        do_action(Action::WIDGETS_INIT);
+        do_action(Action::BLOCKS_INIT);
+    }
+
+    protected function getViewPath(): string
+    {
+        return $this->themeView ? self::THEME_VIEW_PATH : self::VIEW_PATH;
+    }
+
+    protected function getViewData(WishlistContract $wishlist): array
+    {
+        return [
+            'title' => trans('ecomm::content.wishlist'),
+            'wishlist' => $wishlist,
+            'items' => new WishlistResource($wishlist),
+            'total_items' => $wishlist->totalItems(),
+        ];
+    }
+
+    public function addToWishlist(AddToWishlistRequest $request): HttpResponse|JsonResponse|RedirectResponse
+    {
+        $postId = $request->input('post_id');
+        $type = $request->input('type', 'products');
+
+        $wishlist = $this->wishlistManager->find();
+
+        // Check if item already exists
+        if ($wishlist->hasItem($postId, $type)) {
+            return $this->success([
+                'message' => trans('ecomm::content.item_already_in_wishlist'),
+                'wishlist' => new WishlistResource($wishlist),
+            ]);
+        }
+
+        DB::beginTransaction();
+        try {
+            $wishlist->add($postId, $type);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            report($e);
+            return $this->error([
+                'message' => $e->getMessage(),
+            ]);
+        }
+
+        return $this->responseWishlistWithCookie(
+            $wishlist,
+            trans('ecomm::content.added_to_wishlist_successfully')
+        );
+    }
+
+    public function removeItem(RemoveItemWishlistRequest $request): JsonResponse
+    {
+        try {
+            $postId = $request->input('post_id');
+            $type = $request->input('type', 'products');
+
+            $wishlist = $this->wishlistManager->find();
+
+            DB::beginTransaction();
+            $wishlist->removeItem($postId, $type);
+            DB::commit();
+
+            $wishlistResource = new WishlistResource($wishlist);
+
+            return Response::json([
+                'success' => true,
+                'message' => trans('ecomm::content.item_removed_from_wishlist_successfully'),
+                'wishlist' => [
+                    'data' => [
+                        'total_items' => $wishlist->totalItems(),
+                    ]
+                ]
+            ])->withCookie(Cookie::make('mc_wishlist', $wishlist->getCode(), 43200));
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return Response::json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function moveToCart(MoveToCartRequest $request): JsonResponse
+    {
+        try {
+            $postId = $request->input('post_id');
+            $type = $request->input('type', 'products');
+            $quantity = (int) $request->input('quantity', 1);
+
+            $wishlist = $this->wishlistManager->find();
+
+            DB::beginTransaction();
+            $success = $wishlist->moveToCart($postId, $type, $quantity);
+            DB::commit();
+
+            if ($success) {
+                return Response::json([
+                    'success' => true,
+                    'message' => trans('ecomm::content.item_moved_to_cart_successfully'),
+                    'wishlist' => [
+                        'data' => [
+                            'total_items' => $wishlist->totalItems(),
+                        ]
+                    ]
+                ])->withCookie(Cookie::make('mc_wishlist', $wishlist->getCode(), 43200));
+            } else {
+                return Response::json([
+                    'success' => false,
+                    'message' => trans('ecomm::content.failed_to_move_item_to_cart')
+                ], 422);
+            }
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return Response::json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function moveAllToCart(): JsonResponse
+    {
+        try {
+            $wishlist = $this->wishlistManager->find();
+
+            if ($wishlist->isEmpty()) {
+                return Response::json([
+                    'success' => false,
+                    'message' => trans('ecomm::content.wishlist_is_empty')
+                ], 422);
+            }
+
+            DB::beginTransaction();
+            $success = $wishlist->moveAllToCart();
+            DB::commit();
+
+            if ($success) {
+                return Response::json([
+                    'success' => true,
+                    'message' => trans('ecomm::content.all_items_moved_to_cart_successfully'),
+                    'wishlist' => [
+                        'data' => [
+                            'total_items' => 0,
+                        ]
+                    ]
+                ])->withCookie(Cookie::make('mc_wishlist', '', -1));
+            } else {
+                return Response::json([
+                    'success' => false,
+                    'message' => trans('ecomm::content.failed_to_move_all_items_to_cart')
+                ], 422);
+            }
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return Response::json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function remove(): JsonResponse|RedirectResponse
+    {
+        $wishlist = $this->wishlistManager->find();
+
+        DB::beginTransaction();
+        try {
+            $wishlist->remove();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            report($e);
+            return $this->error([
+                'message' => $e->getMessage(),
+            ]);
+        }
+
+        return $this->success([
+            'message' => trans('ecomm::content.wishlist_cleared_successfully'),
+            'wishlist' => new WishlistResource($wishlist),
+        ]);
+    }
+
+    public function getWishlistItems(): JsonResponse
+    {
+        $wishlist = $this->wishlistManager->find();
+
+        return response()->json([
+            'code' => $wishlist->getCode(),
+            'total_items' => $wishlist->totalItems(),
+            'items' => new WishlistResource($wishlist)
+        ]);
+    }
+
+    protected function responseWishlistWithCookie(WishlistContract $wishlist, string $message): JsonResponse|RedirectResponse
+    {
+        $cookie = Cookie::make('mc_wishlist', $wishlist->getCode(), 43200);
+
+        return $this->success([
+            'wishlist' => new WishlistResource($wishlist),
+            'message' => $message,
+        ])->withCookie($cookie);
+    }
+} 

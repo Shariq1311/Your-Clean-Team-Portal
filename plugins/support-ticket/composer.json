@@ -1,0 +1,27 @@
+{
+    "name": "mojahid/support-ticket",
+    "homepage": "https://mojahid.com",
+    "type": "Your Clean Team-plugin",
+    "license": "MIT",
+    "description": "Open and management support tickets for your websites",
+    "extra": {
+        "Your Clean Team": {
+            "name": "Support Ticket",
+            "domain": "sticket",
+            "cms_min": "1.0.0",
+            "version": "1.0.0",
+            "providers": [
+                "Mojahid\\SupportTicket\\Providers\\SupportTicketServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Mojahid\\SupportTicket\\": "src/"
+        }
+    },
+    "require-dev": {
+        "Your Clean Teamcms/modules": "^1.0",
+        "Your Clean Teamcms/dev-tool": "^1.0"
+    }
+}

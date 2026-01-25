@@ -1,0 +1,271 @@
+<section class="services-three">
+    <div class="services-three__shape-1"></div>
+    <div class="services-three__shape-2"></div>
+    <div class="container">
+        <div class="section-title text-center sec-title-animation animation-style1 {% if data.enable_animation %}wow fadeInUp{% endif %}" {% if data.enable_animation %}data-wow-duration="1s"{% endif %}>
+            <div class="section-title__tagline-box">
+                <div class="section-title__tagline-shape-1"></div>
+                <span class="section-title__tagline">{{ data.section_tagline|default('Our Services') }}</span>
+                <div class="section-title__tagline-shape-2"></div>
+            </div>
+            <h2 class="section-title__title title-animation">{{ data.section_title_1|default('Reliable Services') }}
+                <span>{{ data.section_title_2|default('Crafted') }}</span> <br> <span>{{ data.section_title_3|default('to Exceed') }}</span> {{ data.section_title_4|default('Your Expectations') }}</h2>
+        </div>
+        <div class="services-three__carousel owl-theme owl-carousel">
+            {% if data.use_services_post_type %}
+                {% set ids_array = data.service_ids ? data.service_ids|split(',') : [] %}
+                {% set services = get_posts('services', {
+                    'limit': data.items_limit|default(5),
+                    'taxonomy': data.services_category,
+                    'ids': ids_array
+                }) %}
+                
+                {% if services %}
+                    {% for service in services %}
+                        <!--Services Three Single Start -->
+                        <div class="item">
+                            <div class="services-three__single">
+                                <div class="services-three__icon-and-title">
+                                    <div class="services-three__icon">
+                                        <span class="{{ service.metas.icon|default('icon-technical-support') }}"></span>
+                                    </div>
+                                    <h3 class="services-three__title"><a href="{{ service.url }}">{{ service.title|raw }}</a></h3>
+                                </div>
+                                <p class="services-three__text">{{ service.excerpt|raw }}</p>
+                                <ul class="list-unstyled services-three__list">
+                                    {% if service.metas.features %}
+                                        {% for feature in service.metas.features %}
+                                            <li>
+                                                <div class="icon">
+                                                    <span class="icon-tick-inside-circle"></span>
+                                                </div>
+                                                <div class="text">
+                                                    <p>{{ feature.text }}</p>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                    {% else %}
+                                        <li>
+                                            <div class="icon">
+                                                <span class="icon-tick-inside-circle"></span>
+                                            </div>
+                                            <div class="text">
+                                                <p>Web Development</p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="icon">
+                                                <span class="icon-tick-inside-circle"></span>
+                                            </div>
+                                            <div class="text">
+                                                <p>App Development</p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="icon">
+                                                <span class="icon-tick-inside-circle"></span>
+                                            </div>
+                                            <div class="text">
+                                                <p>Graphics Design</p>
+                                            </div>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                                <a href="{{ service.url }}" class="services-three__btn">{{ service.metas.button_text|default('Read More') }} <span class="icon-right-arrow-1"></span></a>
+                            </div>
+                        </div>
+                        <!--Services Three Single End -->
+                    {% endfor %}
+                {% endif %}
+            {% else %}
+                {% if data.custom_services %}
+                    {% for service in data.custom_services %}
+                        <!--Services Three Single Start -->
+                        <div class="item">
+                            <div class="services-three__single">
+                                <div class="services-three__icon-and-title">
+                                    <div class="services-three__icon">
+                                        <span class="{{ service.icon|default('icon-technical-support') }}"></span>
+                                    </div>
+                                    <h3 class="services-three__title"><a href="{{ service.url|default('#') }}">{{ service.title|raw }}</a></h3>
+                                </div>
+                                <p class="services-three__text">{{ service.description|raw }}</p>
+                                <ul class="list-unstyled services-three__list">
+                                    {% if service.features %}
+                                        {% for feature in service.features %}
+                                            <li>
+                                                <div class="icon">
+                                                    <span class="icon-tick-inside-circle"></span>
+                                                </div>
+                                                <div class="text">
+                                                    <p>{{ feature.text }}</p>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                    {% endif %}
+                                </ul>
+                                <a href="{{ service.url|default('#') }}" class="services-three__btn">{{ service.button_text|default('Read More') }} <span class="icon-right-arrow-1"></span></a>
+                            </div>
+                        </div>
+                        <!--Services Three Single End -->
+                    {% endfor %}
+                {% else %}
+                    <!--Services Three Single Start (Default) -->
+                    <div class="item">
+                        <div class="services-three__single">
+                            <div class="services-three__icon-and-title">
+                                <div class="services-three__icon">
+                                    <span class="icon-technical-support"></span>
+                                </div>
+                                <h3 class="services-three__title"><a href="javascript:void(0)">All Kind Of <br> IT Services</a></h3>
+                            </div>
+                            <p class="services-three__text">Comprehensive IT management, including network monitoring, data backup</p>
+                            <ul class="list-unstyled services-three__list">
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-tick-inside-circle"></span>
+                                    </div>
+                                    <div class="text">
+                                        <p>Web Development</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-tick-inside-circle"></span>
+                                    </div>
+                                    <div class="text">
+                                        <p>App Development</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-tick-inside-circle"></span>
+                                    </div>
+                                    <div class="text">
+                                        <p>Graphics Design</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <a href="javascript:void(0)" class="services-three__btn">Read More <span class="icon-right-arrow-1"></span></a>
+                        </div>
+                    </div>
+                    <!--Services Three Single End -->
+                    <!--Services Three Single Start (Default) -->
+                    <div class="item">
+                        <div class="services-three__single">
+                            <div class="services-three__icon-and-title">
+                                <div class="services-three__icon">
+                                    <span class="icon-idea"></span>
+                                </div>
+                                <h3 class="services-three__title"><a href="javascript:void(0)">Cybersecurity <br> Solutions</a></h3>
+                            </div>
+                            <p class="services-three__text">Comprehensive IT management, including network monitoring, data backup</p>
+                            <ul class="list-unstyled services-three__list">
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-tick-inside-circle"></span>
+                                    </div>
+                                    <div class="text">
+                                        <p>Web Development</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-tick-inside-circle"></span>
+                                    </div>
+                                    <div class="text">
+                                        <p>App Development</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-tick-inside-circle"></span>
+                                    </div>
+                                    <div class="text">
+                                        <p>Graphics Design</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <a href="javascript:void(0)" class="services-three__btn">Read More <span class="icon-right-arrow-1"></span></a>
+                        </div>
+                    </div>
+                    <!--Services Three Single End -->
+                    <!--Services Three Single Start (Default) -->
+                    <div class="item">
+                        <div class="services-three__single">
+                            <div class="services-three__icon-and-title">
+                                <div class="services-three__icon">
+                                    <span class="icon-strategy"></span>
+                                </div>
+                                <h3 class="services-three__title"><a href="javascript:void(0)">Software Development <br> & Integration</a></h3>
+                            </div>
+                            <p class="services-three__text">Comprehensive IT management, including network monitoring, data backup</p>
+                            <ul class="list-unstyled services-three__list">
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-tick-inside-circle"></span>
+                                    </div>
+                                    <div class="text">
+                                        <p>Web Development</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-tick-inside-circle"></span>
+                                    </div>
+                                    <div class="text">
+                                        <p>App Development</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-tick-inside-circle"></span>
+                                    </div>
+                                    <div class="text">
+                                        <p>Graphics Design</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <a href="javascript:void(0)" class="services-three__btn">Read More <span class="icon-right-arrow-1"></span></a>
+                        </div>
+                    </div>
+                    <!--Services Three Single End -->
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function() {
+        if ($(".services-three__carousel").length) {
+            $(".services-three__carousel").owlCarousel({
+                loop: {{ data.carousel_loop ? 'true' : 'false' }},
+                margin: {{ data.carousel_margin|default(30) }},
+                nav: {{ data.carousel_nav ? 'true' : 'false' }},
+                dots: {{ data.carousel_dots ? 'true' : 'false' }},
+                smartSpeed: 500,
+                autoplay: {{ data.carousel_autoplay ? 'true' : 'false' }},
+                autoplayTimeout: {{ data.carousel_autoplay_timeout|default(5000) }},
+                navText: [
+                    '<span class="icon-right-arrow-1"></span>',
+                    '<span class="icon-right-arrow-1"></span>',
+                ],
+                responsive: {
+                    0: {
+                        items: {{ data.carousel_items_mobile|default(1) }}
+                    },
+                    768: {
+                        items: {{ data.carousel_items_tablet|default(2) }}
+                    },
+                    992: {
+                        items: {{ data.carousel_items|default(3) }}
+                    },
+                    1200: {
+                        items: {{ data.carousel_items|default(3) }}
+                    }
+                }
+            });
+        }
+    });
+</script> 

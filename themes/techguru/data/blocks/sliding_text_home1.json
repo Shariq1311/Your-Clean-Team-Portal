@@ -1,0 +1,115 @@
+{
+    "label": "Sliding Text Home 1",
+    "description": "Horizontally scrolling text with star icons",
+    "form": [
+        {
+            "type": "text",
+            "name": "marquee_class",
+            "label": "Marquee CSS Class",
+            "description": "CSS class for the marquee element",
+            "data": {
+                "value": "marquee_mode"
+            }
+        },
+        {
+            "type": "text",
+            "name": "scroll_speed",
+            "label": "Scroll Speed",
+            "description": "Speed of the marquee scrolling (lower is faster)",
+            "data": {
+                "value": "30"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "pause_on_hover",
+            "label": "Pause on Hover",
+            "description": "Pause the scrolling when user hovers over the text",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "sliding_items",
+            "label": "Sliding Text Items",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "text",
+                    "label": "Text",
+                    "description": "Text to display in the sliding area",
+                    "data": {
+                        "value": "UI/UX Design"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "hover_text",
+                    "label": "Hover Text",
+                    "description": "Text to display on hover (usually same as text)",
+                    "data": {
+                        "value": "UI/UX Design"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "icon",
+                    "label": "Icon Class",
+                    "description": "Icon class to display after the text",
+                    "data": {
+                        "value": "icon-star"
+                    }
+                }
+            ],
+            "options": {
+                "min_items": 1,
+                "max_items": 20,
+                "add_button_text": "Add Sliding Text",
+                "remove_button_text": "Remove Sliding Text",
+                "value": [
+                    {
+                        "text": "UI/UX Design",
+                        "hover_text": "UI/UX Design",
+                        "icon": "icon-star"
+                    },
+                    {
+                        "text": "Product Design",
+                        "hover_text": "Product Design",
+                        "icon": "icon-star"
+                    },
+                    {
+                        "text": "Web Development",
+                        "hover_text": "Web Development",
+                        "icon": "icon-star"
+                    },
+                    {
+                        "text": "BRANDING",
+                        "hover_text": "BRANDING",
+                        "icon": "icon-star"
+                    },
+                    {
+                        "text": "Cyber Security",
+                        "hover_text": "Cyber Security",
+                        "icon": "icon-star"
+                    },
+                    {
+                        "text": "Website design",
+                        "hover_text": "Website design",
+                        "icon": "icon-star"
+                    },
+                    {
+                        "text": "Digital Marketing",
+                        "hover_text": "Digital Marketing",
+                        "icon": "icon-star"
+                    },
+                    {
+                        "text": "UI/UX Design",
+                        "hover_text": "UI/UX Design",
+                        "icon": "icon-star"
+                    }
+                ]
+            }
+        }
+    ]
+}

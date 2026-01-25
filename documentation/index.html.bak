@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+	<!-- Basic metas
+    ======================================== -->
+	<meta charset="utf-8">
+	<meta name="author" content="">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+
+	<!-- Mobile specific metas
+    ======================================== -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="Documentation" />
+	<meta property="og:url" content="index.html" />
+	<!-- Page Title
+    ======================================== -->
+	<title>Techguru - Technology & IT Solutions With Ecommerce & POS System Laravel CMS</title>
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png">
+
+	<!-- fonts
+	======================================== -->
+	<link rel="stylesheet" type="text/css" href="assets/css/elegantFont.css">
+
+	<!-- Bootstrap -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Custom css -->
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/responsive.css">
+</head>
+
+<body>
+	<!--[if lte IE 9]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+	<![endif]-->
+	<!-- Header starts -->
+	<a href="#top" class="back-to-top"><i class="fal fa-arrow-up"></i></a>
+
+	<header class="page-header sticky-top" id="top">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-3 col-md-4 col-sm-6 col-6">
+					<div class="logo">
+						<a href="index.html" class="nav-brand">
+							<img src="assets/images/logo.png" alt="logo" width="155">
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-9 col-md-8 col-sm-6 col-6">
+					<div class="right-part d-flex justify-content-end align-items-center">
+						<form action="#" class="search-form d-none d-lg-block">
+							<div class="input-group">
+								<input type="text" class="search-input" placeholder="Search item">
+							</div>
+						</form>
+						<div class="nav-list">
+							<a class="e-btn d-none d-md-inline-block" href="https://codecanyon.net/user/scriptfusions"
+								target="_blank">Visit
+								Themes And Scripts</a>
+							<a href="#" class="toggle-navbar"><i class="icon_menu"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End of .container -->
+	</header>
+	<div class="main-content-wrapper">
+		<div class="container ">
+			<div class="row doc-container">
+				<div class="col-xl-3">
+					<aside class="sidebar-navigation sticky-top doc-sidebar">
+						<h3>Doc Navigation</h3>
+						<!-- <nav class="nav"> -->
+						<ul class="mojar-doc-nav  nav-sidebar doc-nav">
+							<li class="nav-item">
+								<a class="nav-link" href="#getting_started"><img
+										src="assets/images/icon/start-button.png"> Getting Started </a>
+								<span class="icon">
+									<i class="icon_plus"></i>
+									<i class="icon_minus-06"></i>
+								</span>
+								<ul class="submenu dropdown_nav">
+									<li class="nav-item"><a class="nav-link" href="#getting_started">Getting Started</a>
+									</li>
+									<li class="nav-item"><a class="nav-link" href="#key_features">Key Features</a></li>
+									<li class="nav-item"><a class="nav-link" href="#payment_gateway_supports">Payment
+											Gateway Supports</a></li>
+									<li class="nav-item"><a class="nav-link" href="#credentials">Credentials</a></li>
+									<li class="nav-item"><a class="nav-link" href="#common_issues_install">
+											Some Common Issues & Solutions In Installation
+										</a></li>
+									<li class="nav-item"><a class="nav-link" href="#writable_issues_install">
+											Writable Issues In Installation
+										</a></li>
+									<li class="nav-item"><a class="nav-link" href="#upgrade_guide">Upgrade Guide</a>
+									</li>
+									<li class="nav-item"><a class="nav-link" href="#whats_included">Whats Included</a>
+									</li>
+									<li class="nav-item"><a class="nav-link" href="#install">Install</a></li>
+								</ul>
+							</li>
+
+							<li class="nav-item">
+								<a class="nav-link" href="#others_pages"><img src="assets/images/icon/analytics.png">
+									Outhers Pages </a>
+								<span class="icon">
+									<i class="icon_plus"></i>
+									<i class="icon_minus-06"></i>
+								</span>
+								<ul class="submenu dropdown_nav">
+									<li class="nav-item"><a class="nav-link" href="#page_dashboard">Dashboard</a></li>
+									<li class="nav-item"><a class="nav-link" href="#page_dashboard_vendor">Dashboard
+											Vendor</a></li>
+									<li class="nav-item"><a class="nav-link" href="#page_dashboard_customer">Dashboard
+											Customer</a></li>
+									<li class="nav-item"><a href="#page_media" class="nav-link">Media</a></li>
+							</li>
+							<li class="nav-item"><a href="#page_tickets_add" class="nav-link">Tickets -> Add</a>
+							</li>
+							<li class="nav-item"><a href="#page_tickets_types" class="nav-link">Tickets -> Types</a>
+							</li>
+							<li class="nav-item"><a href="#page_contacts" class="nav-link">Contacts</a></li>
+							<li class="nav-item"><a href="#page_newslatter" class="nav-link">Newslatter</a></li>
+							<li class="nav-item"><a href="#page_post_list" class="nav-link">Post -> List</a>
+							</li>
+							<li class="nav-item"><a href="#page_post_add" class="nav-link">Post -> Add</a></li>
+							<li class="nav-item"><a href="#page_page_list" class="nav-link">Page -> List</a>
+							</li>
+							<li class="nav-item"><a href="#page_page_add" class="nav-link">Page -> Add</a></li>
+
+						</ul>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="#settings_pages"><img src="assets/images/icon/settings.png">
+								Settings Pages </a>
+							<span class="icon">
+								<i class="icon_plus"></i>
+								<i class="icon_minus-06"></i>
+							</span>
+							<ul class="submenu dropdown_nav">
+								<li class="nav-item"><a class="nav-link" href="#general_settings">General Settings
+									</a></li>
+								<li class="nav-item"><a href="#seo_settings" class="nav-link">SEO Setting</a></li>
+								<li class="nav-item"><a href="#email_settings" class="nav-link">Email setting</a>
+								</li>
+								<li class="nav-item"><a href="#permalinks_settings" class="nav-link">Permalinks
+										setting</a></li>
+								<li class="nav-item"><a href="#reading_settings" class="nav-link">Reading
+										setting</a></li>
+								<li class="nav-item"><a href="#media_settings" class="nav-link">Media setting</a>
+								</li>
+								<li class="nav-item"><a href="#backup_settings" class="nav-link">Backup setting</a>
+								</li>
+							</ul>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="#appearance"><img
+									src="assets/images/icon/gallery.png">Appearance</a>
+							<span class="icon">
+								<i class="icon_plus"></i>
+								<i class="icon_minus-06"></i>
+							</span>
+							<ul class="submenu dropdown_nav">
+								<li class="sub-nav nav-item ">
+									<a class="nav-link" href="#themes">Themes</a>
+								</li>
+								<li class="sub-nav nav-item">
+									<a class="nav-link" href="#theme_widgets">Widgets</a>
+								</li>
+								<li class="sub-nav nav-item">
+									<a class="nav-link" href="#theme_menus">Menus</a>
+								</li>
+								<li class="sub-nav nav-item ">
+									<a class="nav-link" href="#theme_options">Theme Options</a>
+								</li>
+							</ul>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#plugins"><img src="assets/images/icon/admin.png">Plugins</a>
+							<span class="icon">
+								<i class="icon_plus"></i>
+								<i class="icon_minus-06"></i>
+							</span>
+							<ul class="submenu dropdown_nav">
+								<li class="sub-nav nav-item ">
+									<a class="nav-link" href="#plugins_list">Plugins List</a>
+								</li>
+								<li class="sub-nav nav-item">
+									<a class="nav-link" href="#plugins_add">Add New Plugin</a>
+								</li>
+							</ul>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="#ecommerce"><img src="assets/images/icon/analytics.png">Ecommerce
+							</a>
+							<span class="icon">
+								<i class="icon_plus"></i>
+								<i class="icon_minus-06"></i>
+							</span>
+							<ul class="submenu dropdown_nav">
+								<li class="sub-nav nav-item ">
+									<a class="nav-link" href="#products_list">Products List</a>
+								</li>
+								<li class="sub-nav nav-item">
+									<a class="nav-link" href="#products_add">Add New Product</a>
+								</li>
+								<li class="sub-nav nav-item">
+									<a class="nav-link" href="#products_categories">Product Categories</a>
+								</li>
+								<li class="sub-nav nav-item">
+									<a class="nav-link" href="#products_reviews">Product Reviews</a>
+								</li>
+								<li class="sub-nav nav-item">
+									<a class="nav-link" href="#products_orders">Product Orders</a>
+								</li>
+								<li class="sub-nav nav-item">
+									<a class="nav-link" href="#products_orders_item">Product Orders Item</a>
+								</li>
+								<li class="sub-nav nav-item">
+									<a class="nav-link" href="#products_discounts">Product Discounts</a>
+								</li>
+							</ul>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="#new_features"><img src="assets/images/icon/analytics.png">New
+								Features </a>
+							<span class="icon">
+								<i class="icon_plus"></i>
+								<i class="icon_minus-06"></i>
+							</span>
+							<ul class="submenu dropdown_nav">
+								<li class="sub-nav nav-item ">
+									<a class="nav-link" href="#seo_system_ai">Seo System AI</a>
+								</li>
+								<li class="sub-nav nav-item ">
+									<a class="nav-link" href="#pos_system">Pos System</a>
+								</li>
+								<li class="sub-nav nav-item ">
+									<a class="nav-link" href="#pos_system_order_area">Pos System Order Area</a>
+								</li>
+								<li class="sub-nav nav-item ">
+									<a class="nav-link" href="#pwa_setup">PWA Setup</a>
+								</li>
+								<li class="sub-nav nav-item ">
+									<a class="nav-link" href="#chatbot_management">ChatBot Management</a>
+								</li>
+								<li class="sub-nav nav-item ">
+									<a class="nav-link" href="#cookie_settings">Cookie Settings</a>
+								</li>
+							</ul>
+						</li>
+						</ul>
+						<!-- </nav> -->
+					</aside>
+				</div>
+
+				<div class="col-xl-9 col-lg-12">
+					<div class="main-content">
+						<main class="main">
+							<div class="filterable-wrapper">
+								<article id="getting_started" class="section-main doc-section">
+									<div class="steps-panel">
+										<ol class="ordered-list">
+											<li>
+												<strong>Item Name : </strong>
+												Techguru - Technology & IT Solutions With Ecommerce & POS System Laravel
+												CMS
+											</li>
+											<li>
+												<strong>Created: </strong> 05 November 2025
+											</li>
+											<li><strong>Item Version : </strong> v 1.0.0</li>
+											<li>
+												<strong>Author : </strong>
+												<a href="https://codecanyon.net/user/scriptfusions"
+													target="_blank">scriptfusions</a>
+											</li>
+											<li>
+												<strong>Support Ticket: </strong>
+												<a href="mailto:scriptfusions@gmail.com"
+													target="_blank">scriptfusions@gmail.com</a>
+											</li>
+										</ol>
+									</div>
+									<figure>
+										<img class="max-100" src="assets/images/home-1.png" alt="">
+									</figure>
+
+									<section id="getting_started">
+										<h2>Introduction</h2>
+										<h4 class="title">
+											Techguru - Technology & IT Solutions With Ecommerce & POS System Laravel CMS
+										</h4>
+										<p>We would like to thank you for choosing TechGuru - Technology & IT Solutions
+											Laravel CMS.</p>
+										<p> TechGuru – Technology & IT Solutions Laravel CMS is a Modern, Creative, and
+											Responsive. CMS Design suitable for created especially for start-up, IT
+											Solutions, Agencies, Marketing, Consulting and Services Company related any
+											business website.
+											This Cms includes 03 different homepage demo with 34+ html pages carefully
+											designed blocks, which are easy to edit and customize to fit your needs.
+											This Cms is perfect solution for the create of unique Technology & IT
+											Solutions websites.
+											TechGuru CMS has a fully responsive layout. It fits perfectly on various
+											displays and resolutions from regular desktop screens to tablets, iPads,
+											iPhones, and small mobile devices.
+										</p>
+										<!-- End of #getting_started -->
+										<section>
+											<h3>Getting started</h3>
+											<p> You need to have a few things ready before you can start using TechGuru
+												-
+												Technology & IT Solutions Laravel CMS. Please make sure you have the
+												following:
+											</p>
+
+											<div class="steps-panel">
+												<ul class="ordered-list">
+													<li>
+														You need composer to install the theme.
+													</li>
+													<li>
+														You need php 8.1+ to install the theme.
+													</li>
+													<li>
+														You need Node 18+ with npm to install the theme.
+													</li>
+												</ul>
+											</div>
+										</section>
+									</section>
+
+									<section id="key_features">
+										<h3>Key Features</h3>
+										<p> TechGuru - Technology & IT Solutions Laravel CMS comes with a lot of
+											features that will help you to create a great website. Here are some of the
+											key features:
+										</p>
+
+
+										<div class="steps-panel">
+											<ul class="ordered-list">
+												<li>Technology & IT Solutions Complete System</li>
+												<li>Role based Authentication</li>
+												<li>Block Page Editor</li>
+												<li>Drag & Drop Menu And Widgets Builder</li>
+												<li>Blog System</li>
+												<li>Blog Comment System</li>
+												<li>Ecommerce System</li>
+												<li>Tickets System</li>
+												<li>Contacts System</li>
+												<li>Newslatter System</li>
+												<li>Media System</li>
+												<li>Post System</li>
+												<li>Page System</li>
+												<li>Discount System</li>
+												<li>Order System</li>
+												<li>Payment System</li>
+												<li>Payment Gateway Management</li>
+												<li>Cross Browser Support</li>
+												<li>Professional Support</li>
+												<li>Regular Updates</li>
+												<li>Google Fonts</li>
+												<li>Includes 03 Home versions</li>
+												<li>Includes 34 Inner pages</li>
+												<li>Includes Owl Carousel Slider</li>
+												<li>Valid HTML5 / CSS3</li>
+												<li>CSS3 Animations</li>
+												<li>Advance Bootstrap 5 Framework</li>
+												<li>SEO Optimized Code</li>
+												<li>Cross Browser Compatibility</li>
+												<li>W3C Validate Code</li>
+												<li>Fully Responsive</li>
+												<li>Extensive Documentation</li>
+												<li>Fully customisable & Easy to modify</li>
+												<li>Free quick support</li>
+												<li>All files are well commented</li>
+												<li>Image background</li>
+												<li>Easy to customize</li>
+												<li>Flexible and multi-purpose</li>
+												<li>Google fonts</li>
+												<li>Team Management</li>
+												<li>Testimonials Management</li>
+												<li>Services Management</li>
+												<li>Projects Management</li>
+												<li>SEO Optimized</li>
+												<li>Unlimited Custom Page</li>
+												<li>All Modern Browser Compatible [IE 11, Firefox, Chrome, Opera and
+													Safari]</li>
+												<li>Amazing 5 stars support</li>
+												<li>Smooth Transition Effects</li>
+												<li>Modern Animations Effects</li>
+												<li>Retina Ready.</li>
+												<li>Image background</li>
+												<li>Font Awesome</li>
+												<li>24/7 Awesome Support</li>
+												<li>Detailed documentation</li>
+												<li>and more...</li>
+											</ul>
+										</div>
+									</section>
+
+									<section id="payment_gateway_supports">
+										<h3>Some Important And New Features</h3>
+										<p> TechGuru - Technology & IT Solutions Laravel CMS has the following features
+											Unique and New:
+										</p>
+
+										<div class="steps-panel">
+											<ul class="ordered-list">
+												<li>(AI) Seo System {Gemini AI API}</li>
+												<li>Complete Pos System</li>
+												<li>Order Managements</li>
+												<li>Sessions</li>
+												<li>PWA Setup</li>
+												<li>ChatBot Management {AI Chatbot Support}</li>
+												<li>Cookie Settings</li>
+												<li>and more...</li>
+											</ul>
+										</div>
+									</section>
+
+									<section id="payment_gateway_supports">
+										<h3>Payment Gateway Supports</h3>
+										<p>
+											TechGuru - Technology & IT Solutions Laravel CMS supports the following
+											payment gateways:
+										</p>
+										<div class="steps-panel">
+											<ul class="ordered-list">
+												<li>Stripe</li>
+												<li>Paypal</li>
+												<li>Mollie</li>
+												<li>Razorpay</li>
+												<li>Flutterwave</li>
+												<li>Instamojo</li>
+												<li>Paymongo</li>
+												<li>2Checkout</li>
+												<li>Paystack</li>
+												<li>Cash on Delivery</li>
+												<li>and more...</li>
+											</ul>
+										</div>
+									</section>
+
+
+									<section id="credentials">
+										<h3>Credentials</h3>
+										<p>TechGuru - Technology & IT Solutions Laravel CMS Login Credentials:
+										</p>
+										<h4>Admin Login Credentials</h4>
+										<a href="https://techguru-laravel.mojarsoft.com/app" rel="nofollow">Admin
+											Dashboard</a>
+										<div class="steps-panel">
+											<ul class="ordered-list">
+												<li>Email: admin@gmail.com</li>
+												<li>Password: 12345678</li>
+											</ul>
+										</div>
+
+										<h4>Vendor Login Credentials</h4>
+										<a href="https://techguru-laravel.mojarsoft.com/login" rel="nofollow">Vendor
+											Dashboard</a>
+										<div class="steps-panel">
+											<ul class="ordered-list">
+												<li>Email: vendor@gmail.com</li>
+												<li>Password: 12345678</li>
+											</ul>
+										</div>
+
+										<h4>Customer Login Credentials</h4>
+										<a href="https://techguru-laravel.mojarsoft.com/login" rel="nofollow">Customer
+											Dashboard</a>
+										<div class="steps-panel">
+											<ul class="ordered-list">
+												<li>Email: customer@gmail.com</li>
+												<li>Password: 12345678</li>
+											</ul>
+										</div>
+									</section>
+
+									<section id="common_issues_install">
+										<h3>Some Common Issues & Solutions In Installation</h3>
+										<p>
+											Here are some common issues and solutions in installation:
+											<br>
+											In Installation, you may face some issues, Like 404 error, 500 error, etc.
+											<div class="steps-panel">
+												<ul class="ordered-list">
+													<li> Manualy Put The Files</li>
+													<div class="steps-panel">
+														<ul class="ordered-list">
+															<li>.env File In The Root Directory (in not have .env file
+																copy from .env.example)</li>
+															<li>After thet put given mysql files in your maked
+																phpMyAdmin</li>
+															<li>After thet copy given instald file in your storage
+																folder</li>
+															<li>Some time you may run some command in your terminal</li>
+														</ul>
+													</div>
+													</li>
+												</ul>
+											</div>
+										</p>
+
+										<figure>
+											<h4>SQL For Import Data</h4>
+											<img class="max-100" src="assets/images/demo/errors/sql.png" alt="">
+										</figure>
+
+										<figure>
+											<h4>Environment Issue</h4>
+											<img class="max-100" src="assets/images/demo/errors/env-issue.png" alt="">
+										</figure>
+
+										<figure>
+											<h4>Environment configuration</h4>
+											<img class="max-100" src="assets/images/demo/errors/env-config.png" alt="">
+										</figure>
+									</section>
+
+									<section id="writable_issues_install">
+										<h3>Writable Issues In Installatio and Solutions</h3>
+										<p>
+											Here are some common issues and solutions in installation:
+											<br>
+											In Installation, You may face some issues, Like Writable issues, etc.
+											<br>
+											You can fix this issue by following the steps below:
+											<br>
+											Step 1: Go to the root directory of the project.
+											<br>
+											Step 2: Run the command: chmod -R 777 storage/
+										</p>
+										<figure>
+											<h4>Writable Issues In Installation</h4>
+											<img class="max-100" src="assets/images/demo/errors/writable-1.png" alt="">
+										</figure>
+										<figure>
+											<img class="max-100" src="assets/images/demo/errors/writable-2.png" alt="">
+										</figure>
+										<figure>
+											<img class="max-100" src="assets/images/demo/errors/writable-3.png" alt="">
+										</figure>
+										<figure>
+											<img class="max-100" src="assets/images/demo/errors/writable-4.png" alt="">
+										</figure>
+										<figure>
+											<img class="max-100" src="assets/images/demo/errors/writable-5.png" alt="">
+										</figure>
+										<figure>
+											<img class="max-100" src="assets/images/demo/errors/writable-6.png" alt="">
+										</figure>
+									</section>
+
+									<section id="upgrade_guide">
+										<h3>Upgrade Guide</h3>
+										<strong>Follow the steps below to upgrade TechGuru system </strong>
+										<ul class="code">
+											<li>
+												<div class="steps-panel">
+													<ol class="ordered-list">
+														<li>Login the admin panel</li>
+														<li>Go to the Managements</li>
+														<li>Click on the Upgrade button</li>
+														<li>You can update CMS, Plugins, and Themes</li>
+													</ol>
+												</div>
+												<figure>
+													<img class="max-100" src="assets/images/demo/update/1.png" alt="">
+												</figure>
+												<figure>
+													<img class="max-100" src="assets/images/demo/update/2.png" alt="">
+												</figure>
+											</li>
+										</ul>
+									</section>
+
+									<section id="whats_included">
+										<h3>What's Included</h3>
+										<p>After purchasing TechGuru Laravel Scripts on codecanyon with your Envato
+											account, go
+											to your
+											Download page. You can choose to download TechGuru Laravel Scripts only
+											(Installable
+											Script) or the entire TechGuru Laravel Scripts package which contains the
+											following files:
+										</p>
+										<figure>
+											<img class="max-100" src="assets/images/demo/whats_included.png" alt="">
+										</figure>
+										<h4>The contents of the script package downloaded from codecanoyn</h4>
+										<div class="steps-panel">
+											<ul class="ordered-list">
+												<li><strong>main_files</strong> - An Installable laravel Script
+													file. this file you need to upload to laravel.</li>
+
+												<li><strong>Documentation</strong> - This folder contains what you are
+													reading now :)</li>
+												<li><strong>sql</strong> - This folder contains the sql files for the
+													theme. you can use this files to import the data to your database.
+												</li>
+											</ul>
+										</div>
+									</section>
+									<section id="install">
+										<h2>TechGuru Installation</h2>
+										<p>
+											Please follow the instructions in the video to see how you can install
+											TechGuru on your hosting:
+										</p>
+										<div class="steps-panel">
+											<ol class="ordered-list">
+												<li><b>For cPanel:</b> <a
+														href="https://www.youtube.com/watch?v=jOSSHJlDfMg"
+														target="_blank">https://www.youtube.com/watch?v=jOSSHJlDfMg</a>
+												</li>
+											</ol>
+										</div>
+										<h3>Installing the Script</h3>
+										<strong>Follow the steps below to install TechGuru system </strong>
+										<ul class="code">
+											<li>
+												<div class="steps-panel">
+													<ol class="ordered-list">
+														<li>Unzip the downloaded package</li>
+														<li>Upload the extracted folder to your server</li>
+														<li>Create a database and database user for TechGuru</li>
+														<li>Open your browser and navigate to your website</li>
+														<li>Follow the instructions and complete the installation</li>
+													</ol>
+												</div>
+												<figure>
+													<img class="max-100" src="assets/images/demo/whats_included.png"
+														alt="">
+												</figure>
+												<figure>
+													<img class="max-100" src="assets/images/demo/whats_included_2.png"
+														alt="">
+												</figure>
+												<figure>
+													<img class="max-100" src="assets/images/demo/installer/1.png"
+														alt="">
+												</figure>
+												<figure>
+													<img class="max-100" src="assets/images/demo/installer/2.png"
+														alt="">
+												</figure>
+												<figure>
+													<img class="max-100" src="assets/images/demo/installer/3.png"
+														alt="">
+												</figure>
+												<figure>
+													<img class="max-100" src="assets/images/demo/installer/4.png"
+														alt="">
+												</figure>
+												<figure>
+													<img class="max-100" src="assets/images/demo/installer/5.png"
+														alt="">
+												</figure>
+												<figure>
+													<img class="max-100" src="assets/images/demo/installer/6.png"
+														alt="">
+												</figure>
+											</li>
+										</ul>
+									</section>
+								</article>
+
+								<article id="others_pages" class="section-main doc-section">
+									<h2>Pages</h2>
+									<section id="page_dashboard">
+										<div>
+											<h5>Dashboard Page</h5>
+											<p>After login as admin, you will see the dashboard page.</p>
+											<figure>
+												<img class="max-100" src="assets/images/demo/pages/dashboard_page.png"
+													alt="">
+											</figure>
+										</div>
+									</section>
+
+									<section id="page_dashboard_vendor">
+										<div>
+											<h5>Dashboard Vendor Page</h5>
+											<p>After login as vendor, you will see the dashboard page.</p>
+											<figure>
+												<img class="max-100"
+													src="assets/images/demo/pages/dashboard_vendor_page.png" alt="">
+											</figure>
+										</div>
+									</section>
+
+									<section id="page_dashboard_customer">
+										<div>
+											<h5>Dashboard Customer Page</h5>
+											<p>After login as customer, you will see the dashboard page.</p>
+											<figure>
+												<img class="max-100"
+													src="assets/images/demo/pages/dashboard_customer_page.png" alt="">
+											</figure>
+										</div>
+									</section>
+
+									<section id="page_media">
+										<div>
+											<h5>Media Page</h5>
+											<figure>
+												<img class="max-100" src="assets/images/demo/pages/media_page.png"
+													alt="">
+											</figure>
+										</div>
+									</section>
+
+									<section id="page_tickets_add">
+										<div>
+											<h5>Tickets Add Page</h5>
+											<figure>
+												<img class="max-100" src="assets/images/demo/pages/tickets.png" alt="">
+											</figure>
+										</div>
+									</section>
+
+									<section id="page_tickets_types">
+										<div>
+											<h5>Tickets Types</h5>
+											<figure>
+												<img class="max-100" src="assets/images/demo/pages/tickets_types.png"
+													alt="">
+											</figure>
+										</div>
+									</section>
+
+									<section id="page_contacts">
+										<div>
+											<h5>Contacts</h5>
+											<figure>
+												<img class="max-100" src="assets/images/demo/pages/contacts.png" alt="">
+											</figure>
+										</div>
+									</section>
+
+									<section id="page_newslatter">
+										<div>
+											<h5>Newslatter</h5>
+											<figure>
+												<img class="max-100" src="assets/images/demo/pages/newslatter.png"
+													alt="">
+											</figure>
+										</div>
+									</section>
+
+									<section id="page_post_list">
+										<div>
+											<h5>Post List Page</h5>
+											<figure>
+												<img class="max-100" src="assets/images/demo/pages/post_list_page.png"
+													alt="">
+											</figure>
+										</div>
+									</section>
+									<section id="page_post_add">
+										<div>
+											<h5>Post Add Page</h5>
+											<figure>
+												<img class="max-100" src="assets/images/demo/pages/post_add_page.png"
+													alt="">
+											</figure>
+										</div>
+									</section>
+									<section id="page_page_list">
+										<div>
+											<h5>Page List Page</h5>
+											<figure>
+												<img class="max-100" src="assets/images/demo/pages/page_list_page.png"
+													alt="">
+											</figure>
+										</div>
+									</section>
+									<section id="page_page_add">
+										<div>
+											<h5>Page Add Page</h5>
+											<figure>
+												<img class="max-100" src="assets/images/demo/pages/page_add_page.png"
+													alt="">
+											</figure>
+										</div>
+									</section>
+								</article>
+								<article id="settings_pages" class="section-main doc-section">
+									<h2>Settings Pages</h2>
+									<section id="general_settings">
+										<div>
+											<h5>General Settings</h5>
+											<figure>
+												<img class="max-100" src="assets/images/demo/settings/1.png" alt="">
+											</figure>
+										</div>
+									</section>
+
+									<section id="seo_settings">
+										<div>
+											<h5>SEO Settings</h5>
+											<figure>
+												<img class="max-100" src="assets/images/demo/settings/2.png" alt="">
+											</figure>
+										</div>
+									</section>
+
+									<section id="email_settings">
+										<div>
+											<h5>Email Settings</h5>
+											<figure>
+												<img class="max-100" src="assets/images/demo/settings/3.png" alt="">
+											</figure>
+										</div>
+									</section>
+
+									<section id="permalinks_settings">
+										<div>
+											<h5>Permalinks Settings</h5>
+											<figure>
+												<img class="max-100" src="assets/images/demo/settings/4.png" alt="">
+											</figure>
+										</div>
+									</section>
+
+									<section id="reading_settings">
+										<div>
+											<h5>Reading Settings</h5>
+											<figure>
+												<img class="max-100" src="assets/images/demo/settings/5.png" alt="">
+											</figure>
+										</div>
+									</section>
+
+									<section id="media_settings">
+										<div>
+											<h5>Media Settings</h5>
+											<figure>
+												<img class="max-100" src="assets/images/demo/settings/6.png" alt="">
+											</figure>
+										</div>
+									</section>
+
+									<section id="backup_settings">
+										<div>
+											<h5>Backup Settings</h5>
+											<figure>
+												<img class="max-100" src="assets/images/demo/settings/7.png" alt="">
+											</figure>
+										</div>
+									</section>
+								</article>
+
+								<article id="appearance" class="section-main doc-section">
+									<h2>Appearance</h2>
+									<section id="themes">
+										<div>
+											<h5>Themes</h5>
+											<figure>
+												<img class="max-100" src="assets/images/demo/themes/1.png" alt="">
+											</figure>
+										</div>
+									</section>
+									<section id="theme_widgets">
+										<div>
+											<h5>Widgets</h5>
+											<figure>
+												<img class="max-100" src="assets/images/demo/themes/widgets.png" alt="">
+											</figure>
+										</div>
+									</section>
+									<section id="theme_menus">
+										<div>
+											<h5>Menus</h5>
+											<figure>
+												<img class="max-100" src="assets/images/demo/themes/menus.png" alt="">
+											</figure>
+										</div>
+									</section>
+									<section id="theme_options">
+										<div>
+											<h5>Theme Options</h5>
+											<figure>
+												<img class="max-100" src="assets/images/demo/themes/theme_options.png"
+													alt="">
+											</figure>
+										</div>
+									</section>
+								</article>
+
+								<article id="plugins" class="section-main doc-section">
+									<h2>Plugins</h2>
+									<section id="plugins_list">
+										<div>
+											<h5>Plugins List</h5>
+											<figure>
+												<img class="max-100" src="assets/images/demo/plugins/1.png" alt="">
+											</figure>
+										</div>
+									</section>
+									<section id="theme_widgets">
+										<div>
+											<h5>Add New Plugin</h5>
+											<figure>
+												<img class="max-100" src="assets/images/demo/plugins/2.png" alt="">
+											</figure>
+										</div>
+									</section>
+								</article>
+
+								<article id="ecommerce" class="section-main doc-section">
+									<h2>Ecommerce</h2>
+									<section id="products_list">
+										<div>
+											<h5>Products List</h5>
+											<figure>
+												<img class="max-100"
+													src="assets/images/demo/ecommerce/products_list.png" alt="">
+											</figure>
+										</div>
+									</section>
+									<section id="products_add">
+										<div>
+											<h5>Add New Product</h5>
+											<figure>
+												<img class="max-100" src="assets/images/demo/ecommerce/products_add.png"
+													alt="">
+											</figure>
+										</div>
+									</section>
+									<section id="products_categories">
+										<div>
+											<h5>Product Categories</h5>
+											<figure>
+												<img class="max-100"
+													src="assets/images/demo/ecommerce/products_categories.png" alt="">
+											</figure>
+										</div>
+									</section>
+									<section id="products_reviews">
+										<div>
+											<h5>Product Reviews</h5>
+											<figure>
+												<img class="max-100"
+													src="assets/images/demo/ecommerce/products_reviews.png" alt="">
+											</figure>
+										</div>
+									</section>
+									<section id="products_orders">
+										<div>
+											<h5>Product Orders</h5>
+											<figure>
+												<img class="max-100"
+													src="assets/images/demo/ecommerce/products_orders.png" alt="">
+											</figure>
+										</div>
+									</section>
+									<section id="products_orders_item">
+										<div>
+											<h5>Product Orders Item</h5>
+											<figure>
+												<img class="max-100"
+													src="assets/images/demo/ecommerce/products_orders_items.png" alt="">
+											</figure>
+										</div>
+									</section>
+									<section id="products_discounts">
+										<div>
+											<h5>Product Discounts</h5>
+											<figure>
+												<img class="max-100"
+													src="assets/images/demo/ecommerce/products_dicount.png" alt="">
+											</figure>
+										</div>
+									</section>
+								</article>
+
+
+								<article id="new_features" class="section-main doc-section">
+									<h2>New Features</h2>
+									<section id="seo_system_ai">
+										<div>
+											<h5>Seo System AI</h5>
+											<p>Seo System AI is a new feature that allows you to manage your products
+												and orders. From hear you can add to product and hold product and
+												complete order.</p>
+											<div class="steps-panel">
+												<ul class="ordered-list">
+													<li>
+														GO To Settings
+													</li>
+													<li>
+														Click on SEO Setting
+													</li>
+													<li>
+														Start SEO Setting And Fill All Fields
+													</li>
+												</ul>
+											</div>
+											<figure>
+												<img class="max-100" src="assets/images/demo/features/seo_system_ai.png"
+													alt="">
+											</figure>
+
+											<h5>How To Get API Key</h5>
+											<p>To get API Key, you need to go to the <a
+													href="https://aistudio.google.com/apikey" target="_blank">AI Studio
+													Google</a> and create a new API key.</p>
+											<figure>
+												<img class="max-100"
+													src="assets/images/demo/features/google_gemini_ai.png" alt="">
+											</figure>
+										</div>
+									</section>
+									<section id="pos_system">
+										<div>
+											<h5>Pos System</h5>
+											<p>Pos System is a new feature that allows you to manage your products and
+												orders. From hear you can add to product and hold product and complete
+												order.</p>
+											<figure>
+												<img class="max-100" src="assets/images/demo/features/pos1.png" alt="">
+											</figure>
+										</div>
+									</section>
+								</article>
+								<section id="pos_system_order_area">
+									<div>
+										<h5>Pos System Order Area</h5>
+										<p>Pos System Order Area is a new feature that allows you to manage your
+											products and orders. this is main point where you Complete order</p>
+										<figure>
+											<img class="max-100" src="assets/images/demo/features/pos2.png" alt="">
+										</figure>
+									</div>
+								</section>
+								<section id="pos_system_order_managements">
+									<div>
+										<h5>Pos System Order Managements</h5>
+										<p>Pos System Order Managements. There all pos order show here. and show all all
+											order list</p>
+										<figure>
+											<img class="max-100" src="assets/images/demo/features/pos_order.png" alt="">
+										</figure>
+									</div>
+								</section>
+								<section id="pos_system_sessions">
+									<div>
+										<h5>Pos System Sessions</h5>
+										<p>Pos System Sessions. There all pos session show here. and show all all
+											session list</p>
+										<figure>
+											<img class="max-100" src="assets/images/demo/features/pos_sessions.png"
+												alt="">
+										</figure>
+									</div>
+								</section>
+								<section id="pwa_setup">
+									<div>
+										<h5>PWA Setup</h5>
+										<p>PWA Setup. There all pwa setup show here. and show all all pwa setup list</p>
+										<div class="steps-panel">
+											<ul class="ordered-list">
+												<li>
+													GO To Settings
+												</li>
+												<li>
+													Click on PWA Setup
+												</li>
+												<li>
+													Start PWA Settings And Fill All Fields
+												</li>
+											</ul>
+										</div>
+										<figure>
+											<img class="max-100" src="assets/images/demo/features/pwa_setup.png" alt="">
+										</figure>
+									</div>
+								</section>
+
+								<section id="chatbot_management">
+									<div>
+										<h5>ChatBot Management</h5>
+										<p>ChatBot Management. There all chatbot show here. and show all all chatbot
+											list</p>
+										<div class="steps-panel">
+											<ul class="ordered-list">
+												<li>
+													GO To Settings
+												</li>
+												<li>
+													Click on ChatBot Management
+												</li>
+												<li>
+													Start ChatBot Management And Fill All Fields
+												</li>
+											</ul>
+										</div>
+										<figure>
+											<img class="max-100"
+												src="assets/images/demo/features/chatbot_management.png" alt="">
+										</figure>
+										<figure>
+											<img class="max-100"
+												src="assets/images/demo/features/chatbot_management_2.png" alt="">
+										</figure>
+									</div>
+								</section>
+								<section id="cookie_settings">
+									<div>
+										<h5>Cookie Settings</h5>
+										<p>Cookie Settings. There all cookie settings show here. and show all all cookie
+											settings list</p>
+										<div class="steps-panel">
+											<ul class="ordered-list">
+												<li>
+													GO To Settings
+												</li>
+												<li>
+													Click on Cookie Settings
+												</li>
+												<li>
+													Start Cookie Settings And Fill All Fields
+												</li>
+											</ul>
+										</div>
+										<figure>
+											<img class="max-100" src="assets/images/demo/features/cookie_settings.png"
+												alt="">
+										</figure>
+									</div>
+								</section>
+							</div>
+						</main>
+					</div>
+				</div>
+			</div>
+			<!-- End of .main-content -->
+		</div>
+		<!-- End of .container -->
+	</div>
+	<!-- End of .page-footer -->
+
+	<!-- Javascripts
+		======================================= -->
+	<!-- jQuery -->
+	<script src="assets/js/vendor/jquery.min.js"></script>
+	<script src="assets/js/vendor/bootstrap.bundle.min.js"></script>
+
+	<!-- Custom Script -->
+	<script src="assets/js/onpage-menu.js"></script>
+	<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

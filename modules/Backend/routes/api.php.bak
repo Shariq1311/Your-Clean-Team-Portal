@@ -1,0 +1,60 @@
+<?php
+
+/**
+ * Mojar - Laravel CMS for Your Project
+ *
+ * @package    mojar/cms
+ * @author     Mojar Team
+ * @link       https://mojar.com/cms
+ * @license    GNU V2
+ */
+
+use Illuminate\Support\Facades\Route;
+use MojarCMS\Backend\Http\Controllers\Backend\TimeLogController;
+use MojarCMS\Backend\Http\Controllers\Backend\ScheduleController;
+use MojarCMS\Backend\Http\Controllers\Backend\LocationController;
+use MojarCMS\Backend\Http\Controllers\Backend\EmployeeController;
+use MojarCMS\Backend\Http\Controllers\Backend\PayrollController;
+
+// Time Tracking Endpoints
+Route::middleware(['auth:web'])->prefix('time-logs')->group(function () {
+    Route::post('/clock-in', [TimeLogController::class, 'clockIn']);
+    Route::post('/clock-out', [TimeLogController::class, 'clockOut']);
+    Route::get('/current-status', [TimeLogController::class, 'getCurrentStatus']);
+    Route::get('/list', [TimeLogController::class, 'index']);
+    Route::get('/statistics', [TimeLogController::class, 'statistics']);
+});
+
+// Schedule Endpoints
+Route::middleware(['auth:web'])->prefix('schedules')->group(function () {
+    Route::get('/', [ScheduleController::class, 'index']);
+    Route::get('/today', [ScheduleController::class, 'today']);
+    Route::get('/{schedule}', [ScheduleController::class, 'show']);
+});
+
+// Location Endpoints
+Route::middleware(['auth:web'])->prefix('locations')->group(function () {
+    Route::get('/', [LocationController::class, 'index']);
+    Route::get('/{location}', [LocationController::class, 'show']);
+    Route::post('/', [LocationController::class, 'store'])->middleware('admin');
+    Route::put('/{location}', [LocationController::class, 'update'])->middleware('admin');
+    Route::delete('/{location}', [LocationController::class, 'destroy'])->middleware('admin');
+});
+
+// Admin Endpoints - Employee Management
+Route::middleware(['auth:web', 'admin'])->prefix('admin/employees')->group(function () {
+    Route::get('/', [EmployeeController::class, 'index']);
+    Route::get('/{id}', [EmployeeController::class, 'show']);
+    Route::put('/{id}', [EmployeeController::class, 'update']);
+    Route::delete('/{id}', [EmployeeController::class, 'destroy']);
+    Route::get('/{id}/statistics', [EmployeeController::class, 'statistics']);
+    Route::post('/bulk-status', [EmployeeController::class, 'bulkUpdateStatus']);
+});
+
+// Admin Endpoints - Payroll and Time Tracking
+Route::middleware(['auth:web', 'admin'])->prefix('admin/payroll')->group(function () {
+    Route::get('/summary', [PayrollController::class, 'summary']);
+    Route::get('/employee/{employee}', [PayrollController::class, 'employeePayroll']);
+    Route::get('/time-logs', [PayrollController::class, 'timeTrackingOverview']);
+    Route::get('/report', [PayrollController::class, 'generateReport']);
+});

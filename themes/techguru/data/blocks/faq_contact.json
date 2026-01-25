@@ -1,0 +1,155 @@
+{
+    "label": "FAQ Contact",
+    "description": "FAQ section with contact information",
+    "form": [
+        {
+            "type": "text",
+            "name": "section_tagline",
+            "label": "Section Tagline",
+            "data": {
+                "value": "FAQS"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title",
+            "label": "Section Title",
+            "data": {
+                "value": "Frequently Asked"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_span",
+            "label": "Section Title Span",
+            "data": {
+                "value": "Questions"
+            }
+        },
+        {
+            "type": "textarea",
+            "name": "section_description",
+            "label": "Section Description",
+            "data": {
+                "value": "Get answers to the most common questions about our products, services, and policies."
+            }
+        },
+        {
+            "type": "text",
+            "name": "support_label",
+            "label": "Support Label",
+            "data": {
+                "value": "Get Support"
+            }
+        },
+        {
+            "type": "text",
+            "name": "support_phone",
+            "label": "Support Phone",
+            "data": {
+                "value": "99 (00) 567 780"
+            }
+        },
+        {
+            "type": "text",
+            "name": "button_text",
+            "label": "Button Text",
+            "data": {
+                "value": "Get in Touch"
+            }
+        },
+        {
+            "type": "text",
+            "name": "button_url",
+            "label": "Button URL",
+            "data": {
+                "value": "#"
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "faq_items",
+            "label": "FAQ Items",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "question",
+                    "label": "Question"
+                },
+                {
+                    "type": "textarea",
+                    "name": "answer_part1",
+                    "label": "Answer Part 1"
+                },
+                {
+                    "type": "textarea",
+                    "name": "answer_part2",
+                    "label": "Answer Part 2"
+                },
+                {
+                    "type": "checkbox_json",
+                    "name": "is_active",
+                    "label": "Is Active",
+                    "description": "Show this item expanded by default"
+                }
+            ],
+            "options": {
+                "min_items": 1,
+                "max_items": 10,
+                "add_button_text": "Add FAQ Item",
+                "remove_button_text": "Remove FAQ Item",
+                "value": [
+                    {
+                        "question": "What services does your IT consultancy agency provide?",
+                        "answer_part1": "We offer a wide range of IT consulting services, including software development, cloud computing solutions, cybersecurity, IT infrastructure management, and digital transformation strategies tailored to your business needs.",
+                        "answer_part2": "Our IT consulting services help businesses improve efficiency, enhance security, reduce operational costs, and stay ahead of technology trends. We provide expert guidance to optimize your IT infrastructure and implement innovative solutions.",
+                        "is_active": false
+                    },
+                    {
+                        "question": "How can IT consulting benefit my business?",
+                        "answer_part1": "We offer a wide range of IT consulting services, including software development, cloud computing solutions, cybersecurity, IT infrastructure management, and digital transformation strategies tailored to your business needs.",
+                        "answer_part2": "Our IT consulting services help businesses improve efficiency, enhance security, reduce operational costs, and stay ahead of technology trends. We provide expert guidance to optimize your IT infrastructure and implement innovative solutions.",
+                        "is_active": true
+                    },
+                    {
+                        "question": "Do you offer customized IT solutions?",
+                        "answer_part1": "We offer a wide range of IT consulting services, including software development, cloud computing solutions, cybersecurity, IT infrastructure management, and digital transformation strategies tailored to your business needs.",
+                        "answer_part2": "Our IT consulting services help businesses improve efficiency, enhance security, reduce operational costs, and stay ahead of technology trends. We provide expert guidance to optimize your IT infrastructure and implement innovative solutions.",
+                        "is_active": false
+                    },
+                    {
+                        "question": "How do you ensure data security and compliance?",
+                        "answer_part1": "We offer a wide range of IT consulting services, including software development, cloud computing solutions, cybersecurity, IT infrastructure management, and digital transformation strategies tailored to your business needs.",
+                        "answer_part2": "Our IT consulting services help businesses improve efficiency, enhance security, reduce operational costs, and stay ahead of technology trends. We provide expert guidance to optimize your IT infrastructure and implement innovative solutions.",
+                        "is_active": false
+                    }
+                ]
+            }
+        },
+        {
+            "type": "image",
+            "name": "shape_1",
+            "label": "Shape Image 1",
+            "data": {
+                "value": "images/shapes/faq-two-shape-1.png"
+            }
+        },
+        {
+            "type": "image",
+            "name": "shape_2",
+            "label": "Shape Image 2",
+            "data": {
+                "value": "images/shapes/faq-two-shape-2.png"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "description": "Enable animation effects for the FAQ section",
+            "data": {
+                "value": 1
+            }
+        }
+    ]
+}

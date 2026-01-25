@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * Mojar - Laravel CMS for Your Project
+ *
+ * @package    Mojar/cms
+ * @author     Mojar Team
+ * @link       https://Mojar.com
+ * @license    GNU V2
+ */
+
+namespace MojarCMS\CMS\Interfaces\Theme;
+
+use Illuminate\Support\Collection;
+use MojarCMS\CMS\Support\Theme;
+
+/**
+ * @see Theme
+ */
+interface ThemeInterface
+{
+    public function getLangPublicPath(string $path = null): string;
+
+    public function getVersion(): string;
+
+    public function getScreenshot(): string;
+
+    public function getInfo(bool $assoc = false): null|array|Collection;
+
+    public function getConfigFields(): array;
+
+    public function isActive(): bool;
+
+    public function activate(): void;
+
+    public function getTemplate(): string;
+
+    public function getRegister($key = null, $default = null): string|array|null;
+}

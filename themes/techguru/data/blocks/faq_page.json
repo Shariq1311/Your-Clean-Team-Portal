@@ -1,0 +1,317 @@
+{
+    "label": "FAQ Page",
+    "description": "Display FAQ section with accordion layout and optional CTA section below",
+    "form": [
+        {
+            "type": "text",
+            "name": "section_tagline",
+            "label": "Section Tagline",
+            "data": {
+                "value": "FAQS"
+            }
+        },
+        {
+            "type": "textarea",
+            "name": "section_title",
+            "label": "Section Title",
+            "data": {
+                "value": "Get answers to the most common<br> questions about our products, services,<br> and policies."
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "use_faqs_post_type",
+            "label": "Use FAQs Post Type",
+            "description": "Load FAQs from FAQs post type instead of manual configuration",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "taxonomy",
+            "name": "faqs_category",
+            "label": "FAQs Category Filter",
+            "description": "Filter FAQs by category (when using FAQs post type)",
+            "data": {
+                "post_type": "faqs",
+                "taxonomy": "categories"
+            }
+        },
+        {
+            "type": "text",
+            "name": "items_limit",
+            "label": "Number of FAQs",
+            "description": "Maximum number of FAQs to display",
+            "data": {
+                "value": "10"
+            }
+        },
+        {
+            "type": "text",
+            "name": "faq_ids",
+            "label": "FAQ IDs",
+            "description": "Enter specific FAQ IDs to display (comma-separated)",
+            "data": {
+                "value": ""
+            }
+        },
+        {
+            "type": "select",
+            "name": "orderby",
+            "label": "Order By",
+            "data": {
+                "options": {
+                    "date": "Date",
+                    "title": "Title",
+                    "menu_order": "Menu Order",
+                    "rand": "Random"
+                },
+                "value": "date"
+            }
+        },
+        {
+            "type": "select",
+            "name": "order",
+            "label": "Order",
+            "data": {
+                "options": {
+                    "DESC": "Descending",
+                    "ASC": "Ascending"
+                },
+                "value": "DESC"
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "custom_faqs",
+            "label": "Custom FAQs (Manual Configuration)",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "question",
+                    "label": "FAQ Question"
+                },
+                {
+                    "type": "textarea",
+                    "name": "answer_1",
+                    "label": "Answer Part 1"
+                },
+                {
+                    "type": "textarea",
+                    "name": "answer_2",
+                    "label": "Answer Part 2 (Optional)",
+                    "description": "Optional second paragraph for the answer"
+                },
+                {
+                    "type": "checkbox_json",
+                    "name": "is_active",
+                    "label": "Is Active by Default",
+                    "description": "Show this FAQ as expanded by default"
+                }
+            ],
+            "options": {
+                "min_items": 0,
+                "max_items": 15,
+                "add_button_text": "Add FAQ",
+                "remove_button_text": "Remove FAQ",
+                "value": [
+                    {
+                        "question": "What services does your IT consultancy agency provide?",
+                        "answer_1": "We offer a wide range of IT consulting services, including software development, cloud computing solutions, cybersecurity, IT infrastructure management, and digital transformation strategies tailored to your business needs.",
+                        "answer_2": "Our IT consulting services help businesses improve efficiency, enhance security, reduce operational costs, and stay ahead of technology trends. We provide expert guidance to optimize your IT infrastructure and implement innovative solutions.",
+                        "is_active": false
+                    },
+                    {
+                        "question": "How can IT consulting benefit my business?",
+                        "answer_1": "We offer a wide range of IT consulting services, including software development, cloud computing solutions, cybersecurity, IT infrastructure management, and digital transformation strategies tailored to your business needs.",
+                        "answer_2": "Our IT consulting services help businesses improve efficiency, enhance security, reduce operational costs, and stay ahead of technology trends. We provide expert guidance to optimize your IT infrastructure and implement innovative solutions.",
+                        "is_active": true
+                    },
+                    {
+                        "question": "Do you offer customized IT solutions?",
+                        "answer_1": "We offer a wide range of IT consulting services, including software development, cloud computing solutions, cybersecurity, IT infrastructure management, and digital transformation strategies tailored to your business needs.",
+                        "answer_2": "Our IT consulting services help businesses improve efficiency, enhance security, reduce operational costs, and stay ahead of technology trends. We provide expert guidance to optimize your IT infrastructure and implement innovative solutions.",
+                        "is_active": false
+                    }
+                ]
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "show_cta_section",
+            "label": "Show CTA Section",
+            "description": "Display the CTA section below the FAQ section",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "cta_tagline",
+            "label": "CTA Section Tagline",
+            "data": {
+                "value": "Get In Touch"
+            }
+        },
+        {
+            "type": "textarea",
+            "name": "cta_title",
+            "label": "CTA Section Title",
+            "data": {
+                "value": "If you have any questions,<br> please contact us."
+            }
+        },
+        {
+            "type": "text",
+            "name": "cta_button_text",
+            "label": "CTA Button Text",
+            "data": {
+                "value": "Get in Touch"
+            }
+        },
+        {
+            "type": "text",
+            "name": "cta_button_url",
+            "label": "CTA Button URL",
+            "data": {
+                "value": "contact.html"
+            }
+        },
+        {
+            "type": "image",
+            "name": "cta_shape_1",
+            "label": "CTA Shape 1 Image",
+            "data": {
+                "value": "images/shapes/cta-two-shape-1.png"
+            }
+        },
+        {
+            "type": "image",
+            "name": "cta_shape_2",
+            "label": "CTA Shape 2 Image",
+            "data": {
+                "value": "images/shapes/cta-two-shape-2.png"
+            }
+        },
+        {
+            "type": "text",
+            "name": "quick_support_title",
+            "label": "Quick Support Title",
+            "data": {
+                "value": "Quick Support"
+            }
+        },
+        {
+            "type": "text",
+            "name": "quick_support_text",
+            "label": "Quick Support Text",
+            "data": {
+                "value": "Get Instant and Reliable Support Anytime, Anywhere with Ease"
+            }
+        },
+        {
+            "type": "text",
+            "name": "email_title",
+            "label": "Email Section Title",
+            "data": {
+                "value": "Email Us"
+            }
+        },
+        {
+            "type": "text",
+            "name": "email_1",
+            "label": "Email Address 1",
+            "data": {
+                "value": "info@domain.com"
+            }
+        },
+        {
+            "type": "text",
+            "name": "email_2",
+            "label": "Email Address 2",
+            "data": {
+                "value": "support@domain.com"
+            }
+        },
+        {
+            "type": "text",
+            "name": "contact_title",
+            "label": "Contact Section Title",
+            "data": {
+                "value": "Contact"
+            }
+        },
+        {
+            "type": "text",
+            "name": "phone_tel",
+            "label": "Phone Number (Tel)",
+            "data": {
+                "value": "+12 (00) 456 7890 00"
+            }
+        },
+        {
+            "type": "text",
+            "name": "phone_mob",
+            "label": "Mobile Number",
+            "data": {
+                "value": "+99 (00) 567 780"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "description": "Enable wow animation effects",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "select",
+            "name": "animation_type",
+            "label": "Animation Type",
+            "data": {
+                "options": {
+                    "fadeInUp": "Fade In Up",
+                    "fadeIn": "Fade In",
+                    "zoomIn": "Zoom In",
+                    "slideInRight": "Slide In Right",
+                    "slideInLeft": "Slide In Left"
+                },
+                "value": "fadeInUp"
+            }
+        },
+        {
+            "type": "text",
+            "name": "padding_top",
+            "label": "Top Padding",
+            "data": {
+                "value": "120"
+            }
+        },
+        {
+            "type": "text",
+            "name": "padding_bottom",
+            "label": "Bottom Padding",
+            "data": {
+                "value": "120"
+            }
+        },
+        {
+            "type": "text",
+            "name": "mobile_padding_top",
+            "label": "Mobile Top Padding",
+            "data": {
+                "value": "80"
+            }
+        },
+        {
+            "type": "text",
+            "name": "mobile_padding_bottom",
+            "label": "Mobile Bottom Padding",
+            "data": {
+                "value": "80"
+            }
+        }
+    ]
+}

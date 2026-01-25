@@ -1,0 +1,88 @@
+<?php
+
+/**
+ * Mojar - Laravel CMS for Your Project
+ *
+ * @package    mojar/cms
+ * @author     Mojar Team
+ * @link       https://mojar.com/cms
+ * @license    GNU V2
+ */
+
+namespace MojarCMS\Tests\Feature\Auth;
+
+use Faker\Generator as Faker;
+use MojarCMS\Backend\Models\EmailList;
+use MojarCMS\Backend\Models\EmailTemplate;
+use MojarCMS\Tests\TestCase;
+
+class RegisterTest extends TestCase
+{
+    public function testIndex()
+    {
+        $this->get('app/register')->assertStatus(200);
+    }
+
+    public function testRegister()
+    {
+        set_config('user_verification', 0);
+
+        $faker = app(Faker::class);
+
+        $this->json(
+            'POST',
+            'app/register',
+            [
+                'name' => $faker->name,
+                'email' => $faker->email,
+                "password" => "123456@123",
+                "password_confirmation" => "123456@123",
+            ]
+        )
+            ->assertJson(['status' => true]);
+    }
+
+    public function testRegisterWithVerify()
+    {
+        set_config('user_verification', 1);
+
+        $faker = app(Faker::class);
+
+        $email = $faker->email;
+
+        $this->json(
+            'POST',
+            'app/register',
+            [
+                'name' => $faker->name,
+                'email' => $email,
+                "password" => "123456@123",
+                "password_confirmation" => "123456@123",
+            ]
+        )
+            ->assertJson(['status' => true]);
+
+        $this->assertDatabaseHas('users', ['email' => $email, 'status' => 'verification']);
+
+        //$template = EmailTemplate::whereCode('verification')->first();
+
+        $this->assertDatabaseHas(
+            'email_lists',
+            [
+                'email' => $email,
+                'template_code' => 'verification'
+            ]
+        );
+
+        $token = EmailList::with(['template'])
+            ->whereEmail($email)
+            ->where('template_code', '=', 'verification')
+            ->first();
+
+        $this->get("app/verification/{$email}/{$token->params['verifyToken']}")
+            ->assertStatus(302)
+            ->assertRedirect(route('login'));
+
+        $token->delete();
+    }
+}

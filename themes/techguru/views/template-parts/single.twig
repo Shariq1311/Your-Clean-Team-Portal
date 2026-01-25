@@ -1,0 +1,228 @@
+{% extends 'cms::layouts.frontend' %}
+
+{% block content %}
+	{% set tags = get_post_taxonomies(post, 'tags', {limit: 5}) %}
+	{% include 'theme::components.breadcrumb' with {
+            is_dynamic: true,
+            post: post
+        }
+%}
+
+	{% set get_previous_post = get_previous_post(post) %}
+	{% set get_next_post = get_next_post(post) %}
+	<!--Blog Details Start-->
+	<section class="blog-details">
+		<div class="blog-details__shape-1">
+			<img src="{{ asset('images/shapes/blog-details-shape-1.png') }}" alt="">
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-8 col-lg-7">
+					<div class="blog-details__left">
+						<div class="blog-details__img">
+							<img src="{{ post.thumbnail }}" alt="{{ post.title }}">
+						</div>
+						<div class="blog-details__single-content">
+							<div class="blog-details__user">
+								<div class="blog-details__user-img">
+									<img src="{{ post.author.avatar }}" alt="{{ post.author.name }}">
+								</div>
+								<p class="blog-details__user-title">{{ post.author.name }}
+								</p>
+							</div>
+							<ul class="blog-details__meta list-unstyled">
+								<li>
+									<a href="javascript:void(0)">
+										<span class="far fa-calendar-alt"></span>
+										{{ post.created_at | date('M d, Y') }}
+									</a>
+								</li>
+								<li>
+									<a href="javascript:void(0)">
+										<span class="fal fa-comments"></span>
+										{{ post.comments_count }}
+										{{ __('Comments') }}
+									</a>
+								</li>
+							</ul>
+							<h3 class="blog-details__title">
+								<a href="javascript:void(0)">{{ post.title }}</a>
+							</h3>
+							<p class="blog-details__text">{{ post.description | striptags | slice(0, 120) ~ '...' }}</p>
+						</div>
+						<div class="blog-details__content">
+							{{ post.content | raw }}
+							<div class="blog-details__tag-and-share">
+								<div class="blog-details__tag">
+									<h3 class="blog-details__tag-title">Tags:</h3>
+									<ul class="blog-details__tag-list list-unstyled">
+										{% for tag in tags %}
+											<li>
+												<a href="{{ tag.url }}">{{ tag.name }}</a>
+											</li>
+										{% endfor %}
+									</ul>
+								</div>
+
+								<div class="blog-details__share-box">
+									<h3 class="blog-details__share-title">{{ __('Follow Me:') }}</h3>
+									<div class="blog-details__share">
+										<a href="https://www.facebook.com/sharer.php?u={{ url().current()|url_encode }}" target="_blank" rel="noopener">
+											<span class="icon-facebook"></span>
+										</a>
+										<a href="https://twitter.com/intent/tweet?url={{ url().current()|url_encode }}&text={{ post.title|url_encode }}" target="_blank" rel="noopener">
+											<span class="icon-twitter"></span>
+										</a>
+										<a href="https://www.reddit.com/submit?url={{ url().current()|url_encode }}&title={{ post.title|url_encode }}" target="_blank" rel="noopener">
+											<span class="icon-reddit"></span>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="blog-details__prev-and-next">
+								{% if get_previous_post %}
+									<div class="blog-details__prev-box">
+										<div class="blog-details__prev-img">
+											<img src="{{ upload_url(get_previous_post.origin_thumbnail) }}" alt="{{ get_previous_post.title }}">
+										</div>
+										<div class="blog-details__prev-content">
+											<div class="blog-details__prev-arrow">
+												<span class="icon-left-arrow"></span>
+												<a href="{{ get_previous_post.url }}">{{ __('Prev Blog') }}</a>
+											</div>
+											<h4 class="blog-details__prev-title">{{ get_previous_post.title }}</h4>
+										</div>
+									</div>
+								{% endif %}
+								{% if get_next_post %}
+									<div class="blog-details__next-box">
+										<div class="blog-details__next-content">
+											<div class="blog-details__next-arrow">
+												<a href="{{ get_next_post.url }}">{{ __('Next Blog') }}</a>
+												<span class="icon-right-arrow"></span>
+											</div>
+											<h4 class="blog-details__next-title">{{ get_next_post.title }}</h4>
+										</div>
+										<div class="blog-details__next-img">
+											<img src="{{ upload_url(get_next_post.origin_thumbnail) }}" alt="{{ get_next_post.title }}">
+										</div>
+									</div>
+								{% endif %}
+							</div>
+
+							{{ comment_template(post, 'theme::components.comments') }}
+							<div class="comment-form">
+								<div class="contact-one__left">
+									<div class="contact-one__left-shape-1"></div>
+									<div class="contact-one__left-shape-2"></div>
+									<h3 class="contact-one__from-title">{{ ('How Can We Help You?') }}</h3>
+									<form action="" method="post" id="comment-form" class="contact-form-validated contact-one__form">
+										{{ csrf_field() }}
+										<div
+											class="row">
+											<!-- Error Messages -->
+											{% if errors is not empty %}
+												<div class="alert alert-danger mb-4">
+													<ul class="mb-0">
+														{% for error in errors %}
+															<li>{{ error }}</li>
+														{% endfor %}
+													</ul>
+												</div>
+											{% endif %}
+
+											<!-- Success Message -->
+											{% if message %}
+												<div class="alert alert-success mb-4">
+													{{ message }}
+												</div>
+											{% endif %}
+											{% if guest %}
+												<div class="col-xl-6 col-lg-6">
+													<h4 class="contact-one__input-title">{{ ('Full Name') }}</h4>
+													<div class="contact-one__input-box">
+														<div class="contact-one__input-icon">
+															<span class="icon-user-1"></span>
+														</div>
+														<input type="text" id="commentName" name="name" placeholder="{{ ('Your full name') }}" required>
+													</div>
+												</div>
+												<div class="col-xl-6 col-lg-6">
+													<h4 class="contact-one__input-title">{{ ('Email Address') }}</h4>
+													<div class="contact-one__input-box">
+														<div class="contact-one__input-icon">
+															<span class="icon-email"></span>
+														</div>
+														<input type="email" id="commentEmail" name="email" placeholder="{{ ('Your email address') }}" required="">
+													</div>
+												</div>
+												<div class="col-xl-6 col-lg-6">
+													<h4 class="contact-one__input-title">{{ ('Phone Number') }}</h4>
+													<div class="contact-one__input-box">
+														<div class="contact-one__input-icon">
+															<span class="icon-phone-call"></span>
+														</div>
+														<input type="text" id="commentPhone" name="Phone" placeholder="{{ ('Your phone number') }}" required="">
+													</div>
+												</div>
+												<div class="col-xl-6 col-lg-6">
+													<h4 class="contact-one__input-title">{{ ('Subject') }}</h4>
+													<div class="contact-one__input-box">
+														<div class="select-box">
+															<select class="selectmenu wide" id="commentSubject" name="subject">
+																<option selected="selected">{{ ('Subject') }}</option>
+																<option>{{ ('Subject 01') }}</option>
+																<option>{{ ('Subject 02') }}</option>
+															</select>
+														</div>
+													</div>
+												</div>
+											</div>
+										{% endif %}
+										<div class="col-xl-12">
+											<h4 class="contact-one__input-title">{{ ('Inquiry about') }}</h4>
+											<div class="contact-one__input-box text-message-box">
+												<div class="contact-one__input-icon">
+													<span class="icon-edit"></span>
+												</div>
+												<textarea id="commentMessage" name="content" placeholder="{{ ('Write your message') }}"></textarea>
+											</div>
+											<div class="contact-one__btn-box">
+												<button type="submit" class="thm-btn">
+													<span>{{ ('Submit') }}</span>
+													<i class="icon-right-arrow"></i>
+												</button>
+											</div>
+										</div>
+									</div>
+								</form>
+								<div class="result"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+                <div class="col-xl-4 col-lg-5">
+                    <div class="sidebar">
+                        {{ dynamic_sidebar('sidebar') }}
+                    </div>
+			    </div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--Blog Details End-->
+
+
+{{ dynamic_sidebar('post_single') }}
+
+<script>
+    (function($) {
+        'use strict';
+        $(document).ready(function() {
+            $('select:not(.ignore)').niceSelect();
+        });
+    })(jQuery);
+</script>
+
+{% endblock %}

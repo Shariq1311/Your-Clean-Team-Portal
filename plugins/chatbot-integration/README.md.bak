@@ -1,0 +1,198 @@
+# Chatbot Integration Plugin for Mojar CMS
+
+A comprehensive chatbot integration system for Mojar CMS that supports multiple providers including WhatsApp Business, Crisp Chat, Tidio Live Chat, Facebook Messenger, LiveChat, Zendesk Chat, and Tawk.to.
+
+## Features
+
+- **7 Popular Chatbot Providers** - WhatsApp, Crisp, Tidio, Messenger, LiveChat, Zendesk, Tawk.to
+- **Full Customization** - Position, colors, auto-show delays, messages, and more
+- **On/Off Toggle** - Enable/disable individual providers easily  
+- **Security** - XSS protection and input sanitization
+- **Responsive Design** - Works on all devices
+- **Easy Configuration** - Admin panel settings with validation
+
+## Installation
+
+1. Extract the plugin files to `plugins/chatbot-integration/`
+2. Activate the plugin in your admin panel
+3. Configure providers in Settings → Chatbot Integration
+
+## Provider Setup Instructions
+
+### 1. WhatsApp Business
+
+**What you need:**
+- A WhatsApp Business account
+- Your business phone number (with country code)
+
+**How to get credentials:**
+1. Set up WhatsApp Business on your phone
+2. Use your phone number with country code (e.g., +1234567890)
+3. In the plugin settings, enter your phone number in the "Phone Number" field
+
+**Configuration options:**
+- Phone Number: Your WhatsApp Business number with country code
+- Default Message: Pre-filled message when users click the chat button
+- Position: Choose button placement (bottom-right, bottom-left, top-right, top-left)
+- Auto Show Delay: Seconds before the button appears
+
+### 2. Crisp Chat
+
+**What you need:**
+- A Crisp account (free at https://crisp.chat/)
+- Website ID from your Crisp dashboard
+
+**How to get credentials:**
+1. Sign up at https://crisp.chat/
+2. Create a new website in your dashboard
+3. Go to Settings → Setup → Installation
+4. Copy your Website ID (format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)
+
+**Configuration options:**
+- Website ID: Your unique Crisp website identifier
+- Language: Choose auto-detect or specific language
+- Position: Left or right positioning
+- Theme Color: Customize the chat widget color
+
+### 3. Tidio Live Chat
+
+**What you need:**
+- A Tidio account (free at https://www.tidio.com/)
+- Public Key from your Tidio dashboard
+
+**How to get credentials:**
+1. Sign up at https://www.tidio.com/
+2. Go to Settings → Channels → Live Chat
+3. Click on "Installation" 
+4. Copy your Public Key (long string of letters and numbers)
+
+**Configuration options:**
+- Public Key: Your unique Tidio public key
+- Position: Left or right positioning  
+- Primary Color: Customize the chat widget color
+
+### 4. Facebook Messenger
+
+**What you need:**
+- A Facebook Page
+- Facebook Developer App (optional for advanced features)
+
+**How to get credentials:**
+1. Create a Facebook Page if you don't have one
+2. Go to your Page Settings
+3. Find your Page ID in the "About" section or Page Info
+4. For App ID (optional): Create an app at https://developers.facebook.com/
+
+**Configuration options:**
+- Page ID: Your Facebook Page ID (required)
+- App ID: Your Facebook App ID (optional)
+- Theme Color: Customize the messenger color
+- Logged In/Out Greetings: Custom welcome messages
+
+### 5. LiveChat
+
+**What you need:**
+- A LiveChat account (https://www.livechat.com/)
+- License ID from your LiveChat account
+
+**How to get credentials:**
+1. Sign up at https://www.livechat.com/
+2. Go to Settings → Installation
+3. Find your License ID (usually 8-digit number)
+4. Group ID is optional (found in Settings → Agents → Groups)
+
+**Configuration options:**
+- License ID: Your LiveChat license number (required)
+- Group ID: Specific agent group (optional)
+- Position: Left or right positioning
+- Theme Color: Customize the chat widget color
+- Auto Show Delay: Seconds before auto-opening
+- Hide When Offline: Hide widget when no agents available
+
+### 6. Zendesk Chat
+
+**What you need:**
+- A Zendesk account with Chat enabled
+- Web Widget Key from your Zendesk setup
+
+**How to get credentials:**
+1. Log into your Zendesk account
+2. Go to Admin → Channels → Chat and messaging → Chat
+3. Click on "Widget" tab
+4. Find your Widget Key or create a new one
+5. Copy the Widget Key (format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)
+
+**Configuration options:**
+- Widget Key: Your Zendesk Web Widget key (required)
+- Position: Choose widget position (bottom-right, bottom-left, top-right, top-left)
+- Theme Color: Customize the chat widget color
+- Auto Show Delay: Seconds before auto-opening
+- Department: Optional department for routing
+
+### 7. Tawk.to
+
+**What you need:**
+- A free Tawk.to account (https://tawk.to/)
+- Property ID and Widget ID from your dashboard
+
+**How to get credentials:**
+1. Sign up at https://tawk.to/
+2. Add a new property (your website)
+3. Go to Administration → Channels → Chat Widget
+4. Copy your Property ID (long string starting with letters/numbers)
+5. Widget ID is usually "default" unless you created custom widgets
+
+**Configuration options:**
+- Property ID: Your Tawk.to property identifier (required)
+- Widget ID: Usually "default" or custom widget ID
+- Position: Choose position (br=bottom-right, bl=bottom-left, tr=top-right, tl=top-left)
+- Theme Color: Customize the chat widget color
+- Auto Show Delay: Seconds before auto-opening
+- Hide When Offline: Hide widget when offline
+
+## Global Settings
+
+### Enable Chatbots
+Turn on/off the entire chatbot system globally.
+
+### Enable Logging
+Enable logging of chatbot interactions for analytics.
+
+## Security Features
+
+- **XSS Protection**: All user inputs are sanitized
+- **Input Validation**: Required fields validation
+- **Secure Rendering**: HTML encoding for all dynamic content
+
+## Troubleshooting
+
+### Common Issues:
+
+1. **Widget not appearing**: Check if the provider is enabled and has valid credentials
+2. **Validation errors**: Ensure all required fields are filled for enabled providers
+3. **Wrong positioning**: Verify position settings match provider requirements
+4. **Colors not working**: Use valid hex color codes (e.g., #007bff)
+
+### Debug Steps:
+
+1. Check browser console for JavaScript errors
+2. Verify network requests to provider scripts
+3. Confirm provider credentials are correct
+4. Test with different browsers
+
+## Support
+
+For support, please:
+1. Check this README first
+2. Verify your provider credentials
+3. Test with minimal configuration
+4. Check browser console for errors
+
+## Changelog
+
+### Version 1.0.0
+- Initial release with 7 providers
+- Full customization support
+- XSS protection
+- Responsive design
+- Admin panel integration 

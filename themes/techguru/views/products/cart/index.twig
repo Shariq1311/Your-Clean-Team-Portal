@@ -1,0 +1,339 @@
+{% extends 'cms::layouts.frontend' %}
+
+{% block content %}
+
+ {% include 'theme::components.breadcrumb' with {
+	title: 'Cart',
+	description: 'Your shopping cart',
+	items: [
+		{'label': 'Home', 'url': '/'},
+		{'label': 'Cart'}
+	]
+} %}
+
+{# Debug removed for production #}
+<section class="cart-page">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-7">
+                        <div class="cart-page__left" id="cartItems">
+						{% if cart.totalItems() > 0 %}
+                            <div class="table-responsive">
+                                <table class="table cart-table">
+                                    <thead>
+                                        <tr>
+                                            <th>{{ __('Item') }}</th>
+                                            <th>{{ __('Price') }}</th>
+                                            <th>{{ __('Quantity') }}</th>
+                                            <th>{{ __('Total') }}</th>
+                                            <th>{{ __('Remove') }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cartItemsList">
+										{% for item in cart.getCollectionItems() %}
+                                        <tr data-item-id="{{ item.post_id }}" data-item-type="{{ item.type|default('products') }}">
+                                            <td>
+                                                <div class="product-box">
+                                                    <div class="img-box">
+                                                        <img src="{{ upload_url(item.thumbnail) }}" alt="{{ item.title }}">
+                                                    </div>
+                                                    <h3><a href="{{ item.url }}">{{ item.title }}</a></h3>
+                                                </div>
+                                            </td>
+                                            <td>{{ ecom_price_with_unit(item.price) }}</td>
+                                            <td>
+                                                <div class="quantity-box quantity-control">
+                                                    <button type="button" class="sub quantity-btn" data-action="decrease"><i
+                                                            class="fa fa-minus"></i></button>
+                                                    <input type="number" class="quantity-input" value="{{ item.quantity }}" min="1" data-id="{{ item.post_id }}" data-type="{{ item.type|default('products') }}" />
+                                                    <button type="button" class="add quantity-btn" data-action="increase"><i
+                                                            class="fa fa-plus"></i></button>
+                                                </div>
+                                            </td>
+                                            <td class="line-price">
+                                                {{ ecom_price_with_unit(item.line_price) }}
+                                            </td>
+                                            <td>
+                                                <div class="cross-icon remove-item" data-id="{{ item.post_id }}" data-type="{{ item.type|default('products') }}">
+                                                    <i class="fas fa-times"></i>
+                                                </div>
+                                            </td>
+                                        </tr>
+										{% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+							{% else %}
+							<div class="cart-page__sidebar">
+								<div class="empty-cart-state text-center py-5">
+									<div class="empty-cart-icon mb-4">
+										<i class="fa fa-shopping-cart fa-4x text-white"></i>
+									</div>
+									<h4 class="mb-3">{{ trans('ecomm::content.cart_empty') }}</h4>
+									<a href="/products" class="thm-btn">
+										{{ trans('ecomm::content.continue_shopping') }}
+									</a>
+								</div>
+							</div>
+							{% endif %}
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-5">
+                        <div class="cart-page__right">
+                            <div class="cart-page__sidebar">
+                                <div class="cart-page__coupon-code">
+                                    <h3 class="cart-page__coupon-code-title">{{ __('Coupon Code') }}</h3>
+                                    <p class="cart-page__coupon-code-text">{{ __('Enter your coupon code to get a discount on your order') }}</p>
+                                    
+                                    <form id="coupon-form" class="default-form cart-page__coupon-code-form">
+                                        <input type="text" 
+                                               id="coupon-code" 
+                                               name="code" 
+                                               placeholder="{{ __('Enter Coupon Code') }}" 
+                                               required>
+                                        <button class="thm-btn" type="submit" id="apply-coupon-btn">
+                                            <span class="btn-text">{{ __('Apply Coupon') }}</span>
+                                            <span class="icon-right-arrow"></span>
+                                        </button>
+                                    </form>
+
+                                    <!-- Applied Coupons Display -->
+                                    <div id="applied-coupons" class="applied-coupons mt-3" style="display: none;">
+                                        <h5>{{ __('Applied Coupons') }}:</h5>
+                                        <div id="coupon-list"></div>
+                                    </div>
+                                </div>
+                                <div class="cart-page__cart-total">
+                                    <ul class="cart-total list-unstyled">
+                                        <li>
+                                            <span>{{ __('Cart Subtotal') }}</span>
+                                            <span data-cart-subtotal>{{ ecom_price_with_unit(cart.totalPrice()) }}</span>
+                                        </li>
+                                        <li>
+                                            <span>{{ __('Shipping Cost') }}</span>
+                                            <span>{{ ecom_price_with_unit(0) }}</span>
+                                        </li>
+                                        <li class="discount-row" {% if cart.getDiscount() == 0 %}style="display: none;"{% endif %}>
+                                            <span>{{ __('Discount') }}</span>
+                                            <span data-cart-discount class="discount-amount">-{{ ecom_price_with_unit(cart.getDiscount()) }}</span>
+                                        </li>
+                                        <li>
+                                            <span>{{ __('Cart Total') }}</span>
+                                            <span class="cart-total-amount total-price" data-cart-total>{{ ecom_price_with_unit(cart.totalPrice() - cart.getDiscount()) }}</span>
+                                        </li>
+                                    </ul>
+                                    <div class="cart-page__buttons">
+                                        <div class="cart-page__buttons-2">
+                                            <a href="{{ route('ecomm.checkout') }}" class="thm-btn">{{ __('Checkout') }}<span	
+                                                    class="icon-right-arrow"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+		<script>
+		$(document).ready(function() {
+			$('select:not(.ignore)').niceSelect();
+			// Removed conflicting jQuery quantity handlers - now handled by CartManager
+			
+			// Initialize coupon functionality
+			initializeCouponSystem();
+		});
+
+		function initializeCouponSystem() {
+			// Handle coupon form submission
+			$('#coupon-form').on('submit', function(e) {
+				e.preventDefault();
+				
+				const code = $('#coupon-code').val().trim();
+				if (!code) {
+					if (window.ToastManager) {
+						window.ToastManager.error('Please enter a coupon code');
+					}
+					return;
+				}
+				
+				applyCoupon(code);
+			});
+			
+			// Load existing applied coupons
+			loadAppliedCoupons();
+		}
+
+		function applyCoupon(code) {
+			const btn = $('#apply-coupon-btn');
+			const btnText = btn.find('.btn-text');
+			const originalText = btnText.text();
+			
+			// Set loading state
+			btn.prop('disabled', true);
+			btnText.text('Applying...');
+			
+			$.ajax({
+				url: '{{ url("ajax/cart/apply-discount") }}',
+				method: 'POST',
+				data: {
+					code: code,
+					_token: '{{ csrf_token() }}'
+				},
+				success: function(response) {
+					if (response.success) {
+						// Clear the input
+						$('#coupon-code').val('');
+						
+						// Update cart display
+						updateCartTotals(response.cart.data);
+						
+						// Refresh applied coupons list
+						loadAppliedCoupons();
+						
+						// Show success message
+						if (window.ToastManager) {
+							window.ToastManager.success(response.message);
+						}
+					} else {
+						if (window.ToastManager) {
+							window.ToastManager.error(response.message);
+						}
+					}
+				},
+				error: function(xhr) {
+					const response = xhr.responseJSON;
+					const message = response?.message || 'Failed to apply coupon';
+					
+					if (window.ToastManager) {
+						window.ToastManager.error(message);
+					}
+				},
+				complete: function() {
+					// Reset button state
+					btn.prop('disabled', false);
+					btnText.text(originalText);
+				}
+			});
+		}
+
+		function removeCoupon(code) {
+			if (!confirm('Are you sure you want to remove this coupon?')) {
+				return;
+			}
+			
+			$.ajax({
+				url: '{{ url("ajax/cart/remove-discount") }}',
+				method: 'POST',
+				data: {
+					code: code,
+					_token: '{{ csrf_token() }}'
+				},
+				success: function(response) {
+					if (response.success) {
+						// Update cart display
+						updateCartTotals(response.cart.data);
+						
+						// Refresh applied coupons list
+						loadAppliedCoupons();
+						
+						// Show success message
+						if (window.ToastManager) {
+							window.ToastManager.success(response.message);
+						}
+} else {
+						if (window.ToastManager) {
+							window.ToastManager.error(response.message);
+						}
+					}
+				},
+				error: function(xhr) {
+					const response = xhr.responseJSON;
+					const message = response?.message || 'Failed to remove coupon';
+					
+					if (window.ToastManager) {
+						window.ToastManager.error(message);
+					}
+				}
+			});
+		}
+
+		function loadAppliedCoupons() {
+			$.ajax({
+				url: '{{ url("ajax/cart/get-items") }}',
+				method: 'GET',
+				success: function(response) {
+					if (response.items && response.items.applied_codes) {
+						displayAppliedCoupons(response.items.applied_codes);
+						
+						// Update cart totals with discount information
+						if (response.items.pricing) {
+							updateCartTotals(response.items.pricing);
+						}
+					}
+				}
+			});
+		}
+
+		function displayAppliedCoupons(codes) {
+			const container = $('#applied-coupons');
+			const list = $('#coupon-list');
+			
+			if (codes && codes.length > 0) {
+				let html = '';
+				codes.forEach(function(code) {
+					html += `
+						<div class="coupon-item d-flex justify-content-between align-items-center mb-2 p-2 bg-light rounded">
+							<span class="coupon-code"><strong>${code}</strong></span>
+							<button type="button" class="btn btn-sm btn-outline-danger" onclick="removeCoupon('${code}')">
+								<i class="fas fa-times"></i> Remove
+							</button>
+                    </div>
+                `;
+				});
+				list.html(html);
+				container.show();
+} else {
+				container.hide();
+			}
+		}
+
+		function updateCartTotals(cartData) {
+			// Update discount amount
+			if (cartData.discount_formatted !== undefined) {
+				const discountElement = $('[data-cart-discount]');
+				discountElement.text('-' + cartData.discount_formatted);
+				
+				// Show/hide discount row
+				const discountRow = $('.discount-row');
+				if (cartData.discount > 0) {
+					discountRow.show();
+} else {
+					discountRow.hide();
+				}
+
+                console.log(cartData);
+			}
+			
+			// Update cart total (subtract discount from subtotal)
+			if (cartData.cart_total_formatted !== undefined) {
+				$('[data-cart-total]').text(cartData.cart_total_formatted);
+			} else if (cartData.discount !== undefined) {
+				// Calculate and display the discounted total
+				const subtotalText = $('[data-cart-subtotal]').text();
+				const subtotalMatch = subtotalText.match(/[\d,]+\.?\d*/);
+				if (subtotalMatch) {
+					const subtotal = parseFloat(subtotalMatch[0].replace(/,/g, ''));
+					const discountedTotal = subtotal - cartData.discount;
+					const currency = subtotalText.replace(/[\d,\.]/g, '').trim();
+					$('[data-cart-total]').text(`${currency}${discountedTotal.toLocaleString()}`);
+				}
+			}
+		}
+	</script>
+
+
+{% endblock %}

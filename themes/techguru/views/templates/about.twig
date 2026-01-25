@@ -1,0 +1,14 @@
+{% extends 'cms::layouts.frontend' %}
+
+{% block content %}
+    {% include 'theme::components.breadcrumb' with {
+        title: 'About Us',
+        description: 'Learn more about our company and mission',
+        items: [
+            {'label': 'Home', 'url': '/'},
+            {'label': 'About Us'}
+        ]
+    } %}
+    
+    {{ dynamic_block(post, 'content') }}
+{% endblock %}

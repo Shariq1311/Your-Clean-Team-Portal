@@ -1,0 +1,34 @@
+<div class="footer-widget__contact">
+    <ul class="footer-widget__contact-list list-unstyled">
+        <li>
+            <div class="icon-box">
+                <span class="icon-pin"></span>
+                <p>{{ data.location_title }}</p>
+                </div>
+                <div class="text">
+                <p>{{ data.location_text|nl2br }}</p>
+            </div>
+        </li>
+        <li>
+            <div class="icon-box">
+                <span class="icon-clock"></span>
+                <p>{{ data.working_title }}</p>
+                </div>
+                <div class="text">
+                <p>{{ data.working_text|nl2br }}</p>
+            </div>
+        </li>
+        <li>
+            <div class="icon-box">
+                <span class="icon-contact"></span>
+                <p>{{ data.contact_title }}</p>
+            </div>
+            <div class="text">
+                <p>
+                    <a href="mailto:{{ data.email }}" class="mail-box">{{ data.email }}</a>
+                    <a href="tel:{{ data.phone|replace({' ': ''}) }}" class="call-number">{{ data.phone }}</a>
+                </p>
+            </div>
+        </li>
+</ul>
+</div> 

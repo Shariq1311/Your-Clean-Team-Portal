@@ -1,0 +1,347 @@
+{
+    "label": "Hero Slider Home 1",
+    "description": "Main hero slider with social links, brands carousel and trustpilot section",
+    "form": [
+        {
+            "type": "repeater",
+            "name": "slides",
+            "label": "Slider Items",
+            "fields": [
+                {
+                    "type": "image",
+                    "name": "background_image",
+                    "label": "Background Image"
+                },
+                {
+                    "type": "text",
+                    "name": "subtitle",
+                    "label": "Subtitle"
+                },
+                {
+                    "type": "text",
+                    "name": "title_part_1",
+                    "label": "Title Part 1"
+                },
+                {
+                    "type": "text",
+                    "name": "title_part_2",
+                    "label": "Title Part 2"
+                },
+                {
+                    "type": "text",
+                    "name": "title_part_3",
+                    "label": "Title Part 3 (Highlighted)"
+                },
+                {
+                    "type": "textarea",
+                    "name": "description",
+                    "label": "Description"
+                },
+                {
+                    "type": "text",
+                    "name": "button_1_text",
+                    "label": "Button 1 Text"
+                },
+                {
+                    "type": "text",
+                    "name": "button_1_url",
+                    "label": "Button 1 URL"
+                },
+                {
+                    "type": "text",
+                    "name": "button_2_text",
+                    "label": "Button 2 Text"
+                },
+                {
+                    "type": "text",
+                    "name": "button_2_url",
+                    "label": "Button 2 URL"
+                }
+            ],
+            "options": {
+                "min_items": 1,
+                "max_items": 10,
+                "add_button_text": "Add Slide",
+                "remove_button_text": "Remove Slide",
+                "value": [
+                    {
+                        "background_image": "images/backgrounds/slider-2-1.jpg",
+                        "subtitle": "IT Solutions Designed for Your Success",
+                        "title_part_1": "Techguru - Smart",
+                        "title_part_2": "Solutions for a",
+                        "title_part_3": "Connected world",
+                        "description": "From strategic IT consulting to seamless implementation, we deliver tailored solutions that drive efficiency",
+                        "button_1_text": "Get Started",
+                        "button_1_url": "contact.html",
+                        "button_2_text": "Read More",
+                        "button_2_url": "about.html"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "menu_items",
+            "label": "Menu Items",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "text",
+                    "label": "Text"
+                },
+                {
+                    "type": "text",
+                    "name": "url",
+                    "label": "URL"
+                }
+            ],
+            "options": {
+                "min_items": 0,
+                "max_items": 5,
+                "add_button_text": "Add Menu Item",
+                "remove_button_text": "Remove Menu Item",
+                "value": [
+                    {
+                        "text": "Help",
+                        "url": "about.html"
+                    },
+                    {
+                        "text": "Support",
+                        "url": "contact.html"
+                    },
+                    {
+                        "text": "Faqs",
+                        "url": "faq.html"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "text",
+            "name": "social_title",
+            "label": "Social Media Title",
+            "data": {
+                "value": "Follow Us:"
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "social_links",
+            "label": "Social Media Links",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "icon",
+                    "label": "Icon Class",
+                    "description": "Icon class name (e.g. icon-facebook)"
+                },
+                {
+                    "type": "text",
+                    "name": "url",
+                    "label": "URL"
+                }
+            ],
+            "options": {
+                "min_items": 0,
+                "max_items": 5,
+                "add_button_text": "Add Social Link",
+                "remove_button_text": "Remove Social Link",
+                "value": [
+                    {
+                        "icon": "icon-facebook",
+                        "url": "#"
+                    },
+                    {
+                        "icon": "icon-dribble",
+                        "url": "#"
+                    },
+                    {
+                        "icon": "icon-linkedin",
+                        "url": "#"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "show_trustpilot",
+            "label": "Show Trustpilot Section",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "image",
+            "name": "trustpilot_image_1",
+            "label": "Trustpilot Image 1",
+            "data": {
+                "value": "images/resources/main-slider-trustpilot-img-1.jpg"
+            }
+        },
+        {
+            "type": "image",
+            "name": "trustpilot_image_2",
+            "label": "Trustpilot Image 2",
+            "data": {
+                "value": "images/resources/main-slider-trustpilot-img-2.jpg"
+            }
+        },
+        {
+            "type": "image",
+            "name": "trustpilot_logo",
+            "label": "Trustpilot Logo",
+            "data": {
+                "value": "images/resources/main-slider-trustpilot-logo.png"
+            }
+        },
+        {
+            "type": "text",
+            "name": "trustpilot_rating",
+            "label": "Trustpilot Rating Text",
+            "data": {
+                "value": "5.0 Excellent"
+            }
+        },
+        {
+            "type": "text",
+            "name": "trustpilot_review_text",
+            "label": "Trustpilot Review Text",
+            "data": {
+                "value": "Reviews"
+            }
+        },
+        {
+            "type": "text",
+            "name": "trustpilot_review_count",
+            "label": "Trustpilot Review Count",
+            "data": {
+                "value": "4170"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "show_brands",
+            "label": "Show Brands Carousel",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "brand_logos",
+            "label": "Brand Logos",
+            "fields": [
+                {
+                    "type": "image",
+                    "name": "image",
+                    "label": "Brand Logo"
+                },
+                {
+                    "type": "text",
+                    "name": "alt",
+                    "label": "Alt Text"
+                }
+            ],
+            "options": {
+                "min_items": 0,
+                "max_items": 10,
+                "add_button_text": "Add Brand",
+                "remove_button_text": "Remove Brand",
+                "value": [
+                    {
+                        "image": "images/brand/brand-1-1.png",
+                        "alt": "Brand 1"
+                    },
+                    {
+                        "image": "images/brand/brand-1-2.png",
+                        "alt": "Brand 2"
+                    },
+                    {
+                        "image": "images/brand/brand-1-3.png",
+                        "alt": "Brand 3"
+                    },
+                    {
+                        "image": "images/brand/brand-1-4.png",
+                        "alt": "Brand 4"
+                    },
+                    {
+                        "image": "images/brand/brand-1-5.png",
+                        "alt": "Brand 5"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "image",
+            "name": "subtitle_icon",
+            "label": "Subtitle Icon",
+            "data": {
+                "value": "images/icon/main-slider-sub-title-icon.png"
+            }
+        },
+        {
+            "type": "image",
+            "name": "shield_check_icon",
+            "label": "Shield Check Icon",
+            "data": {
+                "value": "images/icon/main-slider-shield-check-icon.png"
+            }
+        },
+        {
+            "type": "image",
+            "name": "shape_2",
+            "label": "Shape 2 Image",
+            "data": {
+                "value": "images/shapes/main-slider-two-shape-2.png"
+            }
+        },
+        {
+            "type": "image",
+            "name": "shape_3",
+            "label": "Shape 3 Image",
+            "data": {
+                "value": "images/shapes/main-slider-two-shape-3.png"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "slider_autoplay",
+            "label": "Enable Autoplay",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "slider_autoplay_delay",
+            "label": "Autoplay Delay (ms)",
+            "data": {
+                "value": "8000"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "slider_loop",
+            "label": "Enable Loop",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "slider_pagination",
+            "label": "Show Pagination",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "slider_navigation",
+            "label": "Show Navigation",
+            "data": {
+                "value": 1
+            }
+        }
+    ]
+}

@@ -1,0 +1,250 @@
+<section class="pricing-one pt_{{ data.padding_top|default(120) }} xs_pt_{{ data.mobile_padding_top|default(80) }} pb_{{ data.padding_bottom|default(120) }} xs_pb_{{ data.mobile_padding_bottom|default(80) }}">
+    <div class="container">
+        <div class="section-title text-center sec-title-animation animation-style1">
+            <div class="section-title__tagline-box">
+                <div class="section-title__tagline-shape-1"></div>
+                <span class="section-title__tagline">{{ data.section_tagline|default('Pricing & Plan') }}</span>
+                <div class="section-title__tagline-shape-2"></div>
+            </div>
+            <h2 class="section-title__title title-animation">{{ data.section_title_1|default('How We\'ve') }}
+                <span>{{ data.section_title_2|default('Empowered Businesses') }}</span><br><span>{{ data.section_title_3|default('with Innovative') }}</span> {{ data.section_title_4|default('Tech Solutions') }}
+            </h2>
+        </div>
+        <div class="row">
+            {% if data.use_pricing_post_type %}
+                {% set ids_array = data.pricing_ids ? data.pricing_ids|split(',') : [] %}
+                {% set pricing_plans = get_posts('pricing', {
+                    'limit': data.items_limit|default(3),
+                    'taxonomy': data.pricing_category,
+                    'ids': ids_array,
+                    'orderby': 'date',
+                    'order': 'DESC'
+                }) %}
+                
+                {% if pricing_plans %}
+                    {% for index, plan in pricing_plans %}
+                        <!--Pricing One Single Start-->
+                        <div class="col-xl-4 col-lg-6 {% if data.enable_animation %}wow {% if index == 0 %}fadeInLeft{% elseif index == 1 %}fadeInUp{% else %}fadeInRight{% endif %}{% endif %}" {% if data.enable_animation %}data-wow-delay="{{ (index + 1) * 100 }}ms"{% endif %}>
+                            <div class="pricing-one__single {% if plan.metas.is_populer %}active{% endif %}">
+                                <div class="pricing-one__icon">
+                                    <img src="{{ upload_url(plan.thumbnail) }}" alt="{{ plan.title }}" width="51" height="51p">
+                                </div>
+                                <span class="pricing-one__sub-title">{{ plan.title }}</span>
+                                <h2 class="pricing-one__price">{{ plan.metas.price|default('$0.00') }}</h2>
+                                <p class="pricing-one__text">{{ plan.description|default('*contact for pricing*')|raw }}</p>
+                                <div class="pricing-one__bdr"></div>
+                                <h5 class="pricing-one__points-title">{{ __('Feature Description') }}</h5>
+                                <ul class="pricing-one__points list-unstyled">
+                                    {% if plan.metas.features_list %}
+                                        {% for feature in plan.metas.features_list %}
+                                            <li>
+                                                <div class="icon">
+                                                    {% if feature.features_active %}
+                                                        <span class="icon-tick-inside-circle"></span>
+                                                    {% else %}
+                                                        <span class="far fa-plus-circle"></span>
+                                                    {% endif %}
+                                                </div>
+                                                <p>{{ feature.features_title }}</p>
+                                            </li>
+                                        {% endfor %}
+                                    {% endif %}
+                                </ul>
+                                <div class="pricing-one__btn-box">
+                                    <a href="{{ plan.metas.price_button_url|default('#') }}" class="pricing-one__btn">{{ plan.metas.price_button_text|default('Choose Plan') }}<span class="far fa-plus-circle"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Pricing One Single End-->
+                    {% endfor %}
+                {% endif %}
+            {% else %}
+                {% if data.custom_pricing_plans %}
+                    {% for index, plan in data.custom_pricing_plans %}
+                        <!--Pricing One Single Start-->
+                        <div class="col-xl-4 col-lg-6 {% if data.enable_animation %}wow {% if index == 0 %}fadeInLeft{% elseif index == 1 %}fadeInUp{% else %}fadeInRight{% endif %}{% endif %}" {% if data.enable_animation %}data-wow-delay="{{ (index + 1) * 100 }}ms"{% endif %}>
+                            <div class="pricing-one__single {% if plan.is_popular %}active{% endif %}">
+                                <div class="pricing-one__icon">
+                                    <img src="{{ upload_url(plan.icon) }}" alt="{{ plan.plan_name }}">
+                                </div>
+                                <span class="pricing-one__sub-title">{{ plan.plan_name }}</span>
+                                <h2 class="pricing-one__price">{{ plan.price }}</h2>
+                                <p class="pricing-one__text">{{ plan.price_description|raw }}</p>
+                                <div class="pricing-one__bdr"></div>
+                                <h5 class="pricing-one__points-title">{{ plan.features_title|default('Feature Description') }}</h5>
+                                <ul class="pricing-one__points list-unstyled">
+                                    {% if plan.features %}
+                                        {% for feature in plan.features %}
+                                            <li>
+                                                <div class="icon">
+                                                    {% if feature.is_active %}
+                                                        <span class="icon-tick-inside-circle"></span>
+                                                    {% else %}
+                                                        <span class="far fa-plus-circle"></span>
+                                                    {% endif %}
+                                                </div>
+                                                <p>{{ feature.feature_text }}</p>
+                                            </li>
+                                        {% endfor %}
+                                    {% endif %}
+                                </ul>
+                                <div class="pricing-one__btn-box">
+                                    <a href="{{ plan.button_url|default('#') }}" class="pricing-one__btn">{{ plan.button_text|default('Choose Plan') }}<span class="far fa-plus-circle"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Pricing One Single End-->
+                    {% endfor %}
+                {% else %}
+                    <!--Pricing One Single Start-->
+                    <div class="col-xl-4 col-lg-6 {% if data.enable_animation %}wow fadeInLeft{% endif %}" {% if data.enable_animation %}data-wow-delay="100ms"{% endif %}>
+                        <div class="pricing-one__single">
+                            <div class="pricing-one__icon">
+                                <img src="{{ asset('images/icon/pricing-icon-1.png') }}" alt="">
+                            </div>
+                            <span class="pricing-one__sub-title">PERSONAL</span>
+                            <h2 class="pricing-one__price">$5.60</h2>
+                            <p class="pricing-one__text">*free 3 months solutions<br> support*</p>
+                            <div class="pricing-one__bdr"></div>
+                            <h5 class="pricing-one__points-title">Feature Description</h5>
+                            <ul class="pricing-one__points list-unstyled">
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-tick-inside-circle"></span>
+                                    </div>
+                                    <p>Custom Website Design</p>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-tick-inside-circle"></span>
+                                    </div>
+                                    <p>Priority Bug Fixes & Updates</p>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-tick-inside-circle"></span>
+                                    </div>
+                                    <p>Basic & Technical SEO </p>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <span class="far fa-plus-circle"></span>
+                                    </div>
+                                    <p>System Integration Support</p>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <span class="far fa-plus-circle"></span>
+                                    </div>
+                                    <p>24/7 Dedicated IT Assistance</p>
+                                </li>
+                            </ul>
+                            <div class="pricing-one__btn-box">
+                                <a href="javascript:void(0)" class="pricing-one__btn">Choose Plan<span class="far fa-plus-circle"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Pricing One Single End-->
+                    <!--Pricing One Single Start-->
+                    <div class="col-xl-4 col-lg-6 {% if data.enable_animation %}wow fadeInUp{% endif %}" {% if data.enable_animation %}data-wow-delay="200ms"{% endif %}>
+                        <div class="pricing-one__single active">
+                            <div class="pricing-one__icon">
+                                <img src="{{ asset('images/icon/pricing-icon-1.png') }}" alt="">
+                            </div>
+                            <span class="pricing-one__sub-title">ENTERPRISE</span>
+                            <h2 class="pricing-one__price">$25.60</h2>
+                            <p class="pricing-one__text">*free 6 months solutions<br> support*</p>
+                            <div class="pricing-one__bdr"></div>
+                            <h5 class="pricing-one__points-title">Feature Description</h5>
+                            <ul class="pricing-one__points list-unstyled">
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-tick-inside-circle"></span>
+                                    </div>
+                                    <p>Custom Website Design</p>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-tick-inside-circle"></span>
+                                    </div>
+                                    <p>Priority Bug Fixes & Updates</p>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-tick-inside-circle"></span>
+                                    </div>
+                                    <p>Basic & Technical SEO </p>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <span class="far fa-plus-circle"></span>
+                                    </div>
+                                    <p>System Integration Support</p>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <span class="far fa-plus-circle"></span>
+                                    </div>
+                                    <p>24/7 Dedicated IT Assistance</p>
+                                </li>
+                            </ul>
+                            <div class="pricing-one__btn-box">
+                                <a href="javascript:void(0)" class="pricing-one__btn">Choose Plan<span class="far fa-plus-circle"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Pricing One Single End-->
+                    <!--Pricing One Single Start-->
+                    <div class="col-xl-4 col-lg-6 {% if data.enable_animation %}wow fadeInRight{% endif %}" {% if data.enable_animation %}data-wow-delay="300ms"{% endif %}>
+                        <div class="pricing-one__single">
+                            <div class="pricing-one__icon">
+                                <img src="{{ asset('images/icon/pricing-icon-1.png') }}" alt="">
+                            </div>
+                            <span class="pricing-one__sub-title">Premium</span>
+                            <h2 class="pricing-one__price">$120.60</h2>
+                            <p class="pricing-one__text">*free 12 months solutions<br> support*</p>
+                            <div class="pricing-one__bdr"></div>
+                            <h5 class="pricing-one__points-title">Feature Description</h5>
+                            <ul class="pricing-one__points list-unstyled">
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-tick-inside-circle"></span>
+                                    </div>
+                                    <p>Custom Website Design</p>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-tick-inside-circle"></span>
+                                    </div>
+                                    <p>Priority Bug Fixes & Updates</p>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <span class="icon-tick-inside-circle"></span>
+                                    </div>
+                                    <p>Basic & Technical SEO </p>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <span class="far fa-plus-circle"></span>
+                                    </div>
+                                    <p>System Integration Support</p>
+                                </li>
+                                <li>
+                                    <div class="icon">
+                                        <span class="far fa-plus-circle"></span>
+                                    </div>
+                                    <p>24/7 Dedicated IT Assistance</p>
+                                </li>
+                            </ul>
+                            <div class="pricing-one__btn-box">
+                                <a href="javascript:void(0)" class="pricing-one__btn">Choose Plan<span class="far fa-plus-circle"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Pricing One Single End-->
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</section> 

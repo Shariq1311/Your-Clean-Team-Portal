@@ -1,0 +1,56 @@
+<section class="sliding-text">
+    <div class="sliding-text__wrap">
+        <ul class="sliding-text__list list-unstyled {{ data.marquee_class|default('marquee_mode') }}">
+            {% if data.sliding_items %}
+                {% for item in data.sliding_items %}
+                    <li>
+                        <h2 data-hover="{{ item.hover_text }}" class="sliding-text__title">{{ item.text }}</h2>
+                        <span></span>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <!-- Default sliding text items -->
+                <li>
+                    <h2 data-hover="Front end Development" class="sliding-text__title">Front end Development</h2>
+                    <span></span>
+                </li>
+                <li>
+                    <h2 data-hover="UI/UX Design" class="sliding-text__title">UI/UX Design</h2>
+                    <span></span>
+                </li>
+                <li>
+                    <h2 data-hover="Product Design" class="sliding-text__title">Product Design</h2>
+                    <span></span>
+                </li>
+                <li>
+                    <h2 data-hover="Digital Marketing" class="sliding-text__title">Digital Marketing</h2>
+                    <span></span>
+                </li>
+                <li>
+                    <h2 data-hover="Website Design" class="sliding-text__title">Website Design</h2>
+                    <span></span>
+                </li>
+                <li>
+                    <h2 data-hover="APP Development" class="sliding-text__title">APP Development</h2>
+                    <span></span>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function() {
+        if ($(".{{ data.marquee_class|default('marquee_mode') }}").length) {
+            $('.{{ data.marquee_class|default('marquee_mode') }}').marquee({
+                speed: {{ data.scroll_speed|default(30) }},
+                gap: 0,
+                delayBeforeStart: 0,
+                direction: 'left',
+                duplicated: true,
+                pauseOnHover: {{ data.pause_on_hover ? 'true' : 'false' }},
+                startVisible: true,
+            });
+        }
+    });
+</script> 

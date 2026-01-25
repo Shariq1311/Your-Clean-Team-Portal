@@ -1,0 +1,255 @@
+@use "../utils" as *;
+/*----------------------------------------*/
+/*   Datatable
+/*----------------------------------------*/
+.bootstrap-table {
+    .fixed-table-container {
+        .fixed-table-body {
+            position: relative;
+            table {
+                border-left: none;
+                border-right: none;
+                thead {
+                    tr {
+                        th {
+                            border-left: none;
+                            border-right: none;
+                        }
+                        th.bs-checkbox {
+                            padding: 0;
+                            input {
+                                background-color: var(--ms-common-white);
+                                border: 1px solid var(--ms-border-primary);
+                                border-radius: 4px;
+                                height: 1rem;
+                                vertical-align: top;
+                                width: 1rem;
+                                &:checked {
+                                    background-color: var(--ms-theme-primary);
+                                    border-color: var(--ms-theme-primary);
+                                }
+                            }
+                        }
+                        label {
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+                tbody {
+                    tr {
+                        td {
+                            border-left: none;
+                            border-right: none;
+                        }
+                        td.bs-checkbox {
+                            padding: 0;
+                            input {
+                                background-color: var(--ms-common-white);
+                                border: 1px solid var(--ms-border-primary);
+                                border-radius: 4px;
+                                height: 1rem;
+                                vertical-align: top;
+                                width: 1rem;
+                                &:checked {
+                                    background-color: var(--ms-theme-primary);
+                                    border-color: var(--ms-theme-primary);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .fixed-table-loading {
+                position: absolute;
+                top: 42px;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(255, 255, 255, 0.95);
+                display: none;
+                z-index: 99;
+
+                .loading-wrap {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    text-align: center;
+
+                    .loading-text {
+                        color: var(--ms-theme-text-secondary);
+                        font-weight: 500;
+                        margin-bottom: 1rem;
+                        font-size: 0.9rem;
+                        opacity: 0;
+                        animation: fadeIn 0.3s ease forwards;
+                    }
+
+                    .loading-spinner {
+                        display: inline-block;
+                        width: 40px;
+                        height: 40px;
+                        position: relative;
+                    }
+
+                    .loading-spinner::after {
+                        content: "";
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 50%;
+                        border: 3px solid var(--ms-theme-primary);
+                        border-color: var(--ms-theme-primary) transparent
+                            var(--ms-theme-primary) transparent;
+                        animation: spinner 1.2s linear infinite;
+                    }
+                }
+            }
+
+            @keyframes spinner {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        }
+    }
+    .fixed-table-pagination {
+        // width: 95%;
+        margin-left: 20px !important;
+        margin-right: 60px !important;
+        .pagination-detail {
+            .pagination-info {
+                margin-left: 10px !important;
+                color: var(--ms-theme-text-secondary);
+                font-weight: 500;
+            }
+
+            .page-list {
+                margin-right: 10px;
+                color: var(--ms-theme-text-secondary);
+                font-weight: 500;
+                .btn-group {
+                    .btn {
+                        border-radius: 4px;
+                        border: 1px solid var(--ms-border-primary);
+                        background-color: var(--ms-common-white);
+                        .page-size {
+                            color: var(--ms-theme-text-secondary);
+                        }
+                    }
+                }
+            }
+        }
+        .pagination {
+        }
+    }
+
+    .dropdown {
+        button.dropdown-toggle {
+            &::after {
+                display: none;
+            }
+            svg {
+                margin: 0px;
+            }
+        }
+    }
+}
+
+.data-table-wrapper {
+    @media (max-width: 767.98px) { /* md breakpoint */
+        .collapse-mobile-only {
+            display: none;
+        }
+        .collapse-mobile-only.show {
+            display: block;
+        }
+    }
+    /* Datatable responsive styles */
+    .card-header {
+        padding: 1rem;
+    }
+
+    .bulk-actions-wrapper,
+    .search-wrapper {
+        width: 100%;
+    }
+
+    @media (min-width: 768px) {
+        .bulk-actions-wrapper,
+        .search-wrapper {
+            width: auto;
+        }
+    }
+
+    /* Improve form layout on small screens */
+    #form-search .form-inline {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    /* Ensure form controls stack properly on mobile */
+    #form-search .form-control {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    @media (min-width: 768px) {
+        #form-search .form-control {
+            width: auto;
+            margin-bottom: 0;
+        }
+    }
+
+    /* Improve dropdown menu positioning */
+    .data-table-bulk-actions .dropdown-menu {
+        position: absolute;
+        will-change: transform;
+    }
+
+    /* Ensure buttons maintain proper spacing */
+    .btn {
+        margin: 0.25rem;
+    }
+
+    /* Improve table responsiveness */
+    .card-table {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+  /* Ensure the dropdown menu has a high z-index */
+.dropdown-menu {
+    z-index: 9999 !important;
+}
+
+/* Check if the table container has overflow clipping */
+.fixed-table-body {
+    overflow: visible !important;
+}
+
+/* Position the dropdown relative to its parent */
+.dropdown {
+    position: relative;
+}
+
+/* Confirm table rows don't hide overflow */
+tr {
+    position: static !important;
+}

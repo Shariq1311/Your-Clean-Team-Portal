@@ -1,0 +1,202 @@
+{
+    "label": "Hero Section Home",
+    "description": "Modern hero banner section for portfolio or agency websites",
+    "form": [
+        {
+            "type": "text",
+            "name": "background_class",
+            "label": "Background CSS Class",
+            "data": {
+                "value": "bg-white-lilac"
+            }
+        },
+        {
+            "type": "image",
+            "name": "background_image",
+            "label": "Background Image (Optional)",
+            "data": {
+                "value": ""
+            }
+        },
+        {
+            "type": "text",
+            "name": "subtitle",
+            "label": "Subtitle",
+            "data": {
+                "value": "Hello Mate 👋"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_prefix",
+            "label": "Title Prefix",
+            "data": {
+                "value": "I'm Michle Smith a"
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "typed_texts",
+            "label": "Typed Animation Texts",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "text",
+                    "label": "Text Value"
+                }
+            ],
+            "options": {
+                "min_items": 1,
+                "max_items": 10,
+                "add_button_text": "Add Text",
+                "remove_button_text": "Remove Text",
+                "value": [
+                    {
+                        "text": "Developer"
+                    },
+                    {
+                        "text": "Designer"
+                    },
+                    {
+                        "text": "Freelancer"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "textarea",
+            "name": "description",
+            "label": "Description",
+            "data": {
+                "value": "Hi, I'm Michle a freelance web designer from San-Francisco. I help brands turn their ideas into high quality products."
+            }
+        },
+        {
+            "type": "text",
+            "name": "button1_text",
+            "label": "Button 1 Text",
+            "data": {
+                "value": "Book a Call"
+            }
+        },
+        {
+            "type": "text",
+            "name": "button1_url",
+            "label": "Button 1 URL",
+            "data": {
+                "value": "#"
+            }
+        },
+        {
+            "type": "text",
+            "name": "button1_class",
+            "label": "Button 1 CSS Class",
+            "data": {
+                "value": "btn-1 btn-primary"
+            }
+        },
+        {
+            "type": "text",
+            "name": "button2_text",
+            "label": "Button 2 Text",
+            "data": {
+                "value": "Download CV"
+            }
+        },
+        {
+            "type": "text",
+            "name": "button2_url",
+            "label": "Button 2 URL",
+            "data": {
+                "value": "#"
+            }
+        },
+        {
+            "type": "text",
+            "name": "button2_class",
+            "label": "Button 2 CSS Class",
+            "data": {
+                "value": "btn-2 btn-outline-primary"
+            }
+        },
+        {
+            "type": "image",
+            "name": "hero_image",
+            "label": "Hero Main Image",
+            "data": {
+                "value": "images/l-1/hero.png"
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "floating_icons",
+            "label": "Floating Icons",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "position",
+                    "label": "Icon Position (1-5)"
+                },
+                {
+                    "type": "image",
+                    "name": "image",
+                    "label": "Icon Image"
+                },
+                {
+                    "type": "select",
+                    "name": "animation",
+                    "label": "Animation Type",
+                    "data": {
+                        "options": {
+                            "floating-Y-animation": "Floating Y",
+                            "floating-Y-animation-reverse": "Floating Y Reverse"
+                        },
+                        "value": "floating-Y-animation"
+                    }
+                }
+            ],
+            "options": {
+                "min_items": 0,
+                "max_items": 5,
+                "add_button_text": "Add Icon",
+                "remove_button_text": "Remove Icon",
+                "value": [
+                    {
+                        "position": "1",
+                        "image": "images/l-1/vscode.png",
+                        "animation": "floating-Y-animation"
+                    },
+                    {
+                        "position": "2",
+                        "image": "images/l-1/laravel.png",
+                        "animation": "floating-Y-animation-reverse"
+                    },
+                    {
+                        "position": "3",
+                        "image": "images/l-1/sublimetext.png",
+                        "animation": "floating-Y-animation"
+                    },
+                    {
+                        "position": "4",
+                        "image": "images/l-1/angular.png",
+                        "animation": "floating-Y-animation-reverse"
+                    },
+                    {
+                        "position": "5",
+                        "image": "images/l-1/react.png",
+                        "animation": "floating-Y-animation"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "description": "Enable AOS animation effects",
+            "data": {
+                "value": 1
+            }
+        }
+    ]
+}

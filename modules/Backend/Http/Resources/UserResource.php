@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * Mojar - Laravel CMS for Your Project
+ *
+ * @package    Mojar/cms
+ * @author     Mojar Team
+ * @link       https://Mojar.com/cms
+ * @license    GNU V2
+ */
+
+namespace MojarCMS\Backend\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class UserResource extends JsonResource
+{
+    /**
+     * Transform the resource into an array.
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function toArray($request): array
+    {
+        $data = [
+            'name' => $this->resource->name,
+            'email' => $this->resource->email,
+            'is_admin' => (bool)$this->resource->is_admin,
+            'created_at' => mc_date_format($this->resource->created_at),
+            'avatar' => $this->resource->getAvatar(),
+            'metas' => (array)$this->resource->getMetas(),
+        ];
+
+        return apply_filters('user.resouce_data', $data, $this->resource);
+    }
+}

@@ -1,0 +1,314 @@
+{
+    "label": "Testimonials Slider Home 1",
+    "description": "Testimonials slider with title, star ratings, and client information",
+    "form": [
+        {
+            "type": "text",
+            "name": "section_tagline",
+            "label": "Section Tagline",
+            "data": {
+                "value": "Testimonials"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_1",
+            "label": "Section Title Part 1",
+            "data": {
+                "value": "Customer Experiences"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_2",
+            "label": "Section Title Part 2",
+            "data": {
+                "value": "That"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_3",
+            "label": "Section Title Part 3 (Span)",
+            "data": {
+                "value": "Speak Volumes"
+            }
+        },
+        {
+            "type": "image",
+            "name": "shape_1",
+            "label": "Shape Image 1",
+            "data": {
+                "value": "images/shapes/testimonial-two-shape-1.png"
+            }
+        },
+        {
+            "type": "image",
+            "name": "shape_2",
+            "label": "Shape Image 2",
+            "data": {
+                "value": "images/shapes/testimonial-two-shape-2.png"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "use_testimonials_post_type",
+            "label": "Use Testimonials Post Type",
+            "description": "Load testimonials from Testimonials post type instead of manual configuration",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "taxonomy",
+            "name": "testimonials_category",
+            "label": "Testimonials Category Filter",
+            "description": "Filter testimonials by category (when using testimonials post type)",
+            "data": {
+                "post_type": "testimonials",
+                "taxonomy": "categories"
+            }
+        },
+        {
+            "type": "text",
+            "name": "items_limit",
+            "label": "Number of Testimonials",
+            "description": "Maximum number of testimonials to display",
+            "data": {
+                "value": "6"
+            }
+        },
+        {
+            "type": "text",
+            "name": "testimonial_ids",
+            "label": "Testimonial IDs",
+            "description": "Enter specific testimonial IDs to display (comma-separated)",
+            "data": {
+                "value": ""
+            }
+        },
+        {
+            "type": "select",
+            "name": "orderby",
+            "label": "Order By",
+            "data": {
+                "options": {
+                    "date": "Date",
+                    "title": "Title",
+                    "menu_order": "Menu Order",
+                    "rand": "Random"
+                },
+                "value": "date"
+            }
+        },
+        {
+            "type": "select",
+            "name": "order",
+            "label": "Order",
+            "data": {
+                "options": {
+                    "DESC": "Descending",
+                    "ASC": "Ascending"
+                },
+                "value": "DESC"
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "custom_testimonials",
+            "label": "Custom Testimonials (Manual Configuration)",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "client_name",
+                    "label": "Client Name"
+                },
+                {
+                    "type": "text",
+                    "name": "client_position",
+                    "label": "Client Position/Job Title"
+                },
+                {
+                    "type": "image",
+                    "name": "client_image",
+                    "label": "Client Image"
+                },
+                {
+                    "type": "select",
+                    "name": "rating",
+                    "label": "Star Rating",
+                    "data": {
+                        "options": {
+                            "1": "1 Star",
+                            "2": "2 Stars",
+                            "3": "3 Stars",
+                            "4": "4 Stars",
+                            "5": "5 Stars"
+                        },
+                        "value": "3"
+                    }
+                },
+                {
+                    "type": "textarea",
+                    "name": "testimonial_text",
+                    "label": "Testimonial Text"
+                },
+                {
+                    "type": "text",
+                    "name": "testimonial_url",
+                    "label": "Testimonial Detail URL",
+                    "description": "Optional link to full testimonial or client page"
+                }
+            ],
+            "options": {
+                "min_items": 0,
+                "max_items": 15,
+                "add_button_text": "Add Testimonial",
+                "remove_button_text": "Remove Testimonial",
+                "value": [
+                    {
+                        "client_name": "Thomas Alison",
+                        "client_position": "UI/UX Designer",
+                        "client_image": "images/testimonial/testimonial-2-1.jpg",
+                        "rating": "3",
+                        "testimonial_text": "Absolutely fantastic experience! The team exceeded our expectations and delivered a solution that perfectly met our needs. Their attention to detail and commitment to quality is unmatched.",
+                        "testimonial_url": "testimonials.html"
+                    },
+                    {
+                        "client_name": "Sarah Williams",
+                        "client_position": "Marketing Manager",
+                        "client_image": "images/testimonial/testimonial-2-2.jpg",
+                        "rating": "3",
+                        "testimonial_text": "Absolutely fantastic experience! The team exceeded our expectations and delivered a solution that perfectly met our needs. Their attention to detail and commitment to quality is unmatched.",
+                        "testimonial_url": "testimonials.html"
+                    },
+                    {
+                        "client_name": "James Anderson",
+                        "client_position": "Product Designer",
+                        "client_image": "images/testimonial/testimonial-2-3.jpg",
+                        "rating": "3",
+                        "testimonial_text": "Absolutely fantastic experience! The team exceeded our expectations and delivered a solution that perfectly met our needs. Their attention to detail and commitment to quality is unmatched.",
+                        "testimonial_url": "testimonials.html"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_loop",
+            "label": "Carousel Loop",
+            "description": "Enable infinite loop for carousel",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_margin",
+            "label": "Carousel Item Margin",
+            "description": "Margin between carousel items in pixels",
+            "data": {
+                "value": "30"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_nav",
+            "label": "Show Navigation Arrows",
+            "description": "Show left/right navigation arrows",
+            "data": {
+                "value": 0
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_dots",
+            "label": "Show Dots Navigation",
+            "description": "Show pagination dots",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_smart_speed",
+            "label": "Smart Speed",
+            "description": "Carousel transition speed in milliseconds",
+            "data": {
+                "value": "500"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "carousel_autoplay",
+            "label": "Enable Autoplay",
+            "description": "Enable automatic carousel sliding",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_autoplay_timeout",
+            "label": "Autoplay Timeout",
+            "description": "Autoplay timeout in milliseconds",
+            "data": {
+                "value": "5000"
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_items_desktop",
+            "label": "Items Per Slide (Desktop)",
+            "description": "Number of items to show on desktop (1320px+)",
+            "data": {
+                "value": "3"
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_items_large",
+            "label": "Items Per Slide (Large)",
+            "description": "Number of items to show on large screens (1200px+)",
+            "data": {
+                "value": "3"
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_items_medium",
+            "label": "Items Per Slide (Medium)",
+            "description": "Number of items to show on medium screens (992px+)",
+            "data": {
+                "value": "2"
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_items_tablet",
+            "label": "Items Per Slide (Tablet)",
+            "description": "Number of items to show on tablets (768px+)",
+            "data": {
+                "value": "2"
+            }
+        },
+        {
+            "type": "text",
+            "name": "carousel_items_mobile",
+            "label": "Items Per Slide (Mobile)",
+            "description": "Number of items to show on mobile (0px+)",
+            "data": {
+                "value": "1"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "description": "Enable animation for section title",
+            "data": {
+                "value": 1
+            }
+        }
+    ]
+}

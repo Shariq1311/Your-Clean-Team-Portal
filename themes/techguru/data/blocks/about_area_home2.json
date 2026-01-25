@@ -1,0 +1,146 @@
+{
+    "label": "About Area Home 2",
+    "description": "About section with title, features, contact information and image",
+    "form": [
+        {
+            "type": "text",
+            "name": "section_tagline",
+            "label": "Section Tagline",
+            "data": {
+                "value": "About Us"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_1",
+            "label": "Title Part 1",
+            "data": {
+                "value": "Boost Business"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_2",
+            "label": "Title Part 2 (Highlighted)",
+            "data": {
+                "value": "with Our"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_3",
+            "label": "Title Part 3 (Highlighted)",
+            "data": {
+                "value": "Innovative IT Solutions"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_4",
+            "label": "Title Part 4",
+            "data": {
+                "value": "for Success story"
+            }
+        },
+        {
+            "type": "textarea",
+            "name": "description",
+            "label": "Description",
+            "data": {
+                "value": "Innovating and empowering businesses with tailored solutions for success and growth."
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "features",
+            "label": "Features",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "icon",
+                    "label": "Icon Class",
+                    "data": {
+                        "value": "icon-tick-inside-circle"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "title",
+                    "label": "Feature Title"
+                },
+                {
+                    "type": "textarea",
+                    "name": "text",
+                    "label": "Feature Text"
+                }
+            ],
+            "options": {
+                "min_items": 1,
+                "max_items": 4,
+                "add_button_text": "Add Feature",
+                "remove_button_text": "Remove Feature",
+                "value": [
+                    {
+                        "icon": "icon-tick-inside-circle",
+                        "title": "Shaping Tomorrow, Transforming Today",
+                        "text": "Empowering businesses to create meaningful change, driving innovation"
+                    },
+                    {
+                        "icon": "icon-tick-inside-circle",
+                        "title": "Innovating Today, Empowering Tomorrow",
+                        "text": "Partner with us to unlock new possibilities, drive progress, and shape a future filled with success"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "text",
+            "name": "button_text",
+            "label": "Button Text",
+            "data": {
+                "value": "Get in Touch"
+            }
+        },
+        {
+            "type": "text",
+            "name": "button_url",
+            "label": "Button URL",
+            "data": {
+                "value": "about.html"
+            }
+        },
+        {
+            "type": "text",
+            "name": "call_text",
+            "label": "Call Text",
+            "data": {
+                "value": "Call Any Time"
+            }
+        },
+        {
+            "type": "text",
+            "name": "phone_number",
+            "label": "Phone Number",
+            "data": {
+                "value": "12345678900"
+            }
+        },
+        {
+            "type": "text",
+            "name": "phone_number_display",
+            "label": "Phone Number Display",
+            "description": "How the phone number will be displayed",
+            "data": {
+                "value": "(123) 4567 8900"
+            }
+        },
+        {
+            "type": "image",
+            "name": "main_image",
+            "label": "Main Image",
+            "data": {
+                "value": "images/resources/about-one-img-1.jpg"
+            }
+        }
+    ]
+}

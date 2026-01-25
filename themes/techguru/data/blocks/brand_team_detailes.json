@@ -1,0 +1,126 @@
+{
+    "label": "Brand Team Details",
+    "description": "Sliding text marquee for brand or team details",
+    "form": [
+        {
+            "type": "text",
+            "name": "marquee_class",
+            "label": "Marquee Class",
+            "description": "CSS class for the marquee (e.g., marquee_mode-2)",
+            "data": {
+                "value": "marquee_mode-2"
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "sliding_items",
+            "label": "Sliding Text Items",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "title",
+                    "label": "Text Title",
+                    "description": "Title text to display in the sliding marquee"
+                },
+                {
+                    "type": "text",
+                    "name": "hover_text",
+                    "label": "Hover Text",
+                    "description": "Text to display on hover (data-hover attribute)"
+                }
+            ],
+            "options": {
+                "min_items": 1,
+                "max_items": 20,
+                "add_button_text": "Add Text Item",
+                "remove_button_text": "Remove Text Item",
+                "value": [
+                    {
+                        "title": "Branding",
+                        "hover_text": "Branding"
+                    },
+                    {
+                        "title": "Web Design",
+                        "hover_text": "Web Design"
+                    },
+                    {
+                        "title": "Promotion",
+                        "hover_text": "Promotion"
+                    },
+                    {
+                        "title": "Branding",
+                        "hover_text": "Branding"
+                    },
+                    {
+                        "title": "Promotion",
+                        "hover_text": "Promotion"
+                    },
+                    {
+                        "title": "Branding",
+                        "hover_text": "Branding"
+                    },
+                    {
+                        "title": "Web Design",
+                        "hover_text": "Web Design"
+                    },
+                    {
+                        "title": "Promotion",
+                        "hover_text": "Promotion"
+                    },
+                    {
+                        "title": "Branding",
+                        "hover_text": "Branding"
+                    },
+                    {
+                        "title": "Promotion",
+                        "hover_text": "Promotion"
+                    },
+                    {
+                        "title": "Branding",
+                        "hover_text": "Branding"
+                    },
+                    {
+                        "title": "Web Design",
+                        "hover_text": "Web Design"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "auto_repeat",
+            "label": "Auto Repeat Items",
+            "description": "Automatically repeat items if fewer than recommended minimum (12)",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "min_items",
+            "label": "Minimum Items",
+            "description": "Minimum number of items recommended for smooth scrolling",
+            "data": {
+                "value": "12"
+            }
+        },
+        {
+            "type": "text",
+            "name": "scroll_speed",
+            "label": "Scroll Speed",
+            "description": "Speed of the marquee scrolling (will be passed to JavaScript)",
+            "data": {
+                "value": "100"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "description": "Enable animation effects",
+            "data": {
+                "value": 1
+            }
+        }
+    ]
+}

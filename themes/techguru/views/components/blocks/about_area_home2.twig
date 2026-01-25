@@ -1,0 +1,66 @@
+<section class="about-one">
+    <div class="about-one__shape-1"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-5">
+                <div class="about-one__left">
+                    <div class="section-title text-left sec-title-animation animation-style2">
+                        <div class="section-title__tagline-box">
+                            <div class="section-title__tagline-shape-1"></div>
+                            <span class="section-title__tagline">{{ data.section_tagline|default('About Us') }}</span>
+                            <div class="section-title__tagline-shape-2"></div>
+                        </div>
+                        <h2 class="section-title__title title-animation">{{ data.title_part_1|default('Boost Business') }}
+                            <span>{{ data.title_part_2|default('with Our') }}<br></span>
+                            <span>{{ data.title_part_3|default('Innovative IT Solutions') }}</span> 
+                            {{ data.title_part_4|default('for Success story') }}
+                        </h2>
+                    </div>
+                    <p class="about-one__text">{{ data.description|default('Innovating and empowering businesses with tailored solutions for success and growth.') }}</p>
+                    <ul class="about-one__points list-unstyled">
+                        {% if data.features %}
+                            {% for feature in data.features %}
+                                <li>
+                                    <div class="icon">
+                                        <span class="{{ feature.icon|default('icon-tick-inside-circle') }}"></span>
+                                    </div>
+                                    <div class="content">
+                                        <h3>{{ feature.title }}</h3>
+                                        <p>{{ feature.text }}</p>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                    <div class="about-one__btn-and-call-box">
+                        <div class="about-one__btn-box">
+                            <a href="{{ data.button_url|default('#') }}" class="thm-btn">{{ data.button_text|default('Get in Touch') }}<span class="icon-right-arrow"></span></a>
+                        </div>
+                        <div class="about-one__call-box">
+                            <div class="icon">
+                                <span class="icon-customer-service-headset"></span>
+                            </div>
+                            <div class="content">
+                                <span>{{ data.call_text|default('Call Any Time') }}</span>
+                                <p><a href="tel:{{ data.phone_number|default('12345678900') }}">{{ data.phone_number_display|default('(123) 4567 8900') }}</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-7">
+                <div class="about-one__right">
+                    <div class="about-one__left-img-box">
+                        <div class="about-one__left-img">
+                            {% if data.main_image %}
+                                <img src="{{ upload_url(data.main_image) }}" alt="about image">
+                            {% else %}
+                                <img src="{{ asset('images/resources/about-one-img-1.jpg') }}" alt="about image">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> 

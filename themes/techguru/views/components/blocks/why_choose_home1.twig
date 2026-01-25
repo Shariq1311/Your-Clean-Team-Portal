@@ -1,0 +1,106 @@
+<section class="why-choose-one">
+    <div class="why-choose-one__shape-3 float-bob-y">
+        {% if data.shape_3 %}
+            <img src="{{ upload_url(data.shape_3) }}" alt="shape">
+        {% else %}
+            <img src="{{ asset('images/shapes/why-choose-one-shape-3.png') }}" alt="shape">
+        {% endif %}
+    </div>
+    <div class="why-choose-one__shape-4"></div>
+    <div class="why-choose-one__shape-5"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-5">
+                <div class="why-choose-one__left">
+                    <div class="section-title text-left sec-title-animation animation-style2">
+                        <div class="section-title__tagline-box">
+                            <div class="section-title__tagline-shape-1"></div>
+                            <span class="section-title__tagline">{{ data.section_tagline|default('Why Chooses Us') }}</span>
+                            <div class="section-title__tagline-shape-2"></div>
+                        </div>
+                        <h2 class="section-title__title title-animation">{{ data.title_part_1|default('Elevate Growth') }} <span>{{ data.title_part_2|default('with Our') }}</span><br><span>{{ data.title_part_3|default('Cutting-Edge IT') }}</span>
+                        {{ data.title_part_4|default('Solutions for Success') }}
+                        </h2>
+                    </div>
+                    <p class="why-choose-one__text">{{ Your Clean Team_format_text(data.description|default('Innovating and empowering businesses with tailored solutions for success and growth. Innovating and empowering ')) }}</p>
+                    
+                    {% if data.progress_bars %}
+                        <ul class="why-choose-one__progress-list list-unstyled">
+                            {% for bar in data.progress_bars %}
+                                <li>
+                                    <div class="why-choose-one__progress">
+                                        <h4 class="why-choose-one__progress-title">{{ bar.title }}</h4>
+                                        <div class="bar">
+                                            <div class="bar-inner count-bar" data-percent="{{ bar.percent }}%">
+                                                <div class="count-text">{{ bar.percent }}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    
+                    <div class="why-choose-one__btn-and-client-info">
+                        <div class="why-choose-one__btn-box">
+                            <a href="{{ data.button_url|default('#') }}" class="thm-btn">{{ data.button_text|default('About Us') }}<span class="icon-right-arrow"></span></a>
+                        </div>
+                        <div class="why-choose-one__client-box">
+                            <div class="why-choose-one__client-img">
+                                {% if data.client_image %}
+                                    <img src="{{ upload_url(data.client_image) }}" alt="client">
+                                {% else %}
+                                    <img src="{{ asset('images/resources/why-choose-one-client-img.jpg') }}" alt="client">
+                                {% endif %}
+                            </div>
+                            <div class="why-choose-one__client-content">
+                                <h3>{{ data.client_name|default('Thomas Alison') }}</h3>
+                                <span>{{ data.client_position|default('Founder & CEO') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-7">
+                <div class="why-choose-one__right {% if data.enable_animation %}wow slideInRight{% endif %}" 
+                    {% if data.enable_animation %}data-wow-delay="{{ data.animation_delay|default('100') }}ms" 
+                    data-wow-duration="{{ data.animation_duration|default('2500') }}ms"{% endif %}>
+                    <div class="why-choose-one__img">
+                        {% if data.main_image %}
+                            <img src="{{ upload_url(data.main_image) }}" alt="main image">
+                        {% else %}
+                            <img src="{{ asset('images/resources/why-choose-one-img-1.png') }}" alt="main image">
+                        {% endif %}
+                    </div>
+                    <div class="why-choose-one__shape-1 img-bounce">
+                        {% if data.shape_1 %}
+                            <img src="{{ upload_url(data.shape_1) }}" alt="shape">
+                        {% else %}
+                            <img src="{{ asset('images/shapes/why-choose-one-shape-1.png') }}" alt="shape">
+                        {% endif %}
+                    </div>
+                    <div class="why-choose-one__shape-2 float-bob-x">
+                        {% if data.shape_2 %}
+                            <img src="{{ upload_url(data.shape_2) }}" alt="shape">
+                        {% else %}
+                            <img src="{{ asset('images/shapes/why-choose-one-shape-2.png') }}" alt="shape">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function() {
+        // Progress Bar
+        if ($('.count-bar').length) {
+            $('.count-bar').appear(function() {
+                var el = $(this);
+                var percent = el.data('percent');
+                $(el).css('width', percent).addClass('counted');
+            });
+        }
+    });
+</script> 

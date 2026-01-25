@@ -1,0 +1,239 @@
+{
+    "label": "Hero Slider Home 2",
+    "description": "Main hero slider with trustpilot section, video link and animated shapes",
+    "form": [
+        {
+            "type": "repeater",
+            "name": "slides",
+            "label": "Slider Items",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "subtitle",
+                    "label": "Subtitle"
+                },
+                {
+                    "type": "text",
+                    "name": "title_part_1",
+                    "label": "Title Part 1"
+                },
+                {
+                    "type": "text",
+                    "name": "title_part_2",
+                    "label": "Title Part 2 (Highlighted)"
+                },
+                {
+                    "type": "text",
+                    "name": "title_part_3",
+                    "label": "Title Part 3 (Highlighted)"
+                },
+                {
+                    "type": "text",
+                    "name": "title_part_4",
+                    "label": "Title Part 4"
+                },
+                {
+                    "type": "textarea",
+                    "name": "description",
+                    "label": "Description"
+                },
+                {
+                    "type": "text",
+                    "name": "button_text",
+                    "label": "Button Text"
+                },
+                {
+                    "type": "text",
+                    "name": "button_url",
+                    "label": "Button URL"
+                },
+                {
+                    "type": "image",
+                    "name": "slider_image",
+                    "label": "Slider Image"
+                },
+                {
+                    "type": "text",
+                    "name": "video_url",
+                    "label": "Video URL"
+                }
+            ],
+            "options": {
+                "min_items": 1,
+                "max_items": 10,
+                "add_button_text": "Add Slide",
+                "remove_button_text": "Remove Slide",
+                "value": [
+                    {
+                        "subtitle": "IT Solutions That Work for You",
+                        "title_part_1": "Expert",
+                        "title_part_2": "IT Solutions",
+                        "title_part_3": "to Elevate",
+                        "title_part_4": "Your Enterprise",
+                        "description": "From strategic IT consulting to seamless implementation, we deliver tailored solutions that drive efficiency",
+                        "button_text": "Get Started",
+                        "button_url": "contact.html",
+                        "slider_image": "images/resources/main-slider-img-1.png",
+                        "video_url": "https://www.youtube.com/watch?v=Get7rqXYrbQ"
+                    },
+                    {
+                        "subtitle": "IT Solutions That Work for You",
+                        "title_part_1": "Expert",
+                        "title_part_2": "IT Solutions",
+                        "title_part_3": "to Elevate",
+                        "title_part_4": "Your Enterprise",
+                        "description": "From strategic IT consulting to seamless implementation, we deliver tailored solutions that drive efficiency",
+                        "button_text": "Get Started",
+                        "button_url": "contact.html",
+                        "slider_image": "images/resources/main-slider-img-2.png",
+                        "video_url": "https://www.youtube.com/watch?v=Get7rqXYrbQ"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "image",
+            "name": "shape_1",
+            "label": "Shape 1 Image",
+            "data": {
+                "value": "images/shapes/main-slider-shape-1.png"
+            }
+        },
+        {
+            "type": "image",
+            "name": "shape_3",
+            "label": "Shape 3 Image",
+            "data": {
+                "value": "images/shapes/main-slider-shape-3.png"
+            }
+        },
+        {
+            "type": "image",
+            "name": "shape_4",
+            "label": "Shape 4 Image",
+            "data": {
+                "value": "images/shapes/main-slider-shape-4.png"
+            }
+        },
+        {
+            "type": "image",
+            "name": "shape_5",
+            "label": "Shape 5 Image",
+            "data": {
+                "value": "images/shapes/main-slider-shape-5.png"
+            }
+        },
+        {
+            "type": "image",
+            "name": "subtitle_icon",
+            "label": "Subtitle Icon",
+            "data": {
+                "value": "images/icon/main-slider-sub-title-icon.png"
+            }
+        },
+        {
+            "type": "image",
+            "name": "shield_check_icon",
+            "label": "Shield Check Icon",
+            "data": {
+                "value": "images/icon/main-slider-shield-check-icon.png"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "show_trustpilot",
+            "label": "Show Trustpilot Section",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "image",
+            "name": "trustpilot_image_1",
+            "label": "Trustpilot Image 1",
+            "data": {
+                "value": "images/resources/main-slider-trustpilot-img-1.jpg"
+            }
+        },
+        {
+            "type": "image",
+            "name": "trustpilot_image_2",
+            "label": "Trustpilot Image 2",
+            "data": {
+                "value": "images/resources/main-slider-trustpilot-img-2.jpg"
+            }
+        },
+        {
+            "type": "image",
+            "name": "trustpilot_logo",
+            "label": "Trustpilot Logo",
+            "data": {
+                "value": "images/resources/main-slider-trustpilot-logo.png"
+            }
+        },
+        {
+            "type": "text",
+            "name": "trustpilot_rating",
+            "label": "Trustpilot Rating Text",
+            "data": {
+                "value": "5.0 Excellent"
+            }
+        },
+        {
+            "type": "text",
+            "name": "trustpilot_review_text",
+            "label": "Trustpilot Review Text",
+            "data": {
+                "value": "Reviews"
+            }
+        },
+        {
+            "type": "text",
+            "name": "trustpilot_review_count",
+            "label": "Trustpilot Review Count",
+            "data": {
+                "value": "4170"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "slider_autoplay",
+            "label": "Enable Autoplay",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "slider_autoplay_delay",
+            "label": "Autoplay Delay (ms)",
+            "data": {
+                "value": "8000"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "slider_loop",
+            "label": "Enable Loop",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "slider_pagination",
+            "label": "Show Pagination",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "slider_navigation",
+            "label": "Show Navigation",
+            "data": {
+                "value": 1
+            }
+        }
+    ]
+}

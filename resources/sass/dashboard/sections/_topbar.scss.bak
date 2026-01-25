@@ -1,0 +1,12 @@
+@use '../utils' as *;
+/**
+ * Mojar CMS 1.0 - Topbar
+ */
+
+.mojar_cms_topbar {
+  &.sticky-top {
+      @media #{$common-medium-screen} {
+        z-index: 1200 !important;
+      }
+  }
+}

@@ -1,0 +1,62 @@
+{
+    "name": "Footer Address",
+    "description": "Display contact information in the footer",
+    "form": [
+        {
+            "type": "text",
+            "name": "location_title",
+            "label": "Location Title",
+            "data": {
+                "value": "Location"
+            }
+        },
+        {
+            "type": "textarea",
+            "name": "location_text",
+            "label": "Location Text",
+            "data": {
+                "value": "123 Main Street, Apt 4BNew \nYork, NY 10001USA"
+            }
+        },
+        {
+            "type": "text",
+            "name": "working_title",
+            "label": "Working Time Title",
+            "data": {
+                "value": "Working Time"
+            }
+        },
+        {
+            "type": "textarea",
+            "name": "working_text",
+            "label": "Working Time Text",
+            "data": {
+                "value": "Sunday - Monday (Fri - Closed) \n10:00 AM - 5:00 PM"
+            }
+        },
+        {
+            "type": "text",
+            "name": "contact_title",
+            "label": "Contact Title",
+            "data": {
+                "value": "Contact Us"
+            }
+        },
+        {
+            "type": "text",
+            "name": "email",
+            "label": "Email Address",
+            "data": {
+                "value": "support@domain.com"
+            }
+        },
+        {
+            "type": "text",
+            "name": "phone",
+            "label": "Phone Number",
+            "data": {
+                "value": "+12 (00) 456 7890"
+            }
+        }
+    ]
+}

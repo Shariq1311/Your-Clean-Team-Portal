@@ -1,0 +1,121 @@
+const mix = require('laravel-mix');
+
+// Set this to true for development mode, false for production  [for developement just keep isdev=true and you want to push everything in public with assets keep it false and run cms:run-build or php artisan cms:publish assets]
+const isDev = false;
+const themeName = 'Your Clean Team';
+
+// Define paths based on environment
+const cssOutputPath = isDev
+    ? `public/mc-styles/themes/${themeName}/assets/css/main.css`
+    : `themes/${themeName}/assets/public/css/main.css`;
+
+const jsOutputPath = isDev
+    ? `public/mc-styles/themes/${themeName}/assets/js/main.js`
+    : `themes/${themeName}/assets/public/js/main.js`;
+
+// CSS processing
+mix.styles([
+    `themes/${themeName}/assets/css/bootstrap.min.css`,
+    `themes/${themeName}/assets/css/animate.min.css`,
+    `themes/${themeName}/assets/css/custom-animate.css`,
+    `themes/${themeName}/assets/css/swiper.min.css`,
+    `themes/${themeName}/assets/css/font-awesome-all.css`,
+    `themes/${themeName}/assets/css/jarallax.css`,
+    `themes/${themeName}/assets/css/jquery.magnific-popup.css`,
+    `themes/${themeName}/assets/css/odometer.min.css`,
+    `themes/${themeName}/assets/css/flaticon.css`,
+    `themes/${themeName}/assets/css/owl.carousel.min.css`,
+    `themes/${themeName}/assets/css/owl.theme.default.min.css`,
+    `themes/${themeName}/assets/css/nice-select.css`,
+    `themes/${themeName}/assets/css/jquery-ui.css`,
+    `themes/${themeName}/assets/css/aos.css`,
+    `themes/${themeName}/assets/css/twentytwenty.css`,
+    `themes/${themeName}/assets/css/vegas.min.css`,
+    `themes/${themeName}/assets/css/dark.css`,
+
+    // Module CSS files
+    `themes/${themeName}/assets/css/module-css/banner.css`,
+    `themes/${themeName}/assets/css/module-css/slider.css`,
+    `themes/${themeName}/assets/css/module-css/footer.css`,
+    `themes/${themeName}/assets/css/module-css/services.css`,
+    `themes/${themeName}/assets/css/module-css/sliding-text.css`,
+    `themes/${themeName}/assets/css/module-css/about.css`,
+    `themes/${themeName}/assets/css/module-css/counter.css`,
+    `themes/${themeName}/assets/css/module-css/portfolio.css`,
+    `themes/${themeName}/assets/css/module-css/process.css`,
+    `themes/${themeName}/assets/css/module-css/contact.css`,
+    `themes/${themeName}/assets/css/module-css/testimonial.css`,
+    `themes/${themeName}/assets/css/module-css/brand.css`,
+    `themes/${themeName}/assets/css/module-css/newsletter.css`,
+    `themes/${themeName}/assets/css/module-css/team.css`,
+    `themes/${themeName}/assets/css/module-css/pricing.css`,
+    `themes/${themeName}/assets/css/module-css/event.css`,
+    `themes/${themeName}/assets/css/module-css/blog.css`,
+    `themes/${themeName}/assets/css/module-css/why-choose.css`,
+    `themes/${themeName}/assets/css/module-css/page-header.css`,
+    `themes/${themeName}/assets/css/module-css/faq.css`,
+    `themes/${themeName}/assets/css/module-css/coming-soon.css`,
+    `themes/${themeName}/assets/css/module-css/cta.css`,
+    `themes/${themeName}/assets/css/module-css/error.css`,
+    `themes/${themeName}/assets/css/module-css/google-map.css`,
+    `themes/${themeName}/assets/css/module-css/feature.css`,
+    `themes/${themeName}/assets/css/module-css/gallery.css`,
+    `themes/${themeName}/assets/css/module-css/shop.css`,
+    `themes/${themeName}/assets/css/module-css/skill.css`,
+
+
+    // Template styles (these should be loaded last)
+    `themes/${themeName}/assets/css/style.css`,
+    `themes/${themeName}/assets/css/responsive.css`,
+], cssOutputPath);
+
+// JS processing
+
+mix.combine([
+    // Core dependencies
+    `themes/${themeName}/assets/js/jquery-3.6.0.min.js`,
+    `themes/${themeName}/assets/js/bootstrap.bundle.min.js`,
+
+    // Third-party libraries
+    `themes/${themeName}/assets/js/jarallax.min.js`,
+    `themes/${themeName}/assets/js/jquery.ajaxchimp.min.js`,
+    `themes/${themeName}/assets/js/jquery.appear.min.js`,
+    `themes/${themeName}/assets/js/swiper.min.js`,
+    `themes/${themeName}/assets/js/jquery.magnific-popup.min.js`,
+    `themes/${themeName}/assets/js/jquery.validate.min.js`,
+    `themes/${themeName}/assets/js/odometer.min.js`,
+    `themes/${themeName}/assets/js/wNumb.min.js`,
+    `themes/${themeName}/assets/js/wow.js`,
+    `themes/${themeName}/assets/js/isotope.js`,
+    `themes/${themeName}/assets/js/owl.carousel.min.js`,
+    `themes/${themeName}/assets/js/jquery-ui.js`,
+    `themes/${themeName}/assets/js/jquery.nice-select.min.js`,
+    `themes/${themeName}/assets/js/twentytwenty.js`,
+    `themes/${themeName}/assets/js/jquery.event.move.js`,
+    `themes/${themeName}/assets/js/marquee.min.js`,
+    `themes/${themeName}/assets/js/jquery.circleType.js`,
+    `themes/${themeName}/assets/js/jquery.fittext.js`,
+    `themes/${themeName}/assets/js/jquery.lettering.min.js`,
+    `themes/${themeName}/assets/js/typed-2.0.11.js`,
+    `themes/${themeName}/assets/js/jquery-sidebar-content.js`,
+    `themes/${themeName}/assets/js/aos.js`,
+    `themes/${themeName}/assets/js/countdown.min.js`,
+    `themes/${themeName}/assets/js/jquery-migrate.min.js`,
+    `themes/${themeName}/assets/js/jquery.circle-progress.min.js`,
+    `themes/${themeName}/assets/js/vegas.min.js`,
+    `themes/${themeName}/assets/js/wavesurfer.min.js`,
+
+    // GSAP libraries
+    `themes/${themeName}/assets/js/gsap/gsap.js`,
+    `themes/${themeName}/assets/js/gsap/ScrollTrigger.js`,
+    `themes/${themeName}/assets/js/gsap/SplitText.js`,
+    `themes/${themeName}/assets/js/toast-manager.js`,
+    `themes/${themeName}/assets/js/cart-manager.js`,
+    `themes/${themeName}/assets/js/wishlist-manager.js`,
+
+    // Template script (should be loaded last)
+    `themes/${themeName}/assets/js/script.js`,
+], jsOutputPath);
+
+// Optional: Log the current environment
+console.log(`Running in ${isDev ? 'DEVELOPMENT' : 'PRODUCTION'} mode`);

@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * Mojar - Laravel CMS for Your Project
+ *
+ * @package    Mojar/cms
+ * @author     Mojar Team
+ * @link       https://Mojar.com/cms
+ * @license    GNU V2
+ */
+
+namespace MojarCMS\Backend\Events;
+
+use MojarCMS\CMS\Models\User;
+
+class RegisterSuccessful
+{
+    public User $user;
+
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+}

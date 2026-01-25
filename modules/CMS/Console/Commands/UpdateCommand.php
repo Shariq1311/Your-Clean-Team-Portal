@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * Mojar - Laravel CMS for Your Project
+ *
+ * @package    Mojar/cms
+ * @author     Mojar Team
+ * @link       https://Mojar.com/cms
+ * @license    GNU V2
+ */
+
+namespace MojarCMS\CMS\Console\Commands;
+
+use Illuminate\Console\Command;
+use MojarCMS\CMS\Support\Updater\CmsUpdater;
+
+class UpdateCommand extends Command
+{
+    protected $signature = 'Mojarcms:update';
+
+    public function handle(CmsUpdater $updater): int
+    {
+        if (!$updater->checkForUpdate()) {
+            $this->info('Everything up-to-date');
+            return self::SUCCESS;
+        }
+
+        $this->info('Updating...');
+        try {
+            $this->info('-- Fetch data update');
+            $updater->fetchDataUpdate();
+            $this->info('-- Download update file');
+            $updater->downloadUpdateFile();
+            $this->info('-- Unzip file');
+            $updater->unzipFile();
+            $this->info('-- Backup old version');
+            $updater->backupOldVersion();
+            $this->info('-- Update files and folders');
+            $updater->updateFileAndFolder();
+            $this->info('-- Finish');
+            $updater->finish();
+        } catch (\Throwable $e) {
+            $updater->rollBack();
+            throw $e;
+        }
+
+        return self::SUCCESS;
+    }
+}

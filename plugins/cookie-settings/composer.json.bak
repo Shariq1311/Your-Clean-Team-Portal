@@ -1,0 +1,34 @@
+{
+    "name": "mojahid/cookie-settings",
+    "description": "A comprehensive cookie consent and settings plugin for Laravel CMS with GDPR/CCPA compliance features",
+    "type": "cms-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mojahid",
+            "email": "info@mojahid.com"
+        }
+    ],
+    "extra": {
+        "mojar": {
+            "name": "Cookie System",
+            "domain": "cookie",
+            "cms_min": "1.0.0",
+            "version": "1.0.0",
+            "providers": [
+                "Mojahid\\CookieSettings\\Providers\\CookieServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "php": "^8.1",
+        "laravel/framework": "^9.0|^10.0|^11.0" 
+    },
+    "autoload": {
+        "psr-4": {
+            "Mojahid\\CookieSettings\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+} 

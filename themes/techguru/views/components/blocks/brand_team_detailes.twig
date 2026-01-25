@@ -1,0 +1,79 @@
+<!-- Sliding Text Two Start -->
+<div class="sliding-text-two__wrap">
+    <ul class="sliding-text-two__list list-unstyled {{ data.marquee_class|default('marquee_mode-2') }}">
+        {% if data.sliding_items %}
+            {% set items = data.sliding_items %}
+            {% if data.auto_repeat and items|length < data.min_items|default(12)|number_format %}
+                {% set repeat_count = (data.min_items|default(12)|number_format / items|length)|round(0, 'ceil') %}
+                {% set repeated_items = [] %}
+                {% for i in 1..repeat_count %}
+                    {% for item in items %}
+                        {% set repeated_items = repeated_items|merge([item]) %}
+                    {% endfor %}
+                {% endfor %}
+                {% set items = repeated_items|slice(0, data.min_items|default(12)|number_format) %}
+            {% endif %}
+            
+            {% for item in items %}
+                <li>
+                    <h2 data-hover="{{ item.hover_text|default(item.title) }}" class="sliding-text-two__title">{{ item.title }}</h2>
+                </li>
+            {% endfor %}
+        {% else %}
+            <li>
+                <h2 data-hover="Branding" class="sliding-text-two__title">Branding</h2>
+            </li>
+            <li>
+                <h2 data-hover="Web Design" class="sliding-text-two__title">Web Design</h2>
+            </li>
+            <li>
+                <h2 data-hover="Promotion" class="sliding-text-two__title">Promotion</h2>
+            </li>
+            <li>
+                <h2 data-hover="Branding" class="sliding-text-two__title">Branding</h2>
+            </li>
+            <li>
+                <h2 data-hover="Promotion" class="sliding-text-two__title">Promotion</h2>
+            </li>
+            <li>
+                <h2 data-hover="Branding" class="sliding-text-two__title">Branding</h2>
+            </li>
+            <li>
+                <h2 data-hover="Web Design" class="sliding-text-two__title">Web Design</h2>
+            </li>
+            <li>
+                <h2 data-hover="Promotion" class="sliding-text-two__title">Promotion</h2>
+            </li>
+            <li>
+                <h2 data-hover="Branding" class="sliding-text-two__title">Branding</h2>
+            </li>
+            <li>
+                <h2 data-hover="Promotion" class="sliding-text-two__title">Promotion</h2>
+            </li>
+            <li>
+                <h2 data-hover="Branding" class="sliding-text-two__title">Branding</h2>
+            </li>
+            <li>
+                <h2 data-hover="Web Design" class="sliding-text-two__title">Web Design</h2>
+            </li>
+        {% endif %}
+    </ul>
+</div>
+<!-- Sliding Text Two End -->
+
+{% if data.enable_animation %}
+<script>
+    $(document).ready(function() {
+        if ($('.{{ data.marquee_class|default('marquee_mode-2') }}').length) {
+            $('.{{ data.marquee_class|default('marquee_mode-2') }}').marquee({
+                duration: {{ data.scroll_speed|default(100) }},
+                gap: 0,
+                delayBeforeStart: 0,
+                direction: 'left',
+                duplicated: true,
+                startVisible: true
+            });
+        }
+    });
+</script>
+{% endif %} 

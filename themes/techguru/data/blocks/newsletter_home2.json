@@ -1,0 +1,98 @@
+{
+    "label": "Newsletter Home 2",
+    "description": "Newsletter subscription form with background shapes and image",
+    "form": [
+        {
+            "type": "image",
+            "name": "shape_bg",
+            "label": "Background Shape Image",
+            "data": {
+                "value": "images/shapes/newsletter-one-shape-bg.png"
+            }
+        },
+        {
+            "type": "image",
+            "name": "shape_1",
+            "label": "Shape Image 1",
+            "description": "Floating shape image with bob-x animation",
+            "data": {
+                "value": "images/shapes/newsletter-one-shape-1.png"
+            }
+        },
+        {
+            "type": "image",
+            "name": "newsletter_image",
+            "label": "Newsletter Image",
+            "description": "Main image with bob-y animation",
+            "data": {
+                "value": "images/resources/newsletter-one-img-1.png"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part1",
+            "label": "Title Part 1",
+            "data": {
+                "value": "Subscribe"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part2",
+            "label": "Title Part 2 (Highlighted)",
+            "data": {
+                "value": "Newsletter"
+            }
+        },
+        {
+            "type": "textarea",
+            "name": "description_line1",
+            "label": "Description Line 1",
+            "data": {
+                "value": "From personalized solutions to expert execution, we prioritize quality,"
+            }
+        },
+        {
+            "type": "textarea",
+            "name": "description_line2",
+            "label": "Description Line 2",
+            "data": {
+                "value": "reliability, and customer satisfaction"
+            }
+        },
+        {
+            "type": "text",
+            "name": "placeholder",
+            "label": "Email Placeholder Text",
+            "data": {
+                "value": "Enter email address"
+            }
+        },
+        {
+            "type": "text",
+            "name": "button_text",
+            "label": "Button Text",
+            "data": {
+                "value": "Subscribe Now"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "show_success_message",
+            "label": "Show Success Message",
+            "description": "Show success message after form submission",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "show_error_message",
+            "label": "Show Error Message",
+            "description": "Show error message if form submission fails",
+            "data": {
+                "value": 1
+            }
+        }
+    ]
+}

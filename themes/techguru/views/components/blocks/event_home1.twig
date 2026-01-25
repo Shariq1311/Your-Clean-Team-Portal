@@ -1,0 +1,143 @@
+<section class="event-one">
+    <div class="event-one__shape-1 float-bob-y">
+        {% if data.shape_1 %}
+            <img src="{{ upload_url(data.shape_1) }}" alt="shape">
+        {% else %}
+            <img src="{{ asset('images/shapes/event-one-shape-1.png') }}" alt="shape">
+        {% endif %}
+    </div>
+    <div class="event-one__shape-2 float-bob-x">
+        {% if data.shape_2 %}
+            <img src="{{ upload_url(data.shape_2) }}" alt="shape">
+        {% else %}
+            <img src="{{ asset('images/shapes/event-one-shape-2.png') }}" alt="shape">
+        {% endif %}
+    </div>
+    <div class="event-one__shape-3"></div>
+    <div class="event-one__shape-4"></div>
+    <div class="event-one__shape-2"></div>
+    <div class="container">
+        <div class="event-one__top">
+            <div class="section-title text-left sec-title-animation {% if data.enable_animation %}animation-style2{% endif %}">
+                <div class="section-title__tagline-box">
+                    <div class="section-title__tagline-shape-1"></div>
+                    <span class="section-title__tagline">{{ data.section_tagline|default('Upcoming Events') }}</span>
+                    <div class="section-title__tagline-shape-2"></div>
+                </div>
+                <h2 class="section-title__title {% if data.enable_animation %}title-animation{% endif %}">{{ data.section_title_1|default('Exciting Events') }} <span>{{ data.section_title_2|default('on the') }}
+                </span> <span>{{ data.section_title_3|default('Horizon') }}</span></h2>
+            </div>
+            <div class="event-one__top-btn-box">
+                <a href="{{ data.contact_btn_url|default('javascript:void(0)') }}" class="thm-btn">{{ data.contact_btn_text|default('Contact Us') }}<span class="icon-right-arrow"></span></a>
+            </div>
+        </div>
+        <div class="event-one__bottom">
+            <div class="row">
+                <div class="col-xl-5">
+                    <div class="event-one__left {% if data.enable_animation %}wow slideInLeft{% endif %}" {% if data.enable_animation %}data-wow-delay="100ms" data-wow-duration="2500ms"{% endif %}>
+                        <div class="event-one__img">
+                            {% if data.event_image %}
+                                <img src="{{ upload_url(data.event_image) }}" alt="event image">
+                            {% else %}
+                                <img src="{{ asset('images/resources/event-one-img-1.jpg') }}" alt="event image">
+                            {% endif %}
+                            {% if data.enable_video_popup and data.video_url %}
+                                <div class="event-one__video-link">
+                                    <a href="{{ data.video_url }}" class="video-popup">
+                                        <div class="event-one__video-icon">
+                                            <span class="fa fa-play"></span>
+                                            <i class="ripple"></i>
+                                        </div>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-7">
+                    <div class="event-one__right">
+                        {% if data.events %}
+                            {% for event in data.events %}
+                                <!-- Event One Single Start -->
+                                <div class="event-one__single {% if data.enable_animation %}wow {{ event.animation_direction|default('fadeInLeft') }}{% endif %}" {% if data.enable_animation %}data-wow-delay="{{ event.animation_delay|default(100) }}ms"{% endif %}>
+                                    <div class="event-one__title-and-countdown-box">
+                                        <div class="event-one__title">
+                                            <h5><a href="{{ event.book_btn_url|default('javascript:void(0)') }}">{{ event.title }}</a></h5>
+                                            <p>{{ event.description }}</p>
+                                        </div>
+                                        <div class="event-one__countdown-box">
+                                            <div class="timer-box clearfix">
+                                                <div class="countdown-timer">
+                                                    <div class="default-coundown">
+                                                        <div class="default-coundown-box">
+                                                            <div class="countdown event-one-countdown"
+                                                                data-countdown-time="{{ event.countdown_date|default('2025/05/28') }}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="event-one__meta-and-btn-box">
+                                        <ul class="event-one__meta list-unstyled">
+                                            <li>
+                                                <a href="javascript:void(0)"><span class="icon-pin"></span>{{ event.location }}</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0)"><span class="icon-calendar"></span>{{ event.date }}</a>
+                                            </li>
+                                        </ul>
+                                        <div class="event-one__btn-box">
+                                            <a href="{{ event.book_btn_url|default('javascript:void(0)') }}" class="event-one__btn">{{ event.book_btn_text|default('Book Seat') }}<span
+                                                    class="icon-right-arrow"></span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Event One Single End -->
+                            {% endfor %}
+                        {% else %}
+                            <div class="event-one__single">
+                                <div class="event-one__title-and-countdown-box">
+                                    <div class="event-one__title">
+                                        <h5>No events found</h5>
+                                        <p>Please add events in the block settings</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function() {
+        // Initialize video popup
+        {% if data.enable_video_popup %}
+        if ($('.video-popup').length) {
+            $('.video-popup').magnificPopup({
+                type: 'iframe',
+                mainClass: 'mfp-fade',
+                removalDelay: 160,
+                preloader: true,
+                fixedContentPos: false
+            });
+        }
+        {% endif %}
+
+        // Initialize countdown timer
+        if ($('.event-one-countdown').length) {
+            $('.event-one-countdown').each(function () {
+                var Self = $(this);
+                var countDate = Self.data('countdown-time'); // getting date
+
+                Self.countdown(countDate, function (event) {
+                    $(this).html('<li> <div class="box"> <span class="days">' + event.strftime('%D') + '</span> <span class="timeRef">days</span> </div> </li> <li> <div class="box"> <span class="hours">' + event.strftime('%H') + '</span> <span class="timeRef clr-1">hrs</span> </div> </li> <li> <div class="box"> <span class="minutes">' + event.strftime('%M') + '</span> <span class="timeRef clr-2">mins</span> </div> </li> <li> <div class="box"> <span class="seconds">' + event.strftime('%S') + '</span> <span class="timeRef clr-3">secs</span> </div> </li>');
+                });
+            });
+        }
+    });
+</script> 

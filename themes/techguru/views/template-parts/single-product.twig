@@ -1,0 +1,507 @@
+{% extends 'cms::layouts.frontend' %}
+
+{% block content %}
+
+{% include 'theme::components.breadcrumb' with {
+        is_dynamic: true,
+        post: post
+    }
+%}
+
+{% set reviews = ecom_get_reviews(post, 10) %}
+{% set related_products = get_related_posts(post, 3) %}
+<section class="product-details">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-xl-6">
+                <div class="product-details__left">
+                    <div class="product-details__left-inner">
+                        <div class="product-details__content-box">
+                            <div class="swiper-container" id="shop-details-one__carousel">
+                                <div class="swiper-wrapper">
+                                {% for image in post.metas.images %}
+                                    <div class="swiper-slide">
+                                        <div class="product-details__img">
+                                            <img src="{{ upload_url(image) }}" alt="{{ post.title }}">
+                                        </div>
+                                    </div><!-- /.swiper-slide -->
+                                {% endfor %}
+                                </div>
+                            </div>
+                            <div class="product-details__nav">
+                                <div class="swiper-button-prev" id="product-details__swiper-button-prev">
+                                    <i class="icon-left-arrow"></i>
+                                </div>
+                                <div class="swiper-button-next" id="product-details__swiper-button-next">
+                                    <i class="icon-right-arrow"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-details__thumb-box">
+                            <div class="swiper-container" id="shop-details-one__thumb">
+                                <div class="swiper-wrapper">
+                                {% for image in post.metas.images %}
+                                    <div class="swiper-slide">
+                                        <div class="product-details__thumb-img">
+                                            <img src="{{ upload_url(image) }}" alt="{{ post.title }}">
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-xl-6">
+                <div class="product-details__right">
+                    <div class="product-details__top">
+                        <h3 class="product-details__title">
+                            {{ post.title }} <span>{{ ecom_price_with_unit(post.metas.price) }}</span>
+                        </h3>
+                    </div>
+                    <div class="product-details__reveiw">
+                        <i class="icon-pointed-star"></i>
+                        <i class="icon-pointed-star"></i>
+                        <i class="icon-pointed-star"></i>
+                        <i class="icon-pointed-star"></i>
+                        <i class="icon-pointed-star"></i>
+                        <span>{{ reviews.count }} {{ __('customer reviews') }}</span>
+                    </div>
+                    <div class="product-details__content">
+                        <p class="product-details__content-text1">
+                            {{ post.metas.short_description | raw }}
+                        </p>
+                        <p class="product-details__content-text2">
+                           {{ __('SKU : ') }} {{ post.metas.sku_code }} <br>
+                            {{ __('Available in store : ') }} {{ post.metas.quantity }}
+                        </p>
+                    </div>
+                    <div class="product-details__select d-none">
+                        <div class="product-details__select-size">
+                            <h3>{{ __('Size') }}:</h3>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <input type="radio" id="size1" name="rating" checked="checked">
+                                    <label for="size1">
+                                        <i></i>
+                                        <span>XXL</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="size2" name="rating">
+                                    <label for="size2">
+                                        <i></i>
+                                        <span>XL</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="size3" name="rating">
+                                    <label for="size3">
+                                        <i></i>
+                                        <span>XS</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="size4" name="rating">
+                                    <label for="size4">
+                                        <i></i>
+                                        <span>M</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="size5" name="rating">
+                                    <label for="size5">
+                                        <i></i>
+                                        <span>L</span>
+                                    </label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="size6" name="rating">
+                                    <label for="size6">
+                                        <i></i>
+                                        <span>S</span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="product-details__inner">
+                        <div class="product-details__quantity">
+                            <h3 class="product-details__quantity-title">{{ __('Quantity') }}</h3>
+                            <div class="quantity-box">
+                                    <button type="button" class="sub" onclick="updateProductQuantity(-1)"><i class="fa fa-minus"></i></button>
+                                    <input type="number" id="product-quantity" value="1" min="1" onchange="updateCartButtonQuantity()" />
+                                    <button type="button" class="add" onclick="updateProductQuantity(1)"><i class="fa fa-plus"></i></button>
+                            </div>
+                        </div>
+                        <div class="product-details__buttons-boxes">
+                            <div class="product-details__buttons-1">
+                                    {% if ecom_wishlist_has_item(post.id, 'products') %}
+                                        <a href="javascript:void(0)" class="thm-btn btn-add-to-wishlist in-wishlist" 
+                                           data-id="{{ post.id }}" 
+                                           data-type="products">
+                                            <i class="fas fa-heart"></i> {{ __('In Wishlist') }}<span class="icon-right-arrow"></span>
+                                        </a>
+                                    {% else %}
+                                        <a href="javascript:void(0)" class="thm-btn btn-add-to-wishlist" 
+                                           data-id="{{ post.id }}" 
+                                           data-type="products">
+                                            <i class="far fa-heart"></i> {{ __('Add to Wishlist') }}<span class="icon-right-arrow"></span>
+                                </a>
+                                    {% endif %}
+                            </div>
+                            <div class="product-details__buttons-2">
+                                    <a href="javascript:void(0)" class="thm-btn btn-add-to-cart" 
+                                       data-id="{{ post.id }}" 
+                                       data-type="products" 
+                                       data-qty="1">{{ __('Add to Cart') }}<span class="icon-right-arrow"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-details__social">
+                        <div class="title">
+                            <h3>{{ __('Share with friends') }}:</h3>
+                        </div>
+                        <div class="product-details__social-link">
+                            <a href="https://www.facebook.com/sharer.php?u={{ url().current()|url_encode }}" target="_blank" rel="noopener">
+                                    <span class="icon-facebook"></span>
+                                </a>
+                                <a href="https://twitter.com/intent/tweet?url={{ url().current()|url_encode }}&text={{ post.title|url_encode }}" target="_blank" rel="noopener">
+                                    <span class="icon-twitter"></span>
+                                </a> 
+                                <a href="https://www.reddit.com/submit?url={{ url().current()|url_encode }}&title={{ post.title|url_encode }}" target="_blank" rel="noopener">
+                                    <span class="icon-reddit"></span>
+                                </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="product-description">
+    <div class="container">
+        <div class="product-details__description">
+            <div class="product-details__main-tab-box tabs-box">
+                <ul class="tab-buttons clearfix list-unstyled">
+                    {% if post.description %}
+                    <li data-tab="#description" class="tab-btn active-btn"><span>{{ __('Description') }}</span></li>
+                    {% endif %}
+                    {% if post.metas.additional_information %}
+                    <li data-tab="#additional-information" class="tab-btn"><span>{{ __('Additional information') }}</span></li>
+                    {% endif %}
+                    <li data-tab="#reviews" class="tab-btn"><span>{{ __('Reviews') }} ({{ reviews.count }})</span></li>   
+                </ul>
+                <div class="tabs-content">
+                    <!--tab-->
+                    {% if post.description %}
+                    <div class="tab active-tab" id="description">
+                        <div class="product-details__tab-content-inner">
+                            <div class="product-details__description-content">
+                                <p class="product-details__description-text-1">
+                                    {{ post.content | raw }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if post.metas.additional_information %}
+                    <!--tab-->
+                    <div class="tab " id="additional-information">
+                        <div class="product-details__tab-content-inner">
+                            <div class="product-details__additional-information-content">
+                                <p class="product-details__additional-information-text-1">
+                                    {{ post.metas.additional_information | raw }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <!--tab-->
+                    <div class="tab " id="reviews">
+                        <div class="product-details__tab-content-inner">
+                         
+                        <div class="review-one">
+                            <div class="comments-area">
+                                <div class="review-one__title">
+                                    <h3>{{ reviews.count }} {{ __('Reviews') }}</h3>
+                                </div>
+                                {% if reviews.count > 0 %}
+                                    {% for review in reviews %}
+                                        <div class="comment-box">
+                                            <div class="comment">
+                                                <div class="author-thumb">
+                                                    <figure class="thumb"><img
+                                                            src="{{ review.getAvatar() }}" alt="{{ review.getUserName() }}">
+                                                    </figure>
+                                                </div>
+
+                                                <div class="review-one__content">
+                                                    <div class="review-one__content-top">
+                                                        <div class="info">
+                                                            <h2>{{ review.getUserName() }} <span>{{ review.getCreatedDate() }}</span></h2>
+                                                        </div>
+                                                        <div class="reply-btn">
+                                                            {% for i in 1..5 %}
+                                                                {% if i <= review.getRating() %}
+                                                                    <i class="fas fa-star"></i>
+                                                                {% else %}
+                                                                    <i class="far fa-star"></i>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="review-one__content-bottom">
+                                                        <p>{{ review.content }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="no-reviews text-center p-4 bg-light rounded" style="background: linear-gradient(270deg, #FA5674 0%, #6065D4 100%); color:rgb(255, 255, 255)">
+                                        <div class="mb-2">
+                                            <i class="fas fa-comment-alt fa-3x text-muted"></i>
+                                        </div>
+                                        <h5>{{ __('No reviews') }}</h5> 
+                                        <p style="color:linear-gradient(270deg, #5CB0E9 0%, #3D72FC 100%)">{{ __('Be the first to review this product') }}</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                            <!--Start Review Form-->
+                             {% if auth %}
+                            <div class="review-form-one">
+                                <div class="review-form-one__inner">
+                                    <h3 class="review-form-one__title">{{ __('Add a review') }}</h3>
+                                    <div class="review-form-one__rate-box">
+                                        <p class="review-form-one__rate-text">{{ __('Rate this product?') }}</p>
+                                        <div class="review-form-one__rate">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <form action="{{ route('ecomm.products.review', {'slug': post.slug}) }}" method="post" 
+                                        class="review-form-one__form contact-form-validated"
+                                        novalidate="novalidate">
+                                        {{ csrf_field() }}
+                                        <div class="row">
+                                            <div class="col-xl-12">
+                                                <div class="review-form-one__input-box text-message-box">
+                                                    <textarea name="content"
+                                                        placeholder="{{ __('Write a comment') }}"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-4 col-lg-4">
+                                                <div class="review-form-one__input-box">
+                                                    <input type="text" placeholder="{{ __('Your name') }}" name="name">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-lg-4">
+                                                <div class="review-form-one__input-box">
+                                                    <input type="email" placeholder="{{ __('Email address') }}"
+                                                        name="email">
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-lg-4">
+                                                <div class="product__showing-sort">
+                                                    <div class="select-box single-product">
+                                                        <select class="wide" name="rating" required>
+                                                            <option value="1">{{ __('1') }}</option>
+                                                            <option value="2">{{ __('2') }}</option>
+                                                            <option value="3">{{ __('3') }}</option>
+                                                            <option value="4">{{ __('4') }}</option>
+                                                            <option value="5">{{ __('5') }}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-12">
+                                                <button type="submit"
+                                                    class="thm-btn review-form-one__btn">{{ __('Submit a review') }} <span class="icon-right-arrow"></span></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="result"></div>
+                                </div>
+                            </div>
+                             {% else %}
+                                <div class="alert alert-info mt-4" style="background: linear-gradient(270deg, #FA5674 0%, #6065D4 100%); color:rgb(255, 255, 255)">
+                                    <p>{{ __('You must be logged in to review this product') }}</p>
+                                    <a href="{{ route('login') }}" class="tf__common_btn">{{ __('Login') }}</a> 
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if related_products|length > 0 %}
+<section class="related-products">
+    <div class="container">
+        <div class="related-products__title">
+            <h3>{{ __('Related Products') }}</h3>   
+            <p>{{ __('You might also like ') }}</p>
+        </div>
+        <div class="row">
+            <div class="related-products__carousel owl-carousel owl-theme owl-dot-style1">
+                <!--Product All Single Start-->
+                {% for post in related_products %}
+                <div class="item">
+                    {{ get_template_part(post, 'product-grid-item') }}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+<script>
+    (function($) {
+    "use strict";
+    $(document).ready(function() {
+         $('select:not(.ignore)').niceSelect();
+
+        if ($(".tabs-box").length) {
+            $(".tabs-box .tab-buttons .tab-btn").on("click", function (e) {
+            e.preventDefault();
+            var target = $($(this).attr("data-tab"));
+
+            if ($(target).is(":visible")) {
+                return false;
+            } else {
+                target
+                .parents(".tabs-box")
+                .find(".tab-buttons")
+                .find(".tab-btn")
+                .removeClass("active-btn");
+                $(this).addClass("active-btn");
+                target
+                .parents(".tabs-box")
+                .find(".tabs-content")
+                .find(".tab")
+                .fadeOut(0);
+                target
+                .parents(".tabs-box")
+                .find(".tabs-content")
+                .find(".tab")
+                .removeClass("active-tab");
+                $(target).fadeIn(300);
+                $(target).addClass("active-tab");
+            }
+            });
+        }
+
+        
+        if ($("#shop-details-one__thumb").length) {
+            let productThumb = new Swiper("#shop-details-one__thumb", {
+            slidesPerView: 3,
+            spaceBetween: 0,
+            speed: 1400,
+            watchSlidesVisibility: true,
+            watchSlidesProgress: true,
+            loop: true,
+            autoplay: {
+                delay: 5000
+            }
+            });
+
+            let productCarousel = new Swiper("#shop-details-one__carousel", {
+            observer: true,
+            observeParents: true,
+            loop: true,
+            speed: 1400,
+            mousewheel: false,
+            slidesPerView: 1,
+            autoplay: {
+                delay: 5000
+            },
+            thumbs: {
+                swiper: productThumb
+            },
+            pagination: {
+                el: '#product-details__carousel-pagination',
+                type: 'bullets',
+                clickable: true
+            },
+
+            "navigation": {
+                "nextEl": "#product-details__swiper-button-next",
+                "prevEl": "#product-details__swiper-button-prev"
+            },
+            });
+        }
+    
+
+        if ($(".related-products__carousel").length) {
+            $(".related-products__carousel").owlCarousel({
+                loop: true,
+                margin: 30,
+                nav: false,
+                dots: false,
+                smartSpeed: 500,
+                autoplay: true,
+                autoplayTimeout: 2000,
+                navText: [
+                    '<span class="icon-left-arrow"></span>',
+                    '<span class="icon-right-arrow"></span>',
+                ],
+                responsive: {
+                    0: {
+                    items: 1,
+                    },
+                    768: {
+                    items: 2,
+                    },
+                    992: {
+                    items: 3,
+                    },
+                    1200: {
+                    items: 3,
+                    },
+                    1320: {
+                    items: 4,
+                    },
+                },
+            });
+        }
+
+
+
+        // Product quantity management
+        window.updateProductQuantity = function(change) {
+            const input = document.getElementById('product-quantity');
+            const currentValue = parseInt(input.value) || 1;
+            const newValue = Math.max(1, currentValue + change);
+            input.value = newValue;
+            updateCartButtonQuantity();
+        };
+
+        window.updateCartButtonQuantity = function() {
+            const quantity = document.getElementById('product-quantity').value;
+            const addToCartBtn = document.querySelector('.btn-add-to-cart');
+            if (addToCartBtn) {
+                addToCartBtn.dataset.qty = quantity;
+            }
+        };
+        });
+    })(jQuery);
+</script>
+
+{% endblock %}

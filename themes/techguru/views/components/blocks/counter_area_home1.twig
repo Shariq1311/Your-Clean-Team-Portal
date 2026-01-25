@@ -1,0 +1,118 @@
+<section class="counter-two">
+    <div class="counter-two__bg-shape"
+        style="background-image: url({% if data.bg_shape %}{{ upload_url(data.bg_shape) }}{% else %}{{ asset('images/shapes/counter-two-bg-shape.png') }}{% endif %});">
+    </div>
+    <div class="container">
+        <div class="row">
+            {% if data.counters %}
+                {% for counter in data.counters %}
+                    <!--Counter Two Single Start-->
+                    <div class="col-xl-3 col-lg-6 col-md-6">
+                        <div class="counter-two__single">
+                            <div class="counter-two__icon-inner">
+                                <div class="counter-two__icon">
+                                    <span class="{{ counter.icon }}"></span>
+                                </div>
+                            </div>
+                            <div class="counter-two__content">
+                                <div class="counter-two__count-box">
+                                    <h3 class="odometer" data-count="{{ counter.count }}">00</h3>
+                                    <span>{{ counter.suffix }}</span>
+                                </div>
+                                <p class="counter-two__text">{{ counter.text }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Counter Two Single End-->
+                {% endfor %}
+            {% else %}
+                <!--Counter Two Single Start (Default)-->
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <div class="counter-two__single">
+                        <div class="counter-two__icon-inner">
+                            <div class="counter-two__icon">
+                                <span class="icon-trophy"></span>
+                            </div>
+                        </div>
+                        <div class="counter-two__content">
+                            <div class="counter-two__count-box">
+                                <h3 class="odometer" data-count="120">00</h3>
+                                <span>+</span>
+                            </div>
+                            <p class="counter-two__text">Creative Plus award</p>
+                        </div>
+                    </div>
+                </div>
+                <!--Counter Two Single End-->
+                <!--Counter Two Single Start (Default)-->
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <div class="counter-two__single">
+                        <div class="counter-two__icon-inner">
+                            <div class="counter-two__icon">
+                                <span class="icon-user"></span>
+                            </div>
+                        </div>
+                        <div class="counter-two__content">
+                            <div class="counter-two__count-box">
+                                <h3 class="odometer" data-count="300">00</h3>
+                                <span>+</span>
+                            </div>
+                            <p class="counter-two__text">Expert Team Members</p>
+                        </div>
+                    </div>
+                </div>
+                <!--Counter Two Single End-->
+                <!--Counter Two Single Start (Default)-->
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <div class="counter-two__single">
+                        <div class="counter-two__icon-inner">
+                            <div class="counter-two__icon">
+                                <span class="icon-chat"></span>
+                            </div>
+                        </div>
+                        <div class="counter-two__content">
+                            <div class="counter-two__count-box">
+                                <h3 class="odometer" data-count="20">00</h3>
+                                <span>M</span>
+                            </div>
+                            <p class="counter-two__text">Happy Clients Review</p>
+                        </div>
+                    </div>
+                </div>
+                <!--Counter Two Single End-->
+                <!--Counter Two Single Start (Default)-->
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <div class="counter-two__single">
+                        <div class="counter-two__icon-inner">
+                            <div class="counter-two__icon">
+                                <span class="icon-folder"></span>
+                            </div>
+                        </div>
+                        <div class="counter-two__content">
+                            <div class="counter-two__count-box">
+                                <h3 class="odometer" data-count="1.5">00</h3>
+                                <span>K</span>
+                            </div>
+                            <p class="counter-two__text">Project Completed</p>
+                        </div>
+                    </div>
+                </div>
+                <!--Counter Two Single End-->
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function() {
+        if ($(".odometer").length) {
+            var odo = $(".odometer");
+            odo.each(function () {
+                $(this).appear(function () {
+                    var countNumber = $(this).attr("data-count");
+                    $(this).html(countNumber);
+                });
+            });
+        }
+    });
+</script> 

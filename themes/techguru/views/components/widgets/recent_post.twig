@@ -1,0 +1,27 @@
+{% set posts = get_posts(data.post_type|default('posts'), {
+    'limit': data.number_posts|default(3),
+}) %}
+
+<div class="sidebar__single sidebar__post">
+    <div class="sidebar__title-box">
+        <div class="sidebar__title-shape"></div>
+        <h3 class="sidebar__title">{{ data.title }} </h3>
+    </div>
+    <ul class="sidebar__post-list list-unstyled">
+    {% for post in posts %}
+        <li>
+            <div class="sidebar__post-image">
+                <img src="{{ post.thumbnail }}" alt="{{ post.title }}"> 
+            </div>
+            <div class="sidebar__post-content">
+                <p class="sidebar__post-date"><span class="icon-calendar"></span> {{ post.created_at|date('F d, Y') }}</p>
+                <h3 class="sidebar__post-title"><a href="{{ post.url }}">{{ post.title }}</a></h3>
+            </div>
+        </li>
+        {% else %}
+        <div class="single-post">
+          <p>No recent posts found</p>
+        </div>
+      {% endfor %}
+    </ul>
+</div>

@@ -1,0 +1,100 @@
+<section class="feature-one">
+    <div class="feature-one__shape-1"></div>
+    <div class="feature-one__shape-2 float-bob-y">
+        {% if data.shape_2 %}
+            <img src="{{ upload_url(data.shape_2) }}" alt="shape">
+        {% else %}
+            <img src="{{ asset('images/shapes/feature-one-shape-2.png') }}" alt="shape">
+        {% endif %}
+    </div>
+    <div class="container">
+        <div class="row">
+            {% if data.use_services_post_type %}
+                {% set ids_array = data.service_ids ? data.service_ids|split(',') : [] %}
+                {% set services = get_posts('services', {
+                    'limit': data.items_limit|default(3),
+                    'taxonomy': data.services_category,
+                    'ids': ids_array,
+                    'orderby': data.orderby|default('date'),
+                    'order': data.order|default('DESC')
+                }) %}
+                
+                {% if services %}
+                    {% for service in services %}
+                        <!--Feature One Single Start -->
+                        <div class="col-xl-4 col-lg-4 {% if data.enable_animation %}wow fadeInUp{% endif %}" {% if data.enable_animation %}data-wow-delay="{{ loop.index0 * 200 + 100 }}ms"{% endif %}>
+                            <div class="feature-one__single">
+                                <div class="feature-one__img">
+                                    {% if service.metas.feature_image %}
+                                        <img src="{{ upload_url(service.metas.feature_image) }}" alt="{{ service.title }}">
+                                    {% elseif service.thumbnail %}
+                                        <img src="{{ upload_url(service.thumbnail) }}" alt="{{ service.title }}">
+                                    {% else %}
+                                        <img src="{{ asset('images/resources/feature-one-img-1-' ~ loop.index ~ '.png') }}" alt="{{ service.title }}">
+                                    {% endif %}
+                                </div>
+                                <h3 class="feature-one__title"><a href="{{ service.url }}">{{ service.title }}</a></h3>
+                                <p class="feature-one__text">{{ service.description|striptags|slice(0, 120) ~ '...' }}</p>
+                            </div>
+                        </div>
+                        <!--Feature One Single End -->
+                    {% endfor %}
+                {% endif %}
+            {% else %}
+                {% if data.features %}
+                    {% for feature in data.features %}
+                        <!--Feature One Single Start -->
+                        <div class="col-xl-4 col-lg-4 {% if data.enable_animation %}wow fadeInUp{% endif %}" {% if data.enable_animation %}data-wow-delay="{{ feature.animation_delay|default(loop.index0 * 200 + 100) }}ms"{% endif %}>
+                            <div class="feature-one__single">
+                                <div class="feature-one__img">
+                                    {% if feature.image %}
+                                        <img src="{{ upload_url(feature.image) }}" alt="{{ feature.title }}">
+                                    {% else %}
+                                        <img src="{{ asset('images/resources/feature-one-img-1-' ~ loop.index ~ '.png') }}" alt="{{ feature.title }}">
+                                    {% endif %}
+                                </div>
+                                <h3 class="feature-one__title"><a href="{{ feature.url|default('javascript:void(0)') }}">{{ feature.title }}</a></h3>
+                                <p class="feature-one__text">{{ feature.description }}</p>
+                            </div>
+                        </div>
+                        <!--Feature One Single End -->
+                    {% endfor %}
+                {% else %}
+                    <!--Feature One Single Start -->
+                    <div class="col-xl-4 col-lg-4 {% if data.enable_animation %}wow fadeInUp{% endif %}" {% if data.enable_animation %}data-wow-delay="100ms"{% endif %}>
+                        <div class="feature-one__single">
+                            <div class="feature-one__img">
+                                <img src="{{ asset('images/resources/feature-one-img-1-1.png') }}" alt="">
+                            </div>
+                            <h3 class="feature-one__title"><a href="data-protection-privacy.html">Security Services</a></h3>
+                            <p class="feature-one__text">Innovating and empowering businesses with tailored solutions for success and growth. Innovating and empowering</p>
+                        </div>
+                    </div>
+                    <!--Feature One Single End -->
+                    <!--Feature One Single Start -->
+                    <div class="col-xl-4 col-lg-4 {% if data.enable_animation %}wow fadeInUp{% endif %}" {% if data.enable_animation %}data-wow-delay="300ms"{% endif %}>
+                        <div class="feature-one__single">
+                            <div class="feature-one__img">
+                                <img src="{{ asset('images/resources/feature-one-img-1-2.png') }}" alt="">
+                            </div>
+                            <h3 class="feature-one__title"><a href="data-protection-privacy.html">Data Privacy</a></h3>
+                            <p class="feature-one__text">Innovating and empowering businesses with tailored solutions for success and growth. Innovating and empowering</p>
+                        </div>
+                    </div>
+                    <!--Feature One Single End -->
+                    <!--Feature One Single Start -->
+                    <div class="col-xl-4 col-lg-4 {% if data.enable_animation %}wow fadeInUp{% endif %}" {% if data.enable_animation %}data-wow-delay="500ms"{% endif %}>
+                        <div class="feature-one__single">
+                            <div class="feature-one__img">
+                                <img src="{{ asset('images/resources/feature-one-img-1-3.png') }}" alt="">
+                            </div>
+                            <h3 class="feature-one__title"><a href="backup-recovery.html">Industry Certified</a></h3>
+                            <p class="feature-one__text">Innovating and empowering businesses with tailored solutions for success and growth. Innovating and empowering</p>
+                        </div>
+                    </div>
+                    <!--Feature One Single End -->
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</section> 

@@ -1,0 +1,143 @@
+{
+    "label": "Blogs Area Home 1",
+    "description": "Display blog posts in a two-column layout with featured post and list of recent posts",
+    "form": [
+        {
+            "type": "text",
+            "name": "section_tagline",
+            "label": "Section Tagline",
+            "data": {
+                "value": "Our Blogs"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_1",
+            "label": "Section Title Part 1",
+            "data": {
+                "value": "Explore Our Latest"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_2",
+            "label": "Section Title Part 2 (Span)",
+            "data": {
+                "value": "Blogs for Expert Insights"
+            }
+        },
+        {
+            "type": "textarea",
+            "name": "section_description",
+            "label": "Section Description",
+            "data": {
+                "value": "Dive into our collection of blogs where we share expert insights, helpful tips, and the latest trends in the industry"
+            }
+        },
+        {
+            "type": "text",
+            "name": "view_all_text",
+            "label": "View All Button Text",
+            "data": {
+                "value": "View All Blogs"
+            }
+        },
+        {
+            "type": "text",
+            "name": "view_all_url",
+            "label": "View All Button URL",
+            "data": {
+                "value": "blog-details.html"
+            }
+        },
+        {
+            "type": "text",
+            "name": "read_more_text",
+            "label": "Read More Button Text",
+            "data": {
+                "value": "Reed More"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "show_featured_post",
+            "label": "Show Featured Post",
+            "description": "Display a featured post in the left column",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "featured_post_id",
+            "label": "Featured Post ID",
+            "description": "ID of the post to display as featured (leave empty to use latest post)",
+            "data": {
+                "value": ""
+            }
+        },
+        {
+            "type": "text",
+            "name": "posts_limit",
+            "label": "Number of Posts",
+            "description": "Maximum number of posts to display in the right column",
+            "data": {
+                "value": "3"
+            }
+        },
+        {
+            "type": "text",
+            "name": "category_ids",
+            "label": "Category IDs",
+            "description": "Enter specific category IDs to filter posts (comma-separated)",
+            "data": {
+                "value": ""
+            }
+        },
+        {
+            "type": "text",
+            "name": "tag_ids",
+            "label": "Tag IDs",
+            "description": "Enter specific tag IDs to filter posts (comma-separated)",
+            "data": {
+                "value": ""
+            }
+        },
+        {
+            "type": "select",
+            "name": "orderby",
+            "label": "Order By",
+            "data": {
+                "options": {
+                    "date": "Date",
+                    "title": "Title",
+                    "views": "Views",
+                    "comments": "Comments Count",
+                    "rand": "Random"
+                },
+                "value": "date"
+            }
+        },
+        {
+            "type": "select",
+            "name": "order",
+            "label": "Order",
+            "data": {
+                "options": {
+                    "DESC": "Descending",
+                    "ASC": "Ascending"
+                },
+                "value": "DESC"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "description": "Enable animation effects",
+            "data": {
+                "value": 1
+            }
+        }
+    ]
+}

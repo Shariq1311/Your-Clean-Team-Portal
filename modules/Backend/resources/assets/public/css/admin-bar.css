@@ -1,0 +1,238 @@
+.mc-speed-dial {
+    position: fixed;
+    bottom: 8rem;
+    right: 8rem;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: move;
+}
+
+/* Search input styling */
+.mc-speed-dial-search-wrapper {
+    padding: 8px;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 8px;
+}
+
+.mc-speed-dial-search {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.mc-speed-dial-search:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+/* Enhanced FAB button */
+.mc-speed-dial-toggle {
+    border: none;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    background-color: #3b82f6;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.mc-speed-dial-toggle:hover {
+    background-color: #2563eb;
+    transform: scale(1.05);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.mc-speed-dial-toggle:active {
+    transform: scale(0.95);
+}
+
+/* Enhanced menu items */
+.mc-speed-dial-actions {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    min-width: 240px;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+    background: white;
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    scrollbar-width: thin;
+}
+
+.mc-speed-dial.open .mc-speed-dial-actions {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.mc-speed-dial-item {
+    position: relative;
+    margin: 4px 8px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.mc-speed-dial-link {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    color: #374151;
+    text-decoration: none;
+    gap: 12px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.mc-speed-dial-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: #f3f4f6;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.mc-speed-dial-label {
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.mc-speed-dial-item:hover .mc-speed-dial-link {
+    background-color: #f3f4f6;
+    color: #2563eb;
+}
+
+.mc-speed-dial-item:hover .mc-speed-dial-icon {
+    background-color: #e5e7eb;
+}
+
+/* Scrollbar styling */
+.mc-speed-dial-actions::-webkit-scrollbar {
+    width: 4px;
+}
+
+.mc-speed-dial-actions::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.mc-speed-dial-actions::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 2px;
+}
+
+/* Position indicator when moving */
+.mc-speed-dial.moving {
+    opacity: 0.8;
+}
+
+.mc-speed-dial.moving::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border: 2px dashed #3b82f6;
+    border-radius: 50%;
+    animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Enhanced close button */
+.mc-close-item {
+    opacity: 0;
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    color: #9ca3af;
+    padding: 4px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.mc-speed-dial-item:hover .mc-close-item {
+    opacity: 1;
+}
+
+.mc-close-item:hover {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+/* Drag and drop visual feedback */
+.mc-speed-dial-item.dragging {
+    opacity: 0.5;
+    background-color: #f3f4f6;
+}
+
+.mc-speed-dial-item.drag-over {
+    border-top: 2px solid #3b82f6;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .mc-speed-dial-actions {
+        background: #1f2937;
+    }
+
+    .mc-speed-dial-item {
+        color: #e5e7eb;
+    }
+
+    .mc-speed-dial-item:hover {
+        background-color: #374151;
+        color: #60a5fa;
+    }
+
+    .mc-close-item {
+        color: #6b7280;
+    }
+
+    .mc-close-item:hover {
+        background-color: #991b1b;
+        color: #fecaca;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .mc-speed-dial {
+        bottom: 1.5rem;
+        right: 1.5rem;
+    }
+
+    .mc-speed-dial-actions {
+        min-width: 180px;
+    }
+
+    .mc-speed-dial-item {
+        padding: 10px;
+    }
+}

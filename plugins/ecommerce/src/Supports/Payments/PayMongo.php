@@ -1,0 +1,253 @@
+<?php
+
+/**
+ * Mojar - Laravel CMS for Your Project
+ *
+ * @package    Mojar/cms
+ * @author     Mojahid
+ * @link       https://Mojar.com/cms
+ * @license    GNU V2
+ */
+
+namespace Mojahid\Ecommerce\Supports\Payments;
+
+use Mojahid\Ecommerce\Abstracts\PaymentMethodAbstract;
+use Mojahid\Ecommerce\Contracts\Payment\PaymentMethodInterface;
+use Mojahid\Ecommerce\Models\Order;
+use Illuminate\Support\Facades\Http;
+use Exception;
+
+class PayMongo extends PaymentMethodAbstract implements PaymentMethodInterface
+{
+    public function purchase(array $params): PaymentMethodInterface
+    {
+        try {
+            $config = $this->getConfig();
+            
+            \Log::info('PayMongo Configuration', [
+                'test_mode' => $config['is_test_mode'],
+                'has_secret_key' => !empty($config['secret_key'])
+            ]);
+
+            $amount = $params['amount'];
+            if (empty($amount) || (float)$amount <= 0) {
+                \Log::error('PayMongo Payment Error: Invalid amount', ['amount' => $amount]);
+                throw new Exception('Invalid amount. Amount must be greater than zero.');
+            }
+
+            // PayMongo only supports PHP currency for checkout sessions
+            $currency = 'PHP';
+            $amountInCentavos = $amount * 100;
+
+            // Check minimum amount for PHP (100.00 PHP minimum)
+            if ($amountInCentavos < 10000) {
+                throw new Exception('Minimum amount for PayMongo is PHP 100.00');
+            }
+
+            $requestData = [
+                'data' => [
+                    'attributes' => [
+                        'cancel_url' => $params['cancelUrl'] ?? url('/payment/cancel/paymongo'),
+                        'billing' => [
+                            'name' => $params['customer_name'] ?? 'Customer',
+                            'email' => $params['customer_email'] ?? 'customer@example.com',
+                            'phone' => $params['customer_phone'] ?? '09123456789'
+                        ],
+                        'description' => $params['description'] ?? 'Order Payment',
+                        'line_items' => [
+                            [
+                                'amount' => $amountInCentavos,
+                                'currency' => $currency,
+                                'description' => $params['description'] ?? 'Order Payment',
+                                'name' => 'Order Payment',
+                                'quantity' => 1
+                            ]
+                        ],
+                        'payment_method_types' => ['card', 'gcash', 'grab_pay', 'paymaya'],
+                        'success_url' => $params['returnUrl'] ?? url('/payment/callback/paymongo'),
+                        'statement_descriptor' => 'Order Payment',
+                        'metadata' => [
+                            'order_id' => $params['order_id'] ?? uniqid('order_'),
+                        ]
+                    ]
+                ]
+            ];
+
+            \Log::info('PayMongo Checkout Session Request', [
+                'amount' => $amount,
+                'currency' => $currency,
+                'amount_in_centavos' => $amountInCentavos
+            ]);
+
+            $response = Http::timeout(30)->withHeaders([
+                'Authorization' => 'Basic ' . base64_encode($config['secret_key'] . ':'),
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json'
+            ])->post('https://api.paymongo.com/v1/checkout_sessions', $requestData);
+
+            $responseData = $response->json();
+
+            \Log::info('PayMongo Checkout Session Response', [
+                'status' => $response->status(),
+                'success' => $response->successful(),
+                'has_checkout_url' => !empty($responseData['data']['attributes']['checkout_url'] ?? null),
+                'error_message' => $responseData['errors'][0]['detail'] ?? null
+            ]);
+
+            if ($response->successful() && !empty($responseData['data']['attributes']['checkout_url'])) {
+                $checkoutUrl = $responseData['data']['attributes']['checkout_url'];
+                
+                if (empty($checkoutUrl)) {
+                    throw new Exception('No checkout URL received from PayMongo');
+                }
+
+                $this->setSuccessful(true);
+                $this->setRedirect(true);
+                $this->setRedirectURL($checkoutUrl);
+                
+                // Store session ID for verification
+                session(['paymongo_session_id' => $responseData['data']['id']]);
+                return $this;
+            }
+
+            $errorMessage = $responseData['errors'][0]['detail'] ?? 'Checkout session creation failed';
+            
+            // Handle currency error specifically
+            if (strpos($errorMessage, 'currency') !== false || strpos($errorMessage, 'PHP') !== false) {
+                throw new Exception('PayMongo only supports Philippine Peso (PHP) currency. Please configure your store to use PHP currency.');
+            }
+            
+            throw new Exception($errorMessage);
+
+        } catch (Exception $e) {
+            \Log::error('PayMongo Payment Error', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            $this->addError($e->getMessage());
+            $this->setSuccessful(false);
+            throw $e;
+        }
+    }
+
+    public function completed(array $params): PaymentMethodInterface
+    {
+        try {
+            $config = $this->getConfig();
+
+            $sessionId = $params['session_id'] ?? session('paymongo_session_id') ?? null;
+            
+            if (empty($sessionId)) {
+                // If no session ID, check if we have an order ID for fallback
+                $orderCode = $params['order'] ?? null;
+                if (!empty($orderCode)) {
+                    $order = Order::whereCode($orderCode)->first();
+                    if ($order) {
+                        $order->payment_status = 'paid';
+                        $order->save();
+                        $this->setSuccessful(true);
+                        return $this;
+                    }
+                }
+                throw new Exception('No PayMongo session ID provided');
+            }
+
+            \Log::info('PayMongo Session Verification', [
+                'session_id' => $sessionId
+            ]);
+
+            $response = Http::timeout(30)->withHeaders([
+                'Authorization' => 'Basic ' . base64_encode($config['secret_key'] . ':'),
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json'
+            ])->get("https://api.paymongo.com/v1/checkout_sessions/{$sessionId}");
+
+            $responseData = $response->json();
+
+            \Log::info('PayMongo Session Verification Response', [
+                'status' => $response->status(),
+                'session_status' => $responseData['data']['attributes']['status'] ?? null,
+                'payment_status' => $responseData['data']['attributes']['payment_status'] ?? null
+            ]);
+
+            if ($response->successful() && isset($responseData['data']['attributes'])) {
+                $attributes = $responseData['data']['attributes'];
+                $status = $attributes['status'] ?? '';
+                $paymentStatus = $attributes['payment_status'] ?? '';
+
+                if ($status === 'active' && $paymentStatus === 'paid') {
+                    $this->setSuccessful(true);
+                    
+                    // Update order if exists
+                    if (!empty($params['order'])) {
+                        $order = Order::whereCode($params['order'])->first();
+                        if ($order) {
+                            $order->payment_status = 'paid';
+                            $order->save();
+                        }
+                    }
+                } else {
+                    $this->setSuccessful(false);
+                    $this->addError('Payment not completed. Status: ' . $status . ', Payment Status: ' . $paymentStatus);
+                }
+            } else {
+                $errorMessage = $responseData['errors'][0]['detail'] ?? 'Session verification failed';
+                $this->setSuccessful(false);
+                $this->addError($errorMessage);
+            }
+
+            return $this;
+
+        } catch (Exception $e) {
+            \Log::error('PayMongo Completion Error', [
+                'message' => $e->getMessage(),
+                'params' => $params
+            ]);
+            
+            $this->addError($e->getMessage());
+            $this->setSuccessful(false);
+            throw $e;
+        }
+    }
+
+    public function isSuccessful(): bool
+    {
+        return $this->successful;
+    }
+
+    private function getConfig(): array
+    {
+        $data = is_string($this->paymentMethod->data) 
+            ? json_decode($this->paymentMethod->data, true) 
+            : $this->paymentMethod->data;
+
+        $isTestMode = ($data['mode'] ?? 'test') === 'test';
+        
+        if ($isTestMode) {
+            $secretKey = $data['test_secret_key'] ?? '';
+            $publicKey = $data['test_public_key'] ?? '';
+        } else {
+            $secretKey = $data['live_secret_key'] ?? '';
+            $publicKey = $data['live_public_key'] ?? '';
+        }
+
+        if (empty($secretKey) || empty($publicKey)) {
+            $errorMsg = 'PayMongo credentials not configured for ' . ($isTestMode ? 'test' : 'live') . ' mode';
+            \Log::error('PayMongo Config Error', ['error' => $errorMsg]);
+            throw new Exception($errorMsg);
+        }
+
+        \Log::info('Using PayMongo Credentials', [
+            'mode' => $isTestMode ? 'test' : 'live',
+            'public_key_prefix' => substr($publicKey, 0, 10),
+            'secret_key_prefix' => substr($secretKey, 0, 10)
+        ]);
+
+        return [
+            'secret_key' => $secretKey,
+            'public_key' => $publicKey,
+            'is_test_mode' => $isTestMode
+        ];
+    }
+}

@@ -1,0 +1,53 @@
+<?php
+
+/**
+ * Mojar - The Best CMS for Laravel Project
+ *
+ * @package    Mojar/cms
+ * @author     Mojar Team <admin@Mojar.com>
+ * @link       https://Mojar.com
+ * @license    MIT
+ */
+
+namespace MojarCMS\CMS\Support\Manager;
+
+use Illuminate\Support\Arr;
+use MojarCMS\Backend\Models\Post;
+use MojarCMS\Backend\Repositories\PostRepository;
+use MojarCMS\CMS\Contracts\PostManagerContract;
+
+class PostManager implements PostManagerContract
+{
+    protected PostRepository $postRepository;
+
+    public function __construct(PostRepository $postRepository)
+    {
+        $this->postRepository = $postRepository;
+    }
+
+    public function create(array $data, array $options = []): Post
+    {
+        $model = $this->postRepository->create($data);
+
+        $model->syncTaxonomies($data);
+
+        $meta = Arr::get($data, 'meta', []);
+
+        $model->syncMetas($meta);
+
+        return $model;
+    }
+
+    public function update(array $data, int $id, array $options = []): Post
+    {
+        $model = $this->postRepository->update($data, $id);
+
+        $model->syncTaxonomies($data);
+
+        if ($meta = Arr::get($data, 'meta', [])) {
+            $model->syncMetas($meta);
+        }
+
+        return $model;
+    }
+}

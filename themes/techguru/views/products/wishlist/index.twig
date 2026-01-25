@@ -1,0 +1,138 @@
+{% extends 'cms::layouts.frontend' %}
+
+{% block content %}
+
+{% set wishlist = ecom_get_wishlist() %}
+
+ {% include 'theme::components.breadcrumb' with {
+	title: 'Wishlist',
+	description: 'Your shopping Wishlist',
+	items: [
+		{'label': 'Home', 'url': '/'},
+		{'label': 'Wishlist'}
+	]
+} %}
+
+<section class="wishlist-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="wishlist-page__content" id="wishlistItems">
+                    {% if wishlist.total_items > 0 %}
+        <div class="table-responsive">
+            <table class="table wishlist-table">
+                <thead>
+                    <tr>
+                        <th>{{ __('Item') }}</th>
+                        <th>{{ __('Price') }}</th>
+                                        <th>{{ __('Stock Status') }}</th>
+                                        <th>{{ __('Action') }}</th>
+                        <th>{{ __('Remove') }}</th>
+                    </tr>
+                </thead>
+                <tbody id="wishlistItemsList">
+                                    {% for item in wishlist.items %}
+                                    <tr data-item-id="{{ item.post_id }}" data-item-type="{{ item.type|default('products') }}">
+                        <td>
+                            <div class="product-box">
+                                                <div class="img-box">
+                                                    <img src="{{ item.thumbnail }}" alt="{{ item.title }}">
+                                                </div>
+                                                <h3><a href="{{ item.url }}">{{ item.title }}</a></h3>
+                                            </div>
+                                        </td>
+                                        <td>{{ item.price_formatted }}</td>
+                                        <td>
+                                            <span class="stock-status in-stock">{{ __('In Stock') }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="wishlist-actions">
+                                                <button class="thm-btn btn-move-to-cart" 
+                                                        data-id="{{ item.post_id }}" 
+                                                        data-type="{{ item.type|default('products') }}">
+                                                    {{ __('Add to Cart') }}
+                                                    <span class="icon-right-arrow"></span>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="cross-icon remove-wishlist-item" 
+                                                 data-id="{{ item.post_id }}" 
+                                                 data-type="{{ item.type|default('products') }}">
+                                                <i class="fas fa-times"></i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="wishlist-page__actions">
+                            <div class="row">
+                                <div class="col-md-6 move-all-to-cart col-sm-12">
+                                    <button class="thm-btn btn-move-all-to-cart">
+                                        {{ __('Move All to Cart') }}
+                                        <span class="icon-right-arrow"></span>
+                                    </button>
+                                </div>
+                                <div class="col-md-6 text-right col-sm-12">
+                                    <button class="thm-btn btn-clear-wishlist">
+                                        {{ __('Clear Wishlist') }}
+                                        <span class="icon-right-arrow"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="empty-wishlist-state text-center py-5">
+                            <div class="empty-wishlist-icon mb-4">
+                                <i class="fa fa-heart fa-4x text-muted"></i>
+                            </div>
+                            <h4 class="mb-3">{{ __('Your wishlist is empty') }}</h4>
+                            <p class="mb-4">{{ __('Start adding items to your wishlist to save them for later') }}</p>
+                            <a href="/products" class="thm-btn">
+                                {{ __('Continue Shopping') }}
+                                <span class="icon-right-arrow"></span>
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {% if wishlist.total_items > 0 %}
+        <div class="product-details__social two">
+            <div class="title">
+                <h3>{{ __('Share your wishlist') }}:</h3>
+            </div>
+            <div class="product-details__social-link">
+                <a href="https://twitter.com/intent/tweet?url={{ url().current()|url_encode }}&text={{ __('Check out my wishlist')|url_encode }}" target="_blank" rel="noopener">
+                    <span class="fab fa-twitter"></span>
+                </a>
+                <a href="https://www.facebook.com/sharer.php?u={{ url().current()|url_encode }}" target="_blank" rel="noopener">
+                    <span class="fab fa-facebook"></span>
+                </a>
+                <a href="https://pinterest.com/pin/create/button/?url={{ url().current()|url_encode }}&description={{ __('My Wishlist - Check out these amazing products!')|url_encode }}" target="_blank" rel="noopener">
+                    <span class="fab fa-pinterest-p"></span>
+                </a>
+                <a href="https://www.reddit.com/submit?url={{ url().current()|url_encode }}&title={{ __('My Wishlist')|url_encode }}" target="_blank" rel="noopener">
+                    <span class="fab fa-reddit"></span>
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+
+<script>
+    $(document).ready(function() {
+        // Initialize wishlist manager functionality when DOM is ready
+        if (typeof window.WishlistManager === 'undefined') {
+            console.warn('WishlistManager not loaded');
+        }
+    });
+</script>
+
+{% endblock %}

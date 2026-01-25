@@ -1,0 +1,41 @@
+<?php
+/**
+ * Mojar CMS - Laravel CMS for Your Project
+ *
+ * @package    Mojarcms/Mojarcms
+ * @author     Mojar Team
+ * @link       https://Mojarcms.com
+ * @license    GNU V2
+ */
+
+namespace Mojahid\SupportTicket\Http\Requests\Frontend;
+
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use MojarCMS\Backend\Models\Post;
+use Mojahid\SupportTicket\Models\TicketSupportType;
+
+class SubmitTicketRequest extends FormRequest
+{
+    public function rules(): array
+    {
+        return apply_filters(
+            'sticket.tickets.submit_rules',
+            [
+                'title' => ['required'],
+                'content' => ['required'],
+                'support_type_id' => ['required', Rule::modelExists(TicketSupportType::class)],
+                'product_id' => ['nullable', Rule::modelExists(Post::class)],
+                'files' => ['nullable', 'array'],
+                'files.*' => ['required', 'file', 'max:5120', 'mimes:jpeg,jpg,png,gif,doc,pdf,xls,xlsx'],
+            ]
+        );
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'support_type_id' => __('Type'),
+        ];
+    }
+}

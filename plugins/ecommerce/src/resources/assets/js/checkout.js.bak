@@ -1,0 +1,561 @@
+window.MojarCMS = window.MojarCMS || {};
+
+(function ($) {
+    'use strict';
+
+    if (typeof $ === 'undefined') {
+        console.error('jQuery is required');
+        return;
+    }
+
+    MojarCMS.StoreCheckout = function (context, options) {
+        if (!context) {
+            console.error('Context is required');
+            return;
+        }
+
+        this.context = context;
+        this.options = options || {};
+        this.submitInProgress = false;
+        this.init();
+    };
+
+    MojarCMS.StoreCheckout.prototype = {
+        init: function () {
+            console.log('Initializing checkout...');
+            this.setupEventListeners();
+            this.initializeForm();
+        },
+
+        setupEventListeners: function () {
+            var self = this;
+
+            // Handle form submission
+            $(this.context).on('click', '.btn-checkout', function (e) {
+                e.preventDefault();
+                self.submitCheckout();
+            });
+
+            // Remove any automatic form submission
+            $(this.context).find('form').on('submit', function (e) {
+                e.preventDefault();
+                return false;
+            });
+
+            // Handle shipping address changes
+            $(this.context).on('change', '[name^="shipping_address"]', function () {
+                self.updateShipping();
+            });
+        },
+
+        initializeForm: function () {
+            var self = this;
+
+            // Initialize select2 if present
+            if ($.fn.select2) {
+                $('.filter-dropdown').select2({
+                    width: '100%'
+                });
+            }
+
+            // Calculate initial shipping
+            this.calculateShipping();
+        },
+
+        submitCheckout: function () {
+            // Prevent multiple submissions
+            if (this.submitInProgress) {
+                return;
+            }
+
+            var self = this;
+            var $form = $(this.context).find('form');
+            var $submitButton = $('.btn-checkout');
+
+            this.submitInProgress = true;
+            $submitButton.prop('disabled', true)
+                .val($submitButton.data('loading-text'));
+
+            $.ajax({
+                url: window.ecommerceConfig.routes.checkout,
+                method: 'POST',
+                data: $form.serialize(),
+                success: function (response) {
+                    if (response.redirect) {
+                        window.location.href = response.redirect;
+                    }
+                },
+                error: function (xhr) {
+                    self.submitInProgress = false;
+                    $submitButton.prop('disabled', false)
+                        .val(MojarCMS.trans('ecomm::content.order'));
+                    console.error('Checkout error:', xhr);
+                    alert(xhr.responseJSON?.message || 'An error occurred');
+                }
+            });
+        },
+
+        calculateShipping: function () {
+            var self = this;
+            var shippingMethods = this.options.shippingMethods || [];
+
+            // Safely check length
+            if (typeof shippingMethods.length === 'undefined') {
+                console.warn('shippingMethods is not an array');
+                return;
+            }
+
+            $.ajax({
+                url: window.ecommerceConfig.routes.update,
+                method: 'POST',
+                data: {
+                    _token: window.ecommerceConfig.csrf_token,
+                    action: 'calculate_shipping',
+                    shipping_address: this.getShippingAddress()
+                },
+                success: function (response) {
+                    self.updateTotals(response.data);
+                }
+            });
+        },
+
+        getShippingAddress: function () {
+            var address = {};
+            $('[name^="shipping_address"]').each(function () {
+                var key = $(this).attr('name').replace('shipping_address[', '').replace(']', '');
+                address[key] = $(this).val();
+            });
+            return address;
+        },
+
+        updateTotals: function (data) {
+            // Update totals display
+            $('.shipping-fee').text(data.shipping_fee_formatted);
+            $('.order-total').text(data.total_formatted);
+        }
+    };
+})(window.jQuery);
+
+
+(function ($) {
+    "use strict";
+
+    // Define our Checkout class that manages the checkout form submission.
+    var Checkout = function (formSelector, options) {
+        this.$form = $(formSelector);
+        this.options = options || {};
+        this.submitInProgress = false;
+        this.$ajax = null;
+        this.ajaxAbandonedTimeout = null;
+        this.init();
+    };
+
+    Checkout.prototype.init = function () {
+        var self = this;
+        // Prevent default auto submission on form submit.
+        this.$form.on('submit', function (e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Bind click event only on the checkout button.
+        this.$form.find('.btn-checkout').on('click', function (e) {
+            e.preventDefault();
+            self.returnCheckout();
+        });
+
+        // OPTIONAL: If you want to use abandonedCheckout (to save user data in case of idle time)
+        // You may set a flag so that it does not trigger on initial page load.
+        // For instance, only start abandonedCheckout after the user has interacted with the form.
+        // Here we are not auto-calling it on page load.
+    };
+
+    // This function submits the checkout form via AJAX when the user clicks the Place Order button.
+    Checkout.prototype.returnCheckout = function () {
+        var self = this;
+        var $form = this.$form;
+
+        // Validate the form; if there are errors, do not proceed.
+        $form.validator("validate");
+        if ($(".help-block.with-errors > ul").length > 0) {
+            // Form has errors; do not submit.
+            this.resetButton();
+            return;
+        }
+
+        var actionUrl = $form.attr("action");
+        var method = "POST";
+
+        this.submitInProgress = true;
+        $.ajax({
+            url: actionUrl,
+            type: method,
+            global: true,
+            data: $form.serialize()
+        })
+            .done(function (response) {
+                if (response.status == "success" && response.data.redirect) {
+                    self.showToast('success', response.message || 'Order placed successfully!');
+                    // Redirect after a short delay
+                    setTimeout(function () {
+                        window.location.href = response.data.redirect;
+                    }, 1000);
+                } else {
+                    var errorHtml = "";
+                    if (response.errors && response.errors.length > 0) {
+                        for (var i = 0; i < response.errors.length; i++) {
+                            errorHtml += "<li>" + response.errors[i] + "</li>";
+                        }
+                    } else {
+                        errorHtml += "<li>" + response.message + "</li>";
+                    }
+                    $(".sidebar__content .has-error .help-block > ul").html(errorHtml);
+                    self.resetButton();
+                }
+                self.submitInProgress = false;
+                return false;
+            })
+            .fail(function (xhr) {
+                var response = xhr.responseJSON;
+                var errorHtml = "";
+                if (response && response.errors && response.errors.length > 0) {
+                    for (var i = 0; i < response.errors.length; i++) {
+                        errorHtml += "<li>" + response.errors[i] + "</li>";
+                    }
+                } else if (response && response.message) {
+                    errorHtml += "<li>" + response.message + "</li>";
+                } else {
+                    errorHtml += "<li>An unexpected error occurred.</li>";
+                }
+                $(".sidebar__content .has-error .help-block > ul").html(errorHtml);
+                self.resetButton();
+                self.submitInProgress = false;
+                return false;
+            });
+    };
+
+    // Resets the checkout button text and state.
+    Checkout.prototype.resetButton = function () {
+        var $btn = this.$form.find('.btn-checkout');
+        $btn.prop("disabled", false).text(this.options.buttonText || "Place Order");
+    };
+
+    // A helper to show toast notifications using Bootstrap Toasts.
+    Checkout.prototype.showToast = function (type, message) {
+        var toastClass = (type === 'error') ? 'bg-danger' : 'bg-success';
+        var $toast = $(
+            '<div class="toast ' + toastClass + ' text-white" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">' +
+            '<div class="toast-body">' + message + '</div>' +
+            '</div>'
+        );
+
+        if ($('#toast-container').length === 0) {
+            $('body').append('<div id="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>');
+        }
+        $('#toast-container').append($toast);
+        $toast.toast('show').on('hidden.bs.toast', function () {
+            $(this).remove();
+        });
+    };
+
+    // OPTIONAL: If you want to implement an "abandonedCheckout" feature,
+    // you could call this function after some user interaction (not on page load).
+    Checkout.prototype.abandonedCheckout = function () {
+        var $form = this.$form;
+        var currentUrl = window.location.href;
+
+        if (this.$ajax) {
+            this.$ajax.abort();
+        }
+        if (this.ajaxAbandonedTimeout) {
+            clearTimeout(this.ajaxAbandonedTimeout);
+        }
+        var self = this;
+        // Only trigger after a user has interacted (you can adjust the timeout)
+        this.ajaxAbandonedTimeout = setTimeout(function () {
+            self.$ajax = $.ajax({
+                url: currentUrl,
+                type: "POST",
+                global: false,
+                data: $form.serialize() + "&_method=patch",
+                success: function (response) {
+                    // No UI feedback required here.
+                }
+            });
+        }, 3000);
+    };
+
+    // Initialize checkout functionality when document is ready.
+    $(document).ready(function () {
+        new Checkout("#checkout-form", {
+            buttonText: "Place Order"
+        });
+
+        // Initialize discount functionality
+        initializeCheckoutDiscounts();
+
+        // Initialize Twine.js integration
+        initializeTwineIntegration();
+    });
+
+    // Checkout discount functionality
+    function initializeCheckoutDiscounts() {
+        // Handle coupon form submission
+        $('.event-voucher-apply').on('click', function (e) {
+            e.preventDefault();
+
+            const code = $('#checkout_reduction_code').val().trim();
+            if (!code) {
+                showCheckoutToast('error', 'Please enter a coupon code');
+                return;
+            }
+
+            applyCheckoutDiscount(code);
+        });
+
+        // Handle discount removal
+        $(document).on('click', '.btn-delete', function (e) {
+            e.preventDefault();
+            const code = $('.applied-discount-code').text().trim();
+            if (code) {
+                removeCheckoutDiscount(code);
+            }
+        });
+    }
+
+    function applyCheckoutDiscount(code) {
+        const btn = $('.event-voucher-apply');
+        const originalText = btn.text();
+
+        // Set loading state
+        btn.prop('disabled', true).text('Applying...');
+
+        $.ajax({
+            url: window.location.origin + '/ajax/checkout.apply-discount',
+            method: 'POST',
+            data: {
+                code: code,
+                _token: $('meta[name="csrf-token"]').attr('content') || $('input[name="_token"]').val()
+            },
+            success: function (response) {
+                if (response.success) {
+                    // Clear the input
+                    $('#checkout_reduction_code').val('');
+
+                    // Update checkout display
+                    updateCheckoutTotals(response.cart.data);
+
+                    // Show applied discount
+                    displayCheckoutDiscount(code, response.cart.data.pricing);
+
+                    // Show success message
+                    showCheckoutToast('success', response.message);
+                } else {
+                    showCheckoutToast('error', response.message);
+                }
+            },
+            error: function (xhr) {
+                const response = xhr.responseJSON;
+                const message = response?.message || 'Failed to apply coupon';
+                showCheckoutToast('error', message);
+            },
+            complete: function () {
+                // Reset button state
+                btn.prop('disabled', false).text(originalText);
+            }
+        });
+    }
+
+    function removeCheckoutDiscount(code) {
+        if (!confirm('Are you sure you want to remove this discount?')) {
+            return;
+        }
+
+        $.ajax({
+            url: window.location.origin + '/ajax/checkout.remove-discount',
+            method: 'POST',
+            data: {
+                code: code,
+                _token: $('meta[name="csrf-token"]').attr('content') || $('input[name="_token"]').val()
+            },
+            success: function (response) {
+                if (response.success) {
+                    // Update checkout display
+                    updateCheckoutTotals(response.cart.data);
+
+                    // Hide applied discount
+                    hideCheckoutDiscount();
+
+                    // Show success message
+                    showCheckoutToast('success', response.message);
+                } else {
+                    showCheckoutToast('error', response.message);
+                }
+            },
+            error: function (xhr) {
+                const response = xhr.responseJSON;
+                const message = response?.message || 'Failed to remove discount';
+                showCheckoutToast('error', message);
+            }
+        });
+    }
+
+    function updateCheckoutTotals(cartData) {
+        // Update subtotal
+        $('.total-line-subprice').text(cartData.pricing.subtotal_formatted);
+
+        // Update/show discount line
+        if (cartData.pricing.discount > 0) {
+            let discountLine = $('.total-line-discount');
+            if (discountLine.length === 0) {
+                // Create discount line if it doesn't exist
+                const discountHtml = `
+                    <div class="total-line total-line-discount clearfix">
+                        <span class="total-line-name pull-left">Discount</span>
+                        <span class="total-line-discount pull-right">-${cartData.pricing.discount_formatted}</span>
+                    </div>
+                `;
+                $('.total-line-subtotal').after(discountHtml);
+            } else {
+                discountLine.find('.total-line-discount').text('-' + cartData.pricing.discount_formatted);
+                discountLine.show();
+            }
+        } else {
+            $('.total-line-discount').hide();
+        }
+
+        // Update total
+        $('.total-line-price').text(cartData.pricing.total_formatted);
+    }
+
+    function displayCheckoutDiscount(code, pricing) {
+        // Update context object
+        if (window.context && window.context.checkout) {
+            window.context.checkout.existCode = true;
+            window.context.checkout.code = code;
+            window.context.checkout.discount = pricing.discount;
+            window.context.checkout.discountFormatted = pricing.discount_formatted;
+        }
+
+        // Show the applied discount section
+        const appliedSection = $('.clearfix.hide').filter('[bind-show*="existCode"]');
+        appliedSection.removeClass('hide').show();
+        appliedSection.find('.applied-discount-code').text(code);
+        appliedSection.find('.pull-right').last().text(pricing.discount_formatted);
+
+        // Hide the input form
+        $('.form-group.m0').hide();
+    }
+
+    function hideCheckoutDiscount() {
+        // Update context object
+        if (window.context && window.context.checkout) {
+            window.context.checkout.existCode = false;
+            window.context.checkout.code = "";
+            window.context.checkout.discount = 0;
+            window.context.checkout.discountFormatted = "";
+        }
+
+        // Hide the applied discount section
+        $('.clearfix').filter('[bind-show*="existCode"]').addClass('hide').hide();
+
+        // Show the input form
+        $('.form-group.m0').show();
+
+        // Clear input
+        $('#checkout_reduction_code').val('');
+    }
+
+    function showCheckoutToast(type, message) {
+        // Try to use existing ToastManager if available
+        if (window.ToastManager) {
+            if (type === 'error') {
+                window.ToastManager.error(message);
+            } else {
+                window.ToastManager.success(message);
+            }
+            return;
+        }
+
+        // Fallback to simple alert
+        alert(message);
+    }
+
+    // Twine.js integration for checkout
+    function initializeTwineIntegration() {
+        // Override Twine methods for discount handling
+        if (window.context && window.context.checkout) {
+            // Store original methods
+            const originalApply = window.context.checkout.applyVoucher;
+            const originalRemove = window.context.checkout.removeCode;
+
+            // Override apply voucher method
+            window.context.checkout.applyVoucher = function () {
+                const code = $('#checkout_reduction_code').val().trim();
+                if (code) {
+                    applyCheckoutDiscount(code);
+                }
+            };
+
+            // Override remove code method
+            window.context.checkout.removeCode = function (code) {
+                if (code) {
+                    removeCheckoutDiscount(code);
+                }
+            };
+
+            // Override shipping calculation method
+            window.context.checkout.calculateFeeAndSave = function (token) {
+                const shippingData = {
+                    provinceId: window.context.checkout.BillingProvinceId || 0,
+                    districtId: 0,
+                    code: token || window.context.checkout.token,
+                    email: window.context.checkout.email
+                };
+
+                $.ajax({
+                    url: window.location.origin + '/ajax/checkout.get-shipping',
+                    method: 'POST',
+                    data: Object.assign(shippingData, {
+                        _token: $('meta[name="csrf-token"]').attr('content') || $('input[name="_token"]').val()
+                    }),
+                    success: function (response) {
+                        if (response.status === 'success') {
+                            // Update shipping fee in context
+                            window.context.checkout.shippingFee = response.shipping_fee;
+                            // Trigger Twine refresh
+                            if (window.Twine) {
+                                window.Twine.refresh();
+                            }
+                        }
+                    },
+                    error: function (xhr) {
+                        console.warn('Shipping calculation failed:', xhr.responseText);
+                        // Set free shipping as fallback
+                        window.context.checkout.shippingFee = 0;
+                        if (window.Twine) {
+                            window.Twine.refresh();
+                        }
+                    }
+                });
+            };
+        }
+
+        // Integrate with existing form elements
+        $('.event-voucher-apply').off('click').on('click', function (e) {
+            e.preventDefault();
+            const code = $('#checkout_reduction_code').val().trim();
+            if (code) {
+                applyCheckoutDiscount(code);
+            }
+        });
+
+        // Handle CSRF token setup for all AJAX requests
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') || $('input[name="_token"]').val()
+            }
+        });
+    }
+
+})(jQuery);

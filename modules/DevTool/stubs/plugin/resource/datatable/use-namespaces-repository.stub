@@ -1,0 +1,4 @@
+use MojarCMS\CMS\Repositories\Criterias\FilterCriteria;
+use MojarCMS\CMS\Repositories\Criterias\SearchCriteria;
+use MojarCMS\CMS\Repositories\Criterias\SortCriteria;
+use $NAMESPACE$

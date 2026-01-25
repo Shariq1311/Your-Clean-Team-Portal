@@ -1,0 +1,181 @@
+{
+    "label": "About Area Home 3",
+    "description": "About section with image, progress bars, features and contact information",
+    "form": [
+        {
+            "type": "image",
+            "name": "main_image",
+            "label": "Main Image",
+            "data": {
+                "value": "images/resources/about-three-img-1.png"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_tagline",
+            "label": "Section Tagline",
+            "data": {
+                "value": "About Us"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_1",
+            "label": "Title Part 1",
+            "data": {
+                "value": "Any IT Problem Solutions And"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_2",
+            "label": "Title Part 2 (Highlighted)",
+            "data": {
+                "value": "Grow Your Business"
+            }
+        },
+        {
+            "type": "textarea",
+            "name": "description",
+            "label": "Description",
+            "data": {
+                "value": "Transform your business with our innovative IT solutions, tailored to address your unique challenges and drive growth."
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "progress_bars",
+            "label": "Progress Bars",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "title",
+                    "label": "Progress Bar Title"
+                },
+                {
+                    "type": "text",
+                    "name": "percent",
+                    "label": "Progress Percentage",
+                    "description": "Enter a number between 0-100"
+                }
+            ],
+            "options": {
+                "min_items": 1,
+                "max_items": 4,
+                "add_button_text": "Add Progress Bar",
+                "remove_button_text": "Remove Progress Bar",
+                "value": [
+                    {
+                        "title": "Business Problem Solving",
+                        "percent": "70"
+                    },
+                    {
+                        "title": "Camping Launches",
+                        "percent": "80"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "features",
+            "label": "Features",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "icon",
+                    "label": "Icon Class",
+                    "data": {
+                        "value": "icon-tick-inside-circle"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "title",
+                    "label": "Feature Title"
+                }
+            ],
+            "options": {
+                "min_items": 1,
+                "max_items": 4,
+                "add_button_text": "Add Feature",
+                "remove_button_text": "Remove Feature",
+                "value": [
+                    {
+                        "icon": "icon-tick-inside-circle",
+                        "title": "Shaping Tomorrow, Transforming Today"
+                    },
+                    {
+                        "icon": "icon-tick-inside-circle",
+                        "title": "Innovating Today, Empowering Tomorrow"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "text",
+            "name": "button_text",
+            "label": "Button Text",
+            "data": {
+                "value": "Get in Touch"
+            }
+        },
+        {
+            "type": "text",
+            "name": "button_url",
+            "label": "Button URL",
+            "data": {
+                "value": "about.html"
+            }
+        },
+        {
+            "type": "text",
+            "name": "call_text",
+            "label": "Call Text",
+            "data": {
+                "value": "Call Any Time"
+            }
+        },
+        {
+            "type": "text",
+            "name": "phone_number",
+            "label": "Phone Number",
+            "data": {
+                "value": "12345678900"
+            }
+        },
+        {
+            "type": "text",
+            "name": "phone_number_display",
+            "label": "Phone Number Display",
+            "description": "How the phone number will be displayed",
+            "data": {
+                "value": "(123) 4567 8900"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "animation_delay",
+            "label": "Animation Delay (ms)",
+            "data": {
+                "value": "100"
+            }
+        },
+        {
+            "type": "text",
+            "name": "animation_duration",
+            "label": "Animation Duration (ms)",
+            "data": {
+                "value": "2500"
+            }
+        }
+    ]
+}

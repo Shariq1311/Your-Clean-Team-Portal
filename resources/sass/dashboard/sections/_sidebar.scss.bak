@@ -1,0 +1,245 @@
+@use '../utils' as *;
+
+// --------------------------------------------------------------
+// THEME VARIABLES
+// --------------------------------------------------------------
+:root,
+[data-bs-theme="light"] {
+  --sidebar-bg: var(--tblr-gray-200);
+  --sidebar-border: var(--tblr-border-color);
+  --sidebar-text: var(--tblr-body-color);
+  --sidebar-hover-text: #495057;
+  --sidebar-muted: var(--tblr-secondary-color);
+  --sidebar-hover-bg: var(--tblr-gray-200);
+  --sidebar-active-bg: var(--ms-theme-primary);
+  --sidebar-active-text: #ffffff;
+  --sidebar-icon-color: var(--tblr-secondary-color);
+  --sidebar-scrollbar-thumb: var(--tblr-gray-300);
+  --dropdown-bg: var(--tblr-white);
+  --dropdown-hover-bg: var(--tblr-gray-400);
+  --dropdown-border: var(--tblr-border-color);
+
+  // General transitions
+  --transition-speed: 0.3s;
+}
+
+[data-bs-theme="dark"] {
+  --sidebar-bg: var(--tblr-dark);
+  --sidebar-border: var(--tblr-border-color);
+  --sidebar-text: var(--tblr-body-color);
+  --sidebar-hover-text: #e2e2e2;
+  --sidebar-muted: var(--tblr-secondary-color);
+  --sidebar-hover-bg: var(--tblr-tertiary-bg);
+  --sidebar-active-bg: var(--ms-theme-primary);
+  --sidebar-active-text: #ffffff;
+  --sidebar-icon-color: var(--tblr-secondary-color);
+  --sidebar-scrollbar-thumb: var(--tblr-gray-700);
+  --dropdown-bg: var(--tblr-dark);
+  --dropdown-hover-bg: var(--tblr-tertiary-bg);
+  --dropdown-border: var(--tblr-border-color);
+
+  // General transitions
+  --transition-speed: 0.3s;
+}
+
+// --------------------------------------------------------------
+// SIDEBAR WRAPPER
+// --------------------------------------------------------------
+.mojar_cms_sidebar {
+  background-color: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-border);
+  // Slight shadow for depth
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.05);
+  transition:
+  background-color var(--transition-speed) ease,
+  border-color var(--transition-speed) ease;
+  padding-top: 0px !important;
+
+  // Make sidebar scrollable on medium & up
+  @media #{$common-medium-screen} {
+    position: static !important;
+    min-height: 100vh;
+    overflow-y: auto !important;
+    padding-top: 5px !important;
+  }
+
+  .navbar-brand.navbar-brand-autodark{
+    padding: 0px !important;
+  }
+
+  // ------------------------------------------------------------
+  // SIDEBAR MENU
+  // ------------------------------------------------------------
+  #sidebar-menu {
+    transition: all var(--transition-speed) ease;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: var(--sidebar-scrollbar-thumb);
+      border-radius: 10px;
+    }
+
+    .navbar-nav {
+      margin: 0;
+      padding: 0;
+
+      .nav-item {
+        list-style: none;
+        margin: 0;
+
+        // Optional: highlight entire parent item when active
+        &.active {
+          // Additional styling if needed
+        }
+
+        .badge {
+          background-color: var(--badge-bg, #ff5b5b);
+          color: var(--badge-color, #fff);
+          font-size: 0.75rem;
+          border-radius: 0.25rem;
+          padding: 0.25rem 0.5rem;
+          transition: background-color var(--transition-speed) ease,
+            color var(--transition-speed) ease;
+        }
+
+        // --------------------------------------------------------
+        // NAV-LINK (Main menu items)
+        // --------------------------------------------------------
+        .nav-link {
+          display: flex;
+          align-items: center;
+          gap: 0.6rem; // spacing between icon & text
+          padding: 0.6rem 1rem;
+          border-radius: 0.25rem;
+          color: var(--sidebar-text, #6c757d);
+          text-decoration: none;
+          // Subtle left border indicator
+          border-left: 3px solid transparent;
+          transition:
+            background-color var(--transition-speed) ease,
+            color var(--transition-speed) ease,
+            border-color var(--transition-speed) ease;
+
+          &:hover {
+            color: var(--sidebar-hover-text);
+            background-color: var(--sidebar-hover-bg);
+          }
+
+          &.active {
+            color: var(--sidebar-active-text);
+            background-color: var(--sidebar-active-bg);
+            // Highlight the active item with a left border
+            border-left-color: var(--sidebar-active-text);
+
+            &-icon {
+                i,
+                svg {
+                  font-size: 1rem;
+                  color: var(--sidebar-active-text);
+                  transition: transform var(--transition-speed) ease,
+                    color var(--transition-speed) ease;
+                }
+
+                // Slight icon scale on hover
+                .nav-link:hover & i,
+                .nav-link:hover & svg {
+                  transform: scale(1.05);
+                }
+            }
+
+            .nav-link-icon svg{
+              font-size: 1rem;
+              color: var(--sidebar-active-text);
+              transition: transform var(--transition-speed) ease,
+                color var(--transition-speed) ease;
+            }
+          }
+
+          &-icon {
+            i,
+            svg {
+              font-size: 1rem;
+              color: var(--sidebar-icon-color);
+              transition: transform var(--transition-speed) ease,
+                color var(--transition-speed) ease;
+            }
+
+            // Slight icon scale on hover
+            .nav-link:hover & i,
+            .nav-link:hover & svg {
+              transform: scale(1.05);
+            }
+          }
+
+          &-title {
+            font-size: 0.875rem;
+            font-weight: 400;
+            line-height: 1.2;
+            transition: color var(--transition-speed) ease;
+          }
+
+          // Dropdown toggle arrow
+          &.dropdown-toggle {
+            &:after {
+              margin-left: auto;
+              transform: rotate(0deg);
+              transition: transform var(--transition-speed) ease;
+            }
+          }
+        }
+
+        // --------------------------------------------------------
+        // DROPDOWN MENU (Submenu items)
+        // --------------------------------------------------------
+        .dropdown-menu {
+          position: relative;
+          background-color: var(--dropdown-bg);
+          border: 1px solid var(--dropdown-border);
+          border-radius: 0.25rem;
+          transition: all var(--transition-speed) ease;
+
+          .dropdown-item {
+            // Increased left padding for hierarchical clarity
+            padding: 0.5rem 0.5rem 0.5rem 2.8rem;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            border-radius: 0.25rem;
+            transition:
+              background-color var(--transition-speed) ease,
+              color var(--transition-speed) ease;
+
+            &:hover {
+              color: var(--sidebar-hover-text);
+              background-color: var(--sidebar-hover-bg);
+            }
+
+            &.active {
+              color: var(--sidebar-active-text);
+              background-color: var(--dropdown-hover-bg);
+            }
+          }
+        }
+
+        // --------------------------------------------------------
+        // SUBMENU TOGGLE STATE
+        // --------------------------------------------------------
+        &.mojar__menuLeft__submenu--toggled {
+          > .nav-link.dropdown-toggle {
+            &:after {
+              transform: rotate(90deg);
+            }
+          }
+
+          > .dropdown-menu {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}

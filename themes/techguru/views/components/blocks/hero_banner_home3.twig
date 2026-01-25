@@ -1,0 +1,45 @@
+<section class="banner-one">
+    <div class="banner-one__bg" style="background-image: url({{ upload_url(data.background_image) }});">
+    </div>
+    <div class="banner-one__shape-bg float-bob-y"
+        style="background-image: url({{ upload_url(data.shape_bg) }});"></div>
+    <div class="container">
+        <div class="banner-one__inner">
+            <h2 class="banner-one__title">{{ data.title_part_1|default('Expert IT Solutions to Elevate') }} <br> <span>{{ data.title_part_2|default('Your Enterprise') }}</span>
+            </h2>
+            <div class="banner-one__btn-box">
+                <a href="{{ data.button_url|default('contact.html') }}" class="thm-btn">{{ data.button_text|default('Get Started') }}<span class="icon-right-arrow"></span></a>
+            </div>
+            <div class="banner-one__img-box">
+                <div class="banner-one__img">
+                    <img src="{{ upload_url(data.banner_image) }}" alt="banner image">
+                    {% if data.show_video_button and data.video_url %}
+                        <div class="banner-one__video-link">
+                            <a href="{{ data.video_url }}" class="video-popup">
+                                <div class="banner-one__video-icon">
+                                    <span class="fa fa-play"></span>
+                                    <i class="ripple"></i>
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function() {
+        // Initialize video popup
+        if ($(".video-popup").length) {
+            $(".video-popup").magnificPopup({
+                type: "iframe",
+                mainClass: "mfp-fade",
+                removalDelay: 160,
+                preloader: true,
+                fixedContentPos: false
+            });
+        }
+    });
+</script> 

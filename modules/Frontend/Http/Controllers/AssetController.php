@@ -1,0 +1,144 @@
+<?php
+
+namespace MojarCMS\Frontend\Http\Controllers;
+
+use Illuminate\Http\Response as HttpResponse;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
+use Intervention\Image\Facades\Image;
+use MojarCMS\CMS\Contracts\TranslationManager;
+use MojarCMS\CMS\Facades\ThemeLoader;
+use MojarCMS\CMS\Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+
+class AssetController extends Controller
+{
+    private int $cacheAge = 86400;
+
+    public function __construct(protected TranslationManager $translationManager) {}
+
+    public function assetPlugin($vendor, $plugin, $path): BinaryFileResponse
+    {
+        $path = str_replace('assets/', '', $path);
+        $assetPath = plugin_path("{$vendor}/{$plugin}", 'assets/public/' . $path);
+        return $this->responseWithPath($assetPath);
+    }
+
+    public function assetTheme($theme, $path): BinaryFileResponse
+    {
+        $path = str_replace('assets/', '', $path);
+        $assetPath = ThemeLoader::getPath($theme, 'assets/public/' . $path);
+        return $this->responseWithPath($assetPath);
+    }
+
+    public function assetStorage(string $path): BinaryFileResponse
+    {
+        $path = Storage::disk('public')->path($path);
+
+        return $this->responseWithPath($path);
+    }
+
+    public function proxyImage(string $method, string $size, string $path)
+    {
+        $path = Storage::disk('public')->path($path);
+        if (!file_exists($path)) {
+            $path = public_path('mc-styles/Mojar/images/thumb-default.png');
+        }
+
+        // Create cache key for the processed image
+        $cacheKey = "image_cache_" . md5($method . $size . $path . filemtime($path));
+        
+        // Try to get from cache first
+        $cachedImagePath = storage_path("app/cache/images/{$cacheKey}.jpg");
+        
+        if (file_exists($cachedImagePath) && filemtime($cachedImagePath) > (time() - 3600)) {
+            return response()->file($cachedImagePath, [
+                'accept-ranges' => 'bytes',
+                'Cache-Control' => 'public, max-age=' . $this->cacheAge,
+            ]);
+        }
+
+        // Process image if not cached
+        list($width, $height) = explode('x', $size);
+        $width = $width == 'auto' ? null : (int)$width;
+        $height = $height == 'auto' ? null : (int)$height;
+
+        $img = Image::make($path);
+        
+        match ($method) {
+            'fit' => $img->fit($width, $height),
+            'crop' => $img->crop($width, $height),
+            default => $img->resize($width, $height, function ($constraint) use ($width, $height) {
+                if (empty($width) || empty($height)) {
+                    $constraint->aspectRatio();
+                }
+                $constraint->upsize();
+            }),
+        };
+
+        // Create cache directory if it doesn't exist
+        $cacheDir = storage_path('app/cache/images');
+        if (!file_exists($cacheDir)) {
+            mkdir($cacheDir, 0755, true);
+        }
+
+        // Save processed image to cache
+        $img->save($cachedImagePath, 85); // 85% quality
+
+        return response()->file($cachedImagePath, [
+            'accept-ranges' => 'bytes',
+            'Cache-Control' => 'public, max-age=' . $this->cacheAge,
+        ]);
+    }
+
+        private function responseWithPath($path): BinaryFileResponse
+    {
+        if (!file_exists($path)) {
+            abort(404);
+        }
+
+        $mimeType = $this->getStaticAssets($path);
+        $lastModified = File::lastModified($path);
+
+        return response()->file($path, [
+            'Content-Type' => $mimeType,
+            'Last-Modified' => gmdate('D, d M Y H:i:s', $lastModified) . ' GMT',
+            'Cache-Control' => 'public, max-age=' . $this->cacheAge,
+        ]);
+    }
+
+
+    protected function parsePathSecurity($path): string
+    {
+        return str_replace('.php', '', $path);
+    }
+
+    protected function getStaticAssets($path): string
+    {
+        $extension = pathinfo($path, PATHINFO_EXTENSION);
+
+        $assets = [
+            'js' => 'application/javascript',
+            'css' => 'text/css',
+            'woff' => 'application/font-woff',
+            'woff2' => 'application/font-woff2',
+            'ttf' => 'application/font-ttf',
+            'pdf' => 'application/pdf',
+            'gif' => 'image/gif',
+            'png' => 'image/png',
+            'jpg' => 'image/jpeg',
+            'jpeg' => 'image/jpeg',
+            'svg' => 'image/svg+xml',
+            'ts' => 'video/mp2t',
+            'mp4' => 'video/mp4',
+            'webp' => 'image/webp',
+            'tif' => 'image/tif',
+            'tiff' => 'image/tiff',
+        ];
+
+        return $assets[$extension] ?? 'text/plain';
+    }
+}

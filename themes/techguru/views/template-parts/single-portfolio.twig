@@ -1,0 +1,85 @@
+{% extends 'cms::layouts.frontend' %}
+
+{% block content %}
+
+{% include 'theme::components.breadcrumb' with {
+        is_dynamic: true,
+        post: post
+    }
+%}
+
+<style>
+    @media (min-width: 769px) {
+        .portfolio-details__title-and-social {
+            width: 80% !important;
+        }
+    }
+</style>
+
+<section class="portfolio-details">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="portfolio-details__top">
+                    <div class="portfolio-details__title-and-social">
+                        <h3 class="portfolio-details__top-title">{{ post.title }}
+                        </h3>
+                        <div class="portfolio-details__social-box">
+                            <p>{{ __('Share now') }}</p>
+                            <div class="portfolio-details__social">
+                                <a href="https://www.facebook.com/sharer.php?u={{ url().current()|url_encode }}" target="_blank" rel="noopener">
+                                    <span class="icon-facebook"></span>
+                                </a>
+                                <a href="https://twitter.com/intent/tweet?url={{ url().current()|url_encode }}&text={{ post.title|url_encode }}" target="_blank" rel="noopener">
+                                    <span class="icon-twitter"></span>
+                                </a> 
+                                <a href="https://www.reddit.com/submit?url={{ url().current()|url_encode }}&title={{ post.title|url_encode }}" target="_blank" rel="noopener">
+                                    <span class="icon-reddit"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="portfolio-details__get-touch">
+                        <a href="{{ post.metas.portfolio_link }}">{{ post.metas.portfolio_link_title|default('Get in touch') }}<span class="icon-right-up"></span></a>
+                        <div class="portfolio-details__get-touch-shape"></div>
+                    </div>
+                </div>
+
+                <div class="portfolio-details__portfolio-list-inner">
+                    <ul class="portfolio-details__portfolio-list list-unstyled">
+                        {% for meta in post.metas.meta_list|slice(0, 3) %}
+                            <li>
+                                <div class="icon">
+                                    <span class="{{ meta.content_icon }}"></span>
+                                </div>
+                                <div class="content">
+                                    <span>{{ meta.content_title }}</span>
+                                    <p>{{ meta.content_value|nl2br }}</p>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    
+                    {% if post.metas.meta_list|length > 3 %}
+                        <ul class="portfolio-details__portfolio-list portfolio-details__portfolio-list-2 list-unstyled">
+                            {% for meta in post.metas.meta_list|slice(3) %}
+                                <li>
+                                    <div class="icon">
+                                        <span class="{{ meta.content_icon }}"></span>
+                                    </div>
+                                    <div class="content">
+                                        <span>{{ meta.content_title }}</span>
+                                        <p>{{ meta.content_value|nl2br }}</p>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                {{ post.content|raw }}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

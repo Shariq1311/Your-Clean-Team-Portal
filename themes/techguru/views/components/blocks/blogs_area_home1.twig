@@ -1,0 +1,259 @@
+<section class="blog-two">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="blog-two__left {% if data.enable_animation %}wow fadeInLeft{% endif %}" {% if data.enable_animation %}data-wow-delay="100ms"{% endif %}>
+                    <div class="section-title text-left sec-title-animation animation-style1">
+                        <div class="section-title__tagline-box">
+                            <div class="section-title__tagline-shape-1"></div>
+                            <span class="section-title__tagline">{{ data.section_tagline|default('Our Blogs') }}</span>
+                            <div class="section-title__tagline-shape-2"></div>
+                        </div>
+                        <h2 class="section-title__title title-animation">{{ data.section_title_1|default('Explore Our Latest') }}
+                            <span>{{ data.section_title_2|default('Blogs for Expert Insights') }}</span></h2>
+                    </div>
+                    <p class="blog-two-text">{{ data.section_description|default('Dive into our collection of blogs where we share expert insights, helpful tips, and the latest trends in the industry') }}</p>
+                    <div class="blog-two__top-btn-box">
+                        <a href="{{ data.view_all_url|default('blog-details.html') }}" class="thm-btn">{{ data.view_all_text|default('View All Blogs') }}<span
+                                class="icon-right-arrow"></span></a>
+                    </div>
+                    
+                    {% if data.show_featured_post %}
+                        {% if data.featured_post_id %}
+                            {% set featured_posts = get_posts('posts', {
+                                'limit': 1,
+                                'ids': [data.featured_post_id]
+                            }) %}
+                            {% set featured_post = featured_posts[0]|default(null) %}
+                        {% else %}
+                            {% set featured_posts = get_posts('posts', {
+                                'limit': 1,
+                                'orderby': data.orderby|default('date'),
+                                'order': data.order|default('DESC')
+                            }) %}
+                            {% set featured_post = featured_posts[0]|default(null) %}
+                        {% endif %}
+                        
+                        {% if featured_post %}
+                            <div class="blog-two__left-content-box">
+                                <div class="blog-two__single">
+                                    <div class="blog-two__img">
+                                        {% if featured_post.thumbnail %}
+                                            <img src="{{ upload_url(featured_post.thumbnail) }}" alt="{{ featured_post.title }}">
+                                        {% else %}
+                                            <img src="{{ asset('images/blog/blog-2-1.jpg') }}" alt="{{ featured_post.title }}">
+                                        {% endif %}
+                                        <div class="blog-two__tags">
+                                            {% for taxonomy in featured_post.taxonomies %}
+                                                {% if taxonomy.taxonomy == 'tags' %}
+                                                    <span>{{ taxonomy.name }}</span>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="blog-two__content">
+                                        <div class="blog-two__user">
+                                            <div class="blog-two__user-img">
+                                                {% if featured_post.author.avatar %}
+                                                    <img src="{{ upload_url(featured_post.author.avatar) }}" alt="{{ featured_post.author.name }}">
+                                                {% else %}
+                                                    <img src="{{ asset('images/blog/blog-two-user-1.jpg') }}" alt="{{ featured_post.author.name }}">
+                                                {% endif %}
+                                            </div>
+                                            <p class="blog-two__user-title">{{ featured_post.author.name }}</p>
+                                        </div>
+                                        <ul class="blog-two__meta list-unstyled">
+                                            <li>
+                                                <a href="{{ featured_post.url }}"><span
+                                                        class="far fa-calendar-alt"></span>{{ featured_post.created_at|date("F d, Y") }}</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ featured_post.url }}"><span class="fal fa-comments"></span>{{ featured_post.comments_count|default(0) }}
+                                                    Comments</a>
+                                            </li>
+                                        </ul>
+                                        <h3 class="blog-two__title"><a href="{{ featured_post.url }}">{{ featured_post.title }}</a></h3>
+                                        <p class="blog-two__text">{{ featured_post.description|striptags|slice(0, 100) ~ '...' }}</p>   
+                                        <div class="blog-two__btn-box">
+                                            <a href="{{ featured_post.url }}" class="thm-btn">{{ data.read_more_text|default('Reed More') }}<span
+                                                    class="icon-right-arrow"></span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="blog-two__right">
+                    {% set category_ids = data.category_ids ? data.category_ids|split(',') : [] %}
+                    {% set tag_ids = data.tag_ids ? data.tag_ids|split(',') : [] %}
+                    {% set posts = get_posts('posts', {
+                        'limit': data.posts_limit|default(3),
+                        'category': category_ids,
+                        'tag': tag_ids,
+                        'orderby': data.orderby|default('date'),
+                        'order': data.order|default('DESC')
+                    }) %}
+                    
+                    {% if posts %}
+                        {% for post in posts %}
+                            <!-- Blog Two Single Two Start -->
+                            <div class="blog-two__single-two {% if data.enable_animation %}wow {% if loop.index is odd %}fadeInLeft{% else %}fadeInRight{% endif %}{% endif %}" {% if data.enable_animation %}data-wow-delay="{{ loop.index * 100 }}ms"{% endif %}>
+                                <div class="blog-two__img-two">
+                                    {% if post.thumbnail %}
+                                        <img src="{{ upload_url(post.thumbnail) }}" alt="{{ post.title }}">
+                                    {% else %}
+                                        <img src="{{ asset('images/blog/blog-2-' ~ (loop.index + 1) ~ '.jpg') }}" alt="{{ post.title }}">
+                                    {% endif %}
+                                </div>
+                                <div class="blog-two__content-two">
+                                    <div class="blog-two__user-two">
+                                        <div class="blog-two__user-two-img">
+                                            {% if post.author.avatar %}
+                                                <img src="{{ upload_url(post.author.avatar) }}" alt="{{ post.author.name }}">
+                                            {% else %}
+                                                <img src="{{ asset('images/blog/blog-two-user-' ~ (loop.index + 1) ~ '.jpg') }}" alt="{{ post.author.name }}">
+                                            {% endif %}
+                                        </div>
+                                        <p class="blog-two__user-two-title">{{ post.author.name }}</p>
+                                    </div>
+                                    <div class="blog-two__tags-two">
+                                        {% for taxonomy in post.taxonomies %}
+                                            {% if taxonomy.taxonomy == 'tags' %}
+                                                <span>{{ taxonomy.name }}</span>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <h3 class="blog-two__title-two"><a href="{{ post.url }}">{{ post.title }}</a></h3>
+                                    <ul class="blog-two__meta-two list-unstyled">
+                                        <li>
+                                            <a href="{{ post.url }}"><span class="far fa-calendar-alt"></span>{{ post.created_at|date("F d, Y") }}</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ post.url }}"><span class="fal fa-comments"></span>{{ post.comments_count|default(0) }}
+                                                Comments</a>
+                                        </li>
+                                    </ul>
+                                    <div class="blog-two__btn-box-two">
+                                        <a href="{{ post.url }}" class="thm-btn">{{ data.read_more_text|default('Reed More') }}<span
+                                                class="icon-right-arrow"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Blog Two Single Two End -->
+                        {% endfor %}
+                    {% else %}
+                        <!-- Default Blog Posts -->
+                        <!-- Blog Two Single Two Start -->
+                        <div class="blog-two__single-two {% if data.enable_animation %}wow fadeInLeft{% endif %}" {% if data.enable_animation %}data-wow-delay="100ms"{% endif %}>
+                            <div class="blog-two__img-two">
+                                <img src="{{ asset('images/blog/blog-2-2.jpg') }}" alt="">
+                            </div>
+                            <div class="blog-two__content-two">
+                                <div class="blog-two__user-two">
+                                    <div class="blog-two__user-two-img">
+                                        <img src="{{ asset('images/blog/blog-two-user-2.jpg') }}" alt="">
+                                    </div>
+                                    <p class="blog-two__user-two-title">John Smith</p>
+                                </div>
+                                <div class="blog-two__tags-two">
+                                    <span>Digital</span>
+                                    <span>Technology</span>
+                                </div>
+                                <h3 class="blog-two__title-two"><a href="blog-details.html">5 Key Trends Shaping the
+                                        Future of Technology</a></h3>
+                                <ul class="blog-two__meta-two list-unstyled">
+                                    <li>
+                                        <a href="blog-details.html"><span class="far fa-calendar-alt"></span>Jan 13,
+                                            2025</a>
+                                    </li>
+                                    <li>
+                                        <a href="blog-details.html"><span class="fal fa-comments"></span>12
+                                            Comments</a>
+                                    </li>
+                                </ul>
+                                <div class="blog-two__btn-box-two">
+                                    <a href="blog-details.html" class="thm-btn">{{ data.read_more_text|default('Reed More') }}<span
+                                            class="icon-right-arrow"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Blog Two Single Two End -->
+                        <!-- Blog Two Single Two Start -->
+                        <div class="blog-two__single-two {% if data.enable_animation %}wow fadeInRight{% endif %}" {% if data.enable_animation %}data-wow-delay="200ms"{% endif %}>
+                            <div class="blog-two__img-two">
+                                <img src="{{ asset('images/blog/blog-2-3.jpg') }}" alt="">
+                            </div>
+                            <div class="blog-two__content-two">
+                                <div class="blog-two__user-two">
+                                    <div class="blog-two__user-two-img">
+                                        <img src="{{ asset('images/blog/blog-two-user-3.jpg') }}" alt="">
+                                    </div>
+                                    <p class="blog-two__user-two-title">Alisa Olivia</p>
+                                </div>
+                                <div class="blog-two__tags-two">
+                                    <span>Digital</span>
+                                    <span>Technology</span>
+                                </div>
+                                <h3 class="blog-two__title-two"><a href="blog-details.html">How to Maximize
+                                        Efficiency with Smart Business</a></h3>
+                                <ul class="blog-two__meta-two list-unstyled">
+                                    <li>
+                                        <a href="blog-details.html"><span class="far fa-calendar-alt"></span>Jan 13,
+                                            2025</a>
+                                    </li>
+                                    <li>
+                                        <a href="blog-details.html"><span class="fal fa-comments"></span>12
+                                            Comments</a>
+                                    </li>
+                                </ul>
+                                <div class="blog-two__btn-box-two">
+                                    <a href="blog-details.html" class="thm-btn">{{ data.read_more_text|default('Reed More') }}<span
+                                            class="icon-right-arrow"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Blog Two Single Two End -->
+                        <!-- Blog Two Single Two Start -->
+                        <div class="blog-two__single-two {% if data.enable_animation %}wow fadeInLeft{% endif %}" {% if data.enable_animation %}data-wow-delay="300ms"{% endif %}>
+                            <div class="blog-two__img-two">
+                                <img src="{{ asset('images/blog/blog-2-4.jpg') }}" alt="">
+                            </div>
+                            <div class="blog-two__content-two">
+                                <div class="blog-two__user-two">
+                                    <div class="blog-two__user-two-img">
+                                        <img src="{{ asset('images/blog/blog-two-user-4.jpg') }}" alt="">
+                                    </div>
+                                    <p class="blog-two__user-two-title">Jordan Walk</p>
+                                </div>
+                                <div class="blog-two__tags-two">
+                                    <span>Digital</span>
+                                    <span>Technology</span>
+                                </div>
+                                <h3 class="blog-two__title-two"><a href="blog-details.html">The Ultimate Guide to
+                                        Digital Transformation in 2025</a></h3>
+                                <ul class="blog-two__meta-two list-unstyled">
+                                    <li>
+                                        <a href="blog-details.html"><span class="far fa-calendar-alt"></span>Jan 13,
+                                            2025</a>
+                                    </li>
+                                    <li>
+                                        <a href="blog-details.html"><span class="fal fa-comments"></span>12
+                                            Comments</a>
+                                    </li>
+                                </ul>
+                                <div class="blog-two__btn-box-two">
+                                    <a href="blog-details.html" class="thm-btn">{{ data.read_more_text|default('Reed More') }}<span
+                                            class="icon-right-arrow"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Blog Two Single Two End -->
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section> 

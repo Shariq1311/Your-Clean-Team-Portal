@@ -1,0 +1,203 @@
+{
+    "label": "FAQ Home 3",
+    "description": "FAQ section with image, experience counter, and accordion",
+    "form": [
+        {
+            "type": "text",
+            "name": "section_tagline",
+            "label": "Section Tagline",
+            "data": {
+                "value": "Our Faqs"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_1",
+            "label": "Section Title Part 1",
+            "data": {
+                "value": "Your Questions Answered"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_2",
+            "label": "Section Title Part 2 (Span)",
+            "data": {
+                "value": "Explore Our FAQs"
+            }
+        },
+        {
+            "type": "image",
+            "name": "faq_image",
+            "label": "FAQ Image",
+            "data": {
+                "value": "images/resources/faq-one-img-1.jpg"
+            }
+        },
+        {
+            "type": "text",
+            "name": "experience_count",
+            "label": "Experience Counter Number",
+            "description": "Number to display in the experience counter",
+            "data": {
+                "value": "55"
+            }
+        },
+        {
+            "type": "text",
+            "name": "experience_text_line1",
+            "label": "Experience Text Line 1",
+            "data": {
+                "value": "Year of"
+            }
+        },
+        {
+            "type": "text",
+            "name": "experience_text_line2",
+            "label": "Experience Text Line 2",
+            "data": {
+                "value": "experience"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "use_faqs_post_type",
+            "label": "Use FAQs Post Type",
+            "description": "Load FAQs from FAQs post type instead of manual configuration",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "taxonomy",
+            "name": "faqs_category",
+            "label": "FAQs Category Filter",
+            "description": "Filter FAQs by category (when using FAQs post type)",
+            "data": {
+                "post_type": "faqs",
+                "taxonomy": "categories"
+            }
+        },
+        {
+            "type": "text",
+            "name": "items_limit",
+            "label": "Number of FAQs",
+            "description": "Maximum number of FAQs to display",
+            "data": {
+                "value": "5"
+            }
+        },
+        {
+            "type": "text",
+            "name": "faq_ids",
+            "label": "FAQ IDs",
+            "description": "Enter specific FAQ IDs to display (comma-separated)",
+            "data": {
+                "value": ""
+            }
+        },
+        {
+            "type": "select",
+            "name": "orderby",
+            "label": "Order By",
+            "data": {
+                "options": {
+                    "date": "Date",
+                    "title": "Title",
+                    "menu_order": "Menu Order",
+                    "rand": "Random"
+                },
+                "value": "date"
+            }
+        },
+        {
+            "type": "select",
+            "name": "order",
+            "label": "Order",
+            "data": {
+                "options": {
+                    "DESC": "Descending",
+                    "ASC": "Ascending"
+                },
+                "value": "DESC"
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "custom_faqs",
+            "label": "Custom FAQs (Manual Configuration)",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "question",
+                    "label": "Question"
+                },
+                {
+                    "type": "textarea",
+                    "name": "answer",
+                    "label": "Answer"
+                },
+                {
+                    "type": "checkbox_json",
+                    "name": "is_active",
+                    "label": "Is Active",
+                    "description": "Show this FAQ expanded by default",
+                    "data": {
+                        "value": 0
+                    }
+                }
+            ],
+            "options": {
+                "min_items": 0,
+                "max_items": 10,
+                "add_button_text": "Add FAQ Item",
+                "remove_button_text": "Remove FAQ Item",
+                "value": [
+                    {
+                        "question": "What types of IT services do you offer?",
+                        "answer": "From personalized solutions to expert execution, we prioritize quality, reliability, and customer satisfaction in everything we do. Let us be your trusted partner in achieving success.",
+                        "is_active": false
+                    },
+                    {
+                        "question": "Are your IT products eco-friendly?",
+                        "answer": "From personalized solutions to expert execution, we prioritize quality, reliability, and customer satisfaction in everything we do. Let us be your trusted partner in achieving success.",
+                        "is_active": true
+                    },
+                    {
+                        "question": "What papers needed for software development?",
+                        "answer": "From personalized solutions to expert execution, we prioritize quality, reliability, and customer satisfaction in everything we do. Let us be your trusted partner in achieving success.",
+                        "is_active": false
+                    },
+                    {
+                        "question": "How to contact the development team?",
+                        "answer": "From personalized solutions to expert execution, we prioritize quality, reliability, and customer satisfaction in everything we do. Let us be your trusted partner in achieving success.",
+                        "is_active": false
+                    },
+                    {
+                        "question": "What types of IT services do you offer?",
+                        "answer": "From personalized solutions to expert execution, we prioritize quality, reliability, and customer satisfaction in everything we do. Let us be your trusted partner in achieving success.",
+                        "is_active": false
+                    }
+                ]
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "description": "Enable animation effects",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_odometer",
+            "label": "Enable Odometer",
+            "description": "Enable odometer animation for the experience counter",
+            "data": {
+                "value": 1
+            }
+        }
+    ]
+}

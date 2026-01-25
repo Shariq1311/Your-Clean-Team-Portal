@@ -1,0 +1,127 @@
+{
+    "label": "Process Area Home 1",
+    "description": "Process section with background image and process steps",
+    "form": [
+        {
+            "type": "image",
+            "name": "bg_image",
+            "label": "Background Image",
+            "data": {
+                "value": "images/backgrounds/process-two-bg.jpg"
+            }
+        },
+        {
+            "type": "image",
+            "name": "bg_shape",
+            "label": "Background Shape",
+            "data": {
+                "value": "images/shapes/process-two-bg-shape.png"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_tagline",
+            "label": "Section Tagline",
+            "data": {
+                "value": "Working Process"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_1",
+            "label": "Title Part 1",
+            "data": {
+                "value": "Our Seamless Process"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_2",
+            "label": "Title Part 2 (Highlighted)",
+            "data": {
+                "value": "From Concept to Creation"
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "process_steps",
+            "label": "Process Steps",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "title",
+                    "label": "Step Title"
+                },
+                {
+                    "type": "textarea",
+                    "name": "text",
+                    "label": "Step Description"
+                },
+                {
+                    "type": "checkbox_json",
+                    "name": "show_shape_1",
+                    "label": "Show Shape 1",
+                    "data": {
+                        "value": 0
+                    }
+                },
+                {
+                    "type": "image",
+                    "name": "shape_1",
+                    "label": "Shape 1 Image",
+                    "data": {
+                        "value": "images/shapes/process-two-shape-1.png"
+                    }
+                },
+                {
+                    "type": "checkbox_json",
+                    "name": "show_shape_2",
+                    "label": "Show Shape 2",
+                    "data": {
+                        "value": 0
+                    }
+                },
+                {
+                    "type": "image",
+                    "name": "shape_2",
+                    "label": "Shape 2 Image",
+                    "data": {
+                        "value": "images/shapes/process-two-shape-2.png"
+                    }
+                }
+            ],
+            "options": {
+                "min_items": 1,
+                "max_items": 6,
+                "add_button_text": "Add Process Step",
+                "remove_button_text": "Remove Process Step",
+                "value": [
+                    {
+                        "title": "Research & Discovery",
+                        "text": "We begin by understanding your needs,<br> goals, and vision. Through brainstorming<br> sessions and strategic planning,",
+                        "show_shape_1": 0,
+                        "shape_1": "",
+                        "show_shape_2": 0,
+                        "shape_2": ""
+                    },
+                    {
+                        "title": "Design and Development",
+                        "text": "Once the strategy is in place, we move to<br> designing and developing your vision. Our<br> team collaborates closely to bring your<br> ideas",
+                        "show_shape_1": 1,
+                        "shape_1": "images/shapes/process-two-shape-1.png",
+                        "show_shape_2": 1,
+                        "shape_2": "images/shapes/process-two-shape-2.png"
+                    },
+                    {
+                        "title": "Testing and Launch",
+                        "text": "Before going live, we rigorously test to<br> ensure optimal functionality. After<br> thorough quality checks, we launch your<br> project",
+                        "show_shape_1": 0,
+                        "shape_1": "",
+                        "show_shape_2": 0,
+                        "shape_2": ""
+                    }
+                ]
+            }
+        }
+    ]
+}

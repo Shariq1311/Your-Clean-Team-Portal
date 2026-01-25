@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * Mojar - The Best CMS for Laravel Project
+ *
+ * @package    Mojar/cms
+ * @author     Mojar Team <admin@Mojar.com>
+ * @link       https://Mojar.com
+ * @license    MIT
+ */
+
+namespace MojarCMS\Backend\Http\Controllers\Backend\Setting;
+
+use Illuminate\Contracts\View\View;
+use MojarCMS\CMS\Contracts\HookActionContract as HookAction;
+use MojarCMS\CMS\Http\Controllers\BackendController;
+
+class MediaController extends BackendController
+{
+    public function __construct(protected HookAction $hookAction) {}
+
+    public function index(): View
+    {
+        $title = trans('cms::app.media_setting.title');
+        $postTypes = $this->hookAction->getPostTypes();
+        $thumbnailDefaults = get_config('thumbnail_defaults', []);
+        $thumbnailSizes = $this->hookAction->getThumbnailSizes()->toArray();
+
+        return view(
+            'cms::backend.setting.media',
+            compact(
+                'title',
+                'postTypes',
+                'thumbnailDefaults',
+                'thumbnailSizes'
+            )
+        );
+    }
+}

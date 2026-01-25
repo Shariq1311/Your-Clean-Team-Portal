@@ -1,0 +1,372 @@
+<section class="portfolio-two">
+    <div class="portfolio-two__shape-1 float-bob-y">
+        {% if data.shape_1 %}
+            <img src="{{ upload_url(data.shape_1) }}" alt="shape">
+        {% else %}
+            <img src="{{ asset('images/shapes/portfolio-two-shape-1.png') }}" alt="shape">
+        {% endif %}
+    </div>
+    <div class="portfolio-two__shape-2"></div>
+    <div class="portfolio-two__shape-3"></div>
+    <div class="portfolio-two__shape-4"></div>
+    <div class="container">
+        <div class="section-title text-center sec-title-animation {% if data.enable_animation %}animation-style1{% endif %}">
+            <div class="section-title__tagline-box">
+                <div class="section-title__tagline-shape-1"></div>
+                <span class="section-title__tagline">{{ data.section_tagline|default('Portfolio') }}</span>
+                <div class="section-title__tagline-shape-2"></div>
+            </div>
+            <h2 class="section-title__title {% if data.enable_animation %}title-animation{% endif %}">{{ data.section_title_1|default('Explore Our Creative') }} <span>{{ data.section_title_2|default('Journey') }}</span><br>
+            <span>{{ data.section_title_3|default('Crafting Success Through') }}</span>
+            </h2>
+        </div>
+        <div class="portfolio-two__carousel-container">
+            <div class="portfolio-two__carousel owl-carousel owl-theme">
+                {% if data.use_portfolio_post_type %}
+                    {% set ids_array = data.portfolio_ids ? data.portfolio_ids|split(',') : [] %}
+                    {% set portfolios = get_posts('portfolios', {
+                        'limit': data.items_limit|default(9),
+                        'taxonomy': data.portfolio_category,
+                        'ids': ids_array,
+                        'orderby': data.orderby|default('date'),
+                        'order': data.order|default('DESC')
+                    }) %}
+                    
+                    {% if portfolios %}
+                        {% set items_per_group = 4 %}
+                        {% set total_groups = (portfolios|length / items_per_group)|round(0, 'ceil') %}
+                        
+                        {% for group_index in 0..(total_groups-1) %}
+                            <!--Portfolio Two Single Start-->
+                            <div class="item">
+                                <div class="portfolio-two__single-box">
+                                    <ul class="portfolio-two__box list-unstyled">
+                                        {% set start_index = group_index * items_per_group %}
+                                        {% set end_index = start_index + items_per_group - 1 %}
+                                        
+                                        {% for i in start_index..end_index %}
+                                            {% if portfolios[i] is defined %}
+                                                {% set portfolio = portfolios[i] %}
+                                                <li {% if loop.index == 2 %}class="active"{% endif %}>
+                                                    <div class="portfolio-two__box-content">
+                                                        <div class="single-portfolio-two__bg"
+                                                            style="background-image: url({{ upload_url(portfolio.thumbnail) }});">
+                                                        </div>
+                                                        <div class="portfolio-two__title">
+                                                            <h3><a href="{{ portfolio.url }}">{{ portfolio.title }}</a></h3>
+                                                        </div>
+                                                        <div class="portfolio-two__content-box">
+                                                            <div class="portfolio-two__icon">
+                                                                <a href="{{ upload_url(portfolio.thumbnail) }}"
+                                                                    class="img-popup"><span class="icon-right-arrow-1"></span></a>
+                                                            </div>
+                                                            <div class="portfolio-two__title-box">
+                                                                <h3 class="portfolio-two__title-2"><a
+                                                                    href="{{ portfolio.url }}">{{ portfolio.title }}</a></h3>
+                                                                <p class="portfolio-two__text">{{ portfolio.excerpt|raw }}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--Portfolio Two Single End-->
+                        {% endfor %}
+                    {% endif %}
+                {% else %}
+                    {% if data.portfolio_groups %}
+                        {% for group in data.portfolio_groups %}
+                            <!--Portfolio Two Single Start-->
+                            <div class="item">
+                                <div class="portfolio-two__single-box">
+                                    <ul class="portfolio-two__box list-unstyled">
+                                        {% for item in group.portfolio_items %}
+                                            <li {% if item.is_active %}class="active"{% endif %}>
+                                                <div class="portfolio-two__box-content">
+                                                    <div class="single-portfolio-two__bg"
+                                                        style="background-image: url({{ upload_url(item.image) }});">
+                                                    </div>
+                                                    <div class="portfolio-two__title">
+                                                        <h3><a href="{{ item.url|default('javascript:void(0)') }}">{{ item.title }}</a></h3>
+                                                    </div>
+                                                    <div class="portfolio-two__content-box">
+                                                        <div class="portfolio-two__icon">
+                                                            <a href="{{ upload_url(item.image) }}"
+                                                                class="img-popup"><span class="icon-right-arrow-1"></span></a>
+                                                        </div>
+                                                        <div class="portfolio-two__title-box">
+                                                            <h3 class="portfolio-two__title-2"><a
+                                                                href="{{ item.url|default('javascript:void(0)') }}">{{ item.title }}</a></h3>
+                                                            <p class="portfolio-two__text">{{ item.description }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--Portfolio Two Single End-->
+                        {% endfor %}
+                    {% else %}
+                        <!-- Default Portfolio Groups -->
+                        <!--Portfolio Two Single Start-->
+                        <div class="item">
+                            <div class="portfolio-two__single-box">
+                                <ul class="portfolio-two__box list-unstyled">
+                                    <li>
+                                        <div class="portfolio-two__box-content">
+                                            <div class="single-portfolio-two__bg"
+                                                style="background-image: url({{ asset('images/project/portfolio-2-1.jpg') }});">
+                                            </div>
+                                            <div class="portfolio-two__title">
+                                                <h3><a href="javascript:void(0)">Innovative Solutions,<br> Powerful Results</a></h3>
+                                            </div>
+                                            <div class="portfolio-two__content-box">
+                                                <div class="portfolio-two__icon">
+                                                    <a href="{{ asset('images/project/portfolio-2-1.jpg') }}"
+                                                        class="img-popup"><span class="icon-right-arrow-1"></span></a>
+                                                </div>
+                                                <div class="portfolio-two__title-box">
+                                                    <h3 class="portfolio-two__title-2"><a
+                                                        href="javascript:void(0)">Innovative Solutions,<br> Powerful Results</a></h3>
+                                                    <p class="portfolio-two__text">Explore How We've Empowered Businesses with Innovative Tech Solutions</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="active">
+                                        <div class="portfolio-two__box-content">
+                                            <div class="single-portfolio-two__bg"
+                                                style="background-image: url({{ asset('images/project/portfolio-2-2.jpg') }});">
+                                            </div>
+                                            <div class="portfolio-two__title">
+                                                <h3><a href="javascript:void(0)">Transforming Ideas Into<br> Digital Excellence</a></h3>
+                                            </div>
+                                            <div class="portfolio-two__content-box">
+                                                <div class="portfolio-two__icon">
+                                                    <a href="{{ asset('images/project/portfolio-2-2.jpg') }}"
+                                                        class="img-popup"><span class="icon-right-arrow-1"></span></a>
+                                                </div>
+                                                <div class="portfolio-two__title-box">
+                                                    <h3 class="portfolio-two__title-2"><a
+                                                        href="javascript:void(0)">Transforming Ideas Into Digital Excellence</a></h3>
+                                                    <p class="portfolio-two__text">Explore How We've Empowered Businesses with Innovative Tech Solutions</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="portfolio-two__box-content">
+                                            <div class="single-portfolio-two__bg"
+                                                style="background-image: url({{ asset('images/project/portfolio-2-3.jpg') }});">
+                                            </div>
+                                            <div class="portfolio-two__title">
+                                                <h3><a href="javascript:void(0)">Driving Success Through<br> Technology</a></h3>
+                                            </div>
+                                            <div class="portfolio-two__content-box">
+                                                <div class="portfolio-two__icon">
+                                                    <a href="{{ asset('images/project/portfolio-2-3.jpg') }}"
+                                                        class="img-popup"><span class="icon-right-arrow-1"></span></a>
+                                                </div>
+                                                <div class="portfolio-two__title-box">
+                                                    <h3 class="portfolio-two__title-2"><a
+                                                        href="javascript:void(0)">Driving Success Through Technology</a></h3>
+                                                    <p class="portfolio-two__text">Explore How We've Empowered Businesses with Innovative Tech Solutions</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="portfolio-two__box-content">
+                                            <div class="single-portfolio-two__bg"
+                                                style="background-image: url({{ asset('images/project/portfolio-2-4.jpg') }});">
+                                            </div>
+                                            <div class="portfolio-two__title">
+                                                <h3><a href="javascript:void(0)">Empowering Businesses<br> with Cutting-Edge IT</a></h3>
+                                            </div>
+                                            <div class="portfolio-two__content-box">
+                                                <div class="portfolio-two__icon">
+                                                    <a href="{{ asset('images/project/portfolio-2-4.jpg') }}"
+                                                        class="img-popup"><span class="icon-right-arrow-1"></span></a>
+                                                </div>
+                                                <div class="portfolio-two__title-box">
+                                                    <h3 class="portfolio-two__title-2"><a
+                                                        href="javascript:void(0)">Empowering Businesses with Cutting-Edge IT</a></h3>
+                                                    <p class="portfolio-two__text">Explore How We've Empowered Businesses with Innovative Tech Solutions</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--Portfolio Two Single End-->
+                        <!--Portfolio Two Single Start-->
+                        <div class="item">
+                            <div class="portfolio-two__single-box">
+                                <ul class="portfolio-two__box list-unstyled">
+                                    <li>
+                                        <div class="portfolio-two__box-content">
+                                            <div class="single-portfolio-two__bg"
+                                                style="background-image: url({{ asset('images/project/portfolio-2-1.jpg') }});">
+                                            </div>
+                                            <div class="portfolio-two__title">
+                                                <h3><a href="javascript:void(0)">Innovative Solutions,<br> Powerful Results</a></h3>
+                                            </div>
+                                            <div class="portfolio-two__content-box">
+                                                <div class="portfolio-two__icon">
+                                                    <a href="{{ asset('images/project/portfolio-2-1.jpg') }}"
+                                                        class="img-popup"><span class="icon-right-arrow-1"></span></a>
+                                                </div>
+                                                <div class="portfolio-two__title-box">
+                                                    <h3 class="portfolio-two__title-2"><a
+                                                        href="javascript:void(0)">Innovative Solutions,<br> Powerful Results</a></h3>
+                                                    <p class="portfolio-two__text">Explore How We've Empowered Businesses with Innovative Tech Solutions</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="active">
+                                        <div class="portfolio-two__box-content">
+                                            <div class="single-portfolio-two__bg"
+                                                style="background-image: url({{ asset('images/project/portfolio-2-2.jpg') }});">
+                                            </div>
+                                            <div class="portfolio-two__title">
+                                                <h3><a href="javascript:void(0)">Transforming Ideas Into<br> Digital Excellence</a></h3>
+                                            </div>
+                                            <div class="portfolio-two__content-box">
+                                                <div class="portfolio-two__icon">
+                                                    <a href="{{ asset('images/project/portfolio-2-2.jpg') }}"
+                                                        class="img-popup"><span class="icon-right-arrow-1"></span></a>
+                                                </div>
+                                                <div class="portfolio-two__title-box">
+                                                    <h3 class="portfolio-two__title-2"><a
+                                                        href="javascript:void(0)">Transforming Ideas Into Digital Excellence</a></h3>
+                                                    <p class="portfolio-two__text">Explore How We've Empowered Businesses with Innovative Tech Solutions</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="portfolio-two__box-content">
+                                            <div class="single-portfolio-two__bg"
+                                                style="background-image: url({{ asset('images/project/portfolio-2-3.jpg') }});">
+                                            </div>
+                                            <div class="portfolio-two__title">
+                                                <h3><a href="javascript:void(0)">Driving Success Through<br> Technology</a></h3>
+                                            </div>
+                                            <div class="portfolio-two__content-box">
+                                                <div class="portfolio-two__icon">
+                                                    <a href="{{ asset('images/project/portfolio-2-3.jpg') }}"
+                                                        class="img-popup"><span class="icon-right-arrow-1"></span></a>
+                                                </div>
+                                                <div class="portfolio-two__title-box">
+                                                    <h3 class="portfolio-two__title-2"><a
+                                                        href="javascript:void(0)">Driving Success Through Technology</a></h3>
+                                                    <p class="portfolio-two__text">Explore How We've Empowered Businesses with Innovative Tech Solutions</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="portfolio-two__box-content">
+                                            <div class="single-portfolio-two__bg"
+                                                style="background-image: url({{ asset('images/project/portfolio-2-4.jpg') }});">
+                                            </div>
+                                            <div class="portfolio-two__title">
+                                                <h3><a href="javascript:void(0)">Empowering Businesses<br> with Cutting-Edge IT</a></h3>
+                                            </div>
+                                            <div class="portfolio-two__content-box">
+                                                <div class="portfolio-two__icon">
+                                                    <a href="{{ asset('images/project/portfolio-2-4.jpg') }}"
+                                                        class="img-popup"><span class="icon-right-arrow-1"></span></a>
+                                                </div>
+                                                <div class="portfolio-two__title-box">
+                                                    <h3 class="portfolio-two__title-2"><a
+                                                        href="javascript:void(0)">Empowering Businesses with Cutting-Edge IT</a></h3>
+                                                    <p class="portfolio-two__text">Explore How We've Empowered Businesses with Innovative Tech Solutions</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--Portfolio Two Single End-->
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function() {
+        if ($(".portfolio-two__carousel").length) {
+            $(".portfolio-two__carousel").owlCarousel({
+                loop: {{ data.carousel_loop ? 'true' : 'false' }},
+                margin: {{ data.carousel_margin|default(0) }},
+                nav: {{ data.carousel_nav ? 'true' : 'false' }},
+                dots: {{ data.carousel_dots ? 'true' : 'false' }},
+                smartSpeed: {{ data.carousel_smart_speed|default(500) }},
+                autoplay: {{ data.carousel_autoplay ? 'true' : 'false' }},
+                autoplayTimeout: {{ data.carousel_autoplay_timeout|default(5000) }},
+                navText: [
+                    '<span class="icon-right-arrow-1"></span>',
+                    '<span class="icon-right-arrow-1"></span>',
+                ],
+                responsive: {
+                    0: {
+                        items: {{ data.carousel_items|default(1) }}
+                    },
+                    768: {
+                        items: {{ data.carousel_items|default(1) }}
+                    },
+                    992: {
+                        items: {{ data.carousel_items|default(1) }}
+                    },
+                    1200: {
+                        items: {{ data.carousel_items|default(1) }}
+                    }
+                }
+            });
+        }
+
+    if ($(".portfolio-two__box li").length) {
+        $(".portfolio-two__box li").each(function () {
+        let self = $(this);
+
+        self.on("mouseenter", function () {
+            console.log($(this));
+            $(".portfolio-two__box li").removeClass("active");
+            $(this).addClass("active");
+        });
+        });
+    }
+
+        {% if data.enable_magnific_popup %}
+        if ($('.img-popup').length) {
+            var groups = {};
+            $('.img-popup').each(function() {
+                var id = parseInt($(this).attr('data-group'), 10);
+                if(!groups[id]) {
+                    groups[id] = [];
+                }
+                groups[id].push(this);
+            });
+            $.each(groups, function() {
+                $(this).magnificPopup({
+                    type: 'image',
+                    closeOnContentClick: true,
+                    closeBtnInside: false,
+                    gallery: { enabled: true }
+                });
+            });
+        }
+        {% endif %}
+    });
+</script> 

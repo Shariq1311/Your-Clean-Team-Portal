@@ -1,0 +1,63 @@
+<section class="newsletter-one newsletter-three">
+    <div class="container">
+        <div class="newsletter-one__inner">
+            <div class="newsletter-one__shape-bg"
+                 style="background-image: url({% if data.shape_bg %}{{ upload_url(data.shape_bg) }}{% else %}{{ asset('images/shapes/newsletter-one-shape-bg.png') }}{% endif %});"></div>
+            <div class="newsletter-one__shape-1 float-bob-x">
+                <img src="{{ asset('images/shapes/newsletter-one-shape-1.png') }}" alt="">
+            </div>
+            <div class="newsletter-one__shape-2"></div>
+            <div class="newsletter-one__shape-3"></div>
+            <div class="newsletter-one__img float-bob-y">
+                <img src="{{ asset('images/resources/newsletter-one-img-1.png') }}" alt="">
+            </div>
+            <h2 class="newsletter-one__title">{{ data.subscribe_text_1 }} <span>{{ data.subscribe_text_2 }}</span></h2>
+            <p class="newsletter-one__text"> {{ data.description_1 }} <br /> {{ data.description_2 }}</p>   
+            <div id="sidebar-newsletters-success-message2" class="alert alert-success" style="display: none;"></div>
+            <div id="sidebar-newsletters-error-message2" class="alert alert-danger" style="display: none;"></div>
+            <form class="newsletter-one__contact-form">
+                <div class="newsletter-one__contact-input-box">
+                    <input type="email" placeholder="{{ data.placeholder }}" name="email">
+                    <button type="submit" class="thm-btn">{{ data.button_text|default('Subscribe Now') }}<span
+                            class="icon-arrow-right"></span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script>
+(function() {
+    'use strict';
+    $(document).ready(function() {
+        $('.newsletter-one__contact-form').on('submit', function(e) {
+            e.preventDefault();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            });
+
+            $.ajax({
+                url: '{{ url('ajax/newsletters-subscribers') }}',
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function(response) {
+                    if (response.status === true) {
+                        $('#sidebar-newsletters-success-message2').show();
+                        $('#sidebar-newsletters-success-message2').text(response?.data?.message || 'Your message has been sent successfully!');
+                        $('.newsletter-one__contact-form')[0].reset();
+                    } else {
+                        $('#sidebar-newsletters-error-message2').show();
+                        $('#sidebar-newsletters-error-message2').text(response?.data?.message || 'Something went wrong!');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    $('#sidebar-newsletters-error-message2').show();
+                    $('#sidebar-newsletters-error-message2').text(xhr.responseJSON?.message || 'An error occurred. Please try again.');
+                }
+            });
+        });
+    });
+    })();
+</script>

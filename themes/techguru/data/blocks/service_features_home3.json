@@ -1,0 +1,135 @@
+{
+    "label": "Service Features Home 3",
+    "description": "Service features section with icons and animation",
+    "form": [
+        {
+            "type": "checkbox_json",
+            "name": "use_services_post_type",
+            "label": "Use Services Post Type",
+            "description": "Load services from Services post type instead of manual configuration",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "taxonomy",
+            "name": "services_category",
+            "label": "Services Category Filter",
+            "description": "Filter services by category (when using services post type)",
+            "data": {
+                "post_type": "services",
+                "taxonomy": "categories"
+            }
+        },
+        {
+            "type": "text",
+            "name": "items_limit",
+            "label": "Number of Services",
+            "description": "Maximum number of services to display",
+            "data": {
+                "value": "5"
+            }
+        },
+        {
+            "type": "text",
+            "name": "service_ids",
+            "label": "Service IDs",
+            "description": "Enter specific service IDs to display (comma-separated)",
+            "data": {
+                "value": ""
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "features",
+            "label": "Service Features (Manual Configuration)",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "icon",
+                    "label": "Feature Icon Class",
+                    "description": "Icon class name (e.g., icon-strategy, icon-technical-support)",
+                    "data": {
+                        "value": "icon-strategy"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "title",
+                    "label": "Feature Title"
+                },
+                {
+                    "type": "text",
+                    "name": "url",
+                    "label": "Feature URL"
+                },
+                {
+                    "type": "textarea",
+                    "name": "description",
+                    "label": "Feature Description"
+                },
+                {
+                    "type": "text",
+                    "name": "animation_delay",
+                    "label": "Animation Delay (ms)",
+                    "description": "Delay for the animation in milliseconds",
+                    "data": {
+                        "value": "100"
+                    }
+                }
+            ],
+            "options": {
+                "min_items": 0,
+                "max_items": 10,
+                "add_button_text": "Add Feature",
+                "remove_button_text": "Remove Feature",
+                "value": [
+                    {
+                        "icon": "icon-strategy",
+                        "title": "Technology Consulting",
+                        "url": "advanced-technology.html",
+                        "description": "Innovating and empowering businesses with tailored solutions for success and growth. Innovating and empowering",
+                        "animation_delay": "100"
+                    },
+                    {
+                        "icon": "icon-technical-support",
+                        "title": "Cloud IT security",
+                        "url": "cloud-managed-services.html",
+                        "description": "Innovating and empowering businesses with tailored solutions for success and growth. Innovating and empowering",
+                        "animation_delay": "200"
+                    },
+                    {
+                        "icon": "icon-strategy",
+                        "title": "Software Development",
+                        "url": "advanced-technology.html",
+                        "description": "Innovating and empowering businesses with tailored solutions for success and growth. Innovating and empowering",
+                        "animation_delay": "300"
+                    },
+                    {
+                        "icon": "icon-earning",
+                        "title": "Business solutions",
+                        "url": "backup-recovery.html",
+                        "description": "Innovating and empowering businesses with tailored solutions for success and growth. Innovating and empowering",
+                        "animation_delay": "400"
+                    },
+                    {
+                        "icon": "icon-transparency",
+                        "title": "Data Tracking Security",
+                        "url": "data-protection-privacy.html",
+                        "description": "Innovating and empowering businesses with tailored solutions for success and growth. Innovating and empowering",
+                        "animation_delay": "500"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "description": "Enable wow animation effects",
+            "data": {
+                "value": 1
+            }
+        }
+    ]
+}

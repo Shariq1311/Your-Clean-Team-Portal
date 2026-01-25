@@ -1,0 +1,195 @@
+<section class="faq-one">
+    <div class="faq-one__shape-1"></div>
+    <div class="faq-one__shape-2"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="faq-one__left">
+                    <div class="section-title text-left sec-title-animation {% if data.enable_animation %}animation-style2{% endif %}">
+                        <div class="section-title__tagline-box">
+                            <div class="section-title__tagline-shape-1"></div>
+                            <span class="section-title__tagline">{{ data.section_tagline|default('Our Faqs') }}</span>
+                            <div class="section-title__tagline-shape-2"></div>
+                        </div>
+                        <h2 class="section-title__title {% if data.enable_animation %}title-animation{% endif %}">{{ data.section_title_1|default('Your Questions Answered') }} <br>
+                            <span>{{ data.section_title_2|default('Explore Our FAQs') }}</span>
+                        </h2>
+                    </div>
+                    <div class="faq-one__img-box {% if data.enable_animation %}wow slideInLeft{% endif %}" {% if data.enable_animation %}data-wow-delay="100ms" data-wow-duration="2500ms"{% endif %}>
+                        <div class="faq-one__img">
+                            {% if data.faq_image %}
+                                <img src="{{ upload_url(data.faq_image) }}" alt="FAQ Image">
+                            {% else %}
+                                <img src="{{ asset('images/resources/faq-one-img-1.jpg') }}" alt="FAQ Image">
+                            {% endif %}
+                        </div>
+                        <div class="faq-one__experience-box">
+                            <div class="faq-one__experience-year">
+                                <h2 class="{% if data.enable_odometer %}odometer{% endif %}" data-count="{{ data.experience_count|default('55') }}">00</h2>
+                            </div>
+                            <p class="faq-one__experience-text">{{ data.experience_text_line1|default('Year of') }} <br> {{ data.experience_text_line2|default('experience') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="faq-one__right">
+                    <div class="accrodion-grp" data-grp-name="faq-one-accrodion">
+                        {% if data.use_faqs_post_type %}
+                            {% set ids_array = data.faq_ids ? data.faq_ids|split(',') : [] %}
+                            {% set faqs = get_posts('faqs', {
+                                'limit': data.items_limit|default(5),
+                                'taxonomy': data.faqs_category,
+                                'ids': ids_array,
+                                'orderby': data.orderby|default('date'),
+                                'order': data.order|default('DESC')
+                            }) %}
+                            
+                            {% if faqs %}
+                                {% for faq in faqs %}
+                                    <div class="accrodion {% if faq.metas.is_active == "true" %}active{% endif %}">
+                                        <div class="accrodion-title">
+                                            <h4>{{ faq.title }}</h4>
+                                        </div>
+                                        <div class="accrodion-content">
+                                            <div class="inner">
+                                                <p>{{ faq.description|raw }}</p>
+                                            </div><!-- /.inner -->
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% else %}
+                            {% if data.custom_faqs %}
+                                {% for faq in data.custom_faqs %}
+                                    <div class="accrodion {% if faq.is_active %}active{% endif %}">
+                                        <div class="accrodion-title">
+                                            <h4>{{ faq.question }}</h4>
+                                        </div>
+                                        <div class="accrodion-content">
+                                            <div class="inner">
+                                                <p>{{ faq.answer }}</p>
+                                            </div><!-- /.inner -->
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <!-- Default FAQs -->
+                                <div class="accrodion">
+                                    <div class="accrodion-title">
+                                        <h4>What types of IT services do you offer?</h4>
+                                    </div>
+                                    <div class="accrodion-content">
+                                        <div class="inner">
+                                            <p>From personalized solutions to expert execution, we prioritize quality,
+                                            reliability, and customer satisfaction in everything we do. Let us be
+                                            your trusted partner in achieving success.</p>
+                                        </div><!-- /.inner -->
+                                    </div>
+                                </div>
+                                <div class="accrodion active">
+                                    <div class="accrodion-title">
+                                        <h4>Are your IT products eco-friendly?</h4>
+                                    </div>
+                                    <div class="accrodion-content">
+                                        <div class="inner">
+                                            <p>From personalized solutions to expert execution, we prioritize quality,
+                                            reliability, and customer satisfaction in everything we do. Let us be
+                                            your trusted partner in achieving success.</p>
+                                        </div><!-- /.inner -->
+                                    </div>
+                                </div>
+                                <div class="accrodion">
+                                    <div class="accrodion-title">
+                                        <h4>What papers needed for software development?</h4>
+                                    </div>
+                                    <div class="accrodion-content">
+                                        <div class="inner">
+                                            <p>From personalized solutions to expert execution, we prioritize quality,
+                                            reliability, and customer satisfaction in everything we do. Let us be
+                                            your trusted partner in achieving success.</p>
+                                        </div><!-- /.inner -->
+                                    </div>
+                                </div>
+                                <div class="accrodion">
+                                    <div class="accrodion-title">
+                                        <h4>How to contact the development team?</h4>
+                                    </div>
+                                    <div class="accrodion-content">
+                                        <div class="inner">
+                                            <p>From personalized solutions to expert execution, we prioritize quality,
+                                            reliability, and customer satisfaction in everything we do. Let us be
+                                            your trusted partner in achieving success.</p>
+                                        </div><!-- /.inner -->
+                                    </div>
+                                </div>
+                                <div class="accrodion">
+                                    <div class="accrodion-title">
+                                        <h4>What types of IT services do you offer?</h4>
+                                    </div>
+                                    <div class="accrodion-content">
+                                        <div class="inner">
+                                            <p>From personalized solutions to expert execution, we prioritize quality,
+                                            reliability, and customer satisfaction in everything we do. Let us be
+                                            your trusted partner in achieving success.</p>
+                                        </div><!-- /.inner -->
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    (function($) {
+        "use strict";
+        $(document).ready(function() {
+            // Initialize accordion
+            if ($(".accrodion-grp").length) {
+                var accrodionGrp = $(".accrodion-grp");
+                accrodionGrp.each(function () {
+                    var accrodionName = $(this).data("grp-name");
+                    var Self = $(this);
+                    var accordion = Self.find(".accrodion");
+                    Self.addClass(accrodionName);
+                    Self.find(".accrodion .accrodion-content").hide();
+                    Self.find(".accrodion.active").find(".accrodion-content").show();
+                    accordion.each(function () {
+                        $(this)
+                        .find(".accrodion-title")
+                        .on("click", function () {
+                            if ($(this).parent().hasClass("active") === false) {
+                                $(".accrodion-grp." + accrodionName)
+                                    .find(".accrodion")
+                                    .removeClass("active");
+                                $(".accrodion-grp." + accrodionName)
+                                    .find(".accrodion")
+                                    .find(".accrodion-content")
+                                    .slideUp();
+                                $(this).parent().addClass("active");
+                                $(this).parent().find(".accrodion-content").slideDown();
+                            }
+                        });
+                    });
+                });
+            }
+
+            // Initialize odometer
+            {% if data.enable_odometer %}
+            if ($(".odometer").length) {
+                var odo = $(".odometer");
+                odo.each(function () {
+                    $(this).appear(function () {
+                        var countNumber = $(this).attr("data-count");
+                        $(this).html(countNumber);
+                    });
+                });
+            }
+            {% endif %}
+        });
+    })(jQuery);
+</script> 

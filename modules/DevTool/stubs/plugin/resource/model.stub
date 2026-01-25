@@ -1,0 +1,15 @@
+<?php
+
+namespace $NAMESPACE$;
+
+use MojarCMS\CMS\Models\Model;
+use MojarCMS\CMS\Traits\ResourceModel;
+
+class $CLASS$ extends Model
+{
+    use ResourceModel;
+
+    protected $table = '$TABLE$';
+
+    protected $fillable = $FILLABLE$;
+}

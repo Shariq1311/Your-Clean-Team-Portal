@@ -1,0 +1,84 @@
+{
+    "name": "Footer Newsletter",
+    "description": "Footer newsletter subscription form with social links",
+    "form": [
+        {
+            "type": "text",
+            "name": "title",
+            "label": "Widget Title",
+            "data": {
+                "value": "Newsletter"
+            }
+        },
+        {
+            "type": "textarea",
+            "name": "description",
+            "label": "Newsletter Description",
+            "data": {
+                "value": "Get the latest SEO tips and software insights straight to your inbox."
+            }
+        },
+        {
+            "type": "text",
+            "name": "placeholder",
+            "label": "Email Placeholder Text",
+            "data": {
+                "value": "Enter email address"
+            }
+        },
+        {
+            "type": "text",
+            "name": "privacy_text",
+            "label": "Privacy Policy Text",
+            "data": {
+                "value": "by Subscribing. Your Accept Privacy policy"
+            }
+        },
+        {
+            "type": "text",
+            "name": "social_title",
+            "label": "Social Media Title",
+            "data": {
+                "value": "Follow Us:"
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "social_links",
+            "label": "Social Links",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "icon",
+                    "label": "Icon Class",
+                    "description": "Icon class (e.g. icon-facebook)"
+                },
+                {
+                    "type": "text",
+                    "name": "url",
+                    "label": "Social Link URL"
+                }
+            ],
+            "options": {
+                "min_items": 1,
+                "max_items": 6,
+                "add_button_text": "Add Social Link",
+                "remove_button_text": "Remove Link",
+                "value": [
+                    {
+                        "icon": "icon-facebook",
+                        "url": "#"
+                    },
+                    {
+                        "icon": "icon-dribble",
+                        "url": "#"
+                    },
+                    {
+                        "icon": "icon-linkedin",
+                        "url": "#"
+                    }
+                ]
+            }
+        }
+    ]
+}

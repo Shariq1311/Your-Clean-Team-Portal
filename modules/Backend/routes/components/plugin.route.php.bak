@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * Mojar - Laravel CMS for Your Project
+ *
+ * @package    mojar/cms
+ * @author     Mojar Team
+ * @link       https://github.com/mojar/cms
+ * @license    GNU V2
+ */
+
+use MojarCMS\Backend\Http\Controllers\Backend\Plugin\EditorController;
+use MojarCMS\Backend\Http\Controllers\Backend\Plugin\PluginController;
+use MojarCMS\Backend\Http\Controllers\Backend\Plugin\PluginInstallController;
+use Illuminate\Support\Facades\Route;
+
+Route::group(
+    ['prefix' => 'plugins'],
+    function () {
+        Route::get('/', [PluginController::class, 'index'])->name('admin.plugin');
+        Route::get('/get-data', [PluginController::class, 'getDataTable'])->name('admin.plugin.get-data');
+        Route::post('/bulk-actions', [PluginController::class, 'bulkActions'])->name('admin.plugin.bulk-actions');
+    }
+);
+
+Route::group(
+    ['prefix' => 'plugin/install'],
+    function () {
+        Route::get('/', [PluginInstallController::class, 'index'])
+            ->name('admin.plugin.install');
+        Route::get('/all', [PluginInstallController::class, 'getData'])
+            ->name('admin.plugin.install.all');
+        Route::post('/upload', [PluginInstallController::class, 'upload'])
+            ->name('admin.plugin.install.upload');
+    }
+);
+
+Route::group(
+    ['prefix' => 'plugin/editor'],
+    function () {
+        Route::get('/', [EditorController::class, 'index'])
+            ->name('admin.plugin.editor');
+        Route::get('/content', [EditorController::class, 'getFileContent'])
+            ->name('admin.plugin.editor.content');
+        Route::put('/', [EditorController::class, 'save'])
+            ->name('admin.plugin.editor.save');
+    }
+);

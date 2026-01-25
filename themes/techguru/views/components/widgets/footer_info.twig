@@ -1,0 +1,30 @@
+<div class="site-footer-two__about">
+    <div class="site-footer-two__logo">
+        <a href="{{ home_url() }}"><img src="{{ upload_url(data.logo, 'assets/images/resources/footer-logo.png') }}" alt=""></a>
+    </div>
+    <ul class="list-unstyled site-footer-two__contact-list">
+        <li>
+            <div class="site-footer-two__contact-icon">
+                <span class="icon-contact"></span>
+            </div>
+            <div class="site-footer-two__contact-content">
+                <h5 class="site-footer-two__contact-title">{{ data.contact_title }}</h5>
+                <p class="site-footer-two__contact-info">
+                    <a href="mailto:{{ data.email }}" class="site-footer-two__contact-mail">{{ data.email }}</a>
+                    <a href="tel:{{ data.phone|replace({' ': ''}) }}" class="site-footer-two__contact-phone">{{ data.phone }}</a>
+                </p>
+            </div>
+        </li>
+        <li>
+            <div class="site-footer-two__contact-icon">
+                <span class="icon-pin"></span>
+            </div>
+            <div class="site-footer-two__contact-content">
+                <h5 class="site-footer-two__contact-title">{{ data.location_title }}</h5>
+                <p class="site-footer-two__contact-info">
+                    {{ data.location_text|nl2br }}
+                </p>
+            </div>
+        </li>
+    </ul>
+</div> 

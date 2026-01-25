@@ -1,0 +1,1 @@
+import{X as s,a as i,F as n,j as t,S as r}from"./app-77cf924b.js";function o({children:a}){const{title:e}=s().props;return i(n,{children:[t(r,{children:t("title",{children:(e||"")+" - Your Clean Team CMS"})}),t("h4",{className:"font-weight-bold ml-3 text-capitalize",children:e||""}),t("div",{className:"Your Clean Team__utils__content",children:a})]})}export{o as A};

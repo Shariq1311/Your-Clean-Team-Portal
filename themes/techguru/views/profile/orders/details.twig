@@ -1,0 +1,94 @@
+<div class="tf__dashboard_body">
+	<div class="tf__invoice">
+		<a class="go_back" href="{{ route('profile', 'orders') }}">
+			<i class="fas fa-long-arrow-alt-left"></i>
+			go back
+        </a>
+        {% if data.order %}
+            <div class="tf__invoice_header wow fadeInUp" data-wow-duration="1s">
+                <div class="header_address">
+                    <h4>invoice to</h4>
+                    <p>
+                        {{data.order.address}}
+                    </p>
+                    <p>
+                        {{data.order.phone}}
+                    </p>
+                </div>
+                <div class="header_address">
+                    <p>
+                        <b>invoice no:
+                        </b>
+                        <span>{{data.order.code}}</span>
+                    </p>
+                    <p>
+                        <b>Order ID:</b>
+                        <span>
+                            #{{data.order.code}}
+                        </span>
+                    </p>
+                    <p>
+                        <b>date:</b>
+                        <span>{{data.order.created_at|date('d M Y')}}</span>
+                    </p>
+                </div>
+            </div>
+            <div class="tf__invoice_body wow fadeInUp" data-wow-duration="1s">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <th class="sl_no">SL</th>
+                                <th class="package">item description</th>
+                                <th class="price">Price</th>
+                                <th class="qnty">Quantity</th>
+                                <th class="total">Total</th>
+                            </tr>
+                            {% for item in data.order.items %}
+                            <tr>
+                                <td class="sl_no">01</td>
+                                <td class="package">
+                                    <a class="course_name" href="#">{{item.title}}</a>
+                                </td>
+                                <td class="price">
+                                    {{item.price}}
+                                </td>
+                                <td class="qnty">
+                                    {{item.quantity}}
+                                </td>
+                                <td class="total">
+                                    {{item.line_price}}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td class="package" colspan="3">
+                                    <b>Total</b>
+                                </td>
+                                <td class="qnty">
+                                    <b></b>
+                                </td>
+                                <td class="total">
+                                    <b>{{data.order.total_price}}</b>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <a class="print_btn tf__common_btn" href="#">
+                <i class="far fa-print"></i>
+                print PDF
+            </a>
+        {% else %}
+            <div class="order-not-found">
+                <h3>Order not found</h3>
+                <p>The order you are looking for does not exist or you don't have permission to view it.</p>
+                <a href="{{ route('profile', 'orders') }}" class="btn btn-secondary">Back to Orders</a>
+            </div>
+        {% endif %}
+	</div>
+</div>
+

@@ -1,0 +1,183 @@
+{
+    "label": "Gallery Page",
+    "description": "Display gallery images in a masonry layout with lightbox popup functionality",
+    "form": [
+        {
+            "type": "repeater",
+            "name": "gallery_items",
+            "label": "Gallery Images",
+            "fields": [
+                {
+                    "type": "image",
+                    "name": "image",
+                    "label": "Gallery Image"
+                },
+                {
+                    "type": "text",
+                    "name": "alt_text",
+                    "label": "Alt Text",
+                    "description": "Alternative text for the image"
+                },
+                {
+                    "type": "select",
+                    "name": "column_size",
+                    "label": "Column Size",
+                    "description": "Choose the column width for this image",
+                    "data": {
+                        "options": {
+                            "col-xl-3 col-lg-6 col-md-6": "1/4 Width (3 columns)",
+                            "col-xl-6 col-lg-6 col-md-6": "1/2 Width (6 columns)",
+                            "col-xl-4 col-lg-6 col-md-6": "1/3 Width (4 columns)",
+                            "col-xl-8 col-lg-12 col-md-12": "2/3 Width (8 columns)",
+                            "col-xl-9 col-lg-12 col-md-12": "3/4 Width (9 columns)",
+                            "col-xl-12 col-lg-12 col-md-12": "Full Width (12 columns)"
+                        },
+                        "value": "col-xl-3 col-lg-6 col-md-6"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "lightbox_image",
+                    "label": "Lightbox Image URL",
+                    "description": "Optional: Different image URL for lightbox popup (if empty, uses main image)"
+                }
+            ],
+            "options": {
+                "min_items": 1,
+                "max_items": 20,
+                "add_button_text": "Add Gallery Image",
+                "remove_button_text": "Remove Image",
+                "value": [
+                    {
+                        "image": "images/gallery/gallery-page-1-1.jpg",
+                        "alt_text": "Gallery Image 1",
+                        "column_size": "col-xl-3 col-lg-6 col-md-6",
+                        "lightbox_image": ""
+                    },
+                    {
+                        "image": "images/gallery/gallery-page-1-2.jpg",
+                        "alt_text": "Gallery Image 2",
+                        "column_size": "col-xl-3 col-lg-6 col-md-6",
+                        "lightbox_image": ""
+                    },
+                    {
+                        "image": "images/gallery/gallery-page-1-3.jpg",
+                        "alt_text": "Gallery Image 3",
+                        "column_size": "col-xl-3 col-lg-6 col-md-6",
+                        "lightbox_image": ""
+                    },
+                    {
+                        "image": "images/gallery/gallery-page-1-4.jpg",
+                        "alt_text": "Gallery Image 4",
+                        "column_size": "col-xl-3 col-lg-6 col-md-6",
+                        "lightbox_image": ""
+                    },
+                    {
+                        "image": "images/gallery/gallery-page-1-5.jpg",
+                        "alt_text": "Gallery Image 5",
+                        "column_size": "col-xl-3 col-lg-6 col-md-6",
+                        "lightbox_image": ""
+                    },
+                    {
+                        "image": "images/gallery/gallery-page-1-6.jpg",
+                        "alt_text": "Gallery Image 6",
+                        "column_size": "col-xl-3 col-lg-6 col-md-6",
+                        "lightbox_image": ""
+                    },
+                    {
+                        "image": "images/gallery/gallery-page-1-7.jpg",
+                        "alt_text": "Gallery Image 7",
+                        "column_size": "col-xl-3 col-lg-6 col-md-6",
+                        "lightbox_image": ""
+                    },
+                    {
+                        "image": "images/gallery/gallery-page-1-8.jpg",
+                        "alt_text": "Gallery Image 8",
+                        "column_size": "col-xl-6 col-lg-6 col-md-6",
+                        "lightbox_image": ""
+                    },
+                    {
+                        "image": "images/gallery/gallery-page-1-9.jpg",
+                        "alt_text": "Gallery Image 9",
+                        "column_size": "col-xl-3 col-lg-6 col-md-6",
+                        "lightbox_image": ""
+                    }
+                ]
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_lightbox",
+            "label": "Enable Lightbox",
+            "description": "Enable lightbox popup functionality for images",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_masonry",
+            "label": "Enable Masonry Layout",
+            "description": "Enable masonry layout for better image arrangement",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "description": "Enable wow animation effects for gallery items",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "select",
+            "name": "animation_type",
+            "label": "Animation Type",
+            "data": {
+                "options": {
+                    "fadeInUp": "Fade In Up",
+                    "fadeIn": "Fade In",
+                    "zoomIn": "Zoom In",
+                    "fadeInLeft": "Fade In Left",
+                    "fadeInRight": "Fade In Right"
+                },
+                "value": "fadeInUp"
+            }
+        },
+        {
+            "type": "text",
+            "name": "padding_top",
+            "label": "Top Padding",
+            "data": {
+                "value": "120"
+            }
+        },
+        {
+            "type": "text",
+            "name": "padding_bottom",
+            "label": "Bottom Padding",
+            "data": {
+                "value": "120"
+            }
+        },
+        {
+            "type": "text",
+            "name": "mobile_padding_top",
+            "label": "Mobile Top Padding",
+            "data": {
+                "value": "80"
+            }
+        },
+        {
+            "type": "text",
+            "name": "mobile_padding_bottom",
+            "label": "Mobile Bottom Padding",
+            "data": {
+                "value": "80"
+            }
+        }
+    ]
+}

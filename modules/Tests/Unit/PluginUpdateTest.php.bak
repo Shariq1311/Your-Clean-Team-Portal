@@ -1,0 +1,56 @@
+<?php
+
+/**
+ * Mojar - Laravel CMS for Your Project
+ *
+ * @package    mojar/cms
+ * @author     Mojar Team
+ * @link       https://mojar.com/cms
+ * @license    GNU V2
+ */
+
+namespace MojarCMS\Tests\Unit;
+
+use Illuminate\Support\Facades\File;
+use MojarCMS\CMS\Facades\Plugin;
+use MojarCMS\CMS\Support\Updater\PluginUpdater;
+use MojarCMS\Tests\TestCase;
+
+class PluginUpdateTest extends TestCase
+{
+    public function testInstall()
+    {
+        $updater = app(PluginUpdater::class)->find('mojar/movie');
+
+        $updater->update();
+
+        $this->assertDirectoryExists(
+            config('mojar.plugin.path') . "/movie"
+        );
+
+        $plugin = Plugin::find('mojar/movie');
+
+        $this->assertNotEmpty($plugin);
+    }
+
+    public function testUpdate()
+    {
+        $plugin = Plugin::find('mojar/movie');
+
+        $composer = File::get($plugin->getPath() . "/composer.json");
+
+        $composer = str_replace($plugin->getVersion(), '1.0', $composer);
+
+        File::put($plugin->getPath() . "/composer.json", $composer);
+
+        $plugin = Plugin::find('mojar/movie');
+        $this->assertEquals($plugin->getVersion(), '1.0');
+
+        $updater = app(PluginUpdater::class)->find('mojar/movie');
+
+        $updater->update();
+
+        $plugin = Plugin::find('mojar/movie');
+        $this->assertNotEquals($plugin->getVersion(), '1.0');
+    }
+}

@@ -1,0 +1,318 @@
+{
+    "label": "Contact Form Home 1",
+    "description": "Contact form with sliding text and background image",
+    "form": [
+        {
+            "type": "repeater",
+            "name": "sliding_text_items",
+            "label": "Sliding Text Items",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "text",
+                    "label": "Text",
+                    "data": {
+                        "value": "GET IN TOUCH *"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "hover_text",
+                    "label": "Hover Text",
+                    "data": {
+                        "value": "Branding"
+                    }
+                }
+            ],
+            "options": {
+                "min_items": 1,
+                "max_items": 5,
+                "add_button_text": "Add Sliding Text",
+                "remove_button_text": "Remove Sliding Text",
+                "value": [
+                    {
+                        "text": "GET IN TOUCH *",
+                        "hover_text": "Branding"
+                    },
+                    {
+                        "text": "GET IN TOUCH *",
+                        "hover_text": "Branding"
+                    },
+                    {
+                        "text": "GET IN TOUCH *",
+                        "hover_text": "Branding"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "image",
+            "name": "bg_image",
+            "label": "Background Image",
+            "data": {
+                "value": "images/backgrounds/contact-two-bg.jpg"
+            }
+        },
+        {
+            "type": "image",
+            "name": "shape_1",
+            "label": "Shape 1 Image",
+            "data": {
+                "value": "images/shapes/contact-two-shape-1.png"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_tagline",
+            "label": "Section Tagline",
+            "data": {
+                "value": "Get In Touch"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_1",
+            "label": "Title Part 1",
+            "data": {
+                "value": "Conversation"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_2",
+            "label": "Title Part 2 (Highlighted)",
+            "data": {
+                "value": "– Reach"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_3",
+            "label": "Title Part 3 (Highlighted)",
+            "data": {
+                "value": "Out Anytime"
+            }
+        },
+        {
+            "type": "textarea",
+            "name": "description",
+            "label": "Description",
+            "data": {
+                "value": "We're here to listen! Whether you have<br> questions, feedback, or just want to say hello,<br> feel free to reach out."
+            }
+        },
+        {
+            "type": "text",
+            "name": "email_title",
+            "label": "Email Title",
+            "data": {
+                "value": "Email Us"
+            }
+        },
+        {
+            "type": "text",
+            "name": "email_address",
+            "label": "Email Address",
+            "data": {
+                "value": "info@domain.com"
+            }
+        },
+        {
+            "type": "text",
+            "name": "contact_title",
+            "label": "Contact Title",
+            "data": {
+                "value": "Contact US"
+            }
+        },
+        {
+            "type": "text",
+            "name": "phone_number",
+            "label": "Phone Number",
+            "data": {
+                "value": "+99 (00) 567 780"
+            }
+        },
+        {
+            "type": "text",
+            "name": "address_title",
+            "label": "Address Title",
+            "data": {
+                "value": "Our Address"
+            }
+        },
+        {
+            "type": "text",
+            "name": "address",
+            "label": "Address",
+            "data": {
+                "value": "1629 N. Dixie Avenue, Kentucky, 42701"
+            }
+        },
+        {
+            "type": "text",
+            "name": "form_name_label",
+            "label": "Form Name Label",
+            "data": {
+                "value": "Full Name"
+            }
+        },
+        {
+            "type": "text",
+            "name": "form_name_placeholder",
+            "label": "Form Name Placeholder",
+            "data": {
+                "value": "Thomas Alison"
+            }
+        },
+        {
+            "type": "text",
+            "name": "form_email_label",
+            "label": "Form Email Label",
+            "data": {
+                "value": "Email Address"
+            }
+        },
+        {
+            "type": "text",
+            "name": "form_email_placeholder",
+            "label": "Form Email Placeholder",
+            "data": {
+                "value": "thomas@domain.com"
+            }
+        },
+        {
+            "type": "text",
+            "name": "form_phone_label",
+            "label": "Form Phone Label",
+            "data": {
+                "value": "Phone Number"
+            }
+        },
+        {
+            "type": "text",
+            "name": "form_phone_placeholder",
+            "label": "Form Phone Placeholder",
+            "data": {
+                "value": "+12 (00) 123 4567 890"
+            }
+        },
+        {
+            "type": "text",
+            "name": "form_subject_label",
+            "label": "Form Subject Label",
+            "data": {
+                "value": "Subject"
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "subject_options",
+            "label": "Subject Options",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "text",
+                    "label": "Option Text"
+                },
+                {
+                    "type": "checkbox_json",
+                    "name": "selected",
+                    "label": "Is Selected"
+                }
+            ],
+            "options": {
+                "min_items": 1,
+                "max_items": 10,
+                "add_button_text": "Add Option",
+                "remove_button_text": "Remove Option",
+                "value": [
+                    {
+                        "text": "Thomas Alison",
+                        "selected": true
+                    },
+                    {
+                        "text": "Type Of Service 01",
+                        "selected": false
+                    },
+                    {
+                        "text": "Type Of Service 02",
+                        "selected": false
+                    },
+                    {
+                        "text": "Type Of Service 03",
+                        "selected": false
+                    },
+                    {
+                        "text": "Type Of Service 04",
+                        "selected": false
+                    },
+                    {
+                        "text": "Type Of Service 05",
+                        "selected": false
+                    }
+                ]
+            }
+        },
+        {
+            "type": "text",
+            "name": "form_message_label",
+            "label": "Form Message Label",
+            "data": {
+                "value": "Inquiry about"
+            }
+        },
+        {
+            "type": "text",
+            "name": "form_message_placeholder",
+            "label": "Form Message Placeholder",
+            "data": {
+                "value": "Write your message"
+            }
+        },
+        {
+            "type": "text",
+            "name": "submit_button_text",
+            "label": "Submit Button Text",
+            "data": {
+                "value": "Submit Now"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "description": "Enable animation effects for the contact form",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "marquee_class",
+            "label": "Marquee CSS Class",
+            "description": "CSS class for the marquee element",
+            "data": {
+                "value": "marquee_mode-2"
+            }
+        },
+        {
+            "type": "text",
+            "name": "scroll_speed",
+            "label": "Scroll Speed",
+            "description": "Speed of the marquee scrolling (lower is faster)",
+            "data": {
+                "value": "30"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "pause_on_hover",
+            "label": "Pause on Hover",
+            "description": "Pause the scrolling when user hovers over the text",
+            "data": {
+                "value": 1
+            }
+        }
+    ]
+}

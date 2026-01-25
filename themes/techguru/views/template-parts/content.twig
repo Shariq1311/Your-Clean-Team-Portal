@@ -1,0 +1,36 @@
+<div class="blog-list__single">
+    <div class="blog-list__img">
+        <img src="{{ post.thumbnail }}" alt="{{ post.title }}">
+        <div class="blog-list__tags">
+            {% for taxonomy in post.taxonomies %}
+                {% if taxonomy.taxonomy == 'tags' %}
+                    <span>{{ taxonomy.name }}</span>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="blog-list__content">
+        <div class="blog-list__user">
+            <div class="blog-list__user-img">
+                <img src="{{ post.author.avatar }}" alt="">
+            </div>
+            <p class="blog-list__user-title">{{ post.author.name }}</p>
+        </div>
+        <ul class="blog-list__meta list-unstyled">
+            <li>
+                <a href="{{ post.url }}"><span class="far fa-calendar-alt"></span>{{ post.created_at | date('M d, Y') }}</a>
+            </li>
+            <li>
+                <a href="{{ post.url }}"><span class="fal fa-comments"></span>{{ post.comments_count }}
+                    {{ __('Comments') }} </a>
+            </li>
+        </ul>
+        <h3 class="blog-list__title"><a href="{{ post.url }}">{{ post.title }}</a></h3>
+        <p class="blog-list__text">{{ post.description | striptags | slice(0, 120) ~ '...' }}</p>
+        <div class="blog-list__btn-box">
+            <a href="{{ post.url }}" class="thm-btn">{{ __('Read More') }}<span
+                    class="icon-right-arrow"></span>
+            </a>
+        </div>
+    </div>
+</div>

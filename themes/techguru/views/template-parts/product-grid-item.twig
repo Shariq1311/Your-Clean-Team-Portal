@@ -1,0 +1,59 @@
+{% set averageRating = ecom_get_average_rating(post) %}
+{% set reviews = ecom_get_reviews(post, 10) %}
+<div class="single-product-style1">
+    <div class="single-product-style1__img">
+        <img src="{{ upload_url(post.thumbnail) }}" alt="{{ post.title }}">
+        <img src="{{ upload_url(post.thumbnail) }}" alt="{{ post.title }}">
+        {% if post.metas.badge %}
+        <ul class="single-product-style1__overlay">
+            <li>
+                <p>{{ post.metas.badge }}</p>    
+            </li>
+        </ul>
+        {% endif %}
+        <ul class="single-product-style1__info">
+            <li>
+                {% if ecom_wishlist_has_item(post.id, 'products') %}
+                    <a href="javascript:void(0)" class="btn-add-to-wishlist in-wishlist" 
+                       data-id="{{ post.id }}" 
+                       data-type="products" 
+                       title="In Wishlist">
+                        <i class="fa fa-heart"></i>
+                    </a>
+                {% else %}
+                    <a href="javascript:void(0)" class="btn-add-to-wishlist" 
+                       data-id="{{ post.id }}" 
+                       data-type="products" 
+                       title="Add to Wishlist">
+                    <i class="fa fa-regular fa-heart"></i>
+                </a>
+                {% endif %}
+            </li>
+            <li>
+                <a href="javascript:void(0)" class="btn-add-to-cart" 
+                   data-id="{{ post.id }}" 
+                   data-type="products" 
+                   data-qty="1" 
+                   title="Add to cart">
+                    <i class="fa fa-solid fa-cart-plus"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="single-product-style1__content">
+        <div class="single-product-style1__content-left">
+            <h4>
+                <a href="{{ post.url }}">
+                    {{ post.title }}
+                </a>
+            </h4>
+            <p>{{ ecom_price_with_unit(post.metas.price) }}</p>
+        </div>
+        <div class="single-product-style1__content-right">
+            <div class="single-product-style1__review">
+                <i class="fa fa-star"></i>  
+                <p>{{ averageRating }}</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+{
+    "label": "CTA Home 3",
+    "description": "Call to action section with background shape and contact information",
+    "form": [
+        {
+            "type": "image",
+            "name": "background_shape",
+            "label": "Background Shape Image",
+            "description": "Background shape image with floating animation",
+            "data": {
+                "value": "images/shapes/cta-one-shape-bg.png"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_line1",
+            "label": "Title Line 1",
+            "data": {
+                "value": "To make requests for further"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_line2",
+            "label": "Title Line 2",
+            "data": {
+                "value": "information, contact us"
+            }
+        },
+        {
+            "type": "text",
+            "name": "contact_text",
+            "label": "Contact Text",
+            "data": {
+                "value": "Call Us For Any inquiry"
+            }
+        },
+        {
+            "type": "text",
+            "name": "phone_number",
+            "label": "Phone Number",
+            "description": "Phone number with country code",
+            "data": {
+                "value": "+99 (00) 567 780"
+            }
+        },
+        {
+            "type": "text",
+            "name": "phone_number_clean",
+            "label": "Clean Phone Number",
+            "description": "Phone number without spaces or special characters (for the href)",
+            "data": {
+                "value": "9900567780"
+            }
+        }
+    ]
+}

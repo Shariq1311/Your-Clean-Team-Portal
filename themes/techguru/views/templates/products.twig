@@ -1,0 +1,381 @@
+{% extends 'cms::layouts.frontend' %}
+
+{% block content %}
+    {% include 'theme::components.breadcrumb' with {
+        title: 'Products',
+        background_image: upload_url(theme_config('breadcrumb_bg_image')),
+        items: [
+
+            {'label': 'Home', 'url': '/'},
+            {'label': 'products'}
+        ]
+    } %}
+
+    {% if input_get('page') is empty %}
+        {{ dynamic_block(post, 'content') }}
+    {% endif %}
+
+    {# Build (initial) filter options from URL parameters #}
+    {% set filter_options = {
+        'type': 'products',
+        'paginate': 12
+    } %}
+
+    {# ... previous merges may occur above, but we will rebuild a clean set below #}
+
+    {# Build clean options (only supported keys) right before querying #}
+    {% set query_opts = {
+        'type': 'products',
+        'paginate': 12
+    } %}
+
+    {# Taxonomies (category, tag) #}
+    {% if input_get('category') %}
+        {% set query_opts = query_opts|merge({
+            'taxonomies': { 'categories': [input_get('category')] }
+        }) %}
+    {% endif %}
+    {% if input_get('tag') %}
+        {% set query_opts = query_opts|merge({
+            'taxonomies': query_opts.taxonomies|default({})|merge({ 'tags': [input_get('tag')] })
+        }) %}
+    {% endif %}
+
+    {# Sorting (non-price handled here). Price sorts are applied server-side by hook #}
+    {% set sort_option = input_get('sort')|default('latest') %}
+    {% if sort_option == 'oldest' %}
+        {% set query_opts = query_opts|merge({'order_by': {'created_at': 'asc'}}) %}
+    {% elseif sort_option == 'a-z' %}
+        {% set query_opts = query_opts|merge({'order_by': {'title': 'asc'}}) %}
+    {% elseif sort_option == 'z-a' %}
+        {% set query_opts = query_opts|merge({'order_by': {'title': 'desc'}}) %}
+    {% elseif sort_option == 'popular' %}
+        {% set query_opts = query_opts|merge({'order_by': {'views': 'desc'}}) %}
+    {% else %}
+        {% set query_opts = query_opts|merge({'order_by': {'created_at': 'desc'}}) %}
+    {% endif %}
+
+    {# Use page data if present, otherwise fetch with clean options #}
+    {% if page.data|length > 0 %}
+        {% set items = page %}
+    {% else %}
+        {% set items = get_posts_by_filter(query_opts) %}
+    {% endif %}
+
+    {% set tags = get_taxonomies({
+        'type': 'products',
+        'taxonomy': 'tags',
+        'limit': 8,
+    }) %}
+    
+    {% set categories = get_taxonomies({
+        'type': 'products',
+        'taxonomy': 'categories',
+        'limit': 8,
+    }) %}
+
+    {% set recent_products = get_posts('products', {
+        'limit': 4,
+    }) %}
+
+    <section class="product">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-9 col-lg-12">
+                        <div class="product__items">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="product__showing-result">
+                                        <div class="product__showing-text-box">
+                                            {% set total = items.meta.total|default(items.total|default(0)) %}
+                                            {% if total > 0 %}
+                                                {% set current_page = items.meta.current_page|default(items.current_page|default(1)) %}
+                                                {% set per_page = items.meta.per_page|default(items.per_page|default(12)) %}
+                                                {% set from = items.meta.from|default(((current_page - 1) * per_page) + 1) %}
+                                                {% set computed_to = from + per_page - 1 %}
+                                                {% set to = items.meta.to|default(computed_to) %}
+                                                {% if to > total %}{% set to = total %}{% endif %}
+                                                <p class="product__showing-text">
+                                                    {{ __('Showing') }} {{ from }}–{{ to }} {{ __('of') }} {{ total }} {{ __('results') }}
+                                                </p>
+                                            {% else %}
+                                                <p class="product__showing-text">
+                                                    {{ __('No products found') }}
+                                                </p>
+                                            {% endif %}
+                                        </div>
+                                        <div class="product__showing-sort">
+                                            <div class="select-box">
+                                                 <select class="wide" name="sort" onchange="changeSort(this.value)">
+                                                    <option data-display="Sort by latest" value="latest" {% if input_get('sort') == 'latest' or not input_get('sort') %} selected="selected" {% endif %}>{{ __('Latest First') }}</option> 
+                                                    <option value="oldest" {% if input_get('sort') == 'oldest' %} selected="selected" {% endif %}>{{ __('Oldest First') }}</option>
+                                                    <option value="a-z" {% if input_get('sort') == 'a-z' %} selected="selected" {% endif %}>{{ __('Title (A-Z)') }}</option>
+                                                    <option value="z-a" {% if input_get('sort') == 'z-a' %} selected="selected" {% endif %}>{{ __('Title (Z-A)') }}</option>
+                                                    <option value="popular" {% if input_get('sort') == 'popular' %} selected="selected" {% endif %}>{{ __('Most Popular') }}</option>
+                                                    <option value="price_low" {% if input_get('sort') == 'price_low' %} selected="selected" {% endif %}>{{ __('Price: Low to High') }}</option>
+                                                    <option value="price_high" {% if input_get('sort') == 'price_high' %} selected="selected" {% endif %}>{{ __('Price: High to Low') }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="product__all">
+                                <div class="product__all-tab">
+                                    <div class="product__all-tab-button">
+                                        <ul class="tabs-button-box clearfix">
+                                            <li data-tab="#grid" class="tab-btn-item active-btn-item">
+                                                <div class="product__all-tab-button-icon one">
+                                                    <i class="fa fa-solid fa-bars"></i>
+                                                </div>
+                                            </li>
+                                            <li data-tab="#list" class="tab-btn-item">
+                                                <div class="product__all-tab-button-icon">
+                                                    <i class="fa fa-solid fa-list-ul"></i>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <!--Start Tabs Content Box-->
+                                    <div class="tabs-content-box">
+                                        <!--Start Tab-->
+                                        <div class="tab-content-box-item tab-content-box-item-active" id="grid">
+                                            <div class="product__all-tab-content-box-item">
+                                                <div class="product__all-tab-single">
+                                                    {% set data = items.data|default([]) %}
+                                                    {% if data|length > 0 %}
+                                                    <div class="row">
+                                                        {% for post in data %}    
+                                                        <div class="col-xl-4 col-lg-6 col-md-6">
+                                                            {{ get_template_part(post, 'product-grid-item') }}
+                                                        </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                    {% else %}
+                                                    <div class="empty-products-state text-center py-5">
+                                                        <div class="empty-products-icon mb-3">
+                                                            <i class="fa fa-box-open fa-3x text-muted"></i>
+                                                        </div>
+                                                        <h4 class="mb-2">{{ __('No products found') }}</h4>
+                                                        <p class="mb-4">{{ __('Try changing filters or reset to see more items') }}</p>
+                                                        <a href="{{ post.url }}" class="thm-btn">{{ __('Reset Filters') }}</a>
+                                                    </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--End Tab-->
+                                        <!--Start Tab-->
+                                        <div class="tab-content-box-item" id="list">
+                                            <div class="product__all-tab-content-box-item">
+                                                <div class="product__all-tab-single">
+                                                    {% set data = items.data|default([]) %}
+                                                    {% if data|length > 0 %}
+                                                    <div class="row">
+                                                        {% for post in data %}
+                                                        <div class="col-xl-6 col-lg-6">
+                                                            <div class="single-product-style2">
+                                                                <div class="row">
+                                                                    <div class="col-xl-6 col-lg-6 col-md-6">
+                                                                        <div class="single-product-style2__img">
+                                                                            <img src="{{ upload_url(post.thumbnail) }}"
+                                                                                alt="{{ post.title }}">
+                                                                            <img src="{{ upload_url(post.thumbnail) }}" alt="{{ post.title }}">
+                                                                            {% if post.metas.badge %}
+                                                                            <ul class="single-product-style1__overlay">
+                                                                                <li>
+                                                                                    <p>{{ post.metas.badge ?? '' }}</p>
+                                                                                </li>
+                                                                            </ul>
+                                                                            {% endif %}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xl-6 col-lg-6 col-md-6">
+                                                                        <div class="single-product-style2__content">
+                                                                            <div class="single-product-style2__review">
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                                <i class="fa fa-star"></i>
+                                                                            </div>
+                                                                            <div class="single-product-style2__text">
+                                                                                <h4>
+                                                                                    <a href="{{ post.url }}"> 
+                                                                                        {{ post.title }}
+                                                                                    </a>
+                                                                                </h4>
+                                                                                <p>{{ ecom_price_with_unit(post.metas.price) }}</p>
+                                                                            </div>
+                                                                            <ul class="single-product-style2__info">
+                                                                                <li>
+                                                                                    <a href="#" title="Add to Wishlist">
+                                                                                        <i
+                                                                                            class="fa fa-regular fa-heart">
+                                                                                        </i>
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a href="#" title="Add to cart">
+                                                                                        <i
+                                                                                            class="fa fa-solid fa-cart-plus">
+                                                                                        </i>
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                    {% else %}
+                                                    <div class="empty-products-state text-center py-5">
+                                                        <div class="empty-products-icon mb-3">
+                                                            <i class="fa fa-box-open fa-3x text-muted"></i>
+                                                        </div>
+                                                        <h4 class="mb-2">{{ __('No products found') }}</h4>
+                                                        <p class="mb-4">{{ __('Try changing filters or reset to see more items') }}</p>
+                                                        <a href="{{ post.url }}" class="thm-btn">{{ __('Reset Filters') }}</a>
+                                                    </div>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--End Tab-->
+                                    </div>
+                                    <!--End Tabs Content Box-->
+                                </div>
+                                {{ paginate_links(items, 'theme::components.pagination-product') }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-lg-12">
+                            {% include 'theme::template-parts.product-sidebar' with {
+                                recent_products: recent_products,
+                            } %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    <script>
+        $('select:not(.ignore)').niceSelect();
+        
+        // Initialize price slider
+        $(function() {
+            var boundsEl = document.querySelector('.price-ranger');
+            var dynMin = boundsEl ? parseFloat(boundsEl.getAttribute('data-min')) || 0 : 0;
+            var dynMax = boundsEl ? parseFloat(boundsEl.getAttribute('data-max')) || 1000 : 1000;
+            var minPrice = {{ input_get('min_price')|default('null') }};
+            var maxPrice = {{ input_get('max_price')|default('null') }};
+            minPrice = (minPrice === null) ? dynMin : parseFloat(minPrice);
+            maxPrice = (maxPrice === null) ? dynMax : parseFloat(maxPrice);
+            
+            if ($("#slider-range").length) {
+                $("#slider-range").slider({
+                    range: true,
+                    min: dynMin,
+                    max: dynMax,
+                    values: [minPrice, maxPrice],
+                    slide: function(event, ui) {
+                        $(".min").val(ui.values[0]);
+                        $(".max").val(ui.values[1]);
+                    }
+                });
+                
+                $(".min").val($("#slider-range").slider("values", 0));
+                $(".max").val($("#slider-range").slider("values", 1));
+            }
+        });
+        
+        // Generic URL param setter to avoid malformed URLs
+        function setParam(name, value) {
+            var url = new URL(window.location);
+            if (value === undefined || value === null || value === '') {
+                url.searchParams.delete(name);
+            } else {
+                url.searchParams.set(name, value);
+            }
+            window.location.href = url.toString();
+        }
+        
+        // Filter functions
+        function changeSort(sortValue) {
+            var url = new URL(window.location);
+            if (sortValue && sortValue !== 'latest') {
+                url.searchParams.set('sort', sortValue);
+            } else {
+                url.searchParams.delete('sort');
+            }
+            window.location.href = url.toString();
+        }
+        
+        function filterByPrice() {
+            var minPrice = $('.min').val();
+            var maxPrice = $('.max').val();
+            var url = new URL(window.location);
+            
+            if (minPrice && minPrice > 0) {
+                url.searchParams.set('min_price', minPrice);
+            } else {
+                url.searchParams.delete('min_price');
+            }
+            
+            var boundsEl = document.querySelector('.price-ranger');
+            var dynMax = boundsEl ? parseFloat(boundsEl.getAttribute('data-max')) || 1000 : 1000;
+            if (maxPrice && maxPrice <= dynMax) {
+                url.searchParams.set('max_price', maxPrice);
+            } else {
+                url.searchParams.delete('max_price');
+            }
+            
+            window.location.href = url.toString();
+        }
+        
+        function filterByRating(rating) {
+            var url = new URL(window.location);
+            if (rating && rating !== '') {
+                url.searchParams.set('rating', rating);
+            } else {
+                url.searchParams.delete('rating');
+            }
+            window.location.href = url.toString();
+        }
+        
+     // Product All Tab
+        if ($(".product__all-tab").length) {
+            $(".product__all-tab .tabs-button-box .tab-btn-item").on("click", function (e) {
+            e.preventDefault();
+            var target = $($(this).attr("data-tab"));
+
+            if ($(target).hasClass("actve-tab")) {
+                return false;
+            } else {
+                $(".product__all-tab .tabs-button-box .tab-btn-item").removeClass("active-btn-item");
+                $(this).addClass("active-btn-item");
+                $(".product__all-tab .tabs-content-box .tab-content-box-item").removeClass(
+                "tab-content-box-item-active"
+                );
+                $(target).addClass("tab-content-box-item-active");
+            }
+            });
+        }
+
+        // Initialize cart manager functionality
+        window.addToCart = function(postId, type, quantity) {
+            if (window.CartManager) {
+                const btn = document.createElement('button');
+                btn.dataset.id = postId;
+                btn.dataset.type = type || 'products';
+                btn.dataset.qty = quantity || 1;
+                window.CartManager.handleAddToCart(btn);
+            }
+        };
+    </script>
+{% endblock %}

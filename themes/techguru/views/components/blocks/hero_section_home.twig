@@ -1,0 +1,67 @@
+<!-- Hero Section Start -->
+<div class="hero-section-01 {{ data.background_class|default('bg-white-lilac') }}" {% if data.background_image %}style="background: url({{ upload_url(data.background_image) }})"{% endif %}>
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-6 col-md-9">
+                <div class="hero-section-01__content page-title-block" {% if data.enable_animation %}data-aos="fade-right" data-aos-duration="800" data-aos-delay="1000"{% endif %}>
+                    <h6 class="subtitle">{{ data.subtitle|default('Hello Mate') }} {% if data.subtitle is same as('Hello Mate 👋') or '👋' in data.subtitle %}<span class="wave">👋</span>{% endif %}</h6>
+                    <h1 class="title">{{ data.title_prefix|default('I\'m Michle Smith a') }} <span class="text-indigo d-inline typed"></span></h1>
+                    <p class="text-dark">{{ data.description }}</p>
+                    <div class="hero-section-01__content--button-group">
+                        {% if data.button1_text %}
+                        <a class="btn {{ data.button1_class|default('btn-1 btn-primary') }}" href="{{ data.button1_url|default('#') }}">
+                            {{ data.button1_text }}
+                            <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 13L7 7L1 1" stroke="" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                        {% endif %}
+                        
+                        {% if data.button2_text %}
+                        <a class="btn {{ data.button2_class|default('btn-2 btn-outline-primary') }}" href="{{ data.button2_url|default('#') }}">
+                            {{ data.button2_text }}
+                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13 9V11.6667C13 12.0203 12.8595 12.3594 12.6095 12.6095C12.3594 12.8595 12.0203 13 11.6667 13H2.33333C1.97971 13 1.64057 12.8595 1.39052 12.6095C1.14048 12.3594 1 12.0203 1 11.6667V9" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M3.6665 5.6665L6.99984 8.99984L10.3332 5.6665" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M7 9V1" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-5 offset-xxl-1 col-lg-6 col-md-8">
+                <div class="hero-section-01__image-group" {% if data.enable_animation %}data-aos="fade-up" data-aos-duration="800" data-aos-delay="1500"{% endif %}>
+                    <img src="{{ upload_url(data.hero_image) }}" alt="hero-img" class="w-100">
+                    <div class="hero-section-01__image-group--icon">
+                        {% if data.floating_icons %}
+                            {% for icon in data.floating_icons %}
+                                <div class="icon-{{ icon.position }} {{ icon.animation }}">
+                                    <img src="{{ upload_url(icon.image) }}" alt="skill-icon">
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hero Section End -->
+
+{% if data.typed_texts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (document.querySelector('.typed')) {
+            new Typed('.typed', {
+                strings: [{% for item in data.typed_texts %}"{{ item.text }}"{% if not loop.last %}, {% endif %}{% endfor %}],
+                typeSpeed: 70,
+                backSpeed: 50,
+                backDelay: 800,
+                startDelay: 500,
+                loop: true
+            });
+        }
+    });
+</script>
+{% endif %} 

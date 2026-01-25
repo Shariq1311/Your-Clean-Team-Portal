@@ -1,0 +1,209 @@
+{
+    "label": "Service Area Home 2",
+    "description": "Services section with images and hover effect list",
+    "form": [
+        {
+            "type": "text",
+            "name": "section_tagline",
+            "label": "Section Tagline",
+            "data": {
+                "value": "Our Services"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_1",
+            "label": "Section Title Part 1",
+            "data": {
+                "value": "Comprehensive, Reliable"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_2",
+            "label": "Section Title Part 2",
+            "data": {
+                "value": "Services"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_3",
+            "label": "Section Title Part 3 (Highlighted)",
+            "data": {
+                "value": "Crafted to Exceed"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title_4",
+            "label": "Section Title Part 4",
+            "data": {
+                "value": "Your Expectations"
+            }
+        },
+        {
+            "type": "textarea",
+            "name": "description",
+            "label": "Description",
+            "data": {
+                "value": "From personalized solutions to expert execution, we prioritize quality, reliability, and customer satisfaction in everything we do. Let us be your trusted partner in achieving success."
+            }
+        },
+        {
+            "type": "image",
+            "name": "main_image_1",
+            "label": "Main Image 1",
+            "data": {
+                "value": "images/services/servces-one-img-1.png"
+            }
+        },
+        {
+            "type": "image",
+            "name": "main_image_2",
+            "label": "Main Image 2",
+            "data": {
+                "value": "images/services/servces-one-img-2.png"
+            }
+        },
+        {
+            "type": "image",
+            "name": "shape_1",
+            "label": "Shape 1 Image",
+            "data": {
+                "value": "images/shapes/services-one-shape-1.png"
+            }
+        },
+        {
+            "type": "image",
+            "name": "shape_3",
+            "label": "Shape 3 Image (Floating)",
+            "data": {
+                "value": "images/shapes/services-one-shape-3.png"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "use_services_post_type",
+            "label": "Use Services Post Type",
+            "description": "Load services from Services post type instead of manual configuration",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "taxonomy",
+            "name": "services_category",
+            "label": "Services Category Filter",
+            "description": "Filter services by category (when using services post type)",
+            "data": {
+                "post_type": "services",
+                "taxonomy": "categories"
+            }
+        },
+        {
+            "type": "text",
+            "name": "items_limit",
+            "label": "Number of Services",
+            "description": "Maximum number of services to display",
+            "data": {
+                "value": "4"
+            }
+        },
+        {
+            "type": "text",
+            "name": "service_ids",
+            "label": "Service IDs",
+            "description": "Enter specific service IDs to display (comma-separated)",
+            "data": {
+                "value": ""
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "custom_services",
+            "label": "Custom Services (Manual Configuration)",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "title",
+                    "label": "Service Title"
+                },
+                {
+                    "type": "textarea",
+                    "name": "description",
+                    "label": "Service Description"
+                },
+                {
+                    "type": "text",
+                    "name": "url",
+                    "label": "Service URL"
+                },
+                {
+                    "type": "image",
+                    "name": "hover_image",
+                    "label": "Hover Image"
+                }
+            ],
+            "options": {
+                "min_items": 0,
+                "max_items": 10,
+                "add_button_text": "Add Service",
+                "remove_button_text": "Remove Service",
+                "value": [
+                    {
+                        "title": "Provide All Kind Of IT Services",
+                        "description": "Comprehensive IT management, including network<br> monitoring, data backup,",
+                        "url": "threat-detection-prevention.html",
+                        "hover_image": "images/services/services-1-1.jpg"
+                    },
+                    {
+                        "title": "Cybersecurity Solutions",
+                        "description": "Scalable cloud solutions, including migration,<br> storage, and management, enabling secure data<br> access",
+                        "url": "advanced-technology.html",
+                        "hover_image": "images/services/services-1-2.jpg"
+                    },
+                    {
+                        "title": "Cybersecurity Solutions",
+                        "description": "Comprehensive IT management, including network<br> monitoring, data backup,",
+                        "url": "data-protection-privacy.html",
+                        "hover_image": "images/services/services-1-1.jpg"
+                    },
+                    {
+                        "title": "Software Development & Integration",
+                        "description": "Custom software development tailored to your<br> business needs, along with seamless integration",
+                        "url": "backup-recovery.html",
+                        "hover_image": "images/services/services-1-1.jpg"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "description": "Enable wow animation effects",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "animation_delay",
+            "label": "Animation Delay (ms)",
+            "description": "Delay for the animation in milliseconds",
+            "data": {
+                "value": "100"
+            }
+        },
+        {
+            "type": "text",
+            "name": "animation_duration",
+            "label": "Animation Duration (ms)",
+            "description": "Duration for the animation in milliseconds",
+            "data": {
+                "value": "2500"
+            }
+        }
+    ]
+}

@@ -1,0 +1,143 @@
+{
+    "label": "Counter Area Home 2",
+    "description": "Counter section with title, animated number counters and floating background",
+    "form": [
+        {
+            "type": "image",
+            "name": "bg_shape",
+            "label": "Background Shape Image",
+            "data": {
+                "value": "images/shapes/counter-one-bg-shape.png"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_tagline",
+            "label": "Section Tagline",
+            "data": {
+                "value": "The Numbers Speak"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_1",
+            "label": "Title Part 1",
+            "data": {
+                "value": "Exploring Business Growth"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_2",
+            "label": "Title Part 2 (Highlighted)",
+            "data": {
+                "value": "In IT"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_3",
+            "label": "Title Part 3 (Highlighted)",
+            "data": {
+                "value": "Consulting Solutions"
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "counters",
+            "label": "Counter Items",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "icon",
+                    "label": "Icon Class",
+                    "description": "Icon class name (e.g., icon-trophy, icon-user)",
+                    "data": {
+                        "value": "icon-trophy"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "count",
+                    "label": "Counter Number",
+                    "description": "Number to count to",
+                    "data": {
+                        "value": "120"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "suffix",
+                    "label": "Counter Suffix",
+                    "description": "Suffix after the number (e.g., +, %, M)",
+                    "data": {
+                        "value": "+"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "text",
+                    "label": "Counter Text",
+                    "description": "Text displayed below the counter",
+                    "data": {
+                        "value": "award Winning"
+                    }
+                },
+                {
+                    "type": "text",
+                    "name": "animation_delay",
+                    "label": "Animation Delay (ms)",
+                    "description": "Delay for the animation in milliseconds",
+                    "data": {
+                        "value": "100"
+                    }
+                }
+            ],
+            "options": {
+                "min_items": 1,
+                "max_items": 8,
+                "add_button_text": "Add Counter",
+                "remove_button_text": "Remove Counter",
+                "value": [
+                    {
+                        "icon": "icon-trophy",
+                        "count": "120",
+                        "suffix": "+",
+                        "text": "award Winning",
+                        "animation_delay": "100"
+                    },
+                    {
+                        "icon": "icon-user",
+                        "count": "99",
+                        "suffix": "%",
+                        "text": "Satisfied client",
+                        "animation_delay": "200"
+                    },
+                    {
+                        "icon": "icon-chat",
+                        "count": "10",
+                        "suffix": "M",
+                        "text": "worldwide reviews",
+                        "animation_delay": "200"
+                    },
+                    {
+                        "icon": "icon-laughing",
+                        "count": "200",
+                        "suffix": "+",
+                        "text": "Happy Clients",
+                        "animation_delay": "400"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "description": "Enable counter and wow animation effects",
+            "data": {
+                "value": 1
+            }
+        }
+    ]
+}

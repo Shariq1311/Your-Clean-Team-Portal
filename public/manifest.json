@@ -1,0 +1,12 @@
+{
+    "name": "Your Clean Team - Laravel CMS for Your Project",
+    "short_name": "App",
+    "description": "Your Clean Team is a Content Management System (CMS) and web platform whose sole purpose is to make your development workflow simple again.",
+    "background_color": "#961d1d",
+    "theme_color": "#6777ef",
+    "display": "standalone",
+    "scope": "/",
+    "orientation": "any",
+    "start_url": "/",
+    "icons": []
+}

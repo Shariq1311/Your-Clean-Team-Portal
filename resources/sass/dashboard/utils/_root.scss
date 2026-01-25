@@ -1,0 +1,23 @@
+@use 'colors' as *;
+@use 'typography' as *;
+
+:root {
+    /**
+    @font family declaration
+    */
+    @each $ff, $shades in $font-family {
+        @each $shade, $value in $shades {
+            --ms-#{$ff}-#{$shade}: #{$value};
+        }
+    }
+
+    /**
+    @color declaration
+    */
+    @each $color, $shades in $colors {
+        @each $shade, $value in $shades {
+            --ms-#{$color}-#{$shade}: #{$value};
+        }
+    }
+
+}

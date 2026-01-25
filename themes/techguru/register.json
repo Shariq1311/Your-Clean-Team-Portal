@@ -1,0 +1,548 @@
+{
+    "body_class": "custom-cursor",
+    "append_header": "theme::components.header_fonts",
+    "styles": {
+        "js": [
+            "assets\/js\/main.js"
+        ],
+        "css": [
+            "assets\/css\/main.css"
+        ]
+    },
+    "templates": {
+        "home": {
+            "label": "Home",
+            "view": "theme::templates.home",
+            "blocks": {
+                "content": {
+                    "label": "Content"
+                }
+            }
+        },
+        "about": {
+            "label": "About",
+            "view": "theme::templates.about",
+            "blocks": {
+                "content": {
+                    "label": "Content"
+                }
+            }
+        },
+        "career": {
+            "label": "Career",
+            "view": "theme::templates.career",
+            "blocks": {
+                "content": {
+                    "label": "Content"
+                }
+            }
+        },
+        "products": {
+            "label": "Products",
+            "view": "theme::templates.products",
+            "blocks": {
+                "content": {
+                    "label": "Content"
+                }
+            }
+        },
+        "blogs": {
+            "label": "Blogs",
+            "view": "theme::templates.blogs",
+            "blocks": {
+                "content": {
+                    "label": "Content"
+                }
+            }
+        },
+        "team": {
+            "label": "Team",
+            "view": "theme::templates.team",
+            "blocks": {
+                "content": {
+                    "label": "Content"
+                }
+            }
+        },
+        "portfolio": {
+            "label": "Portfolio",
+            "view": "theme::templates.portfolio",
+            "blocks": {
+                "content": {
+                    "label": "Content"
+                }
+            }
+        },
+        "contact": {
+            "label": "Contact",
+            "view": "theme::templates.contact",
+            "blocks": {
+                "content": {
+                    "label": "Content",
+                    "description": "Hero banner section for homepage with image and text"
+                }
+            }
+        },
+        "default": {
+            "label": "Default",
+            "view": "theme::templates.default",
+            "blocks": {
+                "content": {
+                    "label": "Content"
+                }
+            }
+        }
+    },
+    "nav_menus": {
+        "primary": {
+            "label": "Primary menu"
+        },
+        "top_bar_menu": {
+            "label": "Top Bar Menu"
+        },
+        "sidebar": {
+            "label": "Sidebar menu"
+        },
+        "footer_2": {
+            "label": "Footer 2 menu"
+        },
+        "footer_3": {
+            "label": "Footer 3 menu"
+        },
+        "footer_4": {
+            "label": "Footer 4 menu"
+        }
+    },
+    "blocks": {
+        "portfolio_home1": {
+            "label": "Portfolio Home 1",
+            "description": "Portfolio carousel with animated shapes and project details",
+            "view": "theme::components.blocks.portfolio_home1"
+        },
+        "portfolio_home2": {
+            "label": "Portfolio Home 2",
+            "description": "Portfolio carousel with tags and year information",
+            "view": "theme::components.blocks.portfolio_home2"
+        },
+        "event_home1": {
+            "label": "Event Home 1",
+            "description": "Events section with video, countdown timers and booking options",
+            "view": "theme::components.blocks.event_home1"
+        },
+        "testimonials_slider_home2": {
+            "label": "Testimonials Slider Home 2",
+            "description": "Testimonials slider with background image, client images and trustpilot ratings",
+            "view": "theme::components.blocks.testimonials_slider_home2"
+        },
+        "testimonials_slider_home1": {
+            "label": "Testimonials Slider Home 1",
+            "description": "Testimonials slider with title, star ratings, and client information",
+            "view": "theme::components.blocks.testimonials_slider_home1"
+        },
+        "service_features_home3": {
+            "label": "Service Features Home 3",
+            "description": "Service features section with icons and animation",
+            "view": "theme::components.blocks.service_features_home3"
+        },
+        "service_features_part1_home3": {
+            "label": "Service Features Part 1 Home 3",
+            "description": "Service features section with images and descriptions in a three-column layout",
+            "view": "theme::components.blocks.service_features_part1_home3"
+        },
+        "service_slider_home3": {
+            "label": "Service Slider Home 3",
+            "description": "Services carousel with icon, title, text and features list",
+            "view": "theme::components.blocks.service_slider_home3"
+        },
+        "service_area_home2": {
+            "label": "Service Area Home 2",
+            "description": "Services section with images and hover effect list",
+            "view": "theme::components.blocks.service_area_home2"
+        },
+        "contact_form_home1": {
+            "label": "Contact Form Home 1",
+            "description": "Contact form with sliding text and background image",
+            "view": "theme::components.blocks.contact_form_home1"
+        },
+        "cta_home3": {
+            "label": "CTA Home 3",
+            "description": "Call to action section with background shape and contact information",
+            "view": "theme::components.blocks.cta_home3"
+        },
+        "newsletter_home2": {
+            "label": "Newsletter Home 2",
+            "description": "Newsletter subscription form with background shapes and image",
+            "view": "theme::components.blocks.newsletter_home2"
+        },
+        "sliding_text_home2": {
+            "label": "Sliding Text Home 2",
+            "description": "Horizontally scrolling text with simple design",
+            "view": "theme::components.blocks.sliding_text_home2"
+        },
+        "sliding_text_home1": {
+            "label": "Sliding Text Home 1",
+            "description": "Horizontally scrolling text with star icons",
+            "view": "theme::components.blocks.sliding_text_home1"
+        },
+        "counter_area_home2": {
+            "label": "Counter Area Home 2",
+            "description": "Counter section with title, animated number counters and floating background",
+            "view": "theme::components.blocks.counter_area_home2"
+        },
+        "counter_area_home1": {
+            "label": "Counter Area Home 1",
+            "description": "Counter section with animated number counters and icons",
+            "view": "theme::components.blocks.counter_area_home1"
+        },
+        "process_area_home2": {
+            "label": "Process Area Home 2",
+            "description": "Process section with left content and right process steps",
+            "view": "theme::components.blocks.process_area_home2"
+        },
+        "process_area_home1": {
+            "label": "Process Area Home 1",
+            "description": "Process section with background image and process steps",
+            "view": "theme::components.blocks.process_area_home1"
+        },
+        "why_choose_aboutus": {
+            "label": "Why Choose Aboutus",
+            "description": "Why choose us section with animated shapes, images, counters and features",
+            "view": "theme::components.blocks.why_choose_aboutus"
+        },
+        "why_choose_home3": {
+            "label": "Why Choose Home 3",
+            "description": "Why choose us section with image and feature points",
+            "view": "theme::components.blocks.why_choose_home3"
+        },
+        "why_choose_home1": {
+            "label": "Why Choose Home 1",
+            "description": "Why choose us section with progress bars, client information and image",
+            "view": "theme::components.blocks.why_choose_home1"
+        },
+        "about_area_aboutus": {
+            "label": "About Area Aboutus",
+            "description": "Comprehensive about section with images, experience counter, client testimonials, and features",
+            "view": "theme::components.blocks.about_area_aboutus"
+        },
+        "about_area_home3": {
+            "label": "About Area Home 3",
+            "description": "About section with image, progress bars, features and contact information",
+            "view": "theme::components.blocks.about_area_home3"
+        },
+        "about_area_home2": {
+            "label": "About Area Home 2",
+            "description": "About section with title, features, contact information and image",
+            "view": "theme::components.blocks.about_area_home2"
+        },
+        "about_area_home1": {
+            "label": "About Area Home 1",
+            "description": "About section with images, client testimonials, features and contact information",
+            "view": "theme::components.blocks.about_area_home1"
+        },
+        "hero_banner_home3": {
+            "label": "Hero Banner Home 3",
+            "description": "Simple hero banner with background image, title, button and video popup",
+            "view": "theme::components.blocks.hero_banner_home3"
+        },
+        "hero_slider_home2": {
+            "label": "Hero Slider Home 2",
+            "description": "Main hero slider with trustpilot section, video link and animated shapes",
+            "view": "theme::components.blocks.hero_slider_home2"
+        },
+        "hero_slider_home1": {
+            "label": "Hero Slider Home 1",
+            "description": "Main hero slider with social links, brands carousel and trustpilot section",
+            "view": "theme::components.blocks.hero_slider_home1"
+        },
+        "hero_section_home": {
+            "label": "Hero Section Home",
+            "description": "Hero banner section for homepage with image and text",
+            "view": "theme::components.blocks.hero_section_home"
+        },
+        "about_area": {
+            "label": "About Area",
+            "description": "About Area",
+            "view": "theme::components.blocks.about_area"
+        },
+        "blogs_page": {
+            "label": "Blogs Page",
+            "description": "Display blog posts in a slider with title and description",
+            "view": "theme::components.blocks.blogs_page"
+        },
+        "blogs_area_home1": {
+            "label": "Blogs Area Home 1",
+            "description": "Display blog posts in a two-column layout with featured post and list of recent posts",
+            "view": "theme::components.blocks.blogs_area_home1"
+        },
+        "blogs_area_home2": {
+            "label": "Blogs Area Home 2",
+            "description": "Display blog posts in a carousel slider with title and description",
+            "view": "theme::components.blocks.blogs_area_home2"
+        },
+        "contact_form": {
+            "label": "Contact Form",
+            "description": "Contact form with information section",
+            "view": "theme::components.blocks.contact_form"
+        },
+        "faq_home3": {
+            "label": "FAQ Home 3",
+            "description": "FAQ section with image, experience counter, and accordion",
+            "view": "theme::components.blocks.faq_home3"
+        },
+        "faq_contact": {
+            "label": "FAQ Contact",
+            "description": "FAQ section with contact information",
+            "view": "theme::components.blocks.faq_contact"
+        },
+        "google_map_contact": {
+            "label": "Google Map Contact",
+            "description": "Google Map integration for contact page",
+            "view": "theme::components.blocks.google_map_contact"
+        },
+        "brand_team_detailes": {
+            "label": "Brand Team Details",
+            "description": "Sliding text marquee for brand or team details",
+            "view": "theme::components.blocks.brand_team_detailes"
+        },
+        "teams_carousel": {
+            "label": "Teams Carousel",
+            "description": "Team members carousel with social links and details",
+            "view": "theme::components.blocks.teams_carousel"
+        },
+        "teams_about": {
+            "label": "Teams About",
+            "description": "Team members section with title, description and carousel",
+            "view": "theme::components.blocks.teams_about"
+        },
+        "services_two_list": {
+            "label": "Services Two List",
+            "description": "Advanced services list section with dynamic content and customizable layouts",
+            "view": "theme::components.blocks.services_two_list"
+        },
+        "testimonials_grid_list": {
+            "label": "Testimonials Grid List",
+            "description": "Display testimonials in a responsive grid layout with star ratings and client information",
+            "view": "theme::components.blocks.testimonials_grid_list"
+        },
+        "testimonials_carousel": {
+            "label": "Testimonials Carousel",
+            "description": "Display testimonials in an owl carousel slider with star ratings and client information",
+            "view": "theme::components.blocks.testimonials_carousel"
+        },
+        "gallery_page": {
+            "label": "Gallery Page",
+            "description": "Display gallery images in a masonry layout with lightbox popup functionality",
+            "view": "theme::components.blocks.gallery_page"
+        },
+        "faq_page": {
+            "label": "FAQ Page",
+            "description": "Display FAQ section with accordion layout and optional CTA section below",
+            "view": "theme::components.blocks.faq_page"
+        },
+        "pricing_page": {
+            "label": "Pricing Page",
+            "description": "Display pricing plans with full customization and post type integration",
+            "view": "theme::components.blocks.pricing_page"
+        },
+        "pricing_two": {
+            "label": "Pricing Two",
+            "description": "Display pricing plans with tabs (Monthly, Yearly, Packages) and post type integration",
+            "view": "theme::components.blocks.pricing_two"
+        }
+    },
+    "sidebars": {
+        "sidebar": {
+            "label": "Sidebar"
+        },
+        "post_single": {
+            "label": "Post Single"
+        },
+        "footer_1": {
+            "label": "Footer 1"
+        },
+        "footer_1_first": {
+            "label": "Footer 1 First"
+        },
+        "footer_4": {
+            "label": "Footer 4"
+        },
+        "footer_top_cta": {
+            "label": "Footer Top CTA"
+        }
+    },
+    "widgets": {
+        "search_area": {
+            "label": "Search Area",
+            "description": "Search Area",
+            "view": "theme::components.widgets.search_area"
+        },
+        "categories": {
+            "label": "Categories",
+            "description": "Display post categories in sidebar",
+            "view": "theme::components.widgets.categories"
+        },
+        "tags": {
+            "label": "Tags",
+            "description": "Display post tags in sidebar",
+            "view": "theme::components.widgets.tags"
+        },
+        "sidebar_newsletter": {
+            "label": "Sidebar Newsletter",
+            "description": "Display newsletter subscription form in sidebar",
+            "view": "theme::components.widgets.sidebar_newsletter"
+        },
+        "footer_address": {
+            "label": "Footer Address",
+            "description": "Display contact information in the footer",
+            "view": "theme::components.widgets.footer_address"
+        },
+        "categories_list": {
+            "label": "Categories List",
+            "description": "Categories List",
+            "view": "theme::components.widgets.categories_list"
+        },
+        "popular_posts": {
+            "label": "Popular Posts",
+            "description": "Display popular blog posts in sidebar",
+            "view": "theme::components.widgets.popular_posts"
+        },
+        "recent_post": {
+            "label": "Recent Posts",
+            "description": "Display recent blog posts in sidebar",
+            "view": "theme::components.widgets.recent_post"
+        },
+        "related_posts": {
+            "label": "Related Posts",
+            "description": "Display Related blog posts in sidebar",
+            "view": "theme::components.widgets.related_posts"
+        },
+        "client_info_box": {
+            "label": "Client Info Box",
+            "description": "Display client profile information with social links",
+            "view": "theme::components.widgets.client_info_box"
+        },
+        "footer_newsletter": {
+            "label": "Footer Newsletter",
+            "description": "Footer newsletter subscription form with social links",
+            "view": "theme::components.widgets.footer_newsletter"
+        },
+        "footer_top_cta": {
+            "label": "Footer Top CTA",
+            "description": "Display footer top area with logo, text and call-to-action button",
+            "view": "theme::components.widgets.footer_top_cta"
+        },
+        "footer_info": {
+            "label": "Footer Info",
+            "description": "Display footer logo and contact information",
+            "view": "theme::components.widgets.footer_info"
+        },
+        "postsingle_newsletter": {
+            "label": "Post Single Newsletter",
+            "description": "Post single newsletter subscription form with social links",
+            "view": "theme::components.widgets.postsingle_newsletter"
+        }
+    },
+    "configs": {
+        "footer_bg_image": {
+            "label": "Footer Bg Image",
+            "type": "image"
+        },
+        "breadcrumb_bg_image": {
+            "label": "breadcrumb Bg Image",
+            "type": "image"
+        },
+        "copy_right_text": {
+            "label": "Copy Right Text",
+            "type": "text"
+        },
+        "enable_top_bar": {
+            "label": "Copy Right Text",
+            "type": "checkbox_json",
+            "data": {
+                "value": 1
+            }
+        },
+        "top_bar_text": {
+            "label": "Top Bar Text",
+            "type": "text"
+        },
+        "enable_logout_button": {
+            "label": "Enable Logout Button",
+            "type": "checkbox_json",
+            "data": {
+                "value": 1
+            }
+        },
+        "is_footer_style_2": {
+            "label": "Is Footer Style 2",
+            "type": "checkbox_json",
+            "data": {
+                "value": 1
+            }
+        },
+        "facebook_url": {
+            "label": "Facebook URL",
+            "type": "text"
+        },
+        "dribble_url": {
+            "label": "Dribbble URL",
+            "type": "text"
+        },
+        "github_url": {
+            "label": "Github URL",
+            "type": "text"
+        },
+        "twitter_url": {
+            "label": "Twitter URL",
+            "type": "text"
+        },
+        "linkedin_url": {
+            "label": "Linkedin URL",
+            "type": "text"
+        },
+        "instagram_url": {
+            "label": "Instagram URL",
+            "type": "text"
+        },
+        "youtube_url": {
+            "label": "Youtube URL",
+            "type": "text"
+        },
+        "email": {
+            "label": "Email",
+            "type": "text"
+        },
+        "contact_button_text": {
+            "label": "Contact Button Text",
+            "type": "text"
+        },
+        "contact_button_url": {
+            "label": "Contact Button URL",
+            "type": "text"
+        },
+        "offcanvas_about_us_title": {
+            "label": "Offcanvas About Us Title",
+            "type": "text"
+        },
+        "offcanvas_about_us_description": {
+            "label": "Offcanvas About Us Description",
+            "type": "text"
+        },
+        "offcanvas_get_a_free_quote_title": {
+            "label": "Offcanvas Get a Free Quote Title",
+            "type": "text"
+        },
+        "offcanvas_submit_button_text": {
+            "label": "Offcanvas Submit Button Text",
+            "type": "text"
+        },
+        "address": {
+            "label": "Address",
+            "type": "text"
+        },
+        "phone": {
+            "label": "Phone",
+            "type": "text"
+        }
+    }
+}

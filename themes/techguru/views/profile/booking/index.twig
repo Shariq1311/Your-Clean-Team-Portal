@@ -1,0 +1,61 @@
+<div class="tf__dashboard_order wow fadeInUp" data-wow-duration="1s">
+    <div class="tf_dashboard_order_area">
+        <div class="table-responsive">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Event name</th>
+                        <th>Booking Code</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+
+                    {% for booking in data.bookings.data %}
+                        <tr>
+                            <td>
+                                {% if booking.event %}
+                                    <a href="{{ booking.event.slug }}">
+                                        {{ booking.event.title }}
+                                    </a>
+                                {% else %}
+                                    N/A
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{{ route('event.booking.details', {code: booking.code}) }}">
+                                    #{{ booking.code }}
+                                </a>
+                            </td>
+                            <td>{{ booking.booking_date|date('d M Y') }}</td>
+                            <td>
+                                {% if booking.payment_status == 'pending' %}
+                                    <span class="pending">{{ booking.payment_status_text }}</span>
+                                {% elseif booking.payment_status == 'cancelled' or booking.payment_status == 'failed' %}
+                                    <span class="cancel">{{ booking.payment_status_text }}</span>
+                                {% else %}
+                                    <span class="paid">{{ booking.payment_status_text }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ booking.total }}</td>
+                            <td>
+                                <a href="{{ route('event.booking.details', {code: booking.code}) }}">
+                                    Details
+                                </a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center">No bookings found</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% if data.bookings.pagination %}
+    {{ paginate_links(data.bookings, 'theme::components.pagination-profile') }}
+{% endif %}

@@ -1,0 +1,28 @@
+{
+    "name": "mojahid/techguru-companion",
+    "type": "mojar-plugin",
+    "license": "MIT",
+    "description": "This plugin Developed For Maintain Techguru Companion",
+    "extra": {
+        "mojar": {
+            "name": "Techguru Companion",
+            "domain": "techguru",
+            "cms_min": "1.0.0",
+            "version": "1.0.0",
+            "providers": [
+                "Mojahid\\TechguruCompanion\\Providers\\TechguruCompanionServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Mojahid\\TechguruCompanion\\": "src/"
+        },
+        "files": [
+            "helpers/helpers.php"
+        ]
+    },
+    "require": {
+        "php": ">=8.0"
+    }
+}

@@ -1,0 +1,89 @@
+<section class="process-two">
+    <div class="process-two__bg" style="background-image: url({% if data.bg_image %}{{ upload_url(data.bg_image) }}{% else %}{{ asset('images/backgrounds/process-two-bg.jpg') }}{% endif %});">
+    </div>
+    <div class="process-two__bg-shape float-bob-y"
+        style="background-image: url({% if data.bg_shape %}{{ upload_url(data.bg_shape) }}{% else %}{{ asset('images/shapes/process-two-bg-shape.png') }}{% endif %});">
+    </div>
+    <div class="container">
+        <div class="section-title text-center sec-title-animation animation-style1">
+            <div class="section-title__tagline-box">
+                <div class="section-title__tagline-shape-1"></div>
+                <span class="section-title__tagline">{{ data.section_tagline|default('Working Process') }}</span>
+                <div class="section-title__tagline-shape-2"></div>
+            </div>
+            <h2 class="section-title__title title-animation">{{ data.title_part_1|default('Our Seamless Process') }} <br><span>{{ data.title_part_2|default('From Concept to Creation') }}</span>
+            </h2>
+        </div>
+        <ul class="row list-unstyled">
+            {% if data.process_steps %}
+                {% for step in data.process_steps %}
+                    <!--Process Two Single Start-->
+                    <li class="col-xl-4 col-lg-4">
+                        <div class="process-two__single">
+                            {% if step.show_shape_1 %}
+                                <div class="process-two__shape-1 float-bob-x">
+                                    {% if step.shape_1 %}
+                                        <img src="{{ upload_url(step.shape_1) }}" alt="shape">
+                                    {% else %}
+                                        <img src="{{ asset('images/shapes/process-two-shape-1.png') }}" alt="shape">
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                            
+                            {% if step.show_shape_2 %}
+                                <div class="process-two__shape-2 float-bob-x">
+                                    {% if step.shape_2 %}
+                                        <img src="{{ upload_url(step.shape_2) }}" alt="shape">
+                                    {% else %}
+                                        <img src="{{ asset('images/shapes/process-two-shape-2.png') }}" alt="shape">
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                            
+                            <div class="process-two__count"></div>
+                            <h3 class="process-two__title">{{ step.title }}</h3>
+                            <p class="process-two__text">{{ techguru_format_text(step.text|default('We begin by understanding your needs')) }}</p>    
+                        </div>
+                    </li>
+                    <!--Process Two Single End-->
+                {% endfor %}
+            {% else %}
+                <!--Process Two Single Start (Default)-->
+                <li class="col-xl-4 col-lg-4">
+                    <div class="process-two__single">
+                        <div class="process-two__count"></div>
+                        <h3 class="process-two__title">Research & Discovery</h3>
+                        <p class="process-two__text">We begin by understanding your needs,<br> goals, and vision. Through brainstorming<br> sessions and strategic planning,</p>
+                    </div>
+                </li>
+                <!--Process Two Single End-->
+                
+                <!--Process Two Single Start (Default)-->
+                <li class="col-xl-4 col-lg-4">
+                    <div class="process-two__single">
+                        <div class="process-two__shape-1 float-bob-x">
+                            <img src="{{ asset('images/shapes/process-two-shape-1.png') }}" alt="shape">
+                        </div>
+                        <div class="process-two__shape-2 float-bob-x">
+                            <img src="{{ asset('images/shapes/process-two-shape-2.png') }}" alt="shape">
+                        </div>
+                        <div class="process-two__count"></div>
+                        <h3 class="process-two__title">Design and Development</h3>
+                        <p class="process-two__text">Once the strategy is in place, we move to<br> designing and developing your vision. Our<br> team collaborates closely to bring your<br> ideas</p>
+                    </div>
+                </li>
+                <!--Process Two Single End-->
+                
+                <!--Process Two Single Start (Default)-->
+                <li class="col-xl-4 col-lg-4">
+                    <div class="process-two__single">
+                        <div class="process-two__count"></div>
+                        <h3 class="process-two__title">Testing and Launch</h3>
+                        <p class="process-two__text">Before going live, we rigorously test to<br> ensure optimal functionality. After<br> thorough quality checks, we launch your<br> project</p>
+                    </div>
+                </li>
+                <!--Process Two Single End-->
+            {% endif %}
+        </ul>
+    </div>
+</section> 

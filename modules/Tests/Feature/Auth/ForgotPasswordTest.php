@@ -1,0 +1,87 @@
+<?php
+
+/**
+ * Mojar - Laravel CMS for Your Project
+ *
+ * @package    Mojar/cms
+ * @author     Mojar Team
+ * @link       https://Mojar.com/cms
+ * @license    GNU V2
+ */
+
+namespace MojarCMS\Tests\Feature\Auth;
+
+use MojarCMS\Backend\Models\EmailTemplate;
+use MojarCMS\Backend\Models\PasswordReset;
+use MojarCMS\CMS\Models\User;
+use MojarCMS\Tests\TestCase;
+
+class ForgotPasswordTest extends TestCase
+{
+    private User $user;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = User::active()->first();
+    }
+
+    public function testIndex()
+    {
+        $this->get('app/forgot-password')->assertStatus(200);
+    }
+
+    public function testSubmit()
+    {
+        $this->json(
+            'POST',
+            'app/forgot-password',
+            ['email' => $this->user->email]
+        )->assertJson(['status' => true]);
+
+        $template = EmailTemplate::whereCode('forgot_password')->first();
+
+        $this->assertDatabaseHas('password_resets', ['email' => $this->user->email]);
+
+        $this->assertDatabaseHas(
+            'email_lists',
+            ['email' => $this->user->email, 'template_id' => $template->id]
+        );
+    }
+
+    public function testResetPassword()
+    {
+        $passwordReset = PasswordReset::whereEmail($this->user->email)->first();
+
+        $uri = "app/reset-password/{$passwordReset->email}/{$passwordReset->token}";
+
+        $this->get($uri)->assertStatus(200);
+
+        $this->json(
+            'POST',
+            $uri,
+            [
+                'password' => 'Asd123@@',
+                'password_confirmation' => 'Asd123@',
+            ]
+        )
+            ->assertJsonValidationErrors(['password']);
+
+        $this->json(
+            'POST',
+            $uri,
+            [
+                'password' => 'Asd123@@',
+                'password_confirmation' => 'Asd123@@',
+            ]
+        )
+            ->assertStatus(200)
+            ->assertJson(['status' => true]);
+
+        $this->assertDatabaseMissing(
+            'password_resets',
+            ['email' => $this->user->email]
+        );
+    }
+}

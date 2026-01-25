@@ -1,0 +1,47 @@
+{
+    "label": "Blogs Page",
+    "description": "Display blog posts in a slider with title and description",
+    "form": [
+        {
+            "type": "select",
+            "name": "blog_style",
+            "label": "Blog Style",
+            "data": {
+                "options": {
+                    "blog_carousel": "Blog Carousel",
+                    "blog_grid": "Blog Grid",
+                    "blog_list_two": "Blog List Two"
+                },
+                "value": "blog_carousel"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_title",
+            "label": "Section Title",
+            "data": {
+                "value": "Latest News Feed"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_subtitle_1",
+            "label": "Section Subtitle Animation 1 (For Blog Grid)"
+        },
+        {
+            "type": "text",
+            "name": "section_subtitle_2",
+            "label": "Section Subtitle Animation 2 (For Blog Grid)"
+        },
+        {
+            "type": "text",
+            "name": "section_subtitle_3",
+            "label": "Section Subtitle Animation 3 (For Blog Grid)"
+        },
+        {
+            "type": "text",
+            "name": "section_subtitle_4",
+            "label": "Section Subtitle Animation 4 (For Blog Grid)"
+        }
+    ]
+}

@@ -1,0 +1,81 @@
+{
+    "name": "Client Info Box",
+    "description": "Display client profile information with social links",
+    "form": [
+        {
+            "type": "image",
+            "name": "client_image",
+            "label": "Client Image"
+        },
+        {
+            "type": "text",
+            "name": "client_name",
+            "label": "Client Name",
+            "data": {
+                "value": "Jordan M. Walk"
+            }
+        },
+        {
+            "type": "text",
+            "name": "client_role",
+            "label": "Client Role/Position",
+            "data": {
+                "value": "Digital Marketer"
+            }
+        },
+        {
+            "type": "textarea",
+            "name": "client_description",
+            "label": "Client Description",
+            "data": {
+                "value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            }
+        },
+        {
+            "type": "text",
+            "name": "social_title",
+            "label": "Social Links Title",
+            "data": {
+                "value": "Follow Me"
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "social_links",
+            "label": "Social Links",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "icon",
+                    "label": "Icon Class",
+                    "description": "Icon class (e.g. icon-facebook)"
+                },
+                {
+                    "type": "text",
+                    "name": "url",
+                    "label": "Social Link URL"
+                }
+            ],
+            "options": {
+                "min_items": 1,
+                "max_items": 6,
+                "add_button_text": "Add Social Link",
+                "remove_button_text": "Remove Link",
+                "value": [
+                    {
+                        "icon": "icon-facebook",
+                        "url": "#"
+                    },
+                    {
+                        "icon": "icon-dribble",
+                        "url": "#"
+                    },
+                    {
+                        "icon": "icon-linkedin",
+                        "url": "#"
+                    }
+                ]
+            }
+        }
+    ]
+}

@@ -1,0 +1,72 @@
+{% extends 'cms::layouts.frontend' %}
+
+{% block content %}
+    {% include 'theme::components.breadcrumb' with {
+        title: 'Team Members',
+        description: 'We are a team of passionate individuals who are dedicated to providing the best possible service to our clients.',
+        items: [
+
+            {'label': 'Home', 'url': '/'},
+            {'label': 'Team Members'}
+        ]
+    } %}
+
+    {% if input_get('page') is empty %}
+        {{ dynamic_block(post, 'content') }}
+    {% endif %}
+
+    {% set items = get_posts('teams', {
+        'paginate': 10
+    }) %}
+
+    <section class="team-page">
+            <div class="team-page__shape-1">
+                <img src="assets/images/shapes/team-page-shape-1.png" alt="">
+            </div>
+            <div class="container">
+                <div class="row">
+                    {% for post in items.data %}
+                        <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInLeft" data-wow-delay="100ms">
+                            <div class="team-one__single">
+                                <div class="team-one__img-box">
+                                    <div class="team-one__img">
+                                        <img src="{{ post.thumbnail }}" alt="{{ post.title }}">  
+                                    </div>
+                                    <div class="team-one__social-box-inner">
+                                        <div class="team-one__social-box">
+                                            <div class="team-one__social">
+                                                {% if post.metas.facebook %}
+                                                    <a href="{{ post.metas.facebook }}"><span class="icon-facebook"></span></a>
+                                                {% endif %}
+                                                {% if post.metas.dribbble %}
+                                                    <a href="{{ post.metas.dribbble }}"><span class="icon-dribble"></span></a>
+                                                {% endif %}
+                                            </div>
+                                            <div class="team-one__social">
+                                                {% if post.metas.linkedin %}
+                                                    <a href="{{ post.metas.linkedin }}"><span class="icon-linkedin"></span></a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="team-one__content">
+                                    <div class="team-one__arrow">
+                                        <a href="{{ post.url }}"><span class="icon-link"></span></a>
+                                    </div>
+                                    <div class="team-one__title-box">
+                                        <p class="team-one__sub-title"><span></span>{{ post.metas.position }}</p>    
+                                        <h3 class="team-one__title"><a href="{{ post.url }}">{{ post.title }}</a></h3>   
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    {{ paginate_links(items, 'theme::components.pagination') }}
+                </div>
+            </div>
+        </section>
+
+        {{ dynamic_sidebar('post_single') }}
+{% endblock %}

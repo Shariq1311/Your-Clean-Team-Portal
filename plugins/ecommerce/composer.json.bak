@@ -1,0 +1,37 @@
+{
+    "name": "mojahid/ecommerce",
+    "description": "This plugin Developed For Maintain Ecommerce",
+    "extra": {
+        "mojar": {
+            "name": "Ecommerce",
+            "domain": "ecomm",
+            "cms_min": "1.0.0",
+            "version": "1.0.0",
+            "providers": [
+                "Mojahid\\Ecommerce\\Providers\\EcommerceServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "league/omnipay": "3.2.1",
+        "omnipay/mollie": "^5.5",
+        "omnipay/paypal": "^3.0",
+        "omnipay/stripe": "^3.2",
+        "stripe/stripe-php": "^16.6",
+        "omnipay/common": "^3.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mojahid\\Ecommerce\\": "src/"
+        },
+        "files": [
+            "helpers/helpers.php"
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+        
+    }
+}

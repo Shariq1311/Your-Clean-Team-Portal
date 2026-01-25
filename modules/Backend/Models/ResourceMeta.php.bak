@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * Mojar - Laravel CMS for Your Project
+ *
+ * @package    mojar/cms
+ * @author     Mojar Team
+ * @link       https://mojar.com/cms
+ * @license    GNU V2
+ */
+
+namespace MojarCMS\Backend\Models;
+
+use MojarCMS\CMS\Models\Model;
+
+/**
+ * MojarCMS\Backend\Models\ResourceMeta
+ *
+ * @property int $id
+ * @property int $resource_id
+ * @property string $meta_key
+ * @property string|null $meta_value
+ * @property-read \MojarCMS\Backend\Models\Resource $resource
+ * @method static \Illuminate\Database\Eloquent\Builder|ResourceMeta newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ResourceMeta newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ResourceMeta query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ResourceMeta whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ResourceMeta whereMetaKey($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ResourceMeta whereMetaValue($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ResourceMeta whereResourceId($value)
+ * @mixin \Eloquent
+ */
+class ResourceMeta extends Model
+{
+    public $timestamps = false;
+
+    protected $table = 'resource_metas';
+    protected $fillable = [
+        'meta_key',
+        'meta_value',
+        'resource_id',
+    ];
+
+    public function resource(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Resource::class, 'resource_id', 'id');
+    }
+}

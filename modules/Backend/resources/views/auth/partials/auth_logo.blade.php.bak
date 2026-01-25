@@ -1,0 +1,9 @@
+@if ($differentAuthLogo = get_config('different_auth_logo'))
+    <img src="{{ upload_url(get_config('different_auth_logo')) }}" height="36" alt="{{ get_config('title', 'Mojar') }}">
+@elseif ($logo = get_config('logo'))
+    <img src="{{ upload_url(get_config('logo')) }}" height="36" alt="{{ get_config('title', 'Mojar') }}">
+@else
+    <h1 class="mb-5 px-3">
+        <strong>{{ trans('cms::message.login_form.welcome', ['name' => get_config('title', 'Your Clean Team')]) }}</strong>
+    </h1>
+@endif

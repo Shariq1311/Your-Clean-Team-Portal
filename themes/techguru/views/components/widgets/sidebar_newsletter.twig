@@ -1,0 +1,56 @@
+<div class="sidebar__single sidebar__newsletter">
+    <div class="sidebar__title-box">
+        <div class="sidebar__title-shape"></div>
+        <h3 class="sidebar__title">{{ data.title }}</h3>
+    </div>
+    
+    <div id="sidebar-newsletters-success-message" class="alert alert-success" style="display: none;"></div>
+    <div id="sidebar-newsletters-error-message" class="alert alert-danger" style="display: none;"></div>
+    
+    <p class="sidebar__newsletter-text">{{ data.description }}</p>
+    <form action="{{ url('ajax/newsletters-subscribers') }}" method="POST" id="sidebar-newsletters-form-1" class="sidebar__newsletter-form">
+        <div class="sidebar__newsletter-input">
+            <div class="sidebar__newsletter-input-icon">
+                <span class="icon-email"></span>
+            </div>
+            <input type="search" name="email" placeholder="{{ data.placeholder }}">
+        </div>
+        <button type="submit" class="thm-btn">{{ data.button_text }}<i class="icon-right-arrow-1"></i></button>
+    </form>
+</div>
+
+<script>
+(function() {
+    'use strict';
+    $(document).ready(function() {
+        $('#sidebar-newsletters-form-1').on('submit', function(e) {
+            e.preventDefault();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            });
+
+            $.ajax({
+                url: '{{ url('ajax/newsletters-subscribers') }}',
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function(response) {
+                    if (response.status === true) {
+                        $('#sidebar-newsletters-success-message').show();
+                        $('#sidebar-newsletters-success-message').text(response?.data?.message || 'Your message has been sent successfully!');
+                        $('#sidebar-newsletters-form-1')[0].reset();
+                    } else {
+                        $('#sidebar-newsletters-error-message').show();
+                        $('#sidebar-newsletters-error-message').text(response?.data?.message || 'Something went wrong!');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    $('#sidebar-newsletters-error-message').show();
+                    $('#sidebar-newsletters-error-message').text(xhr.responseJSON?.message || 'An error occurred. Please try again.');
+                }
+            });
+        });
+    });
+    })();
+</script>

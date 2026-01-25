@@ -1,0 +1,287 @@
+<?php
+
+/**
+ * Mojar - Laravel CMS for Your Project
+ *
+ * @package    mojar/cms
+ * @author     Mojahid
+ * @link       https://mojar.com/cms
+ * @license    GNU V2
+ */
+
+namespace Mojahid\Ecommerce\Supports\Payments;
+
+use Mojahid\Ecommerce\Abstracts\PaymentMethodAbstract;
+use Mojahid\Ecommerce\Contracts\Payment\PaymentMethodInterface;
+use Mojahid\Ecommerce\Models\Order;
+use Exception;
+use Illuminate\Support\Facades\Http;
+
+class Flutterwave extends PaymentMethodAbstract implements PaymentMethodInterface
+{
+    private $baseUrl = 'https://api.flutterwave.com/v3';
+
+    public function purchase(array $params): PaymentMethodInterface
+    {
+        try {
+            $config = $this->getConfig();
+            
+            \Log::info('Flutterwave Configuration', [
+                'test_mode' => $config['test_mode'],
+                'has_public_key' => !empty($config['public_key']),
+                'has_secret_key' => !empty($config['secret_key'])
+            ]);
+
+            $amount = $params['amount'];
+            if (empty($amount) || (float)$amount <= 0) {
+                throw new Exception('Invalid amount. Amount must be greater than zero.');
+            }
+
+            // Generate unique transaction reference
+            $txRef = $params['order_id'] ?? 'FW' . time() . rand(1000, 9999);
+
+            // Prepare payment payload
+            $paymentData = [
+                'tx_ref' => $txRef,
+                'amount' => (string) $amount,
+                'currency' => $params['currency'] ?? 'USD',
+                'redirect_url' => $params['returnUrl'] ?? url('/payment/callback/flutterwave'),
+                'payment_options' => 'card,mobilemoney,ussd,banktransfer',
+                'customer' => [
+                    'email' => $params['customer_email'] ?? 'customer@example.com',
+                    'name' => $params['customer_name'] ?? 'Customer',
+                ],
+                'customizations' => [
+                    'title' => $params['description'] ?? 'Order Payment',
+                    'description' => $params['description'] ?? 'Payment for order',
+                    'logo' => ''
+                ],
+                'meta' => [
+                    'order_id' => $params['order_id'] ?? $txRef,
+                ]
+            ];
+
+            \Log::info('Flutterwave Payment Request', [
+                'tx_ref' => $paymentData['tx_ref'],
+                'amount' => $paymentData['amount'],
+                'currency' => $paymentData['currency'],
+                'customer_email' => $paymentData['customer']['email']
+            ]);
+
+            // Make HTTP request using Laravel's Http client
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $config['secret_key'],
+                'Content-Type' => 'application/json',
+            ])->post($this->baseUrl . '/payments', $paymentData);
+
+            if ($response->failed()) {
+                $errorData = $response->json();
+                $errorMessage = 'API Request Failed: ' . $response->status();
+                
+                if (isset($errorData['message'])) {
+                    $errorMessage .= ' - ' . $errorData['message'];
+                }
+                
+                \Log::error('Flutterwave API Error', [
+                    'status' => $response->status(),
+                    'response' => $errorData,
+                    'headers' => $response->headers()
+                ]);
+                
+                throw new Exception($errorMessage);
+            }
+
+            $responseData = $response->json();
+
+            \Log::info('Flutterwave API Response', [
+                'status' => $responseData['status'] ?? null,
+                'has_data' => isset($responseData['data']),
+                'has_link' => isset($responseData['data']['link'])
+            ]);
+
+            if (isset($responseData['status']) && $responseData['status'] === 'success') {
+                if (isset($responseData['data']['link'])) {
+                    $this->setSuccessful(true);
+                    $this->setRedirect(true);
+                    $this->setRedirectURL($responseData['data']['link']);
+                    
+                    \Log::info('Flutterwave Payment Link Generated', [
+                        'tx_ref' => $txRef,
+                        'link' => $responseData['data']['link']
+                    ]);
+                } else {
+                    throw new Exception('No payment link received from Flutterwave');
+                }
+            } else {
+                $errorMessage = $responseData['message'] ?? 'Payment initialization failed';
+                throw new Exception($errorMessage);
+            }
+
+            return $this;
+        } catch (Exception $e) {
+            \Log::error('Flutterwave Payment Error', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ]);
+            
+            $this->addError($e->getMessage());
+            $this->setSuccessful(false);
+            throw $e;
+        }
+    }
+
+    public function completed(array $params): PaymentMethodInterface
+    {
+        try {
+            $config = $this->getConfig();
+
+            // Get transaction reference from callback params
+            $transactionId = $params['transaction_id'] ?? $params['tx_ref'] ?? null;
+            $status = $params['status'] ?? null;
+
+            if (empty($transactionId)) {
+                // Check for order completion without verification
+                $orderId = $params['order'] ?? null;
+                if (!empty($orderId) && ($status === 'successful' || $status === 'completed')) {
+                    $order = Order::whereCode($orderId)->first();
+                    if ($order) {
+                        $order->payment_status = 'paid';
+                        $order->save();
+                    }
+                    $this->setSuccessful(true);
+                    $this->setMessage('Payment completed successfully');
+                    return $this;
+                }
+                throw new Exception('No transaction reference provided');
+            }
+
+            // Verify transaction with Flutterwave
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $config['secret_key'],
+                'Content-Type' => 'application/json',
+            ])->get($this->baseUrl . '/transactions/' . $transactionId . '/verify');
+
+            if ($response->failed()) {
+                $errorData = $response->json();
+                $errorMessage = 'Verification failed: ' . $response->status();
+                
+                if (isset($errorData['message'])) {
+                    $errorMessage .= ' - ' . $errorData['message'];
+                }
+                
+                throw new Exception($errorMessage);
+            }
+
+            $responseData = $response->json();
+
+            \Log::info('Flutterwave Transaction Verification', [
+                'transaction_id' => $transactionId,
+                'status' => $responseData['data']['status'] ?? 'unknown',
+                'amount' => $responseData['data']['amount'] ?? null,
+                'currency' => $responseData['data']['currency'] ?? null
+            ]);
+
+            if (isset($responseData['status']) && $responseData['status'] === 'success') {
+                $transactionData = $responseData['data'];
+                
+                if ($transactionData['status'] === 'successful') {
+                    $this->setSuccessful(true);
+                    $this->setMessage('Payment completed successfully via Flutterwave');
+                    
+                    // Update order if exists
+                    if (isset($transactionData['meta']['order_id'])) {
+                        $order = Order::whereCode($transactionData['meta']['order_id'])->first();
+                        if ($order) {
+                            $order->payment_status = 'paid';
+                            $order->save();
+                        }
+                    }
+                } else {
+                    $this->setSuccessful(false);
+                    $this->addError('Payment not successful: ' . ($transactionData['status'] ?? 'Unknown status'));
+                }
+            } else {
+                $this->setSuccessful(false);
+                $this->addError('Transaction verification failed');
+            }
+
+            return $this;
+        } catch (Exception $e) {
+            \Log::error('Flutterwave Completion Error', [
+                'message' => $e->getMessage(),
+                'params' => $params,
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ]);
+            
+            $this->addError($e->getMessage());
+            $this->setSuccessful(false);
+            throw $e;
+        }
+    }
+
+    public function isSuccessful(): bool
+    {
+        return $this->successful;
+    }
+
+    private function getConfig(): array
+    {
+        $data = is_string($this->paymentMethod->data) 
+            ? json_decode($this->paymentMethod->data, true) 
+            : $this->paymentMethod->data;
+        
+        $testMode = ($data['mode'] ?? 'test') === 'test';
+        
+        if ($testMode) {
+            $publicKey = $data['test_public_key'] ?? '';
+            $secretKey = $data['test_secret_key'] ?? '';
+        } else {
+            $publicKey = $data['live_public_key'] ?? '';
+            $secretKey = $data['live_secret_key'] ?? '';
+        }
+        
+        if (empty($publicKey) || empty($secretKey)) {
+            $errorMsg = 'Flutterwave API keys not configured for ' . ($testMode ? 'test' : 'live') . ' mode';
+            \Log::error('Flutterwave Configuration Error', [
+                'error' => $errorMsg,
+                'has_public_key' => !empty($publicKey),
+                'has_secret_key' => !empty($secretKey),
+                'mode' => $testMode ? 'test' : 'live',
+                'data_keys' => array_keys($data)
+            ]);
+            throw new Exception($errorMsg);
+        }
+
+        // Validate key formats for test mode
+        if ($testMode) {
+            if (!str_starts_with($publicKey, 'FLWPUBK_TEST') && !str_starts_with($publicKey, 'FLWPUBK-T')) {
+                \Log::warning('Flutterwave test public key format may be invalid', [
+                    'key_prefix' => substr($publicKey, 0, 15),
+                    'expected_format' => 'FLWPUBK_TEST-xxx or FLWPUBK-T-xxx'
+                ]);
+            }
+            if (!str_starts_with($secretKey, 'FLWSECK_TEST') && !str_starts_with($secretKey, 'FLWSECK-T')) {
+                \Log::warning('Flutterwave test secret key format may be invalid', [
+                    'key_prefix' => substr($secretKey, 0, 15),
+                    'expected_format' => 'FLWSECK_TEST-xxx or FLWSECK-T-xxx'
+                ]);
+            }
+        }
+        
+        \Log::info('Flutterwave Configuration Loaded', [
+            'mode' => $testMode ? 'test' : 'live',
+            'public_key_prefix' => substr($publicKey, 0, 15),
+            'secret_key_prefix' => substr($secretKey, 0, 15),
+            'public_key_length' => strlen($publicKey),
+            'secret_key_length' => strlen($secretKey)
+        ]);
+        
+        return [
+            'public_key' => $publicKey,
+            'secret_key' => $secretKey,
+            'test_mode' => $testMode
+        ];
+    }
+}

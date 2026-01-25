@@ -1,0 +1,120 @@
+<section class="counter-one">
+    <div class="counter-one__wrap">
+        <div class="counter-one__bg-shape float-bob-x"
+            style="background-image: url({% if data.bg_shape %}{{ upload_url(data.bg_shape) }}{% else %}{{ asset('images/shapes/counter-one-bg-shape.png') }}{% endif %});">
+        </div>
+        <div class="counter-one__shape-1"></div>
+        <div class="counter-one__shape-2"></div>
+        <div class="container">
+            <div class="section-title text-center sec-title-animation animation-style1">
+                <div class="section-title__tagline-box">
+                    <div class="section-title__tagline-shape-1"></div>
+                    <span class="section-title__tagline">{{ data.section_tagline|default('The Numbers Speak') }}</span>
+                    <div class="section-title__tagline-shape-2"></div>
+                </div>
+                <h2 class="section-title__title title-animation">{{ data.title_part_1|default('Exploring Business Growth') }} <span>{{ data.title_part_2|default('In IT') }}</span><br><span>{{ data.title_part_3|default('Consulting Solutions') }}</span></h2>
+            </div>
+            <div class="row">
+                {% if data.counters %}
+                    {% for counter in data.counters %}
+                        <!--Counter One Single Start-->
+                        <div class="col-xl-3 col-lg-6 col-md-6 {% if data.enable_animation %}wow fadeInLeft{% endif %}" {% if data.enable_animation %}data-wow-delay="{{ counter.animation_delay|default('100') }}ms"{% endif %}>
+                            <div class="counter-one__single">
+                                <div class="counter-one__icon">
+                                    <span class="{{ counter.icon }}"></span>
+                                </div>
+                                <div class="counter-one__content">
+                                    <div class="counter-one__count-box">
+                                        <h3 class="odometer" data-count="{{ counter.count }}">00</h3>
+                                        <span>{{ counter.suffix }}</span>
+                                    </div>
+                                    <p class="counter-one__text">{{ counter.text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Counter One Single End-->
+                    {% endfor %}
+                {% else %}
+                    <!--Counter One Single Start (Default)-->
+                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInLeft" data-wow-delay="100ms">
+                        <div class="counter-one__single">
+                            <div class="counter-one__icon">
+                                <span class="icon-trophy"></span>
+                            </div>
+                            <div class="counter-one__content">
+                                <div class="counter-one__count-box">
+                                    <h3 class="odometer" data-count="120">00</h3>
+                                    <span>+</span>
+                                </div>
+                                <p class="counter-one__text">award Winning</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Counter One Single End-->
+                    <!--Counter One Single Start (Default)-->
+                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInLeft" data-wow-delay="200ms">
+                        <div class="counter-one__single">
+                            <div class="counter-one__icon">
+                                <span class="icon-user"></span>
+                            </div>
+                            <div class="counter-one__content">
+                                <div class="counter-one__count-box">
+                                    <h3 class="odometer" data-count="99">00</h3>
+                                    <span>%</span>
+                                </div>
+                                <p class="counter-one__text">Satisfied client</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Counter One Single End-->
+                    <!--Counter One Single Start (Default)-->
+                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInRight" data-wow-delay="200ms">
+                        <div class="counter-one__single">
+                            <div class="counter-one__icon">
+                                <span class="icon-chat"></span>
+                            </div>
+                            <div class="counter-one__content">
+                                <div class="counter-one__count-box">
+                                    <h3 class="odometer" data-count="10">00</h3>
+                                    <span>M</span>
+                                </div>
+                                <p class="counter-one__text">worldwide reviews</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Counter One Single End-->
+                    <!--Counter One Single Start (Default)-->
+                    <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInRight" data-wow-delay="400ms">
+                        <div class="counter-one__single">
+                            <div class="counter-one__icon">
+                                <span class="icon-laughing"></span>
+                            </div>
+                            <div class="counter-one__content">
+                                <div class="counter-one__count-box">
+                                    <h3 class="odometer" data-count="200">00</h3>
+                                    <span>+</span>
+                                </div>
+                                <p class="counter-one__text">Happy Clients</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Counter One Single End-->
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function() {
+        if ($(".odometer").length) {
+            var odo = $(".odometer");
+            odo.each(function () {
+                $(this).appear(function () {
+                    var countNumber = $(this).attr("data-count");
+                    $(this).html(countNumber);
+                });
+            });
+        }
+    });
+</script> 

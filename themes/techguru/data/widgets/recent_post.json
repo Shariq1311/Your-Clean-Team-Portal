@@ -1,0 +1,50 @@
+{
+    "name": "Recent Posts",
+    "description": "Display recent blog posts in sidebar",
+    "form": [
+        {
+            "type": "text",
+            "name": "title",
+            "label": "Widget Title",
+            "data": {
+                "value": "Recent Post"
+            }
+        },
+        {
+            "type": "select",
+            "name": "post_type",
+            "label": "Post Type",
+            "data": {
+                "options": {
+                    "posts": "posts",
+                    "pages": "pages"
+                },
+                "value": "posts"
+            }
+        },
+        {
+            "type": "number",
+            "name": "limit",
+            "label": "Number of Posts to Show",
+            "data": {
+                "min": 1,
+                "max": 10,
+                "value": 2,
+                "description": "How many posts to display in the widget"
+            }
+        },
+        {
+            "type": "select",
+            "name": "sort_by",
+            "label": "Sort Posts By",
+            "data": {
+                "options": {
+                    "created_at": "Latest Posts",
+                    "views": "Most Viewed",
+                    "comments_count": "Most Commented"
+                },
+                "value": "created_at"
+            }
+        }
+    ]
+}

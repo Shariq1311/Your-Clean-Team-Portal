@@ -1,0 +1,89 @@
+<section class="feature-two">
+    <div class="container">
+        <ul class="list-unstyled feature-two__list">
+            {% if data.use_services_post_type %}
+                {% set ids_array = data.service_ids ? data.service_ids|split(',') : [] %}
+                {% set services = get_posts('services', {
+                    'limit': data.items_limit|default(5),
+                    'taxonomy': data.services_category,
+                    'ids': ids_array
+                }) %}
+                
+                {% if services %}
+                    {% for service in services %}
+                        <li class="{% if data.enable_animation %}wow fadeInUp{% endif %}" {% if data.enable_animation %}data-wow-delay="{{ loop.index * 100 }}ms"{% endif %}>
+                            <div class="feature-two__single">
+                                <div class="feature-two__icon">
+                                    <span class="{{ service.metas.icon|default('icon-strategy') }}"></span>
+                                </div>
+                                <h3 class="feature-two__title"><a href="{{ service.url }}">{{ service.title|striptags|slice(0, 20) ~ '' }}</a></h3>
+                                <p class="feature-two__text">{{ service.description|striptags|slice(0, 120) ~ '...' }}</p>
+                            </div>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            {% else %}
+                {% if data.features %}
+                    {% for feature in data.features %}
+                        <li class="{% if data.enable_animation %}wow fadeInUp{% endif %}" {% if data.enable_animation %}data-wow-delay="{{ feature.animation_delay|default(loop.index * 100) }}ms"{% endif %}>
+                            <div class="feature-two__single">
+                                <div class="feature-two__icon">
+                                    <span class="{{ feature.icon|default('icon-strategy') }}"></span>
+                                </div>
+                                <h3 class="feature-two__title"><a href="{{ feature.url|default('#') }}">{{ feature.title }}</a></h3>
+                                <p class="feature-two__text">{{ feature.description }}</p>
+                            </div>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <!-- Default Features -->
+                    <li class="wow fadeInUp" data-wow-delay="100ms">
+                        <div class="feature-two__single">
+                            <div class="feature-two__icon">
+                                <span class="icon-strategy"></span>
+                            </div>
+                            <h3 class="feature-two__title"><a href="javascript:void(0)">Technology Consulting</a></h3>
+                            <p class="feature-two__text">Innovating and empowering businesses with tailored solutions for success and growth. Innovating and empowering</p>
+                        </div>
+                    </li>
+                    <li class="wow fadeInUp" data-wow-delay="200ms">
+                        <div class="feature-two__single">
+                            <div class="feature-two__icon">
+                                <span class="icon-technical-support"></span>
+                            </div>
+                            <h3 class="feature-two__title"><a href="javascript:void(0)">Cloud IT security</a></h3>
+                            <p class="feature-two__text">Innovating and empowering businesses with tailored solutions for success and growth. Innovating and empowering</p>
+                        </div>
+                    </li>
+                    <li class="wow fadeInUp" data-wow-delay="300ms">
+                        <div class="feature-two__single">
+                            <div class="feature-two__icon">
+                                <span class="icon-strategy"></span>
+                            </div>
+                            <h3 class="feature-two__title"><a href="javascript:void(0)">Software Development</a></h3>
+                            <p class="feature-two__text">Innovating and empowering businesses with tailored solutions for success and growth. Innovating and empowering</p>
+                        </div>
+                    </li>
+                    <li class="wow fadeInUp" data-wow-delay="400ms">
+                        <div class="feature-two__single">
+                            <div class="feature-two__icon">
+                                <span class="icon-earning"></span>
+                            </div>
+                            <h3 class="feature-two__title"><a href="javascript:void(0)">Business solutions</a></h3>
+                            <p class="feature-two__text">Innovating and empowering businesses with tailored solutions for success and growth. Innovating and empowering</p>
+                        </div>
+                    </li>
+                    <li class="wow fadeInUp" data-wow-delay="500ms">
+                        <div class="feature-two__single">
+                            <div class="feature-two__icon">
+                                <span class="icon-transparency"></span>
+                            </div>
+                            <h3 class="feature-two__title"><a href="javascript:void(0)">Data Tracking Security</a></h3>
+                            <p class="feature-two__text">Innovating and empowering businesses with tailored solutions for success and growth. Innovating and empowering</p>
+                        </div>
+                    </li>
+                {% endif %}
+            {% endif %}
+        </ul>
+    </div>
+</section> 

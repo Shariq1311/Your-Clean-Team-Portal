@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * Mojar - The Best CMS for Laravel Project
+ *
+ * @package    mojar/cms
+ * @author     Mojar Team <admin@mojar.com>
+ * @link       https://mojar.com
+ * @license    MIT
+ */
+
+return [
+    'enable' => env('MC_ALLOW_MULTISITE', false),
+
+    'domain' => env('MC_NETWORK_ROOT_DOMAIN')
+];

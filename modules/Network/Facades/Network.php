@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * Mojar - The Best CMS for Laravel Project
+ *
+ * @package    Mojar/cms
+ * @author     Mojar Team <admin@Mojar.com>
+ * @link       https://Mojar.com
+ * @license    MIT
+ */
+
+namespace MojarCMS\Network\Facades;
+
+use Illuminate\Support\Facades\Facade;
+use MojarCMS\Network\Contracts\NetworkRegistionContract;
+
+/**
+ * @method static void init()
+ * @method static bool isRootSite($domain = null)
+ * @method static string getCurrentDomain()
+ * @method static object getCurrentSite()
+ * @method static null|int getCurrentSiteId()
+ * @see \MojarCMS\Network\Support\NetworkRegistion
+ */
+class Network extends Facade
+{
+    /**
+     * Get the registered name of the component.
+     *
+     * @return string
+     */
+    protected static function getFacadeAccessor(): string
+    {
+        return NetworkRegistionContract::class;
+    }
+}

@@ -1,0 +1,32 @@
+{
+    "name": "mojahid/chatbot-integration",
+    "description": "Complete chatbot integration system for multiple providers including Crisp, Tidio, WhatsApp, Messenger, LiveChat, Zendesk, and Tawk.to",
+    "license": "MIT",
+    "type": "Your Clean Team-plugin",
+    "extra": {
+        "Your Clean Team": {
+            "name": "Chatbot Integration",
+            "domain": "chatbot",
+            "cms_min": "1.0.0",
+            "version": "1.0.0",
+            "providers": [
+                "Mojahid\\ChatbotIntegration\\Providers\\ChatbotServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Mojahid\\ChatbotIntegration\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Mojahid\\ChatbotIntegration\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^8.1|8.2|8.3"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

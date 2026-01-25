@@ -1,0 +1,54 @@
+{
+    "name": "Post Single Newsletter",
+    "description": "Post single newsletter subscription form with social links",
+    "form": [
+        {
+            "type": "text",
+            "name": "subscribe_text_1",
+            "label": "Subscribe Text 1",
+            "data": {
+                "value": "Subscribe"
+            }
+        },
+        {
+            "type": "text",
+            "name": "subscribe_text_2",
+            "label": "Subscribe Text 2",
+            "data": {
+                "value": "Newsletter"
+            }
+        },
+        {
+            "type": "textarea",
+            "name": "description_1",
+            "label": "Newsletter Description 1",
+            "data": {
+                "value": "From personalized solutions to expert execution, we prioritize quality,"
+            }
+        },
+        {
+            "type": "textarea",
+            "name": "description_2",
+            "label": "Newsletter Description 2",
+            "data": {
+                "value": "reliability, and customer satisfaction"
+            }
+        },
+        {
+            "type": "text",
+            "name": "placeholder",
+            "label": "Email Placeholder Text",
+            "data": {
+                "value": "Enter your email address"
+            }
+        },
+        {
+            "type": "text",
+            "name": "button_text",
+            "label": "Button Text",
+            "data": {
+                "value": "Subscribe Now"
+            }
+        }
+    ]
+}

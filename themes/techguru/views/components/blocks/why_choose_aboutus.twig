@@ -1,0 +1,61 @@
+<section class="why-choose-three">
+    <div class="why-choose-three__bg-shape float-bob-x"
+        style="background-image: url({% if data.bg_shape %}{{ upload_url(data.bg_shape) }}{% else %}{{ asset('images/shapes/why-choose-three-bg-shape.png') }}{% endif %});">
+    </div>
+    <div class="why-choose-three__shape-1"></div>
+    <div class="why-choose-three__shape-2"></div>
+    <div class="container">
+        <div class="section-title text-center sec-title-animation animation-style1">
+            <div class="section-title__tagline-box">
+                <div class="section-title__tagline-shape-1"></div>
+                <span class="section-title__tagline">{{ data.section_tagline|default('Why Choose Us') }}</span>
+                <div class="section-title__tagline-shape-2"></div>
+            </div>
+            <h2 class="section-title__title title-animation">{{ data.title_part_1|default('Your Business with') }} <span>{{ data.title_part_2|default('Reliable &') }}</span><br><span>{{ data.title_part_3|default('Future-Ready') }}</span>
+            {{ data.title_part_4|default('IT Solutions') }}</h2>
+        </div>
+        <div class="row">
+            <div class="col-xl-3 {% if data.enable_animation %}wow fadeInLeft{% endif %}" {% if data.enable_animation %}data-wow-delay="{{ data.left_animation_delay|default('100') }}ms"{% endif %}>
+                <div class="why-choose-three__single-left">
+                    {% if data.left_features %}
+                        {% for feature in data.left_features %}
+                            <div class="why-choose-three__single">
+                                <div class="why-choose-three__icon">
+                                    <span class="{{ feature.icon|default('icon-quality') }}"></span>
+                                </div>
+                                <h3 class="why-choose-three__title">{{ feature.title }}</h3>
+                                <div class="why-choose-three__bdr"></div>
+                                <p class="why-choose-three__text">{{ feature.text|default('Innovating and empowering businesses') }}</p>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-xl-6 {% if data.enable_animation %}wow fadeInUp{% endif %}" {% if data.enable_animation %}data-wow-delay="{{ data.center_animation_delay|default('200') }}ms"{% endif %}>
+                <div class="why-choose-three__img">
+                    {% if data.main_image %}
+                        <img src="{{ upload_url(data.main_image) }}" alt="main image">
+                    {% else %}
+                        <img src="{{ asset('images/resources/why-choose-three-img.jpg') }}" alt="main image">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-xl-3 {% if data.enable_animation %}wow fadeInRight{% endif %}" {% if data.enable_animation %}data-wow-delay="{{ data.right_animation_delay|default('100') }}ms"{% endif %}>
+                <div class="why-choose-three__single-left">
+                    {% if data.right_features %}
+                        {% for feature in data.right_features %}
+                            <div class="why-choose-three__single">
+                                <div class="why-choose-three__icon">
+                                    <span class="{{ feature.icon|default('icon-customer-centricity') }}"></span>
+                                </div>
+                                <h3 class="why-choose-three__title">{{ feature.title }}</h3>
+                                <div class="why-choose-three__bdr"></div>
+                                <p class="why-choose-three__text">{{ feature.text|default('Innovating and empowering businesses') }}</p>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section> 

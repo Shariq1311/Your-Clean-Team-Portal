@@ -1,0 +1,19 @@
+<?php
+/**
+ * JUZAWEB CMS - The Best CMS for Laravel Project
+ *
+ * @package    mojarcms/cms
+ * @author     Mojar Team <admin@mojar.com>
+ * @link       https://mojarcms.com/cms
+ * @license    MIT
+ */
+
+namespace Mojahid\Ecommerce\Contracts;
+
+use MojarCMS\CMS\Models\User;
+use Mojahid\Ecommerce\Models\Order;
+
+interface OrderCreaterContract
+{
+    public function create(array $data, array $items, User $user): Order;
+}

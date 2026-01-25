@@ -1,0 +1,168 @@
+<!--Testimonials Page Section Start-->
+<section class="testimonials-page pt_{{ data.padding_top|default(120) }} xs_pt_{{ data.mobile_padding_top|default(80) }} pb_{{ data.padding_bottom|default(120) }} xs_pb_{{ data.mobile_padding_bottom|default(80) }}">
+    <div class="container">
+        <div class="row">
+            {% if data.use_testimonials_post_type %}
+                {% set ids_array = data.testimonial_ids ? data.testimonial_ids|split(',') : [] %}
+                {% set testimonials = get_posts('testimonials', {
+                    'limit': data.items_limit|default(6),
+                    'taxonomy': data.testimonials_category,
+                    'ids': ids_array,
+                    'orderby': data.orderby|default('date'),
+                    'order': data.order|default('DESC')
+                }) %}
+                
+                {% if testimonials %}
+                    {% for testimonial in testimonials %}
+                        <!-- Testimonial Two Single Start -->
+                        <div class="col-xl-{{ 12 // data.grid_columns|default(3) }} col-lg-6 col-md-6 {% if data.enable_animation %}wow {{ data.animation_type|default('fadeInUp') }}{% endif %}" {% if data.enable_animation %}data-wow-duration="1s" data-wow-delay="{{ loop.index0 * 0.2 }}s"{% endif %}>
+                            <div class="testimonial-two__single">
+                                <div class="testimonial-two__single-inner">
+                                    <div class="testimonial-two__star">
+                                        {% set rating = testimonial.metas.rating|default(5) %}
+                                        {% for i in 1..5 %}
+                                            {% if i <= rating %}
+                                                <span class="icon-pointed-star"></span>
+                                            {% else %}
+                                                <span class="icon-star"></span>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <p class="testimonial-two__text">{{ testimonial.description|raw }}</p>
+                                </div>
+                                <div class="testimonial-two__client-info">
+                                    <div class="testimonial-two__client-img">
+                                        {% if testimonial.thumbnail %}
+                                            <img src="{{ testimonial.thumbnail }}" alt="{{ testimonial.metas.name|default(testimonial.title) }}" width="100%" height="100%">
+                                        {% else %}
+                                            <img src="{{ asset('images/testimonial/testimonial-2-{{ loop.index }}.jpg') }}" alt="{{ testimonial.metas.name|default(testimonial.title) }}">
+                                        {% endif %}
+                                    </div>
+                                    <div class="testimonial-two__client-content">
+                                        <h4 class="testimonial-two__client-name">
+                                            {% if testimonial.metas.testimonial_url %}
+                                                <a href="{{ testimonial.metas.testimonial_url }}">{{ testimonial.metas.name|default(testimonial.title) }}</a>
+                                            {% else %}
+                                                <a href="{{ testimonial.url }}">{{ testimonial.metas.name|default(testimonial.title) }}</a>
+                                            {% endif %}
+                                        </h4>
+                                        <p class="testimonial-two__sub-title">{{ testimonial.metas.position|default('Client') }}</p>
+                                    </div>
+                                </div>
+                                <div class="testimonial-two__quote">
+                                    <span class="icon-right-quote"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Testimonial Two Single End -->
+                    {% endfor %}
+                {% endif %}
+            {% else %}
+                {% if data.custom_testimonials %}
+                    {% for testimonial in data.custom_testimonials %}
+                        <!-- Testimonial Two Single Start -->
+                        <div class="col-xl-{{ 12 // data.grid_columns|default(3) }} col-lg-6 col-md-6 {% if data.enable_animation %}wow {{ data.animation_type|default('fadeInUp') }}{% endif %}" {% if data.enable_animation %}data-wow-duration="1s" data-wow-delay="{{ loop.index0 * 0.2 }}s"{% endif %}>
+                            <div class="testimonial-two__single">
+                                <div class="testimonial-two__single-inner">
+                                    <div class="testimonial-two__star">
+                                        {% set rating = testimonial.rating|default(5) %}
+                                        {% for i in 1..5 %}
+                                            {% if i <= rating %}
+                                                <span class="icon-pointed-star"></span>
+                                            {% else %}
+                                                <span class="icon-star"></span>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <p class="testimonial-two__text">{{ testimonial.testimonial_text }}</p>
+                                </div>
+                                <div class="testimonial-two__client-info">
+                                    <div class="testimonial-two__client-img">
+                                        {% if testimonial.client_image %}
+                                            <img src="{{ upload_url(testimonial.client_image) }}" alt="{{ testimonial.client_name }}">
+                                        {% else %}
+                                            <img src="{{ asset('images/testimonial/testimonial-2-{{ loop.index }}.jpg') }}" alt="{{ testimonial.client_name }}">
+                                        {% endif %}
+                                    </div>
+                                    <div class="testimonial-two__client-content">
+                                        <h4 class="testimonial-two__client-name">
+                                            {% if testimonial.testimonial_url %}
+                                                <a href="{{ testimonial.testimonial_url }}">{{ testimonial.client_name }}</a>
+                                            {% else %}
+                                                <a href="javascript:void(0)">{{ testimonial.client_name }}</a>
+                                            {% endif %}
+                                        </h4>
+                                        <p class="testimonial-two__sub-title">{{ testimonial.client_position }}</p>
+                                    </div>
+                                </div>
+                                <div class="testimonial-two__quote">
+                                    <span class="icon-right-quote"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Testimonial Two Single End -->
+                    {% endfor %}
+                {% else %}
+                    <!-- Default Testimonials -->
+                    <!-- Testimonial Two Single Start -->
+                    <div class="col-xl-4 col-lg-6 col-md-6 {% if data.enable_animation %}wow {{ data.animation_type|default('fadeInUp') }}{% endif %}" {% if data.enable_animation %}data-wow-duration="1s"{% endif %}>
+                        <div class="testimonial-two__single">
+                            <div class="testimonial-two__single-inner">
+                                <div class="testimonial-two__star">
+                                    <span class="icon-pointed-star"></span>
+                                    <span class="icon-pointed-star"></span>
+                                    <span class="icon-pointed-star"></span>
+                                    <span class="icon-star"></span>
+                                    <span class="icon-star"></span>
+                                </div>
+                                <p class="testimonial-two__text">Absolutely fantastic experience! The team exceeded our expectations and delivered a solution that perfectly met our needs. Their attention to detail and commitment to quality is unmatched.</p>
+                            </div>
+                            <div class="testimonial-two__client-info">
+                                <div class="testimonial-two__client-img">
+                                    <img src="{{ asset('images/testimonial/testimonial-2-1.jpg') }}" alt="">
+                                </div>
+                                <div class="testimonial-two__client-content">
+                                    <h4 class="testimonial-two__client-name"><a href="javascript:void(0)">Thomas Alison</a></h4>
+                                    <p class="testimonial-two__sub-title">UI/UX Designer</p>
+                                </div>
+                            </div>
+                            <div class="testimonial-two__quote">
+                                <span class="icon-right-quote"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonial Two Single End -->
+                    <!-- Testimonial Two Single Start -->
+                    <div class="col-xl-4 col-lg-6 col-md-6 {% if data.enable_animation %}wow {{ data.animation_type|default('fadeInUp') }}{% endif %}" {% if data.enable_animation %}data-wow-duration="1s" data-wow-delay="0.2s"{% endif %}>
+                        <div class="testimonial-two__single">
+                            <div class="testimonial-two__single-inner">
+                                <div class="testimonial-two__star">
+                                    <span class="icon-pointed-star"></span>
+                                    <span class="icon-pointed-star"></span>
+                                    <span class="icon-pointed-star"></span>
+                                    <span class="icon-pointed-star"></span>
+                                    <span class="icon-pointed-star"></span>
+                                </div>
+                                <p class="testimonial-two__text">Outstanding service and professional approach. They understood our requirements perfectly and delivered beyond our expectations. Highly recommended for anyone looking for quality work.</p>
+                            </div>
+                            <div class="testimonial-two__client-info">
+                                <div class="testimonial-two__client-img">
+                                    <img src="{{ asset('images/testimonial/testimonial-2-2.jpg') }}" alt="">
+                                </div>
+                                <div class="testimonial-two__client-content">
+                                    <h4 class="testimonial-two__client-name"><a href="javascript:void(0)">Sarah Williams</a></h4>
+                                    <p class="testimonial-two__sub-title">Marketing Manager</p>
+                                </div>
+                            </div>
+                            <div class="testimonial-two__quote">
+                                <span class="icon-right-quote"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonial Two Single End -->
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+<!--Testimonials Page Section End--> 

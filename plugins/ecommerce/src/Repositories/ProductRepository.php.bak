@@ -1,0 +1,18 @@
+<?php
+/**
+ * JUZAWEB CMS - The Best CMS for Laravel Project
+ *
+ * @package    mojarcms/cms
+ * @author     Mojar Team <admin@mojar.com>
+ * @link       https://mojarcms.com/cms
+ * @license    MIT
+ */
+
+namespace Mojahid\Ecommerce\Repositories;
+
+use MojarCMS\Backend\Repositories\PostRepository;
+
+interface ProductRepository extends PostRepository
+{
+
+}

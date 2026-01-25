@@ -1,0 +1,69 @@
+<?php
+
+/**
+ * Mojar - Laravel CMS for Your Project
+ *
+ * @package    mojar/cms
+ * @author     Mojar Team
+ * @link       https://mojar.com/cms
+ * @license    GNU V2
+ */
+
+namespace MojarCMS\CMS\Providers;
+
+use Illuminate\Support\Facades\Lang;
+use MojarCMS\CMS\Contracts\Theme\ThemeRender as ThemeRenderContract;
+use MojarCMS\CMS\Contracts\ThemeLoaderContract;
+use MojarCMS\CMS\Contracts\LocalThemeRepositoryContract;
+use MojarCMS\CMS\Facades\ActionRegister;
+use MojarCMS\CMS\Facades\ThemeLoader;
+use MojarCMS\CMS\Support\ServiceProvider;
+use MojarCMS\CMS\Support\Theme\Theme;
+use MojarCMS\CMS\Support\LocalThemeRepository;
+use MojarCMS\CMS\Support\Theme\ThemeRender;
+use MojarCMS\Frontend\Actions\FrontendAction;
+use MojarCMS\Frontend\Actions\ThemeAction;
+
+class ThemeServiceProvider extends ServiceProvider
+{
+    public function boot(): void
+    {
+        if (config('mojar.frontend.enable')) {
+            $this->registerTheme();
+        }
+    }
+
+    public function register(): void
+    {
+        $this->app->singleton(
+            ThemeLoaderContract::class,
+            function ($app) {
+                return new Theme($app, $app['view']->getFinder(), $app['config'], $app['translator']);
+            }
+        );
+
+        $this->app->singleton(
+            LocalThemeRepositoryContract::class,
+            function ($app) {
+                $path = config('mojar.theme.path');
+                return new LocalThemeRepository($app, $path);
+            }
+        );
+
+        $this->app->bind(ThemeRenderContract::class, ThemeRender::class);
+
+        $this->app->alias(LocalThemeRepositoryContract::class, 'themes');
+    }
+
+    protected function registerTheme(): void
+    {
+        Lang::addJsonPath(ThemeLoader::getPath(mc_current_theme(), 'lang'));
+
+        ActionRegister::register(
+            [
+                ThemeAction::class,
+                FrontendAction::class,
+            ]
+        );
+    }
+}

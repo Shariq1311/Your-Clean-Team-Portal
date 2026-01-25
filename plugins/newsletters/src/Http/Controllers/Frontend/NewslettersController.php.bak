@@ -1,0 +1,33 @@
+<?php
+/**
+ * Mojar CMS - Laravel CMS for Your Project
+ *
+ * @package    mojarcms/cms
+ * @author     Mojar Team
+ * @link       https://mojarcms.com
+ * @license    GNU V2
+ */
+
+namespace Mojahid\Newsletters\Http\Controllers\Frontend;
+
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use MojarCMS\CMS\Http\Controllers\FrontendController;
+use Mojahid\Newsletters\Http\Requests\StoreNewslettersRequest;
+use Mojahid\Newsletters\Repositories\NewslettersRepository;
+
+class NewslettersController extends FrontendController
+{
+    public function __construct(protected NewslettersRepository $newslettersRepository)
+    {
+    }
+
+    public function store(StoreNewslettersRequest $request): JsonResponse|RedirectResponse
+    {
+        $this->newslettersRepository->create($request->safe()->all());
+
+        return $this->success(
+            __('Newsletters form submitted successfully!'),
+        );
+    }
+}

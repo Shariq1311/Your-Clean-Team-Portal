@@ -1,0 +1,184 @@
+{
+    "label": "Why Choose Home 1",
+    "description": "Why choose us section with progress bars, client information and image",
+    "form": [
+        {
+            "type": "image",
+            "name": "shape_3",
+            "label": "Shape 3 Image",
+            "data": {
+                "value": "images/shapes/why-choose-one-shape-3.png"
+            }
+        },
+        {
+            "type": "image",
+            "name": "shape_1",
+            "label": "Shape 1 Image",
+            "data": {
+                "value": "images/shapes/why-choose-one-shape-1.png"
+            }
+        },
+        {
+            "type": "image",
+            "name": "shape_2",
+            "label": "Shape 2 Image",
+            "data": {
+                "value": "images/shapes/why-choose-one-shape-2.png"
+            }
+        },
+        {
+            "type": "text",
+            "name": "section_tagline",
+            "label": "Section Tagline",
+            "data": {
+                "value": "Why Chooses Us"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_1",
+            "label": "Title Part 1",
+            "data": {
+                "value": "Elevate Growth"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_2",
+            "label": "Title Part 2 (Highlighted)",
+            "data": {
+                "value": "with Our"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_3",
+            "label": "Title Part 3 (Highlighted)",
+            "data": {
+                "value": "Cutting-Edge IT"
+            }
+        },
+        {
+            "type": "text",
+            "name": "title_part_4",
+            "label": "Title Part 4",
+            "data": {
+                "value": "Solutions for Success"
+            }
+        },
+        {
+            "type": "textarea",
+            "name": "description",
+            "label": "Description",
+            "data": {
+                "value": "Innovating and empowering businesses with tailored solutions for success and growth. Innovating and empowering"
+            }
+        },
+        {
+            "type": "repeater",
+            "name": "progress_bars",
+            "label": "Progress Bars",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "title",
+                    "label": "Progress Bar Title"
+                },
+                {
+                    "type": "text",
+                    "name": "percent",
+                    "label": "Progress Percentage",
+                    "description": "Enter a number between 0-100"
+                }
+            ],
+            "options": {
+                "min_items": 1,
+                "max_items": 4,
+                "add_button_text": "Add Progress Bar",
+                "remove_button_text": "Remove Progress Bar",
+                "value": [
+                    {
+                        "title": "Camping Launches",
+                        "percent": "86"
+                    },
+                    {
+                        "title": "Innovation Design",
+                        "percent": "76"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "text",
+            "name": "button_text",
+            "label": "Button Text",
+            "data": {
+                "value": "About Us"
+            }
+        },
+        {
+            "type": "text",
+            "name": "button_url",
+            "label": "Button URL",
+            "data": {
+                "value": "about.html"
+            }
+        },
+        {
+            "type": "image",
+            "name": "client_image",
+            "label": "Client Image",
+            "data": {
+                "value": "images/resources/why-choose-one-client-img.jpg"
+            }
+        },
+        {
+            "type": "text",
+            "name": "client_name",
+            "label": "Client Name",
+            "data": {
+                "value": "Thomas Alison"
+            }
+        },
+        {
+            "type": "text",
+            "name": "client_position",
+            "label": "Client Position",
+            "data": {
+                "value": "Founder & CEO"
+            }
+        },
+        {
+            "type": "image",
+            "name": "main_image",
+            "label": "Main Image",
+            "data": {
+                "value": "images/resources/why-choose-one-img-1.png"
+            }
+        },
+        {
+            "type": "checkbox_json",
+            "name": "enable_animation",
+            "label": "Enable Animation",
+            "data": {
+                "value": 1
+            }
+        },
+        {
+            "type": "text",
+            "name": "animation_delay",
+            "label": "Animation Delay (ms)",
+            "data": {
+                "value": "100"
+            }
+        },
+        {
+            "type": "text",
+            "name": "animation_duration",
+            "label": "Animation Duration (ms)",
+            "data": {
+                "value": "2500"
+            }
+        }
+    ]
+}

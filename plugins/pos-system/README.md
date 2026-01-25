@@ -1,0 +1,92 @@
+# POS System Plugin for Your Clean TeamCMS
+
+A comprehensive Point of Sale system plugin built for Your Clean TeamCMS following Laravel best practices.
+
+## Features
+
+- **Complete POS Terminal Interface**
+  - Product search and selection
+  - Real-time cart management
+  - Category-based product filtering
+  - Barcode scanning support (planned)
+
+- **Order Management**
+  - Hold orders functionality
+  - Multiple payment methods (Cash, Card, Digital)
+  - Order completion and receipt generation
+  - Order refunds and cancellations
+
+- **Session Management**
+  - Cash register sessions
+  - Opening and closing balance tracking
+  - Sales reporting by payment method
+  - Multi-user session support
+
+- **Advanced Features**
+  - Discount code system
+  - Tax calculation
+  - Customer information tracking
+  - Print receipt functionality
+  - Responsive design for tablets and mobile
+
+- **Reporting**
+  - Sales reports
+  - Session reports
+  - Product performance reports
+  - User performance reports
+
+## Installation
+
+1. Extract the plugin to your `plugins/` directory
+2. Run plugin migrations: `php artisan plugin:migrate mojahid/pos-system`
+3. Enable the plugin in your admin panel
+
+## Requirements
+
+- Your Clean TeamCMS 3.0+
+- PHP 8.1+
+- Laravel 9.0+
+- Ecommerce plugin (recommended for product management)
+
+## Usage
+
+### Starting a POS Session
+
+1. Navigate to POS System > Terminal
+2. Click "Start Session" and enter opening balance
+3. Begin processing sales
+
+### Processing Sales
+
+1. Search and select products
+2. Adjust quantities as needed
+3. Apply discounts if applicable
+4. Enter customer information (optional)
+5. Complete payment and print receipt
+
+### Ending Session
+
+1. Click "End Session"
+2. Count cash drawer
+3. Enter closing balance
+4. Review session summary
+
+## Plugin Structure
+
+- `src/Models/` - Database models (PosOrder, PosSession, etc.)
+- `src/Http/Controllers/` - Controllers for POS operations
+- `src/Http/Datatables/` - Data tables for admin interface
+- `src/Actions/` - Plugin registration and configuration
+- `src/Contracts/` - Interfaces for cart management
+- `src/Supports/` - Support classes and managers
+- `database/migrations/` - Database migrations
+- `src/resources/views/` - Blade templates
+- `helpers/` - Helper functions
+
+## Configuration
+
+Configure POS settings in the admin panel under Settings or by editing `config/pos-system.php`.
+
+## License
+
+This plugin is licensed under the GPL-3.0 license. 

@@ -1,0 +1,29 @@
+{
+    "name": "mojahid/contact-form",
+    "type": "Your Clean Team-plugin",
+    "license": "MIT",
+    "description": "This plugin Developed For Maintain Contact Form And Send Email",
+    "extra": {
+        "Your Clean Team": {
+            "name": "Contact Form",
+            "domain": "contact_form",
+            "cms_min": "1.0.0",
+            "version": "1.0.0",
+            "providers": [
+                "Mojahid\\ContactForm\\Providers\\ContactFormServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Mojahid\\ContactForm\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=8.0"
+    },
+    "require-dev": {
+         "Your Clean Teamcms/modules": "^1.0",
+         "Your Clean Teamcms/dev-tool": "^1.0"
+    }
+}

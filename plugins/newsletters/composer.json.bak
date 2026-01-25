@@ -1,0 +1,29 @@
+{
+    "name": "mojahid/newsletters",
+    "type": "mojar-plugin",
+    "license": "MIT",
+    "description": "This plugin Developed For Maintain Newsletters And Send Email",
+    "extra": {
+        "mojar": {
+            "name": "Newsletters",
+            "domain": "newsletters",
+            "cms_min": "1.0.0",
+            "version": "1.0.0",
+            "providers": [
+                "Mojahid\\Newsletters\\Providers\\NewslettersServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Mojahid\\Newsletters\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=8.0"
+    },
+    "require-dev": {
+        "mojarcms/modules": "^1.0",
+        "mojarcms/dev-tool": "^1.0"
+    }
+}

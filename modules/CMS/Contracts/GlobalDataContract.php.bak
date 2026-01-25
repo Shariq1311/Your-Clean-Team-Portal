@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * Mojar - Laravel CMS for Your Project
+ *
+ * @package    mojar/cms
+ * @author     Mojar Team
+ * @link       https://mojar.com/cms
+ * @license    GNU V2
+ */
+
+namespace MojarCMS\CMS\Contracts;
+
+interface GlobalDataContract
+{
+    public function set($key, $value);
+
+    public function get($key, $default = []);
+
+    public function all(): array;
+}

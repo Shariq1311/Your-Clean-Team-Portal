@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * Mojar - Laravel CMS for Your Project
+ *
+ * @package    Mojar/cms
+ * @author     Mojar Team
+ * @link       https://Mojar.com/cms
+ * @license    GNU V2
+ */
+
+namespace MojarCMS\Backend\Http\Controllers\Backend;
+
+use MojarCMS\Backend\Http\Requests\Tool\ImportRequest;
+use MojarCMS\CMS\Http\Controllers\BackendController;
+use MojarCMS\CMS\Support\Imports\PostImportFromXml;
+
+class ImportController extends BackendController
+{
+    public function index(): \Illuminate\Contracts\View\View
+    {
+        $title = trans('cms::app.import');
+
+        return view(
+            'cms::backend.tool.import',
+            compact('title')
+        );
+    }
+
+    public function import(ImportRequest $request): \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+    {
+        global $mc_user;
+
+        $file = $request->input('file');
+
+        $type = $request->input('type');
+
+        $importer = app(PostImportFromXml::class)
+            ->setUserID($mc_user->id)
+            ->import($file, $type);
+
+        $result = $importer->getCacheInfo();
+
+        return $this->success(
+            [
+                'message' => $result ? __('Import in process') : __('Import successfully'),
+                'next' => $result,
+            ]
+        );
+    }
+}
